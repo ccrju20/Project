@@ -1,17 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Button, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
+import Header from "./Header";
+import Content from "./Content";
+
+const useStyles = makeStyles({
+  myOwnStyle: {
+    fontSize: "30px",
+  },
+});
 
 function App() {
+  const classes = useStyles();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <h1>Hello World</h1>
-        <h5>Branch change</h5>
-      </header>
+    <div>
+      <Grid container direction="column">
+        <Grid item>
+          <Header />
+        </Grid>
+        <Grid item container>
+          <Grid item xs={0} sm={2} />
+            <Grid item xs={12} sm={8}>
+              <Content />
+            </Grid>
+          <Grid item xs={0} sm={2} />
+        </Grid>
+      </Grid>
     </div>
   );
 }
