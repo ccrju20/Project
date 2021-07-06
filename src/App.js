@@ -1,5 +1,5 @@
 import "./App.css";
-import { Button, Typography } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Header from "./Header";
@@ -21,11 +21,13 @@ function App() {
           <Header />
         </Grid>
         <Grid item container>
-          <Grid item xs={0} sm={2} />
-            <Grid item xs={12} sm={8}>
+          <Grid item xs={false} sm={2} />
+          <Grid item xs={12} sm={8}>
+            <Box mt={8}>
               <Content />
-            </Grid>
-          <Grid item xs={0} sm={2} />
+            </Box>
+          </Grid>
+          <Grid item xs={false} sm={2} />
         </Grid>
       </Grid>
     </div>
