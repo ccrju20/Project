@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import ShareIcon from "@material-ui/icons/Share";
 import IconButton from "@material-ui/core/IconButton";
+import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 
 const useStyles = makeStyles({
   bullet: {
@@ -30,7 +31,24 @@ const useStyles = makeStyles({
 
 const ProductCard = (props) => {
   const classes = useStyles();
-  const { avatarSrc, title, subtitle, description, imgSrc } = props;
+  const {
+    avatarSrc,
+    id,
+    title,
+    subtitle,
+    description,
+    imgSrc,
+    addToCart,
+  } = props;
+
+  const cartHandler = () => {
+    console.log("added to cart");
+    props.cartStatus(true);
+  };
+
+  const addThisToCart = () => {
+    props.addToCart(title, subtitle, id, imgSrc);
+  };
 
   return (
     <Card>
@@ -42,7 +60,8 @@ const ProductCard = (props) => {
           </IconButton>
         }
         title={title}
-        subheader={subtitle}
+        subheader={"$" + subtitle}
+        key={id}
       />
       <CardMedia className={classes.image} image={imgSrc} />
       <CardContent>
@@ -51,7 +70,12 @@ const ProductCard = (props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Add to Cart</Button>
+        <Button onClick={addThisToCart} size="small">
+          Add to Cart
+        </Button>
+        <IconButton onClick={cartHandler}>
+            <ShoppingBasketIcon />
+        </IconButton>
       </CardActions>
     </Card>
   );

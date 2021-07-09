@@ -3,12 +3,12 @@ import React from "react";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles, withStyles } from "@material-ui/styles";
 import IconButton from "@material-ui/core/IconButton";
 import { Grid } from "@material-ui/core";
 import Hidden from "@material-ui/core/Hidden";
-import logo from './Images/logo.png';
-
+import logo from "./Images/logo.png";
+import Badge from "@material-ui/core/Badge";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,17 +27,29 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     marginTop: 8,
-  }
+  },
 }));
 
-const Header = () => {
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    right: -8,
+    top: 2,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}))(Badge);
+
+const Header = (props) => {
   const classes = useStyles();
+  const { cartItems } = props;
+
+  let cartAmount = cartItems.length
 
   return (
     <AppBar className={classes.root} position="static">
       <Grid>
         <Toolbar>
-        <img src={logo} alt="logo" className={classes.logo}/>
+          <img src={logo} alt="logo" className={classes.logo} />
           <Hidden only="xs">
             <Grid container direction="row" justify="flex-end">
               <Typography className={classes.menuText}>Home</Typography>
@@ -53,7 +65,11 @@ const Header = () => {
           >
             <MenuIcon />
           </IconButton>
-          <ShoppingCartIcon />
+          <IconButton>
+            <StyledBadge badgeContent={cartAmount} color="secondary">
+              <ShoppingCartIcon />
+            </StyledBadge>
+          </IconButton>
         </Toolbar>
       </Grid>
     </AppBar>
