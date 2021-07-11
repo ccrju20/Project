@@ -1,20 +1,16 @@
-import { React, useState } from "react";
+import { React } from "react";
 import { Grid } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import CartProduct from "./CartProduct";
 
 const Cart = (props) => {
-  const backHandler = () => {
-    props.cartStatus(false);
-  };
 
   return (
     <>
-    <h1>Cart</h1>
-    <Button variant="contained" color="primary" onClick={backHandler}>
-            Go back
-          </Button>
-        <Grid item xs={false} sm={12}>
+      <Grid container>
+        <Grid item xs={1} />
+        <Grid item xs={10}>
+          {" "}
+          <h1>Cart</h1>
           {props.cart.map((product) => (
             <CartProduct
               key={product.id}
@@ -27,7 +23,9 @@ const Cart = (props) => {
               onDelete={props.onDelete}
             />
           ))}
-          </Grid>
+        </Grid>
+        <Grid item xs={1} />
+      </Grid>
     </>
   );
 };

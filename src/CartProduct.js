@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
   media: {
     height: 0,
-    marginLeft: 50,
+    // marginLeft: 50,
     paddingTop: "30%", // 16:9
     paddingBottom: "10%",
   },

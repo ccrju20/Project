@@ -1,5 +1,8 @@
 import "./App.css";
-import { Box } from "@material-ui/core";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import { AppBar, Toolbar, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Header from "./Header";
@@ -10,6 +13,11 @@ import Cart from "./Cart";
 import cookies from "./Images/cookies.jpeg";
 import cupcakes from "./Images/cupcakes.jpg";
 import doughnuts from "./Images/doughnuts.jpg";
+import cafe from "./Images/cafe-two.jpg";
+import Hidden from "@material-ui/core/Hidden";
+import Card from "@material-ui/core/Card";
+import CardMedia from "@material-ui/core/CardMedia";
+import Account from "./Account";
 
 const Products = [
   {
@@ -17,42 +25,47 @@ const Products = [
     price: 49.99,
     id: "123",
     img: cookies,
-    desc: "A delicious batch of chocolate chip cookies",
+    desc: "Chocolate chip cookies.",
   },
   {
     name: "Cupcakes",
     price: 49.99,
     id: "124",
     img: cupcakes,
-    desc: "A delicious batch of frosting-covered cupcakes",
+    desc: "Mocha frosted cupcakes.",
   },
   {
     name: "Doughnuts",
     price: 49.99,
     id: "125",
     img: doughnuts,
-    desc: "A delicious batch of vegan doughnuts",
+    desc: "Vegan glazed doughnuts.",
   },
 ];
 
 const useStyles = makeStyles({
+  root: {
+    boxShadow: "none",
+    backgroundColor: "#9B89A4",
+    color: "#837D7D",
+  },
   myOwnStyle: {
     fontSize: "30px",
+  },
+  divider: {
+    marginTop: "-70px",
+    marginBottom: "50px",
+  },
+  image: {
+    height: "500px",
   },
 });
 
 function App() {
   const classes = useStyles();
-
-  const [cartDisplay, setCartDisplay] = useState(false);
   const [addToCart, setAddCart] = useState([]);
 
-  const cartStatusHandler = (boolean) => {
-    setCartDisplay(boolean);
-  };
-
   const addCartHandler = (title, subtitle, id, imgSrc) => {
-    // take previous cart state and add to it
     setAddCart((prevCart) => {
       for (let i = 0; i < prevCart.length; i++) {
         if (prevCart[i].id === id) {
@@ -87,36 +100,46 @@ function App() {
   };
 
   return (
-    <div>
+    <Router>
       <Grid container direction="column">
         <Grid item>
-          <Header cartItems={addToCart}/>
+          <Header cartItems={addToCart} />
         </Grid>
-        <Grid item container>
-          <Grid item xs={false} sm={3} />
-          <Grid item xs={12} sm={8}>
-            <Divider variant="inset" />
-            <Box mt={8}>
-              {!cartDisplay && (
-                <Content
-                  cartStatus={cartStatusHandler}
-                  addToCart={addCartHandler}
-                  products={Products}
-                />
-              )}
-              {cartDisplay && (
-                <Cart
-                  cartStatus={cartStatusHandler}
-                  cart={addToCart}
-                  onDelete={onDeleteHandler}
-                />
-              )}
-            </Box>
-          </Grid>
-          <Grid item xs={false} sm={1} />
-        </Grid>
+
+        <Switch>
+          <Route exact path="/">
+            <Grid item container>
+              <Grid item xs={1} sm={1} />
+              <Grid item xs={10} sm={10}>
+                <Box mt={8}>
+                  <div className={classes.divider}>
+                    <Divider variant="fullWidth" /> <p></p>
+                    <AppBar className={classes.root} position="static">
+                      <Toolbar></Toolbar>
+                    </AppBar>
+                    <Hidden only="xs">
+                      <Card>
+                        <CardMedia className={classes.image} image={cafe} />
+                      </Card>
+                    </Hidden>
+                  </div>
+                  <div>
+                    <Content addToCart={addCartHandler} products={Products} />
+                  </div>
+                </Box>
+              </Grid>
+              <Grid item xs={1} sm={1} />
+            </Grid>
+          </Route>
+          <Route path="/account">
+            <Account />
+          </Route>
+          <Route path="/cart">
+            <Cart cart={addToCart} onDelete={onDeleteHandler} />
+          </Route>
+        </Switch>
       </Grid>
-    </div>
+    </Router>
   );
 }
 
