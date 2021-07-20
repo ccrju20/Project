@@ -17,7 +17,7 @@ import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 
 const useStyles = makeStyles({
   root: {
-    height: "375px",
+    height: "360px",
   },
   bullet: {
     display: "inline-block",
@@ -67,7 +67,7 @@ const ProductCard = (props) => {
       </CardContent>
       <CardActions>
         <Button className={classes.button} onClick={addThisToCart} size="small">
-          Add to Cart
+          + Add
         </Button>
         <IconButton className={classes.button}>
           <Link component={RouterLink} to="/cart" color="inherit">

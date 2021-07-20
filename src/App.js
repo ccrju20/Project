@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { AppBar, Toolbar, Box } from "@material-ui/core";
@@ -8,7 +8,6 @@ import { Grid } from "@material-ui/core";
 import Header from "./Header";
 import Content from "./Content";
 import Divider from "@material-ui/core/Divider";
-import { useState } from "react";
 import Cart from "./Cart";
 import cookies from "./Images/cookies.jpeg";
 import cupcakes from "./Images/cupcakes.jpg";
@@ -18,6 +17,8 @@ import Hidden from "@material-ui/core/Hidden";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import Account from "./Account";
+import Section from "./Section";
+import AuthContext from "./store/auth-context";
 
 const Products = [
   {
@@ -64,6 +65,24 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
   const [addToCart, setAddCart] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const storedUserLogin = localStorage.getItem("isLoggedIn");
+    if (storedUserLogin === "1") {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const loginHandler = (email, password) => {
+    localStorage.setItem("isLoggedIn", "1");
+    setIsLoggedIn(true);
+  };
+
+  const logoutHandler = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+  };
 
   const addCartHandler = (title, subtitle, id, imgSrc) => {
     setAddCart((prevCart) => {
@@ -100,46 +119,59 @@ function App() {
   };
 
   return (
-    <Router>
-      <Grid container direction="column">
-        <Grid item>
-          <Header cartItems={addToCart} />
-        </Grid>
+    <AuthContext.Provider
+      value={{ isLoggedIn: isLoggedIn, onLogout: logoutHandler }}
+    >
+      <Router>
+        <Grid container direction="column">
+          <Grid item>
+            <Header cartItems={addToCart} />
+          </Grid>
 
-        <Switch>
-          <Route exact path="/">
-            <Grid item container>
-              <Grid item xs={1} sm={1} />
-              <Grid item xs={10} sm={10}>
-                <Box mt={8}>
-                  <div className={classes.divider}>
-                    <Divider variant="fullWidth" /> <p></p>
-                    <AppBar className={classes.root} position="static">
-                      <Toolbar></Toolbar>
-                    </AppBar>
-                    <Hidden only="xs">
-                      <Card>
+          <Switch>
+            <Route exact path="/">
+              {" "}
+              <AppBar className={classes.root} position="static">
+                <Toolbar></Toolbar>
+              </AppBar>
+              <Grid item container>
+                <Grid item xs={1} sm={1} />
+                <Grid item xs={10} sm={10}>
+                  <Box mt={8}>
+                    <div className={classes.divider}>
+                      <Divider variant="fullWidth" /> <p></p>
+                      <Hidden only="xs">
+                        <Section />
+                        {/* <Card>
                         <CardMedia className={classes.image} image={cafe} />
-                      </Card>
-                    </Hidden>
-                  </div>
-                  <div>
-                    <Content addToCart={addCartHandler} products={Products} />
-                  </div>
-                </Box>
+                      </Card> */}
+                      </Hidden>
+                    </div>
+                    <div>
+                      <Content addToCart={addCartHandler} products={Products} />
+                    </div>
+                  </Box>
+                </Grid>
+                <Grid item xs={1} sm={1} />
+                <Grid item container>
+                  <Grid item xs={1} />
+                  <Grid item xs={10}>
+                    <p></p> New Section
+                  </Grid>
+                  <Grid item xs={1} />
+                </Grid>
               </Grid>
-              <Grid item xs={1} sm={1} />
-            </Grid>
-          </Route>
-          <Route path="/account">
-            <Account />
-          </Route>
-          <Route path="/cart">
-            <Cart cart={addToCart} onDelete={onDeleteHandler} />
-          </Route>
-        </Switch>
-      </Grid>
-    </Router>
+            </Route>
+            <Route path="/account">
+              <Account loginStatus={loginHandler} logout={logoutHandler} />
+            </Route>
+            <Route path="/cart">
+              <Cart cart={addToCart} onDelete={onDeleteHandler} />
+            </Route>
+          </Switch>
+        </Grid>
+      </Router>
+    </AuthContext.Provider>
   );
 }
 

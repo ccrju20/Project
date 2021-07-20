@@ -33,6 +33,7 @@ const useStyles = makeStyles({
 const CartProduct = (props) => {
   const classes = useStyles();
   const { id, name, price, updatedPrice, image, qt } = props;
+  let roundedPrice = updatedPrice.toFixed(2);
 
   const onDeleteHandler = () => {
     console.log(id)
@@ -50,7 +51,7 @@ const CartProduct = (props) => {
           className={classes.pos}
           color="textSecondary"
         >
-          ${price} ~ Qt: {qt} <p>Total: ${updatedPrice}</p>
+          ${price} x {qt} <p>Total: ${roundedPrice}</p>
         </Typography>
       </CardContent>
       <CardMedia className={classes.media} image={image} />

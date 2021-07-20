@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
@@ -15,6 +15,7 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import AuthContext from './store/auth-context.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,6 +51,7 @@ const StyledBadge = withStyles((theme) => ({
 const Header = (props) => {
   const classes = useStyles();
   const { cartItems } = props;
+  const ctx = useContext(AuthContext)
 
   let cartAmount = cartItems.length;
 
@@ -85,6 +87,9 @@ const Header = (props) => {
               <Typography className={classes.menuText}>About</Typography>
               <Typography className={classes.menuText}>Shop</Typography>
               <Typography className={classes.menuText}>Contact</Typography>
+              {ctx.isLoggedIn && (
+                <Typography className={classes.menuText}>Account</Typography>
+              )}
             </Grid>
           </Hidden>
           <IconButton
