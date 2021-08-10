@@ -8,6 +8,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
 
 const useStyles = makeStyles({
   root: {
@@ -32,12 +34,14 @@ const useStyles = makeStyles({
 
 const CartProduct = (props) => {
   const classes = useStyles();
-  const { id, name, price, updatedPrice, image, qt } = props;
+  const { id, name, price, image, amount } = props;
+
+  const updatedPrice = `$${(price * amount).toFixed(2)}`;
 
   const onDeleteHandler = () => {
-    console.log(id)
+    console.log(id);
     props.onDelete(id);
-  }
+  };
 
   return (
     <Card className={classes.root}>
@@ -50,13 +54,20 @@ const CartProduct = (props) => {
           className={classes.pos}
           color="textSecondary"
         >
-          ${price} ~ Qt: {qt} <p>Total: ${updatedPrice}</p>
+          ${price} x {amount}
+          <p>Total: {updatedPrice}</p>
         </Typography>
       </CardContent>
       <CardMedia className={classes.media} image={image} />
       <CardActions>
-        <IconButton onClick={onDeleteHandler}>
+        <IconButton onClick={props.onDelete}>
           <DeleteIcon />
+        </IconButton>
+        <IconButton onClick={props.onAdd}>
+          <AddIcon />
+        </IconButton>
+        <IconButton onClick={props.onRemove}>
+          <RemoveIcon />
         </IconButton>
       </CardActions>
     </Card>
