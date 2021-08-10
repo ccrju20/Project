@@ -15,7 +15,8 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import AuthContext from './store/auth-context.js';
+import AuthContext from "./store/auth-context.js";
+import CartContext from "./store/cart-context";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,10 +51,13 @@ const StyledBadge = withStyles((theme) => ({
 
 const Header = (props) => {
   const classes = useStyles();
-  const { cartItems } = props;
-  const ctx = useContext(AuthContext)
+  const ctx = useContext(AuthContext);
+  const cartCtx = useContext(CartContext);
 
-  let cartAmount = cartItems.length;
+  // let cartAmount = cartItems.length;
+  const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
+    return curNumber + item.amount;
+  }, 0);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -70,7 +74,9 @@ const Header = (props) => {
     <AppBar className={classes.root} position="static">
       <Grid>
         <Toolbar>
-          <img src={logo} alt="logo" className={classes.logo} />
+          <Link component={RouterLink} to="/">
+            <img src={logo} alt="logo" className={classes.logo} />
+          </Link>
           <Hidden only="xs">
             <IconButton>
               <InstagramIcon />
@@ -123,7 +129,7 @@ const Header = (props) => {
           </Menu>
           <IconButton>
             <Link component={RouterLink} to="/cart" color="inherit">
-              <StyledBadge badgeContent={cartAmount} color="secondary">
+              <StyledBadge badgeContent={numberOfCartItems} color="secondary">
                 <ShoppingCartIcon />
               </StyledBadge>
             </Link>

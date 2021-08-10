@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import Link from "@material-ui/core/Link";
@@ -14,6 +14,7 @@ import Avatar from "@material-ui/core/Avatar";
 import ShareIcon from "@material-ui/icons/Share";
 import IconButton from "@material-ui/core/IconButton";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
+import CartContext from "./store/cart-context";
 
 const useStyles = makeStyles({
   root: {
@@ -41,9 +42,16 @@ const useStyles = makeStyles({
 const ProductCard = (props) => {
   const classes = useStyles();
   const { avatarSrc, id, title, subtitle, description, imgSrc } = props;
+  const cartCtx = useContext(CartContext);
 
-  const addThisToCart = () => {
-    props.addToCart(title, subtitle, id, imgSrc);
+  const addToCartHandler = () => {
+    cartCtx.addItem({
+      id: props.id,
+      name: props.title,
+      amount: 1,
+      price: parseFloat(props.subtitle),
+      img: props.imgSrc,
+    });
   };
 
   return (
@@ -66,9 +74,10 @@ const ProductCard = (props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button className={classes.button} onClick={addThisToCart} size="small">
+        <Button className={classes.button} onClick={addToCartHandler} size="small">
           + Add
         </Button>
+        
         <IconButton className={classes.button}>
           <Link component={RouterLink} to="/cart" color="inherit">
             <ShoppingBasketIcon />

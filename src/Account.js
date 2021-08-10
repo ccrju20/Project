@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 
 import { Grid } from "@material-ui/core";
 import Login from "./Login";
@@ -7,28 +7,10 @@ import AuthContext from "./store/auth-context";
 const Account = (props) => {
   const ctx = useContext(AuthContext);
 
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // useEffect(() => {
-  //   const storedUserLogin = localStorage.getItem("isLoggedIn");
-  //   if (storedUserLogin === "1") {
-  //     setIsLoggedIn(true);
-  //   }
-  // }, []);
-
-  // console.log(isLoggedIn);
 
   const loginHandler = (email, password) => {
     props.loginStatus(email, password)
-    // localStorage.setItem("isLoggedIn", "1");
-    // setIsLoggedIn(true);
   };
-
-  // const logoutHandler = () => {
-  //   props.logout();
-    // localStorage.removeItem("isLoggedIn");
-    // setIsLoggedIn(false);
-  // };
 
   return (
       <Grid container>
