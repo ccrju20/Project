@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import { Grid } from "@material-ui/core";
 import Login from "./Login";
-import AuthContext from "./store/auth-context";
+import AuthContext from "../store/auth-context";
 
 const Account = (props) => {
   const ctx = useContext(AuthContext);

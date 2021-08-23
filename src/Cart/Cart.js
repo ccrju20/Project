@@ -2,7 +2,7 @@ import { React, useContext } from "react";
 import { Grid } from "@material-ui/core";
 import CartProduct from "./CartProduct";
 import Divider from "@material-ui/core/Divider";
-import CartContext from "./store/cart-context";
+import CartContext from "../store/cart-context";
 
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);

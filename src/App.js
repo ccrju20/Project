@@ -5,15 +5,15 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { AppBar, Toolbar, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
-import Header from "./Header";
-import Content from "./Content";
-import AboutSection from "./AboutSection";
-import ButtonSection from './ButtonSection'
+import Header from "./Main/Header";
+import Content from "./Products/Content";
+import AboutSection from "./Main/AboutSection";
+import ButtonSection from './Main/ButtonSection'
 import Divider from "@material-ui/core/Divider";
-import Cart from "./Cart";
+import Cart from "./Cart/Cart";
 import Hidden from "@material-ui/core/Hidden";
-import Account from "./Account";
-import Section from "./Section";
+import Account from "./Account/Account";
+import Section from "./Main/Section";
 import AuthContext from "./store/auth-context";
 import CartProvider from "./store/CartProvider";
 

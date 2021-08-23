@@ -9,14 +9,14 @@ import { makeStyles, withStyles } from "@material-ui/styles";
 import IconButton from "@material-ui/core/IconButton";
 import { Grid } from "@material-ui/core";
 import Hidden from "@material-ui/core/Hidden";
-import logo from "./Images/logo.png";
+import logo from "../Images/logo.png";
 import Badge from "@material-ui/core/Badge";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import AuthContext from "./store/auth-context.js";
-import CartContext from "./store/cart-context";
+import AuthContext from "../store/auth-context.js";
+import CartContext from "../store/cart-context";
 
 const useStyles = makeStyles((theme) => ({
   root: {

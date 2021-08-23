@@ -2,9 +2,9 @@ import React from "react";
 
 import Carousel from "react-material-ui-carousel";
 import { makeStyles } from "@material-ui/core/styles";
-import cafetwo from "./Images/cafe-two.jpg";
-import cafeone from "./Images/cafe-one.jpg";
-import cafethree from "./Images/cafe-three.jpg";
+import cafetwo from "../Images/cafe-two.jpg";
+import cafeone from "../Images/cafe-one.jpg";
+import cafethree from "../Images/cafe-three.jpg";
 import CardMedia from "@material-ui/core/CardMedia";
 import Card from "@material-ui/core/Card";
 
