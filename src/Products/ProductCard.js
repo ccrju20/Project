@@ -14,7 +14,7 @@ import Avatar from "@material-ui/core/Avatar";
 import ShareIcon from "@material-ui/icons/Share";
 import IconButton from "@material-ui/core/IconButton";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
-import CartContext from "./store/cart-context";
+import CartContext from "../store/cart-context";
 
 const useStyles = makeStyles({
   root: {
@@ -74,10 +74,14 @@ const ProductCard = (props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button className={classes.button} onClick={addToCartHandler} size="small">
+        <Button
+          className={classes.button}
+          onClick={addToCartHandler}
+          size="small"
+        >
           + Add
         </Button>
-        
+
         <IconButton className={classes.button}>
           <Link component={RouterLink} to="/cart" color="inherit">
             <ShoppingBasketIcon />
