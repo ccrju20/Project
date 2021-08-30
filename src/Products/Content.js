@@ -6,7 +6,6 @@ import logo from "../Images/logo.png";
 // import cookies from "./Images/cookies.jpeg";
 // import cupcakes from "./Images/cupcakes.jpg";
 // import doughnuts from "./Images/doughnuts.jpg";
-import ProductService from "../services/ProductService";
 import CartContext from "../store/cart-context";
 
 // const PRODUCTS = [
@@ -43,7 +42,8 @@ const Content = () => {
       .get(PRODUCTS_REST_API_URL)
       .then((response) => setProducts(response.data))
       .catch((err) => {
-        throw Error(err.message);
+        // throw Error(err.message);
+        console.log(err.message);
       });
   }, []);
 
