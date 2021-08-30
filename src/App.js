@@ -8,7 +8,7 @@ import { Grid } from "@material-ui/core";
 import Header from "./Main/Header";
 import Content from "./Products/Content";
 import AboutSection from "./Main/AboutSection";
-import ButtonSection from './Main/ButtonSection'
+import ButtonSection from "./Main/ButtonSection";
 import Divider from "@material-ui/core/Divider";
 import Cart from "./Cart/Cart";
 import Hidden from "@material-ui/core/Hidden";
@@ -16,6 +16,7 @@ import Account from "./Account/Account";
 import Section from "./Main/Section";
 import AuthContext from "./store/auth-context";
 import CartProvider from "./store/CartProvider";
+import FinalCart from "./Cart/FinalCart";
 
 const useStyles = makeStyles({
   root: {
@@ -78,7 +79,6 @@ function App() {
                     <ButtonSection />
                     <Box mt={10}>
                       <div className={classes.divider}>
-                        {/* <Divider variant="fullWidth" /> <p></p> */}
                         <Hidden only="xs">
                           <Section />
                         </Hidden>
@@ -100,6 +100,9 @@ function App() {
               </Route>
               <Route path="/cart">
                 <Cart />
+              </Route>
+              <Route path="/finalcart">
+                <FinalCart />
               </Route>
             </Switch>
           </Grid>
