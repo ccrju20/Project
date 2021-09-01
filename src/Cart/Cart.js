@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
-  const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
+  const totalAmount = `$${cartCtx.totalAmount.toFixed(2).replace('-0', '0')}`;
   const classes = useStyles();
 
   const cartItemRemoveHandler = (id) => {
@@ -33,12 +33,15 @@ const Cart = (props) => {
     cartCtx.deleteItem(id);
   };
 
+  console.log(cartCtx.totalAmount);
+
   return (
     <>
       <Grid container>
         <Grid item xs={3} />
         <Grid item xs={6}>
           <h1>Cart</h1>
+          {cartCtx.totalAmount <= 0 && 'You have no items in your cart'}
           {cartCtx.items.map((product) => (
             <CartProduct
               key={product.id}
@@ -58,20 +61,22 @@ const Cart = (props) => {
             <h3>Subtotal: {totalAmount}</h3>
             <h3>Total: {totalAmount}</h3>
             <br></br>
-            <Link
-              component={RouterLink}
-              to="/finalcart"
-              color="inherit"
-              underline="none"
-            >
-              <Button
-                variant="outlined"
-                size="small"
-                className={classes.button}
+            {cartCtx.totalAmount > 0 && (
+              <Link
+                component={RouterLink}
+                to="/finalcart"
+                color="inherit"
+                underline="none"
               >
-                Checkout
-              </Button>
-            </Link>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  className={classes.button}
+                >
+                  Checkout
+                </Button>
+              </Link>
+            )}
             <br></br>
             <br></br>
             <br></br>
