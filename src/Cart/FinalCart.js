@@ -1,4 +1,4 @@
-import { React, useContext, useState } from "react";
+import { React, useContext, useState, useReducer, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import CartContext from "../store/cart-context";
 import CartProduct from "./CartProduct";
@@ -65,27 +65,68 @@ const FinalCart = () => {
   const [userInfo, setUserInfo] = useState([]);
   const [enteredFirstName, setEnteredFirstName] = useState("");
   const [enteredLastName, setEnteredLastName] = useState("");
+  const [enteredEmail, setEnteredEmail] = useState("");
+  const [enteredPhone, setEnteredPhone] = useState("");
+
+  // validation
+  const [firstNameValidError, setFirstNameError] = useState(false);
+  const [lastNameValidError, setLastNameError] = useState(false);
+  const [emailValidError, setEmailError] = useState(false);
+
 
   const firstNameChangeHandler = (e) => {
     setEnteredFirstName(e.target.value);
-    console.log(e.target.value);
   };
 
   const lastNameChangeHandler = (e) => {
     setEnteredLastName(e.target.value);
-    console.log(e.target.value);
+  };
+
+  const emailChangeHandler = (e) => {
+    setEnteredEmail(e.target.value);
+  };
+
+  const checkValidity = () => {
+    if (enteredFirstName === "") {
+      setFirstNameError(true);
+    }
+
+    if (enteredLastName === "") {
+      setLastNameError(true);
+    }
+
+    if (enteredEmail === "" || !enteredEmail.includes("@")) {
+      setEmailError(true);
+    }
   };
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    setUserInfo([{ firstName: enteredFirstName, lastName: enteredLastName }]);
+    setFirstNameError(false);
+    setLastNameError(false);
+    setEmailError(false);
+
+    if (enteredFirstName && enteredLastName && enteredEmail) {
+      setUserInfo([
+        {
+          firstName: enteredFirstName,
+          lastName: enteredLastName,
+          email: enteredEmail,
+        },
+      ]);
+      console.log(userInfo);
+      console.log("form is valid");
+    } else {
+      checkValidity();
+      console.log("form is not valid");
+    }
 
     /* 
       1. Post cart items to orders table api endpoint 
       2. Post user info to users table api endpoint
     */
   };
-  console.log(userInfo);
+
   return (
     <Grid container>
       <Grid item xs={1} />
@@ -110,12 +151,14 @@ const FinalCart = () => {
                       label="First Name"
                       value={enteredFirstName}
                       onChange={firstNameChangeHandler}
+                      error={firstNameValidError}
                     />
                     <TextField
                       id="standard-basic"
                       label="Last Name"
                       value={enteredLastName}
                       onChange={lastNameChangeHandler}
+                      error={lastNameValidError}
                     />
                   </AccordionDetails>
                 </Accordion>
@@ -130,7 +173,14 @@ const FinalCart = () => {
                     </Typography>
                   </AccordionSummary>
                   <AccordionDetails className={classes.root}>
-                    <TextField id="standard-basic" label="Email" />
+                    <TextField
+                      id="standard-basic"
+                      type="email"
+                      label="Email"
+                      value={enteredEmail}
+                      onChange={emailChangeHandler}
+                      error={emailValidError}
+                    />
                     <TextField
                       label="Phone"
                       name="numberformat"
