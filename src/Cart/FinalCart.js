@@ -66,12 +66,13 @@ const FinalCart = () => {
   const [enteredFirstName, setEnteredFirstName] = useState("");
   const [enteredLastName, setEnteredLastName] = useState("");
   const [enteredEmail, setEnteredEmail] = useState("");
-  const [enteredPhone, setEnteredPhone] = useState("");
+  const [enteredNumber, setEnteredNumber] = useState("");
 
   // validation
   const [firstNameValidError, setFirstNameError] = useState(false);
   const [lastNameValidError, setLastNameError] = useState(false);
   const [emailValidError, setEmailError] = useState(false);
+  const [numberValidError, setNumberError] = useState(false);
 
 
   const firstNameChangeHandler = (e) => {
@@ -86,6 +87,10 @@ const FinalCart = () => {
     setEnteredEmail(e.target.value);
   };
 
+  const numberChangeHandler = (e) => {
+    setEnteredNumber(e.target.value);
+  }
+
   const checkValidity = () => {
     if (enteredFirstName === "") {
       setFirstNameError(true);
@@ -98,6 +103,10 @@ const FinalCart = () => {
     if (enteredEmail === "" || !enteredEmail.includes("@")) {
       setEmailError(true);
     }
+
+    if (enteredNumber === "" || enteredNumber.length < 10) {
+      setNumberError(true);
+    }
   };
 
   const onSubmitHandler = (event) => {
@@ -105,13 +114,15 @@ const FinalCart = () => {
     setFirstNameError(false);
     setLastNameError(false);
     setEmailError(false);
+    setEnteredNumber(false);
 
-    if (enteredFirstName && enteredLastName && enteredEmail) {
+    if (enteredFirstName && enteredLastName && enteredEmail && enteredNumber) {
       setUserInfo([
         {
           firstName: enteredFirstName,
           lastName: enteredLastName,
           email: enteredEmail,
+          number: enteredNumber
         },
       ]);
       console.log(userInfo);
@@ -120,6 +131,8 @@ const FinalCart = () => {
       checkValidity();
       console.log("form is not valid");
     }
+
+    console.log(enteredNumber.length);
 
     /* 
       1. Post cart items to orders table api endpoint 
@@ -133,7 +146,7 @@ const FinalCart = () => {
       <Grid item xs={10}>
         <h1> Checkout </h1>
         <Grid container>
-          <Grid item xs={8}>
+          <Grid item xs={10} sm={8}>
             <h3>Please enter your info </h3>
             <div className={classes.accordionRoot}>
               <form onSubmit={onSubmitHandler}>
@@ -185,6 +198,9 @@ const FinalCart = () => {
                       label="Phone"
                       name="numberformat"
                       id="formatted-numberformat-input"
+                      value={enteredNumber}
+                      onChange={numberChangeHandler}
+                      error={numberValidError}
                       InputProps={{
                         inputComponent: NumberFormatCustom,
                       }}
@@ -221,7 +237,7 @@ const FinalCart = () => {
               </form>
             </div>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={4}>
             {cartCtx.items.map((product) => (
               <CartProduct
                 key={product.id}
