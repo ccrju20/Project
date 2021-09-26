@@ -36,6 +36,7 @@ const PRODUCTS_REST_API_URL = "http://localhost:8080/api/products";
 
 const Content = () => {
   const [products, setProducts] = useState([]);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     axios
@@ -43,6 +44,7 @@ const Content = () => {
       .then((response) => setProducts(response.data))
       .catch((err) => {
         // throw Error(err.message);
+        setLoadError(true);
         console.log(err.message);
       });
   }, []);
@@ -62,7 +64,15 @@ const Content = () => {
 
   return (
     <Grid container spacing={4}>
-      {productList}
+      {!loadError ? (
+        productList
+      ) : (
+        <Grid container justify="center">
+          <Grid item xs={10} align="center">
+            <h2 >Unable to load items</h2>
+          </Grid>
+        </Grid>
+      )}
     </Grid>
   );
 };
