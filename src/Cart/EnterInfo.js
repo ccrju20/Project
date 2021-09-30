@@ -206,6 +206,15 @@ const EnterInfo = () => {
             </Grid>
           </AccordionDetails>
         </Accordion>
+        <Accordion className={classes.accordionRoot}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            Payment
+          </AccordionSummary>
+        </Accordion>
         <br></br>
         <Button
           variant="outlined"
