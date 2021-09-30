@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Box } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -17,17 +17,8 @@ const useStyles = makeStyles((theme) => ({
       width: "25ch",
     },
   },
-  addressTextField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: "35ch",
-  },
   accordionRoot: {
-    width: "90%",
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
+    width: "95%",
   },
   button: {
     border: "3px solid",
@@ -68,107 +59,163 @@ const EnterInfo = () => {
   return (
     <>
       <h3>Please enter your info </h3>
-      <div className={classes.accordionRoot}>
-        <form onSubmit={onSubmitHandler}>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography className={classes.heading}>Contact Info</Typography>
-            </AccordionSummary>
-            <AccordionDetails className={classes.root}>
-              <TextField
-                id="standard-basic"
-                label="First Name"
-                required
-                // value={enteredFirstName}
-                // onChange={firstNameChangeHandler}
-                // error={firstNameValidError}
-              />
-              <TextField
-                id="standard-basic"
-                label="Last Name"
-                required
-                // value={enteredLastName}
-                // onChange={lastNameChangeHandler}
-                // error={lastNameValidError}
-              />
-            </AccordionDetails>
-
-            <AccordionDetails className={classes.root} xs={12}>
-              <TextField
-                id="standard-basic"
-                type="email"
-                label="Email"
-                required
-                // value={enteredEmail}
-                // onChange={emailChangeHandler}
-                // error={emailValidError}
-              />
-              <TextField
-                label="Phone"
-                name="numberformat"
-                id="formatted-numberformat-input"
-                required
-                // value={enteredNumber}
-                // onChange={numberChangeHandler}
-                // error={numberValidError}
-                InputProps={{
-                  inputComponent: NumberFormatCustom,
-                }}
-              />
-            </AccordionDetails>
-          </Accordion>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography className={classes.heading}>
-                Shipping Address
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails className={classes.root}>
-              <TextField
-                className={classes.addressTextField}
-                label="Address"
-                id="standard-basic"
-                required
-              />
-              <TextField
-                // className={classes.addressTextField}
-                label="Address 2 (optional)"
-                id="standard-basic"
-              />
-            </AccordionDetails>
-            <AccordionDetails className={classes.root}>
-              <TextField label="City" id="standard-basic" required />
-              <TextField label="Postal Code" id="standard-basic" required />
-            </AccordionDetails>
-          </Accordion>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              Payment info
-            </AccordionSummary>
-          </Accordion>
-          <br></br>
-          <Button
-            variant="outlined"
-            size="small"
-            className={classes.button}
-            type="submit"
+      <form onSubmit={onSubmitHandler}>
+        <Accordion className={classes.accordionRoot}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
           >
-            Order
-          </Button>
-        </form>
-      </div>
+            Contact Info
+          </AccordionSummary>
+          <AccordionDetails>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  id="standard-basic"
+                  variant="filled"
+                  label="First Name"
+                  required
+                  // value={enteredFirstName}
+                  // onChange={firstNameChangeHandler}
+                  // error={firstNameValidError}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  id="standard-basic"
+                  variant="filled"
+                  label="Last Name"
+                  required
+                  // value={enteredLastName}
+                  // onChange={lastNameChangeHandler}
+                  // error={lastNameValidError}
+                />
+              </Grid>
+            </Grid>
+          </AccordionDetails>
+          <AccordionDetails>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  id="standard-basic"
+                  variant="filled"
+                  label="Email"
+                  type="email"
+                  required
+                  // value={enteredFirstName}
+                  // onChange={firstNameChangeHandler}
+                  // error={firstNameValidError}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  // id="standard-basic"
+                  id="formatted-numberformat-input"
+                  variant="filled"
+                  label="Phone"
+                  required
+                  InputProps={{
+                    inputComponent: NumberFormatCustom,
+                  }}
+                  // value={enteredLastName}
+                  // onChange={lastNameChangeHandler}
+                  // error={lastNameValidError}
+                />
+              </Grid>
+            </Grid>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion className={classes.accordionRoot}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            Shipping Address
+          </AccordionSummary>
+          <AccordionDetails>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={7}>
+                <TextField
+                  fullWidth
+                  id="standard-basic"
+                  variant="filled"
+                  label="Address"
+                  required
+                  // value={enteredFirstName}
+                  // onChange={firstNameChangeHandler}
+                  // error={firstNameValidError}
+                />
+              </Grid>
+              <Grid item xs={12} sm={5}>
+                <TextField
+                  fullWidth
+                  id="standard-basic"
+                  variant="filled"
+                  label="Address 2"
+                  // value={enteredLastName}
+                  // onChange={lastNameChangeHandler}
+                  // error={lastNameValidError}
+                />
+              </Grid>
+            </Grid>
+          </AccordionDetails>
+          <AccordionDetails>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  id="standard-basic"
+                  variant="filled"
+                  label="City"
+                  required
+                  // value={enteredLastName}
+                  // onChange={lastNameChangeHandler}
+                  // error={lastNameValidError}
+                />
+              </Grid>
+              <Grid item xs={12} sm={2}>
+                <TextField
+                  fullWidth
+                  id="standard-basic"
+                  variant="filled"
+                  label="State"
+                  required
+                  // value={enteredLastName}
+                  // onChange={lastNameChangeHandler}
+                  // error={lastNameValidError}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  fullWidth
+                  id="standard-basic"
+                  variant="filled"
+                  label="Postal Code"
+                  required
+                  // value={enteredFirstName}
+                  // onChange={firstNameChangeHandler}
+                  // error={firstNameValidError}
+                />
+              </Grid>
+            </Grid>
+          </AccordionDetails>
+        </Accordion>
+        <br></br>
+        <Button
+          variant="outlined"
+          size="small"
+          className={classes.button}
+          type="submit"
+        >
+          Order
+        </Button>
+      </form>
     </>
   );
 };

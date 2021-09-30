@@ -5,6 +5,7 @@ import CartContext from "../store/cart-context";
 import CartProduct from "./CartProduct";
 import EnterInfo from "./EnterInfo";
 import CartSandbox from "./CartSandbox";
+import CheckoutCartList from "./CheckoutCartList";
 
 const FinalCart = () => {
   const cartCtx = useContext(CartContext);
@@ -85,31 +86,34 @@ const FinalCart = () => {
   //   */
   // };
 
-  return <CartSandbox />;
-  // <Grid container>
-  //   <Grid item xs={1} />
-  //   <Grid item xs={10}>
-  //     <h1> Checkout </h1>
-  //     <Grid container>
-  //       <Grid item xs={10} sm={8}>
-  //         <EnterInfo />
-  //       </Grid>
-  //       <Grid item xs={12} sm={4}>
-  //         {cartCtx.items.map((product) => (
-  //           <CartProduct
-  //             key={product.id}
-  //             name={product.name}
-  //             price={product.price}
-  //             image={product.img}
-  //             amount={product.amount}
-  //           />
-  //         ))}
-  //       </Grid>
-  //     </Grid>
-  //   </Grid>
-  //   <Grid item xs={1} />
-  // </Grid>
-  // );
+  // return <CartSandbox />;
+  return (
+    <Grid container>
+      <Grid item xs={1} />
+      <Grid item xs={10}>
+        <h1> Checkout </h1>
+        <Grid container>
+          <Grid item xs={12} sm={8}>
+            <EnterInfo />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <h3>Items in your cart</h3>
+            <CheckoutCartList />
+            {/* {cartCtx.items.map((product) => (
+              <CartProduct
+                key={product.id}
+                name={product.name}
+                price={product.price}
+                image={product.img}
+                amount={product.amount}
+              />
+            ))} */}
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={1} />
+    </Grid>
+  );
 };
 
 export default FinalCart;

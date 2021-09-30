@@ -48,7 +48,6 @@ const CartSandbox = () => {
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    // className={classes.addressTextField}
                     fullWidth
                     id="standard-basic"
                     variant="filled"
@@ -77,7 +76,6 @@ const CartSandbox = () => {
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    // className={classes.addressTextField}
                     fullWidth
                     id="standard-basic"
                     variant="filled"
@@ -115,7 +113,6 @@ const CartSandbox = () => {
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={7}>
                   <TextField
-                    // className={classes.addressTextField}
                     fullWidth
                     id="standard-basic"
                     variant="filled"
@@ -167,7 +164,6 @@ const CartSandbox = () => {
                 </Grid>
                 <Grid item xs={12} sm={4}>
                   <TextField
-                    // className={classes.addressTextField}
                     fullWidth
                     id="standard-basic"
                     variant="filled"
