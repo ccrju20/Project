@@ -99,15 +99,6 @@ const FinalCart = () => {
           <Grid item xs={12} sm={4}>
             <h3>Items in your cart</h3>
             <CheckoutCartList />
-            {/* {cartCtx.items.map((product) => (
-              <CartProduct
-                key={product.id}
-                name={product.name}
-                price={product.price}
-                image={product.img}
-                amount={product.amount}
-              />
-            ))} */}
           </Grid>
         </Grid>
       </Grid>
