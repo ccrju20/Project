@@ -87,4 +87,5 @@ public class Product {
 		return "Product [id=" + id + ", title=" + title + ", price=" + price + ", description=" + description + "]";
 	}
 	
+	// change test
 }

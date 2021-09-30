@@ -71,7 +71,7 @@ public class ProductRestController {
 		return theProduct;
 	}
 	
-	// add mapping for DELETE /products/{productId} - delete employee
+	// add mapping for DELETE /products/{productId} - delete product
 	@DeleteMapping("/products/{productId}")
 	public String deleteEmployee(@PathVariable int productId) {
 		
