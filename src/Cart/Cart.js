@@ -64,7 +64,7 @@ const Cart = (props) => {
             {cartCtx.totalAmount > 0 && (
               <Link
                 component={RouterLink}
-                to="/finalcart"
+                to="/checkout"
                 color="inherit"
                 underline="none"
               >

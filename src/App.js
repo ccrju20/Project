@@ -16,7 +16,7 @@ import Account from "./Account/Account";
 import Section from "./Main/Section";
 import AuthContext from "./store/auth-context";
 import CartProvider from "./store/CartProvider";
-import FinalCart from "./Cart/FinalCart";
+import Checkout from "./Cart/Checkout";
 
 const useStyles = makeStyles({
   root: {
@@ -101,8 +101,8 @@ function App() {
               <Route path="/cart">
                 <Cart />
               </Route>
-              <Route path="/finalcart">
-                <FinalCart />
+              <Route path="/checkout">
+                <Checkout />
               </Route>
             </Switch>
           </Grid>
