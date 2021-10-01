@@ -34,14 +34,9 @@ const useStyles = makeStyles({
 
 const CartProduct = (props) => {
   const classes = useStyles();
-  const { id, name, price, image, amount } = props;
+  const { name, price, image, amount } = props;
 
   const updatedPrice = `$${(price * amount).toFixed(2)}`;
-
-  const onDeleteHandler = () => {
-    console.log(id);
-    props.onDelete(id);
-  };
 
   return (
     <Card className={classes.root}>

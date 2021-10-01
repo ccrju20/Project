@@ -2,9 +2,7 @@ import { React, useContext, useState, useReducer, useEffect } from "react";
 
 import { Grid } from "@material-ui/core";
 import CartContext from "../store/cart-context";
-import CartProduct from "./CartProduct";
 import EnterInfo from "./EnterInfo";
-import CartSandbox from "./CartSandbox";
 import CheckoutCartList from "./CheckoutCartList";
 
 const FinalCart = () => {
