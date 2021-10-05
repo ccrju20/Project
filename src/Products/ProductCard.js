@@ -16,6 +16,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import CartContext from "../store/cart-context";
 
+
 const useStyles = makeStyles({
   root: {
     height: "360px",
@@ -55,40 +56,40 @@ const ProductCard = (props) => {
   };
 
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        avatar={<Avatar src={avatarSrc} />}
-        action={
-          <IconButton aria-label="settings">
-            <ShareIcon />
-          </IconButton>
-        }
-        title={title}
-        subheader={"$" + subtitle}
-        key={id}
-      />
-      <CardMedia className={classes.image} image={imgSrc} />
-      <CardContent>
-        <Typography variant="body2" component="p">
-          {description}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button
-          className={classes.button}
-          onClick={addToCartHandler}
-          size="small"
-        >
-          + Add
-        </Button>
+      <Card className={classes.root}>
+        <CardHeader
+          avatar={<Avatar src={avatarSrc} />}
+          action={
+            <IconButton aria-label="settings">
+              <ShareIcon />
+            </IconButton>
+          }
+          title={title}
+          subheader={"$" + subtitle}
+          key={id}
+        />
+        <CardMedia className={classes.image} image={imgSrc} />
+        <CardContent>
+          <Typography variant="body2" component="p">
+            {description}
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Button
+            className={classes.button}
+            onClick={addToCartHandler}
+            size="small"
+          >
+            + Add
+          </Button>
 
-        <IconButton className={classes.button}>
-          <Link component={RouterLink} to="/cart" color="inherit">
-            <ShoppingBasketIcon />
-          </Link>
-        </IconButton>
-      </CardActions>
-    </Card>
+          <IconButton className={classes.button}>
+            <Link component={RouterLink} to="/cart" color="inherit">
+              <ShoppingBasketIcon />
+            </Link>
+          </IconButton>
+        </CardActions>
+      </Card>
   );
 };
 

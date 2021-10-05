@@ -1,4 +1,7 @@
 import React from "react";
+import useForm from "./useForm";
+import validate from "./validateInfo";
+
 import { Grid } from "@material-ui/core";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -47,7 +50,12 @@ function NumberFormatCustom(props) {
   );
 }
 
-const EnterInfo = () => {
+const EnterInfo = ({ submitForm }) => {
+  const { handleChange, values, handleSubmit, errors } = useForm(
+    submitForm,
+    validate
+  );
+
   const classes = useStyles();
 
   const onSubmitHandler = (event) => {
@@ -58,7 +66,7 @@ const EnterInfo = () => {
   return (
     <>
       <h3>Please enter your info </h3>
-      <form onSubmit={onSubmitHandler}>
+      <form onSubmit={handleSubmit}>
         <Accordion className={classes.accordionRoot}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -75,11 +83,13 @@ const EnterInfo = () => {
                   id="standard-basic"
                   variant="filled"
                   label="First Name"
-                  required
-                  // value={enteredFirstName}
-                  // onChange={firstNameChangeHandler}
+                  name="firstname"
+                  // required
+                  value={values.firstname}
+                  onChange={handleChange}
                   // error={firstNameValidError}
                 />
+                {errors.firstname && <p>{errors.firstname}</p>}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -87,11 +97,13 @@ const EnterInfo = () => {
                   id="standard-basic"
                   variant="filled"
                   label="Last Name"
-                  required
-                  // value={enteredLastName}
-                  // onChange={lastNameChangeHandler}
+                  name="lastname"
+                  // required
+                  value={values.lastname}
+                  onChange={handleChange}
                   // error={lastNameValidError}
                 />
+                {errors.lastname && <p>{errors.lastname}</p>}
               </Grid>
             </Grid>
           </AccordionDetails>
@@ -104,11 +116,13 @@ const EnterInfo = () => {
                   variant="filled"
                   label="Email"
                   type="email"
-                  required
-                  // value={enteredFirstName}
-                  // onChange={firstNameChangeHandler}
+                  name="email"
+                  // required
+                  value={values.email}
+                  onChange={handleChange}
                   // error={firstNameValidError}
                 />
+                {errors.email && <p>{errors.email}</p>}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -117,14 +131,16 @@ const EnterInfo = () => {
                   id="formatted-numberformat-input"
                   variant="filled"
                   label="Phone"
-                  required
+                  name="phone"
+                  // required
                   InputProps={{
                     inputComponent: NumberFormatCustom,
                   }}
-                  // value={enteredLastName}
-                  // onChange={lastNameChangeHandler}
+                  value={values.phone}
+                  onChange={handleChange}
                   // error={lastNameValidError}
                 />
+                {errors.phone && <p>{errors.phone}</p>}
               </Grid>
             </Grid>
           </AccordionDetails>
@@ -145,11 +161,13 @@ const EnterInfo = () => {
                   id="standard-basic"
                   variant="filled"
                   label="Address"
-                  required
-                  // value={enteredFirstName}
-                  // onChange={firstNameChangeHandler}
+                  name="address"
+                  // required
+                  value={values.address}
+                  onChange={handleChange}
                   // error={firstNameValidError}
                 />
+                {errors.address && <p>{errors.address}</p>}
               </Grid>
               <Grid item xs={12} sm={5}>
                 <TextField
@@ -157,8 +175,9 @@ const EnterInfo = () => {
                   id="standard-basic"
                   variant="filled"
                   label="Address 2"
-                  // value={enteredLastName}
-                  // onChange={lastNameChangeHandler}
+                  name="addresstwo"
+                  value={values.addresstwo}
+                  onChange={handleChange}
                   // error={lastNameValidError}
                 />
               </Grid>
@@ -172,11 +191,13 @@ const EnterInfo = () => {
                   id="standard-basic"
                   variant="filled"
                   label="City"
-                  required
-                  // value={enteredLastName}
-                  // onChange={lastNameChangeHandler}
+                  name="city"
+                  // required
+                  value={values.city}
+                  onChange={handleChange}
                   // error={lastNameValidError}
                 />
+                {errors.city && <p>{errors.city}</p>}
               </Grid>
               <Grid item xs={12} sm={2}>
                 <TextField
@@ -184,11 +205,13 @@ const EnterInfo = () => {
                   id="standard-basic"
                   variant="filled"
                   label="State"
-                  required
-                  // value={enteredLastName}
-                  // onChange={lastNameChangeHandler}
+                  name="state"
+                  // required
+                  value={values.state}
+                  onChange={handleChange}
                   // error={lastNameValidError}
                 />
+                {errors.state && <p>{errors.state}</p>}
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
@@ -196,11 +219,13 @@ const EnterInfo = () => {
                   id="standard-basic"
                   variant="filled"
                   label="Postal Code"
-                  required
-                  // value={enteredFirstName}
-                  // onChange={firstNameChangeHandler}
+                  name="postal"
+                  // required
+                  value={values.postal}
+                  onChange={handleChange}
                   // error={firstNameValidError}
                 />
+                {errors.postal && <p>{errors.postal}</p>}
               </Grid>
             </Grid>
           </AccordionDetails>
