@@ -1,6 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import CartContext from "../store/cart-context";
 
 const useForm = (submitForm, validate) => {
+  const cartCtx = useContext(CartContext);
+
   const [values, setValues] = useState({
     firstname: "",
     lastname: "",
@@ -25,6 +28,10 @@ const useForm = (submitForm, validate) => {
 
     setErrors(validate(values));
     setIsSubmitting(true);
+
+    cartCtx.items.forEach((item) => {
+      cartCtx.deleteItem(item.id);
+    });
   };
 
   useEffect(() => {
