@@ -58,11 +58,6 @@ const EnterInfo = ({ submitForm }) => {
 
   const classes = useStyles();
 
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-    console.log("submitted");
-  };
-
   return (
     <>
       <h3>Please enter your info </h3>
@@ -87,7 +82,6 @@ const EnterInfo = ({ submitForm }) => {
                   // required
                   value={values.firstname}
                   onChange={handleChange}
-                  // error={firstNameValidError}
                 />
                 {errors.firstname && <p>{errors.firstname}</p>}
               </Grid>
@@ -101,7 +95,6 @@ const EnterInfo = ({ submitForm }) => {
                   // required
                   value={values.lastname}
                   onChange={handleChange}
-                  // error={lastNameValidError}
                 />
                 {errors.lastname && <p>{errors.lastname}</p>}
               </Grid>
@@ -120,7 +113,6 @@ const EnterInfo = ({ submitForm }) => {
                   // required
                   value={values.email}
                   onChange={handleChange}
-                  // error={firstNameValidError}
                 />
                 {errors.email && <p>{errors.email}</p>}
               </Grid>
@@ -138,7 +130,6 @@ const EnterInfo = ({ submitForm }) => {
                   }}
                   value={values.phone}
                   onChange={handleChange}
-                  // error={lastNameValidError}
                 />
                 {errors.phone && <p>{errors.phone}</p>}
               </Grid>
@@ -165,7 +156,6 @@ const EnterInfo = ({ submitForm }) => {
                   // required
                   value={values.address}
                   onChange={handleChange}
-                  // error={firstNameValidError}
                 />
                 {errors.address && <p>{errors.address}</p>}
               </Grid>
@@ -178,7 +168,6 @@ const EnterInfo = ({ submitForm }) => {
                   name="addresstwo"
                   value={values.addresstwo}
                   onChange={handleChange}
-                  // error={lastNameValidError}
                 />
               </Grid>
             </Grid>
@@ -195,7 +184,6 @@ const EnterInfo = ({ submitForm }) => {
                   // required
                   value={values.city}
                   onChange={handleChange}
-                  // error={lastNameValidError}
                 />
                 {errors.city && <p>{errors.city}</p>}
               </Grid>
@@ -209,7 +197,6 @@ const EnterInfo = ({ submitForm }) => {
                   // required
                   value={values.state}
                   onChange={handleChange}
-                  // error={lastNameValidError}
                 />
                 {errors.state && <p>{errors.state}</p>}
               </Grid>
@@ -223,7 +210,6 @@ const EnterInfo = ({ submitForm }) => {
                   // required
                   value={values.postal}
                   onChange={handleChange}
-                  // error={firstNameValidError}
                 />
                 {errors.postal && <p>{errors.postal}</p>}
               </Grid>
