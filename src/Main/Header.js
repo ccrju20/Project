@@ -54,7 +54,6 @@ const Header = (props) => {
   const ctx = useContext(AuthContext);
   const cartCtx = useContext(CartContext);
 
-  // let cartAmount = cartItems.length;
   const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
     return curNumber + item.amount;
   }, 0);
@@ -106,7 +105,7 @@ const Header = (props) => {
             color="inherit"
           >
             <MenuIcon />
-          </IconButton>{" "}
+          </IconButton>
           <Menu
             id="menu-appbar"
             anchorEl={anchorEl}
@@ -122,10 +121,20 @@ const Header = (props) => {
             open={open}
             onClose={handleClose}
           >
-            {" "}
             <Link component={RouterLink} to="/account" color="inherit">
-              <MenuItem onClick={handleClose}>My account</MenuItem>{" "}
+              <MenuItem onClick={handleClose}>My account</MenuItem>
             </Link>
+            <Hidden only="md">
+              <Link component={RouterLink} to="/cart" color="inherit">
+                <MenuItem onClick={handleClose}>About</MenuItem>
+              </Link>
+              <Link component={RouterLink} to="/cart" color="inherit">
+                <MenuItem onClick={handleClose}> Shop</MenuItem>
+              </Link>
+              <Link component={RouterLink} to="/cart" color="inherit">
+                <MenuItem onClick={handleClose}>Contact</MenuItem>
+              </Link>
+            </Hidden>
           </Menu>
           <IconButton>
             <Link component={RouterLink} to="/cart" color="inherit">
