@@ -5,7 +5,6 @@ import { Grid } from "@material-ui/core";
 import logo from "../Images/logo.png";
 import CartContext from "../store/cart-context";
 
-
 const PRODUCTS_REST_API_URL = "http://localhost:8080/api/products";
 
 const Content = () => {
@@ -21,20 +20,24 @@ const Content = () => {
         setLoadError(true);
         console.log(err.message);
       });
+
+    axios
+      .get(PRODUCTS_REST_API_URL)
+      .then((response) => console.log(response.data));
   }, []);
 
   const productList = products.map((product) => (
     <Grid item xs={12} sm={4} key={product.id}>
-          <div>
-            <ProductCard
-              id={product.id}
-              title={product.title}
-              subtitle={product.price}
-              avatarSrc={logo}
-              imgSrc={product.img}
-              description={product.description}
-            />
-          </div>
+      <div>
+        <ProductCard
+          id={product.id}
+          title={product.title}
+          subtitle={product.price}
+          avatarSrc={logo}
+          imgSrc={product.img}
+          description={product.description}
+        />
+      </div>
     </Grid>
   ));
 

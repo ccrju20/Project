@@ -27,9 +27,9 @@ const useStyles = makeStyles({
   },
   media: {
     height: "120%",
-    width: "100%",
+    width: "80%",
     paddingTop: "10%",
-    paddingBottom: "10%",
+    paddingBottom: "7%",
   },
   icon: {
     fontSize: "3em",
@@ -37,6 +37,8 @@ const useStyles = makeStyles({
   description: {
     marginTop: 10,
   },
+  productname: {
+  }
 });
 
 const CartProduct = (props) => {
@@ -48,33 +50,37 @@ const CartProduct = (props) => {
   return (
     <Card className={classes.root}>
       <Grid container>
-        <Grid item xs={3}>
+        <Grid item xs={4} sm={3}>
           <CardContent className={classes.content}>
             <CardMedia className={classes.media} image={image} />
           </CardContent>
         </Grid>
-        <Grid item xs={9} className={classes.description}>
-          <Grid container>
-              <Grid item xs={3}>
-                <Typography
-                  variant="h5"
-                  component="h2"
-                  className={classes.title}
-                >
-                  {name} x {amount}{" "}
-                </Typography>
+        <Grid item xs={8} sm={9} className={classes.description}>
+          <Grid container alignItems="center">
+            <Grid item xs={12} sm={3} className={classes.productname}>
+              <Typography variant="h5" component="h2" className={classes.title}>
+                {name} x {amount}{" "}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={9}>
+              <Grid container>
+                <Grid item>
+                  <IconButton onClick={props.onDelete}>
+                    <DeleteIcon />
+                  </IconButton>
+                </Grid>
+                <Grid item>
+                  <IconButton onClick={props.onAdd}>
+                    <AddIcon />
+                  </IconButton>
+                </Grid>
+                <Grid item>
+                  <IconButton onClick={props.onRemove}>
+                    <RemoveIcon />
+                  </IconButton>
+                </Grid>
               </Grid>
-              <Grid item xs={9}>
-                <IconButton onClick={props.onDelete}>
-                  <DeleteIcon />
-                </IconButton>
-                <IconButton onClick={props.onAdd}>
-                  <AddIcon />
-                </IconButton>
-                <IconButton onClick={props.onRemove}>
-                  <RemoveIcon />
-                </IconButton>
-              </Grid>
+            </Grid>
           </Grid>
           <Typography
             component={"span"}

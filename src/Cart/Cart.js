@@ -7,6 +7,7 @@ import CartContext from "../store/cart-context";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
+import ShoppingBasketTwoToneIcon from '@mui/icons-material/ShoppingBasketTwoTone';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -34,25 +35,37 @@ const Cart = (props) => {
   };
 
   console.log(cartCtx.totalAmount);
+  const cartTotalItems = cartCtx.items.length;
 
   return (
     <Grid container>
       <Grid item xs={1} />
       <Grid item xs={10}>
-        <h1>Cart</h1>
-        {cartCtx.totalAmount <= 0 && "You have no items in your cart"}
-        {cartCtx.items.map((product) => (
-          <CartProduct
-            key={product.id}
-            name={product.name}
-            price={product.price}
-            image={product.img}
-            amount={product.amount}
-            onAdd={cartItemAddHandler.bind(null, product)}
-            onRemove={cartItemRemoveHandler.bind(null, product.id)}
-            onDelete={cartItemDeleteHandler.bind(null, product.id)}
-          />
-        ))}
+        <h1>
+          Cart <ShoppingBasketTwoToneIcon style={{marginLeft: 10}} />
+        </h1>
+        <Grid container justify="center">
+          <h3>You have {cartTotalItems} item(s) in your cart</h3>
+        </Grid>
+
+        {/* {cartCtx.totalAmount <= 0 && "You have no items in your cart"} */}
+        <Grid container spacing={3}>
+          {cartCtx.items.map((product) => (
+            <Grid item xs={12} key={product.id}>
+              <CartProduct
+                key={product.id}
+                name={product.name}
+                price={product.price}
+                image={product.img}
+                amount={product.amount}
+                onAdd={cartItemAddHandler.bind(null, product)}
+                onRemove={cartItemRemoveHandler.bind(null, product.id)}
+                onDelete={cartItemDeleteHandler.bind(null, product.id)}
+              />
+            </Grid>
+          ))}
+        </Grid>
+
         <div>
           <br></br>
           <br></br>
@@ -60,7 +73,7 @@ const Cart = (props) => {
           <h3>Subtotal: {totalAmount}</h3>
           <h3>Total: {totalAmount}</h3>
           <br></br>
-          {cartCtx.totalAmount > 0 && (
+          {cartTotalItems > 0 && (
             <Link
               component={RouterLink}
               to="/checkout"
