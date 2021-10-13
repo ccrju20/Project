@@ -1,8 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import CartContext from "../store/cart-context";
+import UserInfoContext from "../store/userinfo-context";
 
 const useForm = (submitForm, validate) => {
   const cartCtx = useContext(CartContext);
+  const userCtx = useContext(UserInfoContext);
 
   const [values, setValues] = useState({
     firstname: "",
@@ -40,6 +42,7 @@ const useForm = (submitForm, validate) => {
       const timestamp = Date.now();
       console.log(new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(timestamp));
       // post to orders table api backend
+      userCtx.saveInfo(values);
     }
   }, [errors, isSubmitting, submitForm]);
 
