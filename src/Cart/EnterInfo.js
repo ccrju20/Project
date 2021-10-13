@@ -119,7 +119,6 @@ const EnterInfo = ({ submitForm }) => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  // id="standard-basic"
                   id="formatted-numberformat-input"
                   variant="filled"
                   label="Phone"
