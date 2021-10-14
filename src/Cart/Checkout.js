@@ -27,8 +27,7 @@ const Checkout = () => {
         <Grid item xs={10}>
           {isSubmitted ? (
             <Grid container justify="center">
-              {/* <Confirmation /> */}
-              <ConfirmInfo confirmation={confirmInfo} />
+              {isConfirmed ? <Confirmation/> : <ConfirmInfo confirmation={confirmInfo} />}
             </Grid>
           ) : (
             <div>
