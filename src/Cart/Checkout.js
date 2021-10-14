@@ -5,13 +5,20 @@ import EnterInfo from "./EnterInfo";
 import CheckoutCartList from "./CheckoutCartList";
 import Confirmation from "./Confirmation";
 import UserInfoProvider from "../store/UserInfoProvider";
+import ConfirmInfo from "./ConfirmInfo";
 
 const Checkout = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isConfirmed, setConfirmedInfo] = useState(false);
 
   const submitForm = useCallback(() => {
     setIsSubmitted(true);
   }, [setIsSubmitted]);
+
+  const confirmInfo = () => {
+    setConfirmedInfo(true);
+    console.log(isConfirmed);
+  };
 
   return (
     <UserInfoProvider>
@@ -20,7 +27,8 @@ const Checkout = () => {
         <Grid item xs={10}>
           {isSubmitted ? (
             <Grid container justify="center">
-              <Confirmation />
+              {/* <Confirmation /> */}
+              <ConfirmInfo confirmation={confirmInfo} />
             </Grid>
           ) : (
             <div>
