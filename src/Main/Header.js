@@ -13,6 +13,7 @@ import logo from "../Images/logo.png";
 import Badge from "@material-ui/core/Badge";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import AuthContext from "../store/auth-context.js";
@@ -37,6 +38,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 20,
     marginRight: 10,
     marginBottom: 10,
+  },
+  hover: {
+    "&:hover": {
+      borderBottom: '3px solid #9B89A4',
+    },
   },
 }));
 
@@ -83,14 +89,22 @@ const Header = (props) => {
             <IconButton>
               <FacebookIcon />
             </IconButton>
+            <IconButton>
+              <MailOutlineIcon />
+            </IconButton>
             <Grid container direction="row" justify="center">
+              <Typography className={classes.menuText}>About</Typography>
               <Typography className={classes.menuText}>
-                <Link component={RouterLink} to="/" color="inherit">
-                  Home
+                <Link
+                  component={RouterLink}
+                  to="/shop"
+                  color="inherit"
+                  underline="none"
+                  className={classes.hover}
+                >
+                  Shop
                 </Link>
               </Typography>
-              <Typography className={classes.menuText}>About</Typography>
-              <Typography className={classes.menuText}>Shop</Typography>
               <Typography className={classes.menuText}>Contact</Typography>
               {ctx.isLoggedIn && (
                 <Typography className={classes.menuText}>Account</Typography>
@@ -109,14 +123,15 @@ const Header = (props) => {
           <Menu
             id="menu-appbar"
             anchorEl={anchorEl}
+            getContentAnchorEl={null}
             anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
+              vertical: "bottom",
+              horizontal: "center",
             }}
             keepMounted
             transformOrigin={{
               vertical: "top",
-              horizontal: "right",
+              horizontal: "center",
             }}
             open={open}
             onClose={handleClose}
