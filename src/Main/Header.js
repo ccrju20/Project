@@ -13,7 +13,7 @@ import logo from "../Images/logo.png";
 import Badge from "@material-ui/core/Badge";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import AuthContext from "../store/auth-context.js";
@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuText: {
     marginRight: 60,
+    fontSize: 14,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -41,8 +42,11 @@ const useStyles = makeStyles((theme) => ({
   },
   hover: {
     "&:hover": {
-      borderBottom: '3px solid #9B89A4',
+      borderBottom: "3px solid #9B89A4",
     },
+  },
+  links: {
+    marginLeft: 100,
   },
 }));
 
@@ -77,23 +81,27 @@ const Header = (props) => {
 
   return (
     <AppBar className={classes.root} position="static">
-      <Grid>
-        <Toolbar>
-          <Link component={RouterLink} to="/">
-            <img src={logo} alt="logo" className={classes.logo} />
-          </Link>
-          <Hidden only="xs">
-            <IconButton>
-              <InstagramIcon />
-            </IconButton>
-            <IconButton>
-              <FacebookIcon />
-            </IconButton>
-            <IconButton>
-              <MailOutlineIcon />
-            </IconButton>
-            <Grid container direction="row" justify="center">
-              <Typography className={classes.menuText}>About</Typography>
+      {/* <Grid container> */}
+      <Toolbar>
+        <Link component={RouterLink} to="/">
+          <img src={logo} alt="logo" className={classes.logo} />
+        </Link>
+        <Hidden only="xs">
+          <IconButton>
+            <InstagramIcon />
+          </IconButton>
+          <IconButton>
+            <FacebookIcon />
+          </IconButton>
+          <IconButton>
+            <MailOutlineIcon />
+          </IconButton>
+          <Grid container className={classes.links}>
+            <Grid item>
+              <Typography className={classes.menuText}>ABOUT</Typography>
+            </Grid>
+
+            <Grid item>
               <Typography className={classes.menuText}>
                 <Link
                   component={RouterLink}
@@ -102,64 +110,75 @@ const Header = (props) => {
                   underline="none"
                   className={classes.hover}
                 >
-                  Shop
+                  SHOP
                 </Link>
               </Typography>
-              <Typography className={classes.menuText}>Contact</Typography>
-              {ctx.isLoggedIn && (
-                <Typography className={classes.menuText}>Account</Typography>
-              )}
             </Grid>
-          </Hidden>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            aria-label="menu"
-            onClick={handleMenu}
-            color="inherit"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            getContentAnchorEl={null}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "center",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "center",
-            }}
-            open={open}
-            onClose={handleClose}
-          >
-            <Link component={RouterLink} to="/account" color="inherit">
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-            </Link>
-            <Hidden only="md">
-              <Link component={RouterLink} to="/cart" color="inherit">
-                <MenuItem onClick={handleClose}>About</MenuItem>
-              </Link>
-              <Link component={RouterLink} to="/cart" color="inherit">
-                <MenuItem onClick={handleClose}> Shop</MenuItem>
-              </Link>
-              <Link component={RouterLink} to="/cart" color="inherit">
-                <MenuItem onClick={handleClose}>Contact</MenuItem>
-              </Link>
+
+            <Grid item>
+              <Typography className={classes.menuText}>CONTACT US</Typography>
+            </Grid>
+
+            <Hidden mdDown={true}>
+              <Grid item>
+                <Typography className={classes.menuText}>CUSTOM REQUESTS</Typography>
+              </Grid>
             </Hidden>
-          </Menu>
-          <IconButton>
+
+            {ctx.isLoggedIn && (
+              <Typography className={classes.menuText}>ACCOUNT</Typography>
+            )}
+          </Grid>
+        </Hidden>
+        <IconButton
+          edge="start"
+          className={classes.menuButton}
+          aria-label="menu"
+          onClick={handleMenu}
+          color="inherit"
+        >
+          <MenuIcon />
+        </IconButton>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          getContentAnchorEl={null}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={open}
+          onClose={handleClose}
+        >
+          <Link component={RouterLink} to="/account" color="inherit">
+            <MenuItem onClick={handleClose}>My account</MenuItem>
+          </Link>
+          <Hidden smUp={true}>
             <Link component={RouterLink} to="/cart" color="inherit">
-              <StyledBadge badgeContent={numberOfCartItems} color="secondary">
-                <ShoppingCartIcon />
-              </StyledBadge>
+              <MenuItem onClick={handleClose}>About</MenuItem>
             </Link>
-          </IconButton>
-        </Toolbar>
-      </Grid>
+            <Link component={RouterLink} to="/cart" color="inherit">
+              <MenuItem onClick={handleClose}> Shop</MenuItem>
+            </Link>
+            <Link component={RouterLink} to="/cart" color="inherit">
+              <MenuItem onClick={handleClose}>Contact</MenuItem>
+            </Link>
+          </Hidden>
+        </Menu>
+        <IconButton>
+          <Link component={RouterLink} to="/cart" color="inherit">
+            <StyledBadge badgeContent={numberOfCartItems} color="secondary">
+              <ShoppingCartIcon />
+            </StyledBadge>
+          </Link>
+        </IconButton>
+      </Toolbar>
+      {/* </Grid> */}
     </AppBar>
   );
 };
