@@ -10,10 +10,6 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Avatar from "@material-ui/core/Avatar";
-import ShareIcon from "@material-ui/icons/Share";
-import IconButton from "@material-ui/core/IconButton";
-import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import CartContext from "../store/cart-context";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
@@ -28,16 +24,19 @@ const useStyles = makeStyles({
     transform: "scale(0.8)",
   },
   title: {
-    fontSize: 14,
+    fontSize: 16,
   },
   pos: {
     marginBottom: 12,
   },
   image: {
-    height: "150px",
+    height: "50%",
   },
   button: {
-    marginBottom: -50,
+    marginTop: -10,
+  },
+  description: {
+    marginTop: -20,
   },
 });
 
@@ -73,19 +72,14 @@ const ProductCard = (props) => {
 
   return (
     <Card className={classes.root}>
+      <CardMedia className={classes.image} image={imgSrc} />
       <CardHeader
-        avatar={<Avatar src={avatarSrc} />}
-        action={
-          <IconButton aria-label="settings">
-            <ShareIcon />
-          </IconButton>
-        }
+        classes={{ title: classes.title }}
         title={title}
         subheader={"$" + subtitle}
         key={id}
       />
-      <CardMedia className={classes.image} image={imgSrc} />
-      <CardContent>
+      <CardContent className={classes.description}>
         <Typography variant="body2" component="p">
           {description}
         </Typography>
@@ -112,12 +106,6 @@ const ProductCard = (props) => {
             Added to Cart!
           </Alert>
         </Snackbar>
-
-        <IconButton className={classes.button}>
-          <Link component={RouterLink} to="/cart" color="inherit">
-            <ShoppingBasketIcon />
-          </Link>
-        </IconButton>
       </CardActions>
     </Card>
   );

@@ -9,7 +9,6 @@ import Header from "./Main/Header";
 import Content from "./Products/Content";
 import AboutSection from "./Main/AboutSection";
 import ButtonSection from "./Main/ButtonSection";
-import Divider from "@material-ui/core/Divider";
 import Cart from "./Cart/Cart";
 import Hidden from "@material-ui/core/Hidden";
 import Account from "./Account/Account";
@@ -17,6 +16,7 @@ import Section from "./Main/Section";
 import AuthContext from "./store/auth-context";
 import CartProvider from "./store/CartProvider";
 import Checkout from "./Cart/Checkout";
+import Shop from "./Products/Shop";
 
 const useStyles = makeStyles({
   root: {
@@ -83,12 +83,7 @@ function App() {
                           <Section />
                         </Hidden>
                       </div>
-                      <div>
-                        <Content />
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                      </div>
+                      <div>Stuff Goes Here</div>
                     </Box>
                   </Grid>
                   <Grid item xs={1} sm={1} />
@@ -103,6 +98,9 @@ function App() {
               </Route>
               <Route path="/checkout">
                 <Checkout />
+              </Route>
+              <Route path="/shop">
+                <Shop />
               </Route>
             </Switch>
           </Grid>
