@@ -66,44 +66,44 @@ function App() {
           <Grid container direction="column">
             <Grid item>
               <Header />
+              <AppBar className={classes.root} position="static">
+                <Toolbar></Toolbar>
+              </AppBar>
             </Grid>
-
-            <Switch>
-              <Route exact path="/">
-                <AppBar className={classes.root} position="static">
-                  <Toolbar></Toolbar>
-                </AppBar>
-                <Grid item container>
-                  <Grid item xs={1} sm={1} />
-                  <Grid item xs={10} sm={10}>
-                    <ButtonSection />
-                    <Box mt={10}>
-                      <div className={classes.divider}>
-                        <Hidden only="xs">
-                          <Section />
-                        </Hidden>
-                      </div>
-                      <div>Stuff Goes Here</div>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={1} sm={1} />
-                  <AboutSection />
-                </Grid>
-              </Route>
-              <Route path="/account">
-                <Account loginStatus={loginHandler} logout={logoutHandler} />
-              </Route>
-              <Route path="/cart">
-                <Cart />
-              </Route>
-              <Route path="/checkout">
-                <Checkout />
-              </Route>
-              <Route path="/shop">
-                <Shop />
-              </Route>
-            </Switch>
           </Grid>
+
+          <Switch>
+            <Route exact path="/">
+              <Grid item container>
+                <Grid item xs={1} sm={1} />
+                <Grid item xs={10} sm={10}>
+                  <ButtonSection />
+                  <Box mt={10}>
+                    <div className={classes.divider}>
+                      <Hidden only="xs">
+                        <Section />
+                      </Hidden>
+                    </div>
+                    <div>Stuff Goes Here</div>
+                  </Box>
+                </Grid>
+                <Grid item xs={1} sm={1} />
+                <AboutSection />
+              </Grid>
+            </Route>
+            <Route path="/account">
+              <Account loginStatus={loginHandler} logout={logoutHandler} />
+            </Route>
+            <Route path="/cart">
+              <Cart />
+            </Route>
+            <Route path="/checkout">
+              <Checkout />
+            </Route>
+            <Route path="/shop">
+              <Shop />
+            </Route>
+          </Switch>
         </Router>
       </CartProvider>
     </AuthContext.Provider>
