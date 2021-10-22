@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import UserInfoContext from "../store/userinfo-context";
+import CartContext from "../store/cart-context";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
 const ConfirmInfo = (props) => {
   const classes = useStyles();
   const userContext = useContext(UserInfoContext);
+  const cartCtx = useContext(CartContext);
 
   const {
     firstname,
@@ -31,6 +33,23 @@ const ConfirmInfo = (props) => {
   const onConfirmHandler = () => {
     props.confirmation(true);
     console.log(userContext.info);
+    console.log(cartCtx.items);
+    const timestamp = Date.now();
+    console.log(timestamp);
+    // console.log(
+    //   new Intl.DateTimeFormat("en-US", {
+    //     year: "numeric",
+    //     month: "2-digit",
+    //     day: "2-digit",
+    //     hour: "2-digit",
+    //     minute: "2-digit",
+    //     second: "2-digit",
+    //   }).format(timestamp)
+    // );
+
+    cartCtx.items.forEach((item) => {
+      cartCtx.deleteItem(item.id);
+    });
   };
 
   return (

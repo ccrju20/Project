@@ -36,7 +36,7 @@ const Shop = () => {
             <br></br>
             <br></br>
             <h5>Filter by:</h5>
-            <h7>Category</h7>
+            <h6>Category</h6>
           </div>
         </Hidden>
       </Grid>

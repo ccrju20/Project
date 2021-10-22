@@ -35,12 +35,9 @@ const useForm = (submitForm, validate) => {
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
       submitForm();
-      cartCtx.items.forEach((item) => {
-        cartCtx.deleteItem(item.id);
-      });
-      console.log(cartCtx.items);
-      const timestamp = Date.now();
-      console.log(new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(timestamp));
+      // cartCtx.items.forEach((item) => {
+      //   cartCtx.deleteItem(item.id);
+      // });
       // post to orders table api backend
       userCtx.saveInfo(values);
     }
