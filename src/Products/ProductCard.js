@@ -46,7 +46,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const ProductCard = (props) => {
   const classes = useStyles();
-  const { avatarSrc, id, title, subtitle, description, imgSrc } = props;
+  const { id, title, subtitle, description, imgSrc } = props;
   const cartCtx = useContext(CartContext);
   const [open, setOpen] = useState(false);
 

@@ -1,16 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCard from "./ProductCard";
 import { Grid } from "@material-ui/core";
-import logo from "../Images/logo.png";
-import CartContext from "../store/cart-context";
 
 const PRODUCTS_REST_API_URL = "http://localhost:8080/api/products";
 
 const Content = () => {
   const [products, setProducts] = useState([]);
   const [loadError, setLoadError] = useState(false);
-  const [checked, setChecked] = useState(false);
 
   useEffect(() => {
     axios
@@ -33,7 +30,6 @@ const Content = () => {
           id={product.id}
           title={product.title}
           subtitle={product.price}
-          avatarSrc={logo}
           imgSrc={product.img}
           description={product.description}
         />

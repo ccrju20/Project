@@ -48,7 +48,6 @@ const Cart = (props) => {
           <h3>You have {cartTotalItems} item(s) in your cart</h3>
         </Grid>
 
-        {/* {cartCtx.totalAmount <= 0 && "You have no items in your cart"} */}
         <Grid container spacing={3}>
           {cartCtx.items.map((product) => (
             <Grid item xs={12} key={product.id}>
