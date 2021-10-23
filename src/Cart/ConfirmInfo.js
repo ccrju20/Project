@@ -1,4 +1,4 @@
-import { React, useContext } from "react";
+import { React, useContext, useState } from "react";
 
 import Button from "@material-ui/core/Button";
 import { Grid } from "@material-ui/core";
@@ -19,6 +19,8 @@ const ConfirmInfo = (props) => {
   const userContext = useContext(UserInfoContext);
   const cartCtx = useContext(CartContext);
 
+  const timestamp = Date.now();
+
   const {
     firstname,
     lastname,
@@ -30,13 +32,29 @@ const ConfirmInfo = (props) => {
     postal,
   } = userContext.info;
 
+  const [dataObject, setDataObject] = useState({
+    ordernumber: "",
+    dateposted: timestamp,
+    customer: {
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
+      phone: phone,
+      address: address,
+      city: city,
+      state: state,
+      postal: postal
+    },
+    orderitems: cartCtx.items
+  })
+
+  const {} = cartCtx.items;
+
   const onConfirmHandler = () => {
     props.confirmation(true);
     console.log(userContext.info);
     console.log(cartCtx.items);
-    const timestamp = Date.now();
-    console.log(timestamp);
-    // console.log(
+    console.log(cartCtx.totalAmount);
     //   new Intl.DateTimeFormat("en-US", {
     //     year: "numeric",
     //     month: "2-digit",
@@ -46,6 +64,7 @@ const ConfirmInfo = (props) => {
     //     second: "2-digit",
     //   }).format(timestamp)
     // );
+    console.log(dataObject);
 
     cartCtx.items.forEach((item) => {
       cartCtx.deleteItem(item.id);
