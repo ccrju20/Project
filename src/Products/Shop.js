@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     marginRight: 30,
   },
   filter: {
-    marginLeft: 20,
+    marginLeft: 50,
   },
 });
 
