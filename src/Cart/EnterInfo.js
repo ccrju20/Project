@@ -20,12 +20,17 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   accordionRoot: {
-    width: "95%",
+    width: "100%",
   },
   button: {
     border: "3px solid",
     width: "180px",
     color: "#837D7D",
+  },
+  divider: {
+    marginTop: 50,
+    marginBottom: 50,
+    width: "80%",
   },
 }));
 
@@ -79,7 +84,7 @@ const EnterInfo = ({ submitForm }) => {
                   variant="filled"
                   label="First Name"
                   name="firstname"
-                  // required
+                  required
                   value={values.firstname}
                   onChange={handleChange}
                 />
@@ -134,7 +139,7 @@ const EnterInfo = ({ submitForm }) => {
               </Grid>
             </Grid>
           </AccordionDetails>
-        </Accordion>
+        </Accordion>            
         <Accordion className={classes.accordionRoot}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -173,7 +178,7 @@ const EnterInfo = ({ submitForm }) => {
           </AccordionDetails>
           <AccordionDetails>
             <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={5}>
                 <TextField
                   fullWidth
                   id="standard-basic"
@@ -186,7 +191,7 @@ const EnterInfo = ({ submitForm }) => {
                 />
                 {errors.city && <p>{errors.city}</p>}
               </Grid>
-              <Grid item xs={12} sm={2}>
+              <Grid item xs={12} sm={3}>
                 <TextField
                   fullWidth
                   id="standard-basic"
@@ -231,8 +236,11 @@ const EnterInfo = ({ submitForm }) => {
           className={classes.button}
           type="submit"
         >
-          Order
+          Review Info
         </Button>
+        <br></br>
+        <br></br>
+        <br></br>
       </form>
     </>
   );
