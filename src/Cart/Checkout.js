@@ -7,7 +7,6 @@ import Confirmation from "./Confirmation";
 import UserInfoProvider from "../store/UserInfoProvider";
 import ConfirmInfo from "./ConfirmInfo";
 import { makeStyles } from "@material-ui/core/styles";
-import Divider from "@mui/material/Divider";
 import Hidden from "@material-ui/core/Hidden";
 import Button from "@material-ui/core/Button";
 
@@ -70,17 +69,17 @@ const Checkout = () => {
             <div>
               <h1> Checkout </h1>
               <Grid container>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12} md={6}>
                   <EnterInfo submitForm={submitForm} />
                 </Grid>
-                <Hidden only="xs">
-                  <Grid item sm={1} className={classes.divider} />
+                <Hidden smDown={true}>
+                  <Grid item md={1} className={classes.divider} />
                 </Hidden>
 
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={12} md={4}>
                   <h3>Order Summary</h3>
                   <CheckoutCartList />
-                  <div className={classes.cartdivider}>
+                  {/* <div className={classes.cartdivider}>
                     <Divider flexItem={true} /> <h5>Total: </h5>
                     <Button
                       variant="outlined"
@@ -90,7 +89,7 @@ const Checkout = () => {
                     >
                       Place Order
                     </Button>
-                  </div>
+                  </div> */}
                 </Grid>
               </Grid>
             </div>

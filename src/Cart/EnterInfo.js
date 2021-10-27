@@ -178,7 +178,7 @@ const EnterInfo = ({ submitForm }) => {
           </AccordionDetails>
           <AccordionDetails>
             <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={5}>
                 <TextField
                   fullWidth
                   id="standard-basic"
@@ -191,7 +191,7 @@ const EnterInfo = ({ submitForm }) => {
                 />
                 {errors.city && <p>{errors.city}</p>}
               </Grid>
-              <Grid item xs={12} sm={2}>
+              <Grid item xs={12} sm={3}>
                 <TextField
                   fullWidth
                   id="standard-basic"
@@ -238,6 +238,9 @@ const EnterInfo = ({ submitForm }) => {
         >
           Review Info
         </Button>
+        <br></br>
+        <br></br>
+        <br></br>
       </form>
     </>
   );

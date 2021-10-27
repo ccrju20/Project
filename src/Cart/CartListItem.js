@@ -3,6 +3,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Hidden from "@material-ui/core/Hidden";
+import Typography from '@mui/material/Typography';
 
 const CartListItem = (props) => {
   const { name, price, image, amount } = props;
@@ -14,7 +15,8 @@ const CartListItem = (props) => {
       <ListItemAvatar>
         <Avatar alt="bakeshop" src={image} />
       </ListItemAvatar></Hidden>
-      <ListItemText primary={`${name} x ${amount}`} secondary={updatedPrice} />
+      <ListItemText primary={`${name} x ${amount}`}  secondary={price}/>
+      <Typography>{updatedPrice}</Typography>
     </ListItem>
   );
 };
