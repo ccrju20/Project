@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 60,
     marginBottom: 60,
   },
+  smdivider: {
+    borderBottom: "5px solid lightgrey",
+  },
   cartdivider: {
     marginTop: 5,
     marginBottom: 5,
@@ -76,20 +79,13 @@ const Checkout = () => {
                   <Grid item md={1} className={classes.divider} />
                 </Hidden>
 
+                <Hidden mdUp={true}>
+                  <Grid item xs={12} className={classes.smdivider} />
+                </Hidden>
+
                 <Grid item xs={12} sm={12} md={4}>
                   <h3>Order Summary</h3>
                   <CheckoutCartList />
-                  {/* <div className={classes.cartdivider}>
-                    <Divider flexItem={true} /> <h5>Total: </h5>
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      className={classes.button}
-                      type="submit"
-                    >
-                      Place Order
-                    </Button>
-                  </div> */}
                 </Grid>
               </Grid>
             </div>

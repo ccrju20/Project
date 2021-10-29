@@ -29,11 +29,12 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   menuText: {
-    marginRight: 60,
+    marginRight: 50,
     fontSize: 14,
   },
   menuButton: {
     marginRight: theme.spacing(2),
+    padding: 1,
   },
   logo: {
     marginTop: 20,
@@ -46,7 +47,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   links: {
-    marginLeft: 100,
+    marginLeft: 75,
+  },
+  carticon: {
+    padding: 10,
   },
 }));
 
@@ -86,7 +90,7 @@ const Header = (props) => {
         <Link component={RouterLink} to="/">
           <img src={logo} alt="logo" className={classes.logo} />
         </Link>
-        <Hidden only="xs">
+        <Hidden smDown={true}>
           <IconButton>
             <InstagramIcon />
           </IconButton>
@@ -96,6 +100,9 @@ const Header = (props) => {
           <IconButton>
             <MailOutlineIcon />
           </IconButton>
+        </Hidden>
+
+        <Hidden only="xs">
           <Grid container className={classes.links}>
             <Grid item>
               <Typography className={classes.menuText}>ABOUT</Typography>
@@ -115,13 +122,17 @@ const Header = (props) => {
               </Typography>
             </Grid>
 
-            <Grid item>
-              <Typography className={classes.menuText}>CONTACT US</Typography>
-            </Grid>
+            <Hidden smDown={true}>
+              <Grid item>
+                <Typography className={classes.menuText}>CONTACT</Typography>
+              </Grid>
+            </Hidden>
 
             <Hidden mdDown={true}>
               <Grid item>
-                <Typography className={classes.menuText}>CUSTOM REQUESTS</Typography>
+                <Typography className={classes.menuText}>
+                  CATERING
+                </Typography>
               </Grid>
             </Hidden>
 
@@ -170,7 +181,7 @@ const Header = (props) => {
             </Link>
           </Hidden>
         </Menu>
-        <IconButton>
+        <IconButton className={classes.carticon}>
           <Link component={RouterLink} to="/cart" color="inherit">
             <StyledBadge badgeContent={numberOfCartItems} color="secondary">
               <ShoppingCartIcon />
