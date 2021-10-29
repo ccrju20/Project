@@ -63,13 +63,16 @@ function App() {
     >
       <CartProvider>
         <Router>
-          <Grid container direction="column">
-            <Grid item>
+          {/* <Grid container direction="column"> */}
+          <Grid container>
+            <Grid item xs={1} sm={1} />
+            <Grid item xs={10} sm={10}>
               <Header />
               <AppBar className={classes.root} position="static">
                 <Toolbar></Toolbar>
               </AppBar>
             </Grid>
+            <Grid item xs={1} sm={1} />
           </Grid>
 
           <Switch>

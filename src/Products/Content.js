@@ -43,9 +43,7 @@ const Content = () => {
         productList
       ) : (
         <Grid container justify="center">
-          <Grid item xs={10} align="center">
-            <h2>Unable to load items</h2>
-          </Grid>
+          <h2>Unable to load items</h2>
         </Grid>
       )}
     </Grid>

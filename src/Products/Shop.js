@@ -16,9 +16,11 @@ const useStyles = makeStyles({
     height: "50em",
     marginTop: 100,
     marginRight: 30,
+    marginBottom: 50,
   },
   filter: {
-    marginLeft: 50,
+    marginLeft: 20,
+    marginTop: 100,
   },
 });
 
@@ -27,28 +29,29 @@ const Shop = () => {
 
   return (
     <Grid container>
-      <Grid item xs={1} sm={3}>
-        <Hidden xsDown={true}>
-          <div className={classes.filter}>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <h5>Filter by:</h5>
-            <h6>Category</h6>
-          </div>
-        </Hidden>
-      </Grid>
-      <Hidden xsDown={true}>
-        <Grid item className={classes.divider} />
-      </Hidden>
+      <Grid item xs={1} sm={1} />
+      <Grid item xs={10} sm={10}>
+        <Grid container>
+          <Grid item xs={1} sm={3}>
+            <Hidden xsDown={true}>
+              <div className={classes.filter}>
+                <h5>Filter by:</h5>
+                <h6>Category</h6>
+              </div>
+            </Hidden>
+          </Grid>
+          <Hidden xsDown={true}>
+            <Grid item className={classes.divider} />
+          </Hidden>
 
-      <Grid item xs={10} sm={8}>
-        <br></br>
-        <h2>Baked Goods</h2>
-        <br></br>
-        <Content />
+          <Grid item xs={10} sm={8}>
+            <br></br>
+            <h2>Baked Goods</h2>
+            <br></br>
+            <Content />
+          </Grid>
+          <Grid item xs={1} sm={1} />
+        </Grid>
       </Grid>
       <Grid item xs={1} sm={1} />
     </Grid>
