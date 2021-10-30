@@ -8,7 +8,6 @@ import { Grid } from "@material-ui/core";
 import Header from "./Main/Header";
 import Content from "./Products/Content";
 import AboutSection from "./Main/AboutSection";
-import ButtonSection from "./Main/ButtonSection";
 import Cart from "./Cart/Cart";
 import Hidden from "@material-ui/core/Hidden";
 import Account from "./Account/Account";
@@ -23,6 +22,7 @@ const useStyles = makeStyles({
     boxShadow: "none",
     backgroundColor: "#9B89A4",
     color: "#837D7D",
+    borderRadius: "10px"
   },
   myOwnStyle: {
     fontSize: "30px",
@@ -80,14 +80,12 @@ function App() {
               <Grid item container>
                 <Grid item xs={1} sm={1} />
                 <Grid item xs={10} sm={10}>
-                  <ButtonSection />
                   <Box mt={10}>
                     <div className={classes.divider}>
                       <Hidden only="xs">
                         <Section />
                       </Hidden>
                     </div>
-                    <div>Stuff Goes Here</div>
                   </Box>
                 </Grid>
                 <Grid item xs={1} sm={1} />

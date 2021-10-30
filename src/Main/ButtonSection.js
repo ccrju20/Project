@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
     border: "3px solid",
     width: "180px",
     color: "#837D7D",
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20
   },
 }));
 
@@ -21,11 +24,11 @@ const ButtonSection = () => {
   const classes = useStyles();
 
   return (
-    <Box mt={5}>
+    <Box mt={5} mb={12}>
       <Grid container>
-        <Grid item xs={2} sm={2} />
-        <Grid item xs={8} sm={8}>
-          <Grid item container justify="space-between">
+        <Grid item xs={2} sm={1} />
+        <Grid item xs={8} sm={10}>
+          <Grid item container justify="center">
             <Grid item>
               <Button
                 variant="outlined"
@@ -55,7 +58,7 @@ const ButtonSection = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={2} sm={2} />
+        <Grid item xs={2} sm={1} />
       </Grid>
     </Box>
   );

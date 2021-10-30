@@ -50,8 +50,6 @@ const Item = (props) => {
 
   return (
     <Card>
-      {/* <h2>{props.item.name}</h2>
-      <p>{props.item.description}</p> */}
       <p></p>
       <CardMedia className={classes.image} image={props.item.img} />
     </Card>
