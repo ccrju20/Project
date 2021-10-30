@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   checkoutlist: {
     padding: 24,
     paddingBottom: 40,
+    marginBottom: 20,
     border: "5px solid lightgrey",
   },
   checkouttotal: {
@@ -37,7 +38,6 @@ const CheckoutCartList = () => {
   const total = `${totalAmount.toFixed(2)}`;
 
   return (
-    <>
       <div className={classes.checkoutlist}>
         <List
           sx={{ width: "100%", maxWidth: 700, bgcolor: "background.paper" }}
@@ -69,7 +69,6 @@ const CheckoutCartList = () => {
           </Button>
         </Grid>
       </div>
-    </>
   );
 };
 
