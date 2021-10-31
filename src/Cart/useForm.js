@@ -5,6 +5,7 @@ import UserInfoContext from "../store/userinfo-context";
 const useForm = (submitForm, validate) => {
   const cartCtx = useContext(CartContext);
   const userCtx = useContext(UserInfoContext);
+  const [pickup, setPickup] = useState(false);
 
   const [values, setValues] = useState({
     firstname: "",
@@ -28,8 +29,13 @@ const useForm = (submitForm, validate) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setErrors(validate(values));
+    setErrors(validate(values, pickup));
+
     setIsSubmitting(true);
+  };
+
+  const handlePickup = (boolean) => {
+    setPickup(boolean);
   };
 
   useEffect(() => {
@@ -39,11 +45,21 @@ const useForm = (submitForm, validate) => {
       //   cartCtx.deleteItem(item.id);
       // });
       // post to orders table api backend
-      userCtx.saveInfo(values);
+      if (pickup) {
+        const valuesPickupOption = (({
+          firstname,
+          lastname,
+          email,
+          phone,
+        }) => ({ firstname, lastname, email, phone }))(values);
+        userCtx.saveInfo(valuesPickupOption);
+      } else {
+        userCtx.saveInfo(values);
+      }
     }
   }, [errors, isSubmitting, submitForm]);
 
-  return { handleChange, values, handleSubmit, errors };
+  return { handleChange, values, handleSubmit, errors, handlePickup };
 };
 
 export default useForm;

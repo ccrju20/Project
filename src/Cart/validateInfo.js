@@ -1,4 +1,4 @@
-export default function validateInfo(values) {
+export default function validateInfo(values, pickup) {
   let errors = {};
 
   if (!values.firstname.trim()) {
@@ -21,19 +21,19 @@ export default function validateInfo(values) {
     errors.phone = "Phone is invalid";
   }
 
-  if (!values.address.trim()) {
+  if (!values.address.trim() && !pickup) {
     errors.address = "Address required";
   }
 
-  if (!values.city.trim()) {
+  if (!values.city.trim() && !pickup) {
     errors.city = "City required";
   }
 
-  if (!values.state.trim()) {
+  if (!values.state.trim() && !pickup) {
     errors.state = "State required";
   }
 
-  if (!values.postal.trim()) {
+  if (!values.postal.trim() && !pickup) {
     errors.postal = "Postal required";
   }
 

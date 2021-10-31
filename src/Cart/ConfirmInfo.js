@@ -32,6 +32,8 @@ const ConfirmInfo = (props) => {
     postal,
   } = userContext.info;
 
+  console.log(userContext.info);
+
   const [dataObject, setDataObject] = useState({
     ordernumber: "",
     dateposted: timestamp,
@@ -91,7 +93,7 @@ const ConfirmInfo = (props) => {
             <h5>Shipping Address: </h5>
             <h5>{address}</h5>
             <h5>
-              {city}, {state} {postal}
+              {city} {state} {postal}
             </h5>
           </Grid>
         </Grid>
