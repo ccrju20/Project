@@ -73,7 +73,7 @@ const Checkout = () => {
               <h1> Checkout </h1>
               <Grid container>
                 <Grid item xs={12} sm={12} md={6}>
-                  <EnterInfo submitForm={submitForm} />
+                  <EnterInfo submitForm={submitForm}/>
                 </Grid>
                 <Hidden smDown={true}>
                   <Grid item md={1} className={classes.divider} />
