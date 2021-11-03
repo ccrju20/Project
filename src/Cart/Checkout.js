@@ -52,7 +52,7 @@ const Checkout = () => {
 
   const confirmInfo = () => {
     setConfirmedInfo(true);
-    console.log(isConfirmed);
+    // console.log(isConfirmed);
   };
 
   return (

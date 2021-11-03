@@ -1,8 +1,8 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import useForm from "./useForm";
 import validate from "./validateInfo";
 
-import { Grid, Box } from "@material-ui/core";
+import { Grid, Box, Typography } from "@material-ui/core";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -11,9 +11,19 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import NumberFormat from "react-number-format";
-import Switch from "@mui/material/Switch";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import BasicDateTimePicker from "./DateTimePicker";
+import BasicDatePicker from "./DatePicker";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import CustomizedSwitch from "./Switch";
+import DirectionsCarFilledOutlinedIcon from "@mui/icons-material/DirectionsCarFilledOutlined";
+import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,21 +69,68 @@ function NumberFormatCustom(props) {
 }
 
 const EnterInfo = ({ submitForm }, props) => {
-  const { handleChange, values, handleSubmit, errors, handlePickup } = useForm(
-    submitForm,
-    validate
-  );
+  const {
+    handleChange,
+    values,
+    handleSubmit,
+    errors,
+    handlePickup,
+    handleDateTime,
+  } = useForm(submitForm, validate);
 
   const [pickup, setPickup] = useState(false);
+  const [contactInfoError, setContactInfoError] = useState(false);
+  const [shippingInfoError, setShippingInfoError] = useState(false);
+  const [asapOrScheduled, setAsapOrScheduled] = useState("ASAP");
+  const [dateValue, setDateValue] = useState(null);
+
+  const handleDateVal = (newValue) => {
+    setDateValue(newValue);
+    handleDateTime(newValue);
+  };
 
   const handleSwitch = (event) => {
     setPickup(event.target.checked);
     handlePickup(event.target.checked);
   };
 
-  console.log(pickup);
+  const handleRadio = (event) => {
+    setAsapOrScheduled(event.target.value);
+  };
+  console.log(asapOrScheduled);
 
   const classes = useStyles();
+
+  useEffect(() => {
+    if (errors.firstname || errors.lastname || errors.email || errors.phone) {
+      setContactInfoError(true);
+    } else {
+      setContactInfoError(false);
+    }
+
+    if (errors.address || errors.city || errors.state || errors.postal) {
+      setShippingInfoError(true);
+    } else {
+      setShippingInfoError(false);
+    }
+  }, [
+    errors.firstname,
+    errors.lastname,
+    errors.email,
+    errors.phone,
+    errors.address,
+    errors.city,
+    errors.state,
+    errors.postal,
+  ]);
+
+  const minDate = new Date();
+  minDate.setDate(minDate.getDate() + 2);
+  minDate.setHours(8, 0);
+
+  useEffect(() => {
+    setDateValue(minDate);
+  }, []);
 
   return (
     <>
@@ -86,6 +143,9 @@ const EnterInfo = ({ submitForm }, props) => {
             id="panel1a-header"
           >
             Contact Info
+            {contactInfoError && (
+              <ErrorOutlineIcon sx={{ marginLeft: 2, marginTop: -0.25 }} />
+            )}
           </AccordionSummary>
           <AccordionDetails>
             <Grid container spacing={3}>
@@ -96,11 +156,14 @@ const EnterInfo = ({ submitForm }, props) => {
                   variant="filled"
                   label="First Name"
                   name="firstname"
-                  required
                   value={values.firstname}
                   onChange={handleChange}
                 />
-                {errors.firstname && <p>{errors.firstname}</p>}
+                {errors.firstname && (
+                  <Typography color="error" variant="subtitle2">
+                    {errors.firstname}
+                  </Typography>
+                )}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -109,11 +172,14 @@ const EnterInfo = ({ submitForm }, props) => {
                   variant="filled"
                   label="Last Name"
                   name="lastname"
-                  // required
                   value={values.lastname}
                   onChange={handleChange}
                 />
-                {errors.lastname && <p>{errors.lastname}</p>}
+                {errors.lastname && (
+                  <Typography color="error" variant="subtitle2">
+                    {errors.lastname}
+                  </Typography>
+                )}
               </Grid>
             </Grid>
           </AccordionDetails>
@@ -127,11 +193,14 @@ const EnterInfo = ({ submitForm }, props) => {
                   label="Email"
                   type="email"
                   name="email"
-                  // required
                   value={values.email}
                   onChange={handleChange}
                 />
-                {errors.email && <p>{errors.email}</p>}
+                {errors.email && (
+                  <Typography color="error" variant="subtitle2">
+                    {errors.email}
+                  </Typography>
+                )}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -140,25 +209,48 @@ const EnterInfo = ({ submitForm }, props) => {
                   variant="filled"
                   label="Phone"
                   name="phone"
-                  // required
                   InputProps={{
                     inputComponent: NumberFormatCustom,
                   }}
                   value={values.phone}
                   onChange={handleChange}
                 />
-                {errors.phone && <p>{errors.phone}</p>}
+                {errors.phone && (
+                  <Typography color="error" variant="subtitle2">
+                    {errors.phone}
+                  </Typography>
+                )}
               </Grid>
             </Grid>
           </AccordionDetails>
         </Accordion>
 
+        <Grid container justify="center">
+          <Grid item sm={4}>
+            <Box mt={2}>
+              <Typography variant="body2">Please Select:</Typography>
+            </Box>
+            <Box ml={3} mt={1}>
+              {!pickup ? (
+                <DirectionsCarFilledOutlinedIcon fontSize="large" />
+              ) : (
+                <StorefrontOutlinedIcon fontSize="large" />
+              )}
+            </Box>
+          </Grid>
+
+          <Grid item sm={8}>
+            <Box mt={2}>
+              <CustomizedSwitch checked={pickup} onChange={handleSwitch} />
+            </Box>
+          </Grid>
+        </Grid>
+
         {!pickup && (
           <>
-            <h3>Deliver to:</h3>
+            <h3>Deliver to: </h3>
             <Accordion
               className={classes.accordionRoot}
-              // expanded={true}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -166,6 +258,9 @@ const EnterInfo = ({ submitForm }, props) => {
                 id="panel1a-header"
               >
                 Shipping Address
+                {shippingInfoError && (
+                  <ErrorOutlineIcon sx={{ marginLeft: 2, marginTop: -0.25 }} />
+                )}
               </AccordionSummary>
               <AccordionDetails>
                 <Grid container spacing={3}>
@@ -176,11 +271,14 @@ const EnterInfo = ({ submitForm }, props) => {
                       variant="filled"
                       label="Address"
                       name="address"
-                      // required
                       value={values.address}
                       onChange={handleChange}
                     />
-                    {errors.address && <p>{errors.address}</p>}
+                    {errors.address && (
+                      <Typography color="error" variant="subtitle2">
+                        {errors.address}
+                      </Typography>
+                    )}
                   </Grid>
                   <Grid item xs={12} sm={5}>
                     <TextField
@@ -204,11 +302,14 @@ const EnterInfo = ({ submitForm }, props) => {
                       variant="filled"
                       label="City"
                       name="city"
-                      // required
                       value={values.city}
                       onChange={handleChange}
                     />
-                    {errors.city && <p>{errors.city}</p>}
+                    {errors.city && (
+                      <Typography color="error" variant="subtitle2">
+                        {errors.city}
+                      </Typography>
+                    )}
                   </Grid>
                   <Grid item xs={12} sm={3}>
                     <TextField
@@ -217,11 +318,14 @@ const EnterInfo = ({ submitForm }, props) => {
                       variant="filled"
                       label="State"
                       name="state"
-                      // required
                       value={values.state}
                       onChange={handleChange}
                     />
-                    {errors.state && <p>{errors.state}</p>}
+                    {errors.state && (
+                      <Typography color="error" variant="subtitle2">
+                        {errors.state}
+                      </Typography>
+                    )}
                   </Grid>
                   <Grid item xs={12} sm={4}>
                     <TextField
@@ -230,18 +334,20 @@ const EnterInfo = ({ submitForm }, props) => {
                       variant="filled"
                       label="Postal Code"
                       name="postal"
-                      // required
                       value={values.postal}
                       onChange={handleChange}
                     />
-                    {errors.postal && <p>{errors.postal}</p>}
+                    {errors.postal && (
+                      <Typography color="error" variant="subtitle2">
+                        {errors.postal}
+                      </Typography>
+                    )}
                   </Grid>
                 </Grid>
               </AccordionDetails>
             </Accordion>
           </>
         )}
-
         {pickup && (
           <Grid container justify="center">
             <Box>
@@ -254,23 +360,56 @@ const EnterInfo = ({ submitForm }, props) => {
           </Grid>
         )}
 
+        <Box mt={2}>
+          <FormControl component="fieldset">
+            {asapOrScheduled == "Scheduled" && (
+              <FormLabel component="legend">Select Delivery Date:</FormLabel>
+            )}
+            <RadioGroup
+              row
+              aria-label="schedule"
+              name="row-radio-buttons-group"
+              value={asapOrScheduled}
+              onChange={handleRadio}
+            >
+              <FormControlLabel value="ASAP" control={<Radio />} label="ASAP" />
+              <FormControlLabel
+                value="Scheduled"
+                control={<Radio />}
+                label="Scheduled"
+              />
+              <Box ml={2} mt={2}>
+                <BasicDatePicker
+                  // val={handleDateTime}
+                  handleval={handleDateVal}
+                  value={dateValue}
+                  minDate={minDate}
+                  read={asapOrScheduled == "ASAP"}
+                />
+                {/* <BasicDateTimePicker
+                  val={handleDateTime}
+                  read={asapOrScheduled == "ASAP"}
+                /> */}
+              </Box>
+            </RadioGroup>
+          </FormControl>
+        </Box>
+
+        {/* if ASAP, we'll contact you for delivery updates */}
+        {/* pickup times between 8:00 am to 5:00 pm */}
+
         <Grid container>
-          <Box mt={5}>
-            <BasicDateTimePicker />
+          <Box mt={5} mb={5}>
+            <Typography variant="body2">
+              *For events and catering, please select intended delivery date.
+              <br></br>
+              <br></br>
+              *Please allow at least 1 to 2 days from time of order for earliest
+              availability. Delivery and pickup times may vary depending on
+              product.
+            </Typography>
           </Box>
         </Grid>
-
-        <Grid container>
-          <h5>
-            Pickup
-            <Switch
-              checked={pickup}
-              onChange={handleSwitch}
-              inputProps={{ "aria-label": "controlled" }}
-            />
-          </h5>
-        </Grid>
-
         <Accordion className={classes.accordionRoot}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}

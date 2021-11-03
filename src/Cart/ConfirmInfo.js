@@ -19,7 +19,17 @@ const ConfirmInfo = (props) => {
   const userContext = useContext(UserInfoContext);
   const cartCtx = useContext(CartContext);
 
+  // console.log(userContext.info);
+
   const timestamp = Date.now();
+  const timeordered =  new Intl.DateTimeFormat("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      }).format(timestamp)
 
   const {
     firstname,
@@ -30,13 +40,21 @@ const ConfirmInfo = (props) => {
     city,
     state,
     postal,
+    datetime
   } = userContext.info;
 
-  console.log(userContext.info);
+  const pickupordeliverytime = new Intl.DateTimeFormat("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      }).format(datetime)
 
   const [dataObject, setDataObject] = useState({
     ordernumber: "",
-    dateposted: timestamp,
+    dateposted: timeordered,
     customer: {
       firstname: firstname,
       lastname: lastname,
@@ -47,7 +65,8 @@ const ConfirmInfo = (props) => {
       state: state,
       postal: postal
     },
-    orderitems: cartCtx.items
+    orderitems: cartCtx.items,
+    pickupordelivery: pickupordeliverytime
   })
 
   const {} = cartCtx.items;
