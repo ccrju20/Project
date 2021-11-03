@@ -2,10 +2,17 @@ import { useState, useEffect, useContext } from "react";
 import CartContext from "../store/cart-context";
 import UserInfoContext from "../store/userinfo-context";
 
-const useForm = (submitForm, validate) => {
+const useForm = (submitForm, validate, value) => {
   const cartCtx = useContext(CartContext);
   const userCtx = useContext(UserInfoContext);
   const [pickup, setPickup] = useState(false);
+  // const [datetime, setDatetime] = useState(new Date());
+
+  // useEffect(() => {
+  //   const minDate = new Date();
+  //   minDate.setDate(minDate.getDate() + 2);
+  //   setDatetime(minDate);
+  // }, []);
 
   const [values, setValues] = useState({
     firstname: "",
@@ -23,7 +30,7 @@ const useForm = (submitForm, validate) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    setValues({ ...values, [e.target.name]: e.target.value});
   };
 
   const handleSubmit = (e) => {
@@ -38,28 +45,44 @@ const useForm = (submitForm, validate) => {
     setPickup(boolean);
   };
 
+  const handleDateTime = (val) => {
+    console.log(val);
+
+    setValues({ ...values, datetime: val });
+  };
+
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
       submitForm();
-      // cartCtx.items.forEach((item) => {
-      //   cartCtx.deleteItem(item.id);
-      // });
-      // post to orders table api backend
-      if (pickup) {
-        const valuesPickupOption = (({
-          firstname,
-          lastname,
-          email,
-          phone,
-        }) => ({ firstname, lastname, email, phone }))(values);
-        userCtx.saveInfo(valuesPickupOption);
-      } else {
-        userCtx.saveInfo(values);
-      }
-    }
-  }, [errors, isSubmitting, submitForm]);
 
-  return { handleChange, values, handleSubmit, errors, handlePickup };
+      userCtx.saveInfo(values);
+      console.log(values);
+
+      // if (pickup) {
+      //   const valuesPickupOption = (({
+      //     firstname,
+      //     lastname,
+      //     email,
+      //     phone,
+      //     datetime,
+      //   }) => ({ firstname, lastname, email, phone, datetime }))(values);
+      //   userCtx.saveInfo(valuesPickupOption);
+      //   console.log(valuesPickupOption);
+      // } else {
+      //   userCtx.saveInfo(values);
+      //   console.log(values);
+      // }
+    }
+  }, [errors, isSubmitting, submitForm, values]);
+
+  return {
+    handleChange,
+    values,
+    handleSubmit,
+    errors,
+    handlePickup,
+    handleDateTime,
+  };
 };
 
 export default useForm;
