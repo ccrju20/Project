@@ -6,6 +6,7 @@ const useForm = (submitForm, validate, value) => {
   const cartCtx = useContext(CartContext);
   const userCtx = useContext(UserInfoContext);
   const [pickup, setPickup] = useState(false);
+  const [asapOrScheduled, setAsapOrScheduled] = useState("ASAP");
   // const [datetime, setDatetime] = useState(new Date());
 
   // useEffect(() => {
@@ -24,13 +25,14 @@ const useForm = (submitForm, validate, value) => {
     city: "",
     state: "",
     postal: "",
+    datetime: "ASAP"
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value});
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
@@ -45,9 +47,16 @@ const useForm = (submitForm, validate, value) => {
     setPickup(boolean);
   };
 
+  const handleAsap = (val, date) => {
+    if (val === "ASAP") {
+          setValues({...values, datetime: "ASAP"})
+    } else {
+      handleDateTime(date)
+    }
+  }
+
   const handleDateTime = (val) => {
     console.log(val);
-
     setValues({ ...values, datetime: val });
   };
 
@@ -82,6 +91,7 @@ const useForm = (submitForm, validate, value) => {
     errors,
     handlePickup,
     handleDateTime,
+    handleAsap
   };
 };
 
