@@ -76,6 +76,7 @@ const EnterInfo = ({ submitForm }, props) => {
     errors,
     handlePickup,
     handleDateTime,
+    handleAsap
   } = useForm(submitForm, validate);
 
   const [pickup, setPickup] = useState(false);
@@ -96,8 +97,9 @@ const EnterInfo = ({ submitForm }, props) => {
 
   const handleRadio = (event) => {
     setAsapOrScheduled(event.target.value);
+    handleAsap(event.target.value, dateValue);
   };
-  console.log(asapOrScheduled);
+  // console.log(asapOrScheduled);
 
   const classes = useStyles();
 
@@ -249,9 +251,7 @@ const EnterInfo = ({ submitForm }, props) => {
         {!pickup && (
           <>
             <h3>Deliver to: </h3>
-            <Accordion
-              className={classes.accordionRoot}
-            >
+            <Accordion className={classes.accordionRoot}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"

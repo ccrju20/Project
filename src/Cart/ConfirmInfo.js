@@ -43,7 +43,10 @@ const ConfirmInfo = (props) => {
     datetime
   } = userContext.info;
 
-  const pickupordeliverytime = new Intl.DateTimeFormat("en-US", {
+  let pickupordeliverytime = "";
+
+  if (datetime !== "ASAP") {
+      pickupordeliverytime = new Intl.DateTimeFormat("en-US", {
         year: "numeric",
         month: "2-digit",
         day: "2-digit",
@@ -51,6 +54,9 @@ const ConfirmInfo = (props) => {
         minute: "2-digit",
         second: "2-digit",
       }).format(datetime)
+  } else {
+    pickupordeliverytime = "ASAP";
+  }
 
   const [dataObject, setDataObject] = useState({
     ordernumber: "",
