@@ -15,7 +15,7 @@ import com.java.springboot.cruddemo.service.OrderItemService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api/orders")
 public class OrderItemRestController {
 
 	private OrderItemService orderItemService;

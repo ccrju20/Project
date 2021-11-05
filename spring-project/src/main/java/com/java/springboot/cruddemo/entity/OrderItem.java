@@ -27,11 +27,7 @@ public class OrderItem {
 	@OneToOne
 	@JoinColumn(name="productid")
 	private Product product;
-	
-	// other foreign key should be order id primary key
-	
-	// notes: Order entity contains a list of order items with a one to many mapping?
-	
+			
 	public OrderItem() {
 		
 	}
