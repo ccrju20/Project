@@ -56,7 +56,9 @@ public class OrderRestController {
 		// this is to force a save of new item ... instead of update
 
 		theOrder.setId(0);
-
+		theOrder.setDateposted();
+		theOrder.setOrdernumber();
+		
 		OrderService.save(theOrder);
 
 		return theOrder;

@@ -1,7 +1,11 @@
 package com.java.springboot.cruddemo.entity;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,10 +27,13 @@ public class Order {
 	@Column(name="id")
 	private int id;
 	
+	@Column(name="ordernumber")
 	private String ordernumber;
 	
+	@Column(name="dateposted")
 	private String dateposted;
 	
+	@Column(name="scheduled")
 	private String scheduled;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
@@ -55,18 +62,39 @@ public class Order {
 	public String getOrdernumber() {
 		return ordernumber;
 	}
+	
+	public void setOrdernumber() {
+		String alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String numeric = "0123456789";
+		
+        Random random = new Random();
+        StringBuilder builder = new StringBuilder(8);
+        builder.append(alpha.charAt(random.nextInt(alpha.length())));
 
-	public void setOrdernumber(String ordernumber) {
-		this.ordernumber = ordernumber;
+        for (int i = 0; i < 7; i++) {
+            builder.append(numeric.charAt(random.nextInt(numeric.length())));
+            }
+        this.ordernumber = builder.toString();
 	}
+
+//	public void setOrdernumber(String ordernumber) {
+//		this.ordernumber = ordernumber;
+//	}
 
 	public String getDateposted() {
 		return dateposted;
 	}
-
-	public void setDateposted(String dateposted) {
-		this.dateposted = dateposted;
+	
+	public void setDateposted() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("America/New_York"));
+        String str = now.format(formatter);
+        this.dateposted = str;
 	}
+
+//	public void setDateposted(String dateposted) {
+//		this.dateposted = dateposted;
+//	}
 
 	public List<OrderItem> getOrderItems() {
 		return orderItems;
