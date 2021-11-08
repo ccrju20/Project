@@ -8,6 +8,10 @@ public interface OrderItemService {
 	
 	public List<OrderItem> findAll();
 	
+	public OrderItem findById(int theId);
+	
 	public void save(OrderItem theOrderItem);
+	
+	public void deleteById(int theId);
 
 }
