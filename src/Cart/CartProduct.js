@@ -3,42 +3,25 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
-import AddIcon from "@material-ui/icons/Add";
-import RemoveIcon from "@material-ui/icons/Remove";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import Avatar from "@mui/material/Avatar";
+import Hidden from "@material-ui/core/Hidden";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
   },
-  title: {
-    fontSize: 18,
-  },
-  pos: {
-    marginBottom: 0,
-  },
   content: {
-    height: "30%",
+    marginLeft: 45,
   },
-  media: {
-    height: "120%",
-    width: "80%",
-    paddingTop: "10%",
-    paddingBottom: "7%",
-  },
-  icon: {
-    fontSize: "3em",
-  },
-  description: {
-    marginTop: 10,
-  },
-  productname: {
-  }
 });
 
 const CartProduct = (props) => {
@@ -48,50 +31,117 @@ const CartProduct = (props) => {
   const updatedPrice = `$${(price * amount).toFixed(2)}`;
 
   return (
-    <Card className={classes.root}>
-      <Grid container>
-        <Grid item xs={4} sm={3}>
-          <CardContent className={classes.content}>
-            <CardMedia className={classes.media} image={image} />
-          </CardContent>
-        </Grid>
-        <Grid item xs={8} sm={9} className={classes.description}>
-          <Grid container alignItems="center">
-            <Grid item xs={12} sm={3} className={classes.productname}>
-              <Typography variant="h5" component="h2" className={classes.title}>
-                {name} x {amount}{" "}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={9}>
-              <Grid container>
+    <Grid container>
+      <Grid item xs={false} sm={3} />
+
+      <Grid item xs={12} sm={6}>
+        <Card>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar
+                alt="bakeshop"
+                src={image}
+                variant="square"
+                sx={{ width: 85, height: 80, marginRight: 2 }}
+              />
+            </ListItemAvatar>
+            <ListItemText primary={name} secondary={updatedPrice} />
+            <Hidden smDown={true}>
+              <Grid container justify="center" alignItems="center">
                 <Grid item>
-                  <IconButton onClick={props.onDelete}>
-                    <DeleteIcon />
+                  <IconButton onClick={props.onAdd}>
+                    <AddCircleOutlineOutlinedIcon />
                   </IconButton>
                 </Grid>
                 <Grid item>
-                  <IconButton onClick={props.onAdd}>
-                    <AddIcon />
-                  </IconButton>
+                  <ListItemText sx={{ margin: 1 }} primary={amount} />
                 </Grid>
                 <Grid item>
                   <IconButton onClick={props.onRemove}>
-                    <RemoveIcon />
+                    <RemoveCircleOutlineIcon />
                   </IconButton>
                 </Grid>
               </Grid>
-            </Grid>
-          </Grid>
-          <Typography
-            component={"span"}
-            className={classes.pos}
-            color="textSecondary"
-          >
-            <p>Total: {updatedPrice}</p>
-          </Typography>
-        </Grid>
+            </Hidden>
+
+            <Hidden mdUp={true}>
+              <Grid
+                container
+                direction="column"
+                alignItems="center"
+                className={classes.content}
+              >
+                <Grid item>
+                  <IconButton onClick={props.onAdd}>
+                    <ArrowDropUpIcon />
+                  </IconButton>
+                </Grid>
+                <Grid item> {amount}</Grid>
+
+                <Grid item>
+                  <IconButton onClick={props.onRemove}>
+                    <ArrowDropDownIcon />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            </Hidden>
+
+            <IconButton onClick={props.onDelete}>
+              <DeleteIcon />
+            </IconButton>
+          </ListItem>
+        </Card>
       </Grid>
-    </Card>
+      <Grid item xs={false} sm={3} />
+    </Grid>
+
+    // <Card className={classes.root}>
+    //   <Grid container>
+    //     <Grid item xs={4} sm={2}>
+    //       <Avatar
+    //         alt="product image"
+    //         src={image}
+    //         sx={{ width: 90, height: 80, marginTop: 1.5}}
+    //       />
+    //     </Grid>
+    //     <Grid item xs={8} sm={9} className={classes.description}>
+    //       <Grid container alignItems="center">
+    //         <Grid item xs={12} sm={2} className={classes.productname}>
+    //           <Typography variant="h5" component="h2" className={classes.title}>
+    //             {name}
+    //           </Typography>
+    //           <Typography
+    //           color="textSecondary"
+    //         >
+    //           {updatedPrice}
+    //         </Typography>
+    //         </Grid>
+    //         <Grid item xs={12} sm={10}>
+    //           <Grid container>
+    //             <Grid item>
+    //               <IconButton onClick={props.onAdd}>
+    //                 <AddIcon fontSize="small" />
+    //               </IconButton>
+    //             </Grid>
+    //             <Box>
+    //               <Typography variant="body1"> {amount}</Typography>
+    //             </Box>
+    //             <Grid item>
+    //               <IconButton onClick={props.onRemove}>
+    //                 <RemoveIcon fontSize="small" />
+    //               </IconButton>
+    //             </Grid>
+    //             <Box ml={2}>
+    //               <IconButton onClick={props.onDelete}>
+    //                 <DeleteIcon />
+    //               </IconButton>
+    //             </Box>
+    //           </Grid>
+    //         </Grid>
+    //       </Grid>
+    //     </Grid>
+    //   </Grid>
+    // </Card>
   );
 };
 

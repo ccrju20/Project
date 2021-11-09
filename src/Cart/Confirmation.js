@@ -1,11 +1,17 @@
 import { React, useContext } from "react";
-import { Grid } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 
-const Confirmation = () => {
+const Confirmation = (props) => {
   return (
-    <Grid container justify="center">
-      <h2>Thank you for your purchase!</h2>
-    </Grid>
+    <Box mt={2}>
+      <Typography align="center" variant="h5">
+        Thank you for your purchase!
+      </Typography>
+      <br></br>
+      <Typography align="center" variant="body1">
+        Your order number is #{props.ordernumber}
+      </Typography>
+    </Box>
   );
 };
 
