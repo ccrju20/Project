@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.java.springboot.cruddemo.entity.Customer;
 import com.java.springboot.cruddemo.entity.Order;
+import com.java.springboot.cruddemo.service.CustomerService;
 import com.java.springboot.cruddemo.service.OrderService;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -22,11 +24,13 @@ import com.java.springboot.cruddemo.service.OrderService;
 public class OrderRestController {
 
 	private OrderService OrderService;
+	private CustomerService CustomerService;
 
 	// inject Order service
 	@Autowired
-	public OrderRestController(OrderService theOrderService) {
+	public OrderRestController(OrderService theOrderService, CustomerService theCustomerService) {
 		OrderService = theOrderService;
+		CustomerService = theCustomerService;
 	}
 
 	// exposer "/Orders" and return list of Orders
@@ -51,16 +55,22 @@ public class OrderRestController {
 	// add mapping for POST /Orders - add new Order
 	@PostMapping("/orders")
 	public Order addOrder(@RequestBody Order theOrder) {
-
+					
+		String theEmail = theOrder.getCustomer().getEmail();
+				
+		
+		if (CustomerService.checkEmailExists(theEmail)) {
+			theOrder.setCustomer(CustomerService.findByEmail(theEmail));
+		}
+			
 		// also just in case they pass an id in JSON ... set id to 0
 		// this is to force a save of new item ... instead of update
-
 		theOrder.setId(0);
 		theOrder.setDateposted();
 		theOrder.setOrdernumber();
-		
+	
 		OrderService.save(theOrder);
-
+		
 		return theOrder;
 	}
 

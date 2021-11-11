@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +30,19 @@ public class OrderItemRestController {
 	@GetMapping("/orderitems")
 	public List<OrderItem> findAll() {
 		return orderItemService.findAll();
+	}
+	
+	// add mapping for GET /orders/orderitems/{orderItemId}
+	@GetMapping("/orderitems/{orderItemId}")
+	public OrderItem getOrderItem(@PathVariable int orderItemId) {
+
+		OrderItem theOrderItem = orderItemService.findById(orderItemId);
+
+		if (theOrderItem == null) {
+			throw new RuntimeException("OrderItem id not found - " + orderItemId);
+		}
+
+		return theOrderItem;
 	}
 
 
@@ -57,6 +72,22 @@ public class OrderItemRestController {
 //
 //		return true;
 //	}
+	
+	// add mapping for DELETE /orders/{orderItemId} - delete OrderItem
+	@DeleteMapping("/orderitems/{orderItemId}")
+	public String deleteOrderItem(@PathVariable int orderItemId) {
+
+		OrderItem tempOrderItem = orderItemService.findById(orderItemId);
+
+		// throw exception if null
+		if (tempOrderItem == null) {
+			throw new RuntimeException("OrderItem id not found - " + orderItemId);
+		}
+
+		orderItemService.deleteById(orderItemId);
+
+		return "Deleted OrderItem id - " + orderItemId;
+	}
 
 
 }
