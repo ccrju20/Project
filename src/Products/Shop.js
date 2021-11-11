@@ -3,7 +3,6 @@ import Content from "./Content";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
-import Divider from "@mui/material/Divider";
 
 const useStyles = makeStyles({
   root: {
@@ -21,6 +20,7 @@ const useStyles = makeStyles({
   filter: {
     marginLeft: 20,
     marginTop: 100,
+    // position: 'fixed'
   },
 });
 

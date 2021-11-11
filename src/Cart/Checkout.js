@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 const Checkout = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isConfirmed, setConfirmedInfo] = useState(false);
+  const [orderNumber, setOrderNumber] = useState('')
   const classes = useStyles();
 
   const submitForm = useCallback(() => {
@@ -55,6 +56,10 @@ const Checkout = () => {
     // console.log(isConfirmed);
   };
 
+  const handleOrderNumber = (ordernumber) => {
+    setOrderNumber(ordernumber);
+  }
+
   return (
     <UserInfoProvider>
       <Grid container>
@@ -63,9 +68,9 @@ const Checkout = () => {
           {isSubmitted ? (
             <Grid container justify="center">
               {isConfirmed ? (
-                <Confirmation />
+                <Confirmation ordernumber={orderNumber}/>
               ) : (
-                <ConfirmInfo confirmation={confirmInfo} />
+                <ConfirmInfo confirmation={confirmInfo} ordernumber={handleOrderNumber} />
               )}
             </Grid>
           ) : (

@@ -24,22 +24,13 @@ const ConfirmInfo = (props) => {
 
   // console.log(userContext.info);
 
-  const timestamp = Date.now();
-  const timeordered = new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  }).format(timestamp);
-
   const {
     firstname,
     lastname,
     email,
     phone,
     address,
+    addresstwo,
     city,
     state,
     postal,
@@ -62,8 +53,6 @@ const ConfirmInfo = (props) => {
   }
 
   const [dataObject, setDataObject] = useState({
-    ordernumber: "",
-    dateposted: timeordered,
     customer: {
       firstname: firstname,
       lastname: lastname,
@@ -91,11 +80,24 @@ const ConfirmInfo = (props) => {
 
   console.log(cartItems);
 
+  let customer = {
+    firstname: firstname,
+    lastname: lastname,
+    email: email,
+    phone: phone,
+    address: address,
+    addresstwo: addresstwo,
+    city: city,
+    state: state,
+    postal: postal
+  };
+
+  console.log(customer);
+
   const [testDataObject, setTestDataObject] = useState({
-    ordernumber: "Z9823",
-    dateposted: timeordered,
     orderItems: cartItems,
     scheduled: pickupordeliverytime,
+    customer: customer
   });
 
   const {} = cartCtx.items;
@@ -111,7 +113,10 @@ const ConfirmInfo = (props) => {
 
     axios
       .post(ORDERS_REST_API_URL, testDataObject)
-      .then((response) => console.log(response));
+      .then((response) => {
+        console.log(response.data.ordernumber);
+        props.ordernumber(response.data.ordernumber);
+      });
 
     cartCtx.items.forEach((item) => {
       cartCtx.deleteItem(item.id);
