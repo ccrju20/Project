@@ -1,4 +1,4 @@
-import { React, useContext, useState, useCallback } from "react";
+import { React, useState, useCallback } from "react";
 
 import { Grid } from "@material-ui/core";
 import EnterInfo from "./EnterInfo";
@@ -8,8 +8,6 @@ import UserInfoProvider from "../store/UserInfoProvider";
 import ConfirmInfo from "./ConfirmInfo";
 import { makeStyles } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
-import Button from "@material-ui/core/Button";
-
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,7 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Link as RouterLink } from "react-router-dom";
-
-import Link from "@material-ui/core/Link";
+import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -46,7 +43,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const ProductCard = (props) => {
   const classes = useStyles();
-  const { id, title, subtitle, description, imgSrc, loading } = props;
+  const { id, title, subtitle, description, imgSrc } = props;
   const cartCtx = useContext(CartContext);
   const [open, setOpen] = useState(false);
 

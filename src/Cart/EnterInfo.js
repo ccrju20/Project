@@ -154,7 +154,7 @@ const EnterInfo = ({ submitForm }, props) => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  id="standard-basic"
+                  id="firstname"
                   variant="filled"
                   label="First Name"
                   name="firstname"
@@ -170,7 +170,7 @@ const EnterInfo = ({ submitForm }, props) => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  id="standard-basic"
+                  id="lastname"
                   variant="filled"
                   label="Last Name"
                   name="lastname"
@@ -190,7 +190,7 @@ const EnterInfo = ({ submitForm }, props) => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  id="standard-basic"
+                  id="email"
                   variant="filled"
                   label="Email"
                   type="email"
@@ -207,7 +207,7 @@ const EnterInfo = ({ submitForm }, props) => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  id="formatted-numberformat-input"
+                  id="phone"
                   variant="filled"
                   label="Phone"
                   name="phone"
@@ -267,7 +267,7 @@ const EnterInfo = ({ submitForm }, props) => {
                   <Grid item xs={12} sm={7}>
                     <TextField
                       fullWidth
-                      id="standard-basic"
+                      id="address"
                       variant="filled"
                       label="Address"
                       name="address"
@@ -283,7 +283,7 @@ const EnterInfo = ({ submitForm }, props) => {
                   <Grid item xs={12} sm={5}>
                     <TextField
                       fullWidth
-                      id="standard-basic"
+                      id="addresstwo"
                       variant="filled"
                       label="Address 2"
                       name="addresstwo"
@@ -298,7 +298,7 @@ const EnterInfo = ({ submitForm }, props) => {
                   <Grid item xs={12} sm={5}>
                     <TextField
                       fullWidth
-                      id="standard-basic"
+                      id="city"
                       variant="filled"
                       label="City"
                       name="city"
@@ -314,7 +314,7 @@ const EnterInfo = ({ submitForm }, props) => {
                   <Grid item xs={12} sm={3}>
                     <TextField
                       fullWidth
-                      id="standard-basic"
+                      id="state"
                       variant="filled"
                       label="State"
                       name="state"
@@ -330,7 +330,7 @@ const EnterInfo = ({ submitForm }, props) => {
                   <Grid item xs={12} sm={4}>
                     <TextField
                       fullWidth
-                      id="standard-basic"
+                      id="postal"
                       variant="filled"
                       label="Postal Code"
                       name="postal"
@@ -362,7 +362,7 @@ const EnterInfo = ({ submitForm }, props) => {
 
         <Box mt={2}>
           <FormControl component="fieldset">
-            {asapOrScheduled == "Scheduled" && (
+            {asapOrScheduled === "Scheduled" && (
               <FormLabel component="legend">Select Delivery Date:</FormLabel>
             )}
             <RadioGroup
@@ -384,7 +384,7 @@ const EnterInfo = ({ submitForm }, props) => {
                   handleval={handleDateVal}
                   value={dateValue}
                   minDate={minDate}
-                  read={asapOrScheduled == "ASAP"}
+                  read={asapOrScheduled === "ASAP"}
                 />
                 {/* <BasicDateTimePicker
                   val={handleDateTime}
