@@ -6,7 +6,6 @@ import { AppBar, Toolbar, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Header from "./Main/Header";
-import Content from "./Products/Content";
 import AboutSection from "./Main/AboutSection";
 import Cart from "./Cart/Cart";
 import Hidden from "@material-ui/core/Hidden";
@@ -63,7 +62,6 @@ function App() {
     >
       <CartProvider>
         <Router>
-          {/* <Grid container direction="column"> */}
           <Grid container>
             <Grid item xs={1} sm={1} />
             <Grid item xs={10} sm={10}>

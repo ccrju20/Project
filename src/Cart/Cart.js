@@ -67,7 +67,7 @@ const Cart = (props) => {
           ))}
         </Grid>
         <div className={classes.cartdivider}></div>
-        <Divider variant="middle" />{" "}
+        <Divider variant="middle" />
         <Box mt={2} mb={2}>
           <Typography align="center" variant="body2">
             Subtotal: {totalAmount}

@@ -85,7 +85,6 @@ const Header = (props) => {
 
   return (
     <AppBar className={classes.root} position="static">
-      {/* <Grid container> */}
       <Toolbar>
         <Link component={RouterLink} to="/">
           <img src={logo} alt="logo" className={classes.logo} />
@@ -167,7 +166,7 @@ const Header = (props) => {
           onClose={handleClose}
         >
           <Link component={RouterLink} to="/account" color="inherit">
-            <MenuItem onClick={handleClose}>My account</MenuItem>
+            <MenuItem onClick={handleClose}>Account</MenuItem>
           </Link>
           <Hidden smUp={true}>
             <Link component={RouterLink} to="/cart" color="inherit">
@@ -189,7 +188,6 @@ const Header = (props) => {
           </Link>
         </IconButton>
       </Toolbar>
-      {/* </Grid> */}
     </AppBar>
   );
 };
