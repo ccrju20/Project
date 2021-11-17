@@ -1,0 +1,25 @@
+package com.java.springboot.cruddemo.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.java.springboot.cruddemo.models.MyUser;
+import com.java.springboot.cruddemo.models.MyUserRole;
+import com.java.springboot.cruddemo.models.RegistrationRequest;
+
+@Service
+public class RegistrationService {
+	
+	@Autowired
+	private MyUserDetailsService myUserDetailsService;
+	
+	public String register(RegistrationRequest request) {
+		return myUserDetailsService.signUpUser(
+				new MyUser(
+						request.getFirstname(),
+						request.getLastname(),
+						request.getEmail(),
+						request.getPassword(),
+						MyUserRole.USER));
+	}
+}
