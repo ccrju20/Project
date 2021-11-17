@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.java.springboot.cruddemo.entity.User;
+import com.java.springboot.cruddemo.models.MyUser;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
-	Optional<User> findByEmail(String email);
+public interface UserRepository extends JpaRepository<MyUser, Integer> {
+	Optional<MyUser> findByEmail(String email);
 }

@@ -1,4 +1,4 @@
-package com.java.springboot.cruddemo.security;
+package com.java.springboot.cruddemo.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -6,18 +6,21 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.java.springboot.cruddemo.models.AuthenticationRequest;
 import com.java.springboot.cruddemo.models.AuthenticationResponse;
+import com.java.springboot.cruddemo.models.RegistrationRequest;
 import com.java.springboot.cruddemo.service.MyUserDetailsService;
+import com.java.springboot.cruddemo.service.RegistrationService;
 import com.java.springboot.cruddemo.util.JwtUtil;
 
 @RestController
-public class Controller {
+@RequestMapping("/api/auth")
+public class AuthController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -26,9 +29,12 @@ public class Controller {
 	private MyUserDetailsService userDetailsService;
 	
 	@Autowired
+	private RegistrationService registrationService;
+	
+	@Autowired
 	private JwtUtil jwtTokenUtil;
 
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+	@PostMapping("/login")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 		try {
 			authenticationManager.authenticate(
@@ -46,4 +52,20 @@ public class Controller {
 		return ResponseEntity.ok(new AuthenticationResponse(jwt));
 	}
 	
+//	@PostMapping("/registration")
+//	public String register (@RequestBody RegistrationRequest request) {
+//		return registrationService.register(request);
+//	}
+	
+	@PostMapping("/registration")
+	public ResponseEntity<?> register(@RequestBody RegistrationRequest request) {
+		final String response = registrationService.register(request);
+		
+		if (response.startsWith("Error")) {
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		return ResponseEntity.ok(new AuthenticationResponse(response));
+	}
+
 }
