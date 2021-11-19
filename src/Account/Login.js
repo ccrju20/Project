@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Grid, Typography, Box } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
@@ -11,6 +11,10 @@ const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
   };
@@ -19,10 +23,36 @@ const Login = (props) => {
     setPassword(event.target.value);
   };
 
+  function validate() {
+    setEmailError("");
+    setPasswordError("");
+
+    if (!email) {
+      setEmailError("*Email required");
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError("*Email address is invalid");
+    }
+
+    if (!password.trim()) {
+      setPasswordError("*Password required");
+    } else if (password.length < 7) {
+      setPasswordError("*Password must contain at least 7 characters");
+    }
+  }
+
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(email, password);
+    validate();
+
+    setIsSubmitting(true);
   };
+
+  useEffect(() => {
+    if (!emailError && !passwordError && isSubmitting) {
+      console.log("success");
+      props.onLogin(email, password);
+    }
+  }, [emailError, passwordError]);
 
   return (
     <>
@@ -48,8 +78,13 @@ const Login = (props) => {
                 name="email"
                 value={email}
                 onChange={emailChangeHandler}
-                required
+                // required
               />
+              {emailError && (
+                <Typography color="error" variant="subtitle2">
+                  {emailError}
+                </Typography>
+              )}
             </Grid>
 
             <Grid item>
@@ -62,8 +97,13 @@ const Login = (props) => {
                 name="password"
                 value={password}
                 onChange={passwordChangeHandler}
-                required
+                // required
               />
+              {passwordError && (
+                <Typography color="error" variant="subtitle2">
+                  {passwordError}
+                </Typography>
+              )}
             </Grid>
 
             <Grid item>
