@@ -168,6 +168,9 @@ const Header = (props) => {
           <Link component={RouterLink} to="/account" color="inherit">
             <MenuItem onClick={handleClose}>Account</MenuItem>
           </Link>
+          <Link component={RouterLink} to="/signup" color="inherit">
+            <MenuItem onClick={handleClose}>Sign Up</MenuItem>
+          </Link>
           <Hidden smUp={true}>
             <Link component={RouterLink} to="/cart" color="inherit">
               <MenuItem onClick={handleClose}>About</MenuItem>

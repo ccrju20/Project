@@ -15,13 +15,15 @@ import AuthContext from "./store/auth-context";
 import CartProvider from "./store/CartProvider";
 import Checkout from "./Cart/Checkout";
 import Shop from "./Products/Shop";
+import Register from "./Account/Register";
+import RegisterSuccess from "./Account/RegisterSuccess";
 
 const useStyles = makeStyles({
   root: {
     boxShadow: "none",
     backgroundColor: "#9B89A4",
     color: "#837D7D",
-    borderRadius: "10px"
+    borderRadius: "10px",
   },
   myOwnStyle: {
     fontSize: "30px",
@@ -38,6 +40,7 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSignedUp, setIsSignedUp] = useState(false);
 
   useEffect(() => {
     const storedUserLogin = localStorage.getItem("isLoggedIn");
@@ -58,7 +61,11 @@ function App() {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, onLogout: logoutHandler }}
+      value={{
+        isLoggedIn: isLoggedIn,
+        onLogout: logoutHandler,
+        isSignedUp: isSignedUp,
+      }}
     >
       <CartProvider>
         <Router>
@@ -92,6 +99,12 @@ function App() {
             </Route>
             <Route path="/account">
               <Account loginStatus={loginHandler} logout={logoutHandler} />
+            </Route>
+            <Route path="/signup">
+              <Register signUpStatus={loginHandler} />
+            </Route>
+            <Route path="/success">
+              <RegisterSuccess />
             </Route>
             <Route path="/cart">
               <Cart />

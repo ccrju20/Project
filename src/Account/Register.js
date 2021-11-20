@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+import { useHistory } from "react-router-dom";
 import { Grid, Typography, Box } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@mui/material/Button";
@@ -7,13 +8,18 @@ import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
-const Login = (props) => {
+const Register = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordTwo, setPasswordTwo] = useState("");
+
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [passwordTwoError, setPasswordTwoError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const history = useHistory();
 
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
@@ -23,9 +29,14 @@ const Login = (props) => {
     setPassword(event.target.value);
   };
 
+  const passwordTwoChangeHandler = (event) => {
+    setPasswordTwo(event.target.value);
+  };
+
   function validate() {
     setEmailError("");
     setPasswordError("");
+    setPasswordTwoError("");
 
     if (!email) {
       setEmailError("*Email required");
@@ -33,26 +44,37 @@ const Login = (props) => {
       setEmailError("*Email address is invalid");
     }
 
+    if (password !== passwordTwo) {
+        setPasswordTwoError("*Passwords do not match");
+    }
+
     if (!password.trim()) {
       setPasswordError("*Password required");
     } else if (password.length < 7) {
       setPasswordError("*Password must contain at least 7 characters");
     }
+
+    if (!passwordTwo.trim()) {
+        setPasswordTwoError("*Re-Enter Password required");
+      } else if (passwordError) {
+        setPasswordTwoError("*Passwords do not match");
+      }
   }
 
   const submitHandler = (event) => {
     event.preventDefault();
     validate();
 
-    setIsSubmitting(true);
+    setIsSubmitting((true));
   };
 
   useEffect(() => {
-    if (!emailError && !passwordError && isSubmitting) {
+    if (!emailError && !passwordError && !passwordTwoError && isSubmitting) {
       console.log("success");
-      props.onLogin(email, password);
+      props.signUpStatus(email, password);
+      history.push('/success');
     }
-  }, [emailError, passwordError, isSubmitting]);
+  }, [emailError, passwordError, passwordTwoError, isSubmitting]);
 
   return (
     <Container maxWidth="xs">
@@ -62,7 +84,7 @@ const Login = (props) => {
             sx={{ marginRight: 2, marginBottom: -1 }}
             fontSize="large"
           />
-          Login
+          Sign Up
         </Typography>
       </Box>
       <form onSubmit={submitHandler}>
@@ -77,7 +99,6 @@ const Login = (props) => {
               name="email"
               value={email}
               onChange={emailChangeHandler}
-              // required
             />
             {emailError && (
               <Typography color="error" variant="subtitle2">
@@ -96,11 +117,28 @@ const Login = (props) => {
               name="password"
               value={password}
               onChange={passwordChangeHandler}
-              // required
             />
             {passwordError && (
               <Typography color="error" variant="subtitle2">
                 {passwordError}
+              </Typography>
+            )}
+          </Grid>
+
+          <Grid item>
+            <TextField
+              fullWidth
+              id="passwordtwo"
+              type="password"
+              variant="outlined"
+              label="Confirm Password"
+              name="passwordtwo"
+              value={passwordTwo}
+              onChange={passwordTwoChangeHandler}
+            />
+            {passwordTwoError && (
+              <Typography color="error" variant="subtitle2">
+                {passwordTwoError}
               </Typography>
             )}
           </Grid>
@@ -120,16 +158,10 @@ const Login = (props) => {
               Submit
             </Button>
           </Grid>
-
-          <Grid item>
-            <Link href="#" variant="body2">
-              Don't have an account? Sign up
-            </Link>
-          </Grid>
         </Grid>
       </form>
     </Container>
   );
 };
 
-export default Login;
+export default Register;
