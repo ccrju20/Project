@@ -11,17 +11,19 @@ import Cart from "./Cart/Cart";
 import Hidden from "@material-ui/core/Hidden";
 import Account from "./Account/Account";
 import Section from "./Main/Section";
-import AuthContext from "./store/auth-context";
+import AuthProvider from "./store/AuthProvider";
 import CartProvider from "./store/CartProvider";
 import Checkout from "./Cart/Checkout";
 import Shop from "./Products/Shop";
+import Register from "./Account/Register";
+import RegisterSuccess from "./Account/RegisterSuccess";
 
 const useStyles = makeStyles({
   root: {
     boxShadow: "none",
     backgroundColor: "#9B89A4",
     color: "#837D7D",
-    borderRadius: "10px"
+    borderRadius: "10px",
   },
   myOwnStyle: {
     fontSize: "30px",
@@ -37,29 +39,9 @@ const useStyles = makeStyles({
 
 function App() {
   const classes = useStyles();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const storedUserLogin = localStorage.getItem("isLoggedIn");
-    if (storedUserLogin === "1") {
-      setIsLoggedIn(true);
-    }
-  }, []);
-
-  const loginHandler = (email, password) => {
-    localStorage.setItem("isLoggedIn", "1");
-    setIsLoggedIn(true);
-  };
-
-  const logoutHandler = () => {
-    localStorage.removeItem("isLoggedIn");
-    setIsLoggedIn(false);
-  };
 
   return (
-    <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, onLogout: logoutHandler }}
-    >
+    <AuthProvider>
       <CartProvider>
         <Router>
           <Grid container>
@@ -91,7 +73,13 @@ function App() {
               </Grid>
             </Route>
             <Route path="/account">
-              <Account loginStatus={loginHandler} logout={logoutHandler} />
+              <Account />
+            </Route>
+            <Route path="/signup">
+              <Register />
+            </Route>
+            <Route path="/success">
+              <RegisterSuccess />
             </Route>
             <Route path="/cart">
               <Cart />
@@ -105,7 +93,7 @@ function App() {
           </Switch>
         </Router>
       </CartProvider>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
 

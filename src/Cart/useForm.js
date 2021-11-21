@@ -63,24 +63,9 @@ const useForm = (submitForm, validate, value) => {
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
       submitForm();
-
+      
       userCtx.saveInfo(values);
       console.log(values);
-
-      // if (pickup) {
-      //   const valuesPickupOption = (({
-      //     firstname,
-      //     lastname,
-      //     email,
-      //     phone,
-      //     datetime,
-      //   }) => ({ firstname, lastname, email, phone, datetime }))(values);
-      //   userCtx.saveInfo(valuesPickupOption);
-      //   console.log(valuesPickupOption);
-      // } else {
-      //   userCtx.saveInfo(values);
-      //   console.log(values);
-      // }
     }
   }, [errors, isSubmitting, submitForm, values]);
 

@@ -65,7 +65,7 @@ const StyledBadge = withStyles((theme) => ({
 
 const Header = (props) => {
   const classes = useStyles();
-  const ctx = useContext(AuthContext);
+  const authCtx = useContext(AuthContext);
   const cartCtx = useContext(CartContext);
 
   const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
@@ -129,13 +129,11 @@ const Header = (props) => {
 
             <Hidden mdDown={true}>
               <Grid item>
-                <Typography className={classes.menuText}>
-                  CATERING
-                </Typography>
+                <Typography className={classes.menuText}>CATERING</Typography>
               </Grid>
             </Hidden>
 
-            {ctx.isLoggedIn && (
+            {authCtx.isLoggedIn && (
               <Typography className={classes.menuText}>ACCOUNT</Typography>
             )}
           </Grid>
@@ -168,6 +166,13 @@ const Header = (props) => {
           <Link component={RouterLink} to="/account" color="inherit">
             <MenuItem onClick={handleClose}>Account</MenuItem>
           </Link>
+
+          {!authCtx.isLoggedIn && (
+            <Link component={RouterLink} to="/signup" color="inherit">
+              <MenuItem onClick={handleClose}>Sign Up</MenuItem>
+            </Link>
+          )}
+
           <Hidden smUp={true}>
             <Link component={RouterLink} to="/cart" color="inherit">
               <MenuItem onClick={handleClose}>About</MenuItem>
