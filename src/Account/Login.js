@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
+import AuthContext from "../store/auth-context.js";
 import { Grid, Typography, Box } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@mui/material/Button";
@@ -8,6 +9,8 @@ import Link from "@mui/material/Link";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
 const Login = (props) => {
+  const authCtx = useContext(AuthContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -50,7 +53,8 @@ const Login = (props) => {
   useEffect(() => {
     if (!emailError && !passwordError && isSubmitting) {
       console.log("success");
-      props.onLogin(email, password);
+
+      authCtx.onLogin(email, password);
     }
   }, [emailError, passwordError, isSubmitting]);
 
@@ -77,7 +81,6 @@ const Login = (props) => {
               name="email"
               value={email}
               onChange={emailChangeHandler}
-              // required
             />
             {emailError && (
               <Typography color="error" variant="subtitle2">
@@ -96,7 +99,6 @@ const Login = (props) => {
               name="password"
               value={password}
               onChange={passwordChangeHandler}
-              // required
             />
             {passwordError && (
               <Typography color="error" variant="subtitle2">

@@ -5,26 +5,21 @@ import Login from "./Login";
 import AuthContext from "../store/auth-context";
 
 const Account = (props) => {
-  const ctx = useContext(AuthContext);
-
-
-  const loginHandler = (email, password) => {
-    props.loginStatus(email, password)
-  };
+  const authCtx = useContext(AuthContext);
 
   return (
       <Grid container>
         <Grid item xs={1} />
         <Grid item xs={10}>
-          {!ctx.isLoggedIn && <Login onLogin={loginHandler} />}
-          {ctx.isLoggedIn && (
+          {!authCtx.isLoggedIn && <Login />}
+          {authCtx.isLoggedIn && (
             <>
               <h1>Your Account</h1>
               <h4>Order History</h4>
               <h4>Subscriptions</h4>
               <h4>Account Info</h4>
               <p>
-                <button onClick={ctx.onLogout}>Logout</button>
+                <button onClick={authCtx.onLogout}>Logout</button>
               </p>
             </>
           )}

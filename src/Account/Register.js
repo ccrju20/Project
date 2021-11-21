@@ -1,25 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
+import AuthContext from "../store/auth-context.js";
 import { useHistory } from "react-router-dom";
 import { Grid, Typography, Box } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
 const Register = (props) => {
+  const authCtx = useContext(AuthContext);
+  const history = useHistory();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordTwo, setPasswordTwo] = useState("");
-
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [passwordTwoError, setPasswordTwoError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const history = useHistory();
+  const [firstnameError, setFirstNameError] = useState("");
+  const [lastnameError, setLastNameError] = useState("");
 
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
@@ -33,19 +36,33 @@ const Register = (props) => {
     setPasswordTwo(event.target.value);
   };
 
+  const firstNameChangeHandler = (event) => {
+    setFirstName(event.target.value);
+  };
+
+  const lastNameChangeHandler = (event) => {
+    setLastName(event.target.value);
+  };
+
   function validate() {
+    setFirstNameError("");
+    setLastNameError("");
     setEmailError("");
     setPasswordError("");
     setPasswordTwoError("");
+
+    if (!firstname.trim()) {
+      setFirstNameError("*First Name required");
+    }
+
+    if (!lastname.trim()) {
+      setLastNameError("*Last Name required");
+    }
 
     if (!email) {
       setEmailError("*Email required");
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       setEmailError("*Email address is invalid");
-    }
-
-    if (password !== passwordTwo) {
-        setPasswordTwoError("*Passwords do not match");
     }
 
     if (!password.trim()) {
@@ -55,40 +72,83 @@ const Register = (props) => {
     }
 
     if (!passwordTwo.trim()) {
-        setPasswordTwoError("*Re-Enter Password required");
-      } else if (passwordError) {
-        setPasswordTwoError("*Passwords do not match");
-      }
+      setPasswordTwoError("*Re-Enter Password required");
+    } else if (password !== passwordTwo) {
+      setPasswordTwoError("*Passwords do not match");
+    }
   }
 
   const submitHandler = (event) => {
     event.preventDefault();
     validate();
 
-    setIsSubmitting((true));
+    setIsSubmitting(true);
   };
 
   useEffect(() => {
-    if (!emailError && !passwordError && !passwordTwoError && isSubmitting) {
-      console.log("success");
-      props.signUpStatus(email, password);
-      history.push('/success');
+    if (
+      !emailError &&
+      !passwordError &&
+      !passwordTwoError &&
+      !firstnameError &&
+      !lastnameError &&
+      isSubmitting
+    ) {
+      const obj = {
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        password: password
+      }
+      authCtx.onLogin();
+      authCtx.register(obj);
+      history.push("/success");
     }
-  }, [emailError, passwordError, passwordTwoError, isSubmitting]);
+  }, [emailError, passwordError, passwordTwoError, firstnameError, lastnameError, isSubmitting]);
 
   return (
     <Container maxWidth="xs">
-      <Box mt={7} mb={3} mr={5}>
+      <Box mt={7} mb={3}>
         <Typography align="center" variant="h5">
-          <AccountCircleOutlinedIcon
-            sx={{ marginRight: 2, marginBottom: -1 }}
-            fontSize="large"
-          />
-          Sign Up
+          Create Account
         </Typography>
       </Box>
       <form onSubmit={submitHandler}>
         <Grid container spacing={3} direction="column">
+          <Grid item>
+            <TextField
+              fullWidth
+              id="firstname"
+              variant="outlined"
+              label="First Name"
+              name="firstname"
+              value={firstname}
+              onChange={firstNameChangeHandler}
+            />
+            {firstnameError && (
+              <Typography color="error" variant="subtitle2">
+                {firstnameError}
+              </Typography>
+            )}
+          </Grid>
+
+          <Grid item>
+            <TextField
+              fullWidth
+              id="lastname"
+              variant="outlined"
+              label="Last Name"
+              name="lastname"
+              value={lastname}
+              onChange={lastNameChangeHandler}
+            />
+            {lastnameError && (
+              <Typography color="error" variant="subtitle2">
+                {lastnameError}
+              </Typography>
+            )}
+          </Grid>
+
           <Grid item>
             <TextField
               fullWidth
@@ -160,6 +220,7 @@ const Register = (props) => {
           </Grid>
         </Grid>
       </form>
+      <Box mb={10}></Box>
     </Container>
   );
 };
