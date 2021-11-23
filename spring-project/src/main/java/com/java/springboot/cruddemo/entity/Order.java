@@ -15,9 +15,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+
+import com.java.springboot.cruddemo.models.MyUser;
 
 @Entity
 @Table(name="orders")
@@ -43,8 +48,9 @@ public class Order {
 	@Column(name="method")
 	private String method;
 	
-	@Column(name="guest")
-	private int guest;
+	@ManyToOne
+	@JoinColumn(name="account_id")
+	private MyUser account;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="orderid")
@@ -58,10 +64,16 @@ public class Order {
 		
 	}
 
-	public Order(String ordernumber, String dateposted, String scheduled) {
+	public Order(String ordernumber, String dateposted, String scheduled, String status, String method, MyUser account,
+			List<OrderItem> orderItems, OrderDetails orderDetails) {
 		this.ordernumber = ordernumber;
 		this.dateposted = dateposted;
 		this.scheduled = scheduled;
+		this.status = status;
+		this.method = method;
+		this.account = account;
+		this.orderItems = orderItems;
+		this.orderDetails = orderDetails;
 	}
 
 	public int getId() {
@@ -133,12 +145,12 @@ public class Order {
 		this.method = method;
 	}
 
-	public int getGuest() {
-		return guest;
+	public MyUser getAccount() {
+		return account;
 	}
 
-	public void setGuest(int guest) {
-		this.guest = guest;
+	public void setAccount(MyUser account) {
+		this.account = account;
 	}
 
 	public void add(OrderItem orderItem) {

@@ -24,6 +24,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.java.springboot.cruddemo.entity.ContactInfo;
 import com.java.springboot.cruddemo.entity.OrderDetails;
 
@@ -48,7 +49,6 @@ public class MyUser implements UserDetails {
 	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="contact_info")
 	private ContactInfo contactInfo;
-	
 
 	@Enumerated(EnumType.STRING)
 	private MyUserRole roles;
@@ -66,6 +66,11 @@ public class MyUser implements UserDetails {
 		this.contactInfo = contactInfo;
 	}
 
+	public int getId() {
+		return id;
+	}
+	
+	@JsonIgnore
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(roles.name());
