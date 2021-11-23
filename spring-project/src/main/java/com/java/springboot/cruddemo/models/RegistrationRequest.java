@@ -1,11 +1,14 @@
 package com.java.springboot.cruddemo.models;
 
+import com.java.springboot.cruddemo.entity.ContactInfo;
+
 public class RegistrationRequest {
 
 	private String firstname;
 	private String lastname;
 	private String email;
 	private String password;
+	private ContactInfo contactInfo;
 	
 	public RegistrationRequest(String firstname, String lastname, String email, String password) {
 		this.firstname = firstname;
@@ -44,6 +47,10 @@ public class RegistrationRequest {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public ContactInfo getContactInfo() {
+		return contactInfo;
 	}
 	
 }

@@ -37,20 +37,28 @@ public class Order {
 	@Column(name="scheduled")
 	private String scheduled;
 	
+	@Column(name="status")
+	private String status;
+	
+	@Column(name="method")
+	private String method;
+	
+	@Column(name="guest")
+	private int guest;
+	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="orderid")
 	private List<OrderItem> orderItems;
 	
 	@OneToOne(fetch=FetchType.LAZY, cascade={CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-	@JoinColumn(name="customerid")
-	private Customer customer;
+	@JoinColumn(name="details_id")
+	private OrderDetails orderDetails;
 	
 	public Order() {
 		
 	}
 
 	public Order(String ordernumber, String dateposted, String scheduled) {
-		super();
 		this.ordernumber = ordernumber;
 		this.dateposted = dateposted;
 		this.scheduled = scheduled;
@@ -82,10 +90,6 @@ public class Order {
         this.ordernumber = builder.toString();
 	}
 
-//	public void setOrdernumber(String ordernumber) {
-//		this.ordernumber = ordernumber;
-//	}
-
 	public String getDateposted() {
 		return dateposted;
 	}
@@ -96,11 +100,7 @@ public class Order {
         String str = now.format(formatter);
         this.dateposted = str;
 	}
-
-//	public void setDateposted(String dateposted) {
-//		this.dateposted = dateposted;
-//	}
-
+	
 	public List<OrderItem> getOrderItems() {
 		return orderItems;
 	}
@@ -117,6 +117,30 @@ public class Order {
 		this.scheduled = scheduled;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getMethod() {
+		return method;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
+	}
+
+	public int getGuest() {
+		return guest;
+	}
+
+	public void setGuest(int guest) {
+		this.guest = guest;
+	}
+
 	public void add(OrderItem orderItem) {
 		if (orderItems == null) {
 			orderItems = new ArrayList<>();
@@ -125,12 +149,12 @@ public class Order {
 		orderItems.add(orderItem);
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public OrderDetails getOrderDetails() {
+		return orderDetails;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setOrderDetails(OrderDetails orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 
 	@Override

@@ -39,6 +39,8 @@ public class MyUserDetailsService implements UserDetailsService {
 			return "Error: Email already taken";
 		}
 		
+		myUser.setCreatedAt();
+		
 		String encodedPassword = bCryptPasswordEncoder.encode(myUser.getPassword());
 		
 		myUser.setPassword(encodedPassword);

@@ -20,6 +20,7 @@ public class RegistrationService {
 						request.getLastname(),
 						request.getEmail(),
 						request.getPassword(),
-						MyUserRole.USER));
+						MyUserRole.USER,
+						request.getContactInfo()));
 	}
 }
