@@ -54,7 +54,15 @@ const Login = (props) => {
     if (!emailError && !passwordError && isSubmitting) {
       console.log("success");
 
-      authCtx.onLogin(email, password);
+      authCtx.onLogin(email, password).then(
+        () => {
+          authCtx.setLogin();
+        },
+        (error) => {
+          console.log(error);
+          setIsSubmitting(false);
+        }
+      );
     }
   }, [emailError, passwordError, isSubmitting]);
 

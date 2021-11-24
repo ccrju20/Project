@@ -86,27 +86,32 @@ const ConfirmInfo = (props) => {
     orderItems: cartItems,
     scheduled: pickupordeliverytime,
     status: "processing",
-    customer: customer,
     method: method,
-    address: address,
-    addresstwo: addresstwo,
-    city: city,
-    state: state,
-    postal: postal,
+    orderDetails: {
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
+      phone: phone,
+      address: address,
+      addresstwo: addresstwo,
+      city: city,
+      state: state,
+      postal: postal,
+    },
+    // account: {
+    //   id: 2,
+    // },
   });
-
 
   const onConfirmHandler = () => {
     props.confirmation(true);
 
     console.log(DataObject);
 
-    // axios
-    //   .post(ORDERS_REST_API_URL, testDataObject)
-    //   .then((response) => {
-    //     console.log(response.data.ordernumber);
-    //     props.ordernumber(response.data.ordernumber);
-    //   });
+    axios.post(ORDERS_REST_API_URL, DataObject).then((response) => {
+      console.log(response.data.ordernumber);
+      props.ordernumber(response.data.ordernumber);
+    });
 
     cartCtx.items.forEach((item) => {
       cartCtx.deleteItem(item.id);
