@@ -9,12 +9,6 @@ const useForm = (submitForm, validate, value) => {
   const [asapOrScheduled, setAsapOrScheduled] = useState("ASAP");
   // const [datetime, setDatetime] = useState(new Date());
 
-  // useEffect(() => {
-  //   const minDate = new Date();
-  //   minDate.setDate(minDate.getDate() + 2);
-  //   setDatetime(minDate);
-  // }, []);
-
   const [values, setValues] = useState({
     firstname: "",
     lastname: "",
@@ -25,7 +19,8 @@ const useForm = (submitForm, validate, value) => {
     city: "",
     state: "",
     postal: "",
-    datetime: "ASAP"
+    datetime: "ASAP",
+    pickup: pickup
   });
 
   const [errors, setErrors] = useState({});
@@ -44,6 +39,7 @@ const useForm = (submitForm, validate, value) => {
   };
 
   const handlePickup = (boolean) => {
+    setValues({...values, pickup: boolean})
     setPickup(boolean);
   };
 

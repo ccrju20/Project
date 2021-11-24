@@ -22,7 +22,7 @@ const ConfirmInfo = (props) => {
   const userContext = useContext(UserInfoContext);
   const cartCtx = useContext(CartContext);
 
-  // console.log(userContext.info);
+  console.log(userContext.info);
 
   const {
     firstname,
@@ -35,6 +35,7 @@ const ConfirmInfo = (props) => {
     state,
     postal,
     datetime,
+    pickup,
   } = userContext.info;
 
   let pickupordeliverytime = "";
@@ -52,71 +53,65 @@ const ConfirmInfo = (props) => {
     pickupordeliverytime = "ASAP";
   }
 
-  const [dataObject, setDataObject] = useState({
-    customer: {
-      firstname: firstname,
-      lastname: lastname,
-      email: email,
-      phone: phone,
-      address: address,
-      city: city,
-      state: state,
-      postal: postal,
-    },
-    orderitems: cartCtx.items,
-    pickupordelivery: pickupordeliverytime,
-  });
-
   let cartItems = [];
   cartCtx.items.forEach((item) => {
     cartItems.push({
       quantity: `${item.amount}`,
       product: {
-        id: item.id
+        id: item.id,
       },
-      total_price: `${(item.amount*item.price).toFixed(2)}`
-    })
+      total_price: `${(item.amount * item.price).toFixed(2)}`,
+    });
   });
 
-  console.log(cartItems);
+  // console.log(cartItems);
 
   let customer = {
     firstname: firstname,
     lastname: lastname,
     email: email,
     phone: phone,
-    address: address,
-    addresstwo: addresstwo,
-    city: city,
-    state: state,
-    postal: postal
   };
 
-  console.log(customer);
+  // console.log(customer);
 
-  const [testDataObject, setTestDataObject] = useState({
+  let method = "";
+  if (pickup) {
+    method = "pickup";
+  } else {
+    method = "delivery";
+  }
+
+  const [DataObject, setDataObject] = useState({
     orderItems: cartItems,
     scheduled: pickupordeliverytime,
-    customer: customer
+    status: "processing",
+    method: method,
+    orderDetails: {
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
+      phone: phone,
+      address: address,
+      addresstwo: addresstwo,
+      city: city,
+      state: state,
+      postal: postal,
+    },
+    // account: {
+    //   id: 2,
+    // },
   });
-
-  const {} = cartCtx.items;
 
   const onConfirmHandler = () => {
     props.confirmation(true);
-    // console.log(userContext.info);
-    // console.log(cartCtx.items);
-    // console.log(cartCtx.totalAmount);
 
-    // console.log(dataObject);
-    console.log(testDataObject);
+    console.log(DataObject);
 
-    axios
-      .post(ORDERS_REST_API_URL, testDataObject)
-      .then((response) => {
-        console.log(response.data.ordernumber);
-        props.ordernumber(response.data.ordernumber);
-      });
+    axios.post(ORDERS_REST_API_URL, DataObject).then((response) => {
+      console.log(response.data.ordernumber);
+      props.ordernumber(response.data.ordernumber);
+    });
 
     cartCtx.items.forEach((item) => {
       cartCtx.deleteItem(item.id);
