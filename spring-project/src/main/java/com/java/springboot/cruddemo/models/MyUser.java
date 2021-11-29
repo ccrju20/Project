@@ -1,14 +1,12 @@
 package com.java.springboot.cruddemo.models;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Collections;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -26,7 +24,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.java.springboot.cruddemo.entity.ContactInfo;
-import com.java.springboot.cruddemo.entity.OrderDetails;
 
 @Entity
 @Table(name="my_user")
@@ -35,10 +32,6 @@ public class MyUser implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
-	private String firstname;
-
-	private String lastname;
 
 	private String email;
 
@@ -57,9 +50,7 @@ public class MyUser implements UserDetails {
 
 	}
 
-	public MyUser(String firstname, String lastname, String email, String password, MyUserRole myUserRole, ContactInfo contactInfo) {
-		this.firstname = firstname;
-		this.lastname = lastname;
+	public MyUser(String email, String password, MyUserRole myUserRole, ContactInfo contactInfo) {
 		this.email = email;
 		this.password = password;
 		this.roles = myUserRole;
@@ -93,14 +84,6 @@ public class MyUser implements UserDetails {
 
 	public String getEmail() {
 		return email;
-	}
-
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
 	}
 	
 	public String getCreatedAt() {

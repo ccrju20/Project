@@ -20,8 +20,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-
 import com.java.springboot.cruddemo.models.MyUser;
 
 @Entity
@@ -45,8 +43,8 @@ public class Order {
 	@Column(name="status")
 	private String status;
 	
-	@Column(name="method")
-	private String method;
+	@Column(name="delivery")
+	private int delivery;
 	
 	@ManyToOne
 	@JoinColumn(name="account_id")
@@ -64,13 +62,13 @@ public class Order {
 		
 	}
 
-	public Order(String ordernumber, String dateposted, String scheduled, String status, String method, MyUser account,
+	public Order(String ordernumber, String dateposted, String scheduled, String status, int delivery, MyUser account,
 			List<OrderItem> orderItems, OrderDetails orderDetails) {
 		this.ordernumber = ordernumber;
 		this.dateposted = dateposted;
 		this.scheduled = scheduled;
 		this.status = status;
-		this.method = method;
+		this.delivery = delivery;
 		this.account = account;
 		this.orderItems = orderItems;
 		this.orderDetails = orderDetails;
@@ -137,12 +135,12 @@ public class Order {
 		this.status = status;
 	}
 
-	public String getMethod() {
-		return method;
+	public int getDelivery() {
+		return delivery;
 	}
 
-	public void setMethod(String method) {
-		this.method = method;
+	public void setDelivery(int delivery) {
+		this.delivery = delivery;
 	}
 
 	public MyUser getAccount() {
