@@ -17,6 +17,7 @@ const Login = (props) => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
@@ -46,7 +47,7 @@ const Login = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
     validate();
-
+    setErrorMessage("");
     setIsSubmitting(true);
   };
 
@@ -59,7 +60,12 @@ const Login = (props) => {
           authCtx.setLogin();
         },
         (error) => {
-          console.log(error);
+          console.log(error.response);
+          if (error.response.data.message.includes("Access Denied")) {
+            setErrorMessage("Invalid Username or Password");
+          } else {
+            setErrorMessage(error.response.data.message)
+          }
           setIsSubmitting(false);
         }
       );
@@ -76,6 +82,13 @@ const Login = (props) => {
           />
           Login
         </Typography>
+      </Box>
+      <Box mb={2}>
+        {errorMessage && (
+          <Typography align="center" color="error" variant="subtitle2">
+            {errorMessage}
+          </Typography>
+        )}
       </Box>
       <form onSubmit={submitHandler}>
         <Grid container spacing={3} direction="column">

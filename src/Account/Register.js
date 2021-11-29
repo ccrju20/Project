@@ -23,6 +23,7 @@ const Register = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [firstnameError, setFirstNameError] = useState("");
   const [lastnameError, setLastNameError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
@@ -81,7 +82,7 @@ const Register = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
     validate();
-
+    setErrorMessage("");
     setIsSubmitting(true);
   };
 
@@ -94,17 +95,30 @@ const Register = (props) => {
       !lastnameError &&
       isSubmitting
     ) {
-      const obj = {
-        firstname: firstname,
-        lastname: lastname,
-        email: email,
-        password: password
-      }
-      authCtx.onLogin();
-      authCtx.register(obj);
-      history.push("/success");
+      authCtx.register(firstname, lastname, email, password).then(
+        () => {
+          authCtx.setLogin();
+          history.push("/success");
+        },
+        (error) => {
+          console.log(error.response);
+          if (error.response.data.includes("Email already taken")) {
+            setErrorMessage("Email already taken");
+          } else {
+            setErrorMessage(error.response.data.message);
+          }
+          setIsSubmitting(false);
+        }
+      );
     }
-  }, [emailError, passwordError, passwordTwoError, firstnameError, lastnameError, isSubmitting]);
+  }, [
+    emailError,
+    passwordError,
+    passwordTwoError,
+    firstnameError,
+    lastnameError,
+    isSubmitting,
+  ]);
 
   return (
     <Container maxWidth="xs">
@@ -112,6 +126,13 @@ const Register = (props) => {
         <Typography align="center" variant="h5">
           Create Account
         </Typography>
+      </Box>
+      <Box mb={2}>
+        {errorMessage && (
+          <Typography align="center" color="error" variant="subtitle2">
+            {errorMessage}
+          </Typography>
+        )}
       </Box>
       <form onSubmit={submitHandler}>
         <Grid container spacing={3} direction="column">

@@ -3,10 +3,10 @@ import axios from "axios";
 import AuthContext from "./auth-context";
 
 const LOGIN_REST_API_URL = "http://localhost:8080/api/auth/login";
+const REGISTER_REST_API_URL = "http://localhost:8080/api/auth/registration";
 
 const AuthProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [registerValues, setRegisterValues] = useState({});
   // const [loginCredentials, setLoginCredentials] = useState({});
 
   useEffect(() => {
@@ -22,23 +22,16 @@ const AuthProvider = (props) => {
       .then((response) => {
         if (response.data.jwt) {
           localStorage.setItem("user", JSON.stringify(response.data));
-          console.log(response.data)
+          console.log(response.data);
         }
         return response.data;
       });
-
-    // axios.post(ORDERS_REST_API_URL, DataObject).then((response) => {
-    //   console.log(response.data.ordernumber);
-    //   props.ordernumber(response.data.ordernumber);
-
-    // localStorage.setItem("isLoggedIn", "1");
-    // setIsLoggedIn(true);
   };
 
   const setLoginHandler = () => {
     localStorage.setItem("isLoggedIn", "1");
     setIsLoggedIn(true);
-  }
+  };
 
   const logoutHandler = () => {
     localStorage.removeItem("isLoggedIn");
@@ -46,11 +39,30 @@ const AuthProvider = (props) => {
     setIsLoggedIn(false);
   };
 
-  const register = (obj) => {
-    setRegisterValues(obj);
+  const register = (firstname, lastname, email, password) => {
+    return axios
+      .post(REGISTER_REST_API_URL, {
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        password: password,
+        contactInfo: {
+          email: email,
+          phone: "",
+          address: "",
+          addresstwo: "",
+          city: "",
+          state: "",
+          postal: ""
+        }})
+      .then((response) => {
+        if (response.data.jwt) {
+          localStorage.setItem("user", JSON.stringify(response.data));
+          console.log(response.data);
+        }
+        return response.data;
+      });
   };
-
-  console.log(registerValues);
 
   const authContext = {
     isLoggedIn: isLoggedIn,
