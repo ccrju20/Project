@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.java.springboot.cruddemo.entity.Customer;
 import com.java.springboot.cruddemo.entity.Order;
-import com.java.springboot.cruddemo.service.CustomerService;
+import com.java.springboot.cruddemo.service.OrderDetailsService;
 import com.java.springboot.cruddemo.service.OrderService;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -24,19 +23,24 @@ import com.java.springboot.cruddemo.service.OrderService;
 public class OrderRestController {
 
 	private OrderService OrderService;
-	private CustomerService CustomerService;
+	private OrderDetailsService orderDetailsService;
 
 	// inject Order service
 	@Autowired
-	public OrderRestController(OrderService theOrderService, CustomerService theCustomerService) {
+	public OrderRestController(OrderService theOrderService, OrderDetailsService theOrderDetailsService) {
 		OrderService = theOrderService;
-		CustomerService = theCustomerService;
+		orderDetailsService = theOrderDetailsService;
 	}
 
 	// exposer "/Orders" and return list of Orders
 	@GetMapping("/orders")
 	public List<Order> findAll() {
 		return OrderService.findAll();
+	}
+	
+	@GetMapping("/orders/account/{accountId}")
+	public List<Order> findAllById(@PathVariable int accountId) {
+		return OrderService.findByAccountId(accountId);
 	}
 
 	// add mapping for GET /Orders/{OrderId}
@@ -56,15 +60,8 @@ public class OrderRestController {
 	@PostMapping("/orders")
 	public Order addOrder(@RequestBody Order theOrder) {
 					
-		String theEmail = theOrder.getCustomer().getEmail();
-				
-		
-		if (CustomerService.checkEmailExists(theEmail)) {
-			theOrder.setCustomer(CustomerService.findByEmail(theEmail));
-		}
-			
-		// also just in case they pass an id in JSON ... set id to 0
-		// this is to force a save of new item ... instead of update
+//		String theEmail = theOrder.getOrderDetails().getEmail();
+					
 		theOrder.setId(0);
 		theOrder.setDateposted();
 		theOrder.setOrdernumber();
@@ -73,20 +70,6 @@ public class OrderRestController {
 		
 		return theOrder;
 	}
-
-//	@PostMapping("/Orderslist")
-//	public boolean addOrders(@RequestBody List<Order> Orders) {
-//		try {
-//			for (Order Order : Orders) {
-//				Order.setId(0);
-//				OrderService.save(Order);
-//			}
-//		} catch (Exception e) {
-//			return false;
-//		}
-//
-//		return true;
-//	}
 
 	// add mapping for PUT /Orders - update existing Order
 	@PutMapping("/orders")

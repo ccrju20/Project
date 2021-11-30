@@ -15,9 +15,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.java.springboot.cruddemo.models.MyUser;
 
 @Entity
 @Table(name="orders")
@@ -37,23 +42,38 @@ public class Order {
 	@Column(name="scheduled")
 	private String scheduled;
 	
+	@Column(name="status")
+	private String status;
+	
+	@Column(name="delivery")
+	private int delivery;
+	
+	@ManyToOne
+	@JoinColumn(name="account_id")
+	private MyUser account;
+	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="orderid")
 	private List<OrderItem> orderItems;
 	
 	@OneToOne(fetch=FetchType.LAZY, cascade={CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-	@JoinColumn(name="customerid")
-	private Customer customer;
+	@JoinColumn(name="details_id")
+	private OrderDetails orderDetails;
 	
 	public Order() {
 		
 	}
 
-	public Order(String ordernumber, String dateposted, String scheduled) {
-		super();
+	public Order(String ordernumber, String dateposted, String scheduled, String status, int delivery, MyUser account,
+			List<OrderItem> orderItems, OrderDetails orderDetails) {
 		this.ordernumber = ordernumber;
 		this.dateposted = dateposted;
 		this.scheduled = scheduled;
+		this.status = status;
+		this.delivery = delivery;
+		this.account = account;
+		this.orderItems = orderItems;
+		this.orderDetails = orderDetails;
 	}
 
 	public int getId() {
@@ -82,10 +102,6 @@ public class Order {
         this.ordernumber = builder.toString();
 	}
 
-//	public void setOrdernumber(String ordernumber) {
-//		this.ordernumber = ordernumber;
-//	}
-
 	public String getDateposted() {
 		return dateposted;
 	}
@@ -96,11 +112,7 @@ public class Order {
         String str = now.format(formatter);
         this.dateposted = str;
 	}
-
-//	public void setDateposted(String dateposted) {
-//		this.dateposted = dateposted;
-//	}
-
+	
 	public List<OrderItem> getOrderItems() {
 		return orderItems;
 	}
@@ -117,6 +129,31 @@ public class Order {
 		this.scheduled = scheduled;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public int getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(int delivery) {
+		this.delivery = delivery;
+	}
+
+//	@JsonIgnore
+	public MyUser getAccount() {
+		return account;
+	}
+
+	public void setAccount(MyUser account) {
+		this.account = account;
+	}
+
 	public void add(OrderItem orderItem) {
 		if (orderItems == null) {
 			orderItems = new ArrayList<>();
@@ -125,12 +162,13 @@ public class Order {
 		orderItems.add(orderItem);
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+	public OrderDetails getOrderDetails() {
+		return orderDetails;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setOrderDetails(OrderDetails orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 
 	@Override

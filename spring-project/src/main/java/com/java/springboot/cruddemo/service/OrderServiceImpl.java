@@ -50,4 +50,10 @@ public class OrderServiceImpl implements OrderService {
 		OrderRepository.deleteById(theId);
 	}
 
+	@Override
+	public List<Order> findByAccountId(int id) {
+		List<Order> result =  OrderRepository.findByAccountId(id);
+		return result;
+	}
+
 }

@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import com.java.springboot.cruddemo.service.MyUserDetailsService;
 import com.java.springboot.cruddemo.service.RegistrationService;
 import com.java.springboot.cruddemo.util.JwtUtil;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -49,13 +51,10 @@ public class AuthController {
 		
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 		
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		int theId = userDetailsService.findIdByUsername(authenticationRequest.getUsername());
+		
+		return ResponseEntity.ok(new AuthenticationResponse(jwt, theId));
 	}
-	
-//	@PostMapping("/registration")
-//	public String register (@RequestBody RegistrationRequest request) {
-//		return registrationService.register(request);
-//	}
 	
 	@PostMapping("/registration")
 	public ResponseEntity<?> register(@RequestBody RegistrationRequest request) {
@@ -65,7 +64,9 @@ public class AuthController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		return ResponseEntity.ok(new AuthenticationResponse(response));
+		int theId = userDetailsService.findIdByUsername(request.getEmail());
+		
+		return ResponseEntity.ok(new AuthenticationResponse(response, theId));
 	}
 
 }

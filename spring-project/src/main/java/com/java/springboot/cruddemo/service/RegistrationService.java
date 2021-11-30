@@ -16,10 +16,9 @@ public class RegistrationService {
 	public String register(RegistrationRequest request) {
 		return myUserDetailsService.signUpUser(
 				new MyUser(
-						request.getFirstname(),
-						request.getLastname(),
 						request.getEmail(),
 						request.getPassword(),
-						MyUserRole.USER));
+						MyUserRole.USER,
+						request.getContactInfo()));
 	}
 }

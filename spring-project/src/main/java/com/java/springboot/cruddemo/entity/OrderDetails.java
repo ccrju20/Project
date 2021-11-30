@@ -1,21 +1,16 @@
 package com.java.springboot.cruddemo.entity;
 
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="customer")
-public class Customer {
+@Table(name="order_details")
+public class OrderDetails {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -49,19 +44,17 @@ public class Customer {
 	@Column(name="postal")
 	private String postal;
 	
-	@OneToMany(fetch=FetchType.LAZY)
-	@JoinColumn(name="customerid")
-	private List<Order> orders;
+//	@OneToMany(fetch=FetchType.LAZY)
+//	@JoinColumn(name="customerid")
+//	private List<Order> orders;
+//	
 	
-	
-	public Customer() {
+	public OrderDetails() {
 		
 	}
 
-
-	public Customer(String firstname, String lastname, String email, String phone, String address, String addresstwo,
+	public OrderDetails(String firstname, String lastname, String email, String phone, String address, String addresstwo,
 			String city, String state, String postal) {
-		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
