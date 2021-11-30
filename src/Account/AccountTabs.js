@@ -4,10 +4,19 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import OrderHistory from "./OrderHistory"
+import OrderHistory from "./OrderHistory";
+import { Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  root: {
+    width: "350px",
+  },
+});
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+  const classes = useStyles();
 
   return (
     <div
@@ -19,7 +28,8 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          {children}
+          {/* <Typography>{children}</Typography> */}
         </Box>
       )}
     </div>
@@ -61,22 +71,26 @@ export default function VerticalTabs() {
         value={value}
         onChange={handleChange}
         aria-label="Vertical tabs example"
-        sx={{ borderRight: 1, borderColor: "divider" }}
+        sx={{ borderRight: 1, borderColor: "divider", width: 200 }}
       >
         <Tab label="Order History" {...a11yProps(0)} />
         <Tab label="Personal Info" {...a11yProps(1)} />
         <Tab label="Account Settings" {...a11yProps(2)} />
       </Tabs>
-      <TabPanel value={value} index={0}>
-        <OrderHistory />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Personal Info: First Name: Last Name: Email: Phone: Address: City:
-        State: Postal:
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Account Settings: Change Password Delete Account
-      </TabPanel>
+      <Grid container>
+        <Grid item xs={12}>
+          <TabPanel value={value} index={0}>
+            <OrderHistory />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            Personal Info: First Name: Last Name: Email: Phone: Address: City:
+            State: Postal:
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            Account Settings: Change Password Delete Account
+          </TabPanel>
+        </Grid>
+      </Grid>
     </Box>
   );
 }

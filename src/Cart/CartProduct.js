@@ -94,54 +94,6 @@ const CartProduct = (props) => {
       </Grid>
       <Grid item xs={false} sm={3} />
     </Grid>
-
-    // <Card className={classes.root}>
-    //   <Grid container>
-    //     <Grid item xs={4} sm={2}>
-    //       <Avatar
-    //         alt="product image"
-    //         src={image}
-    //         sx={{ width: 90, height: 80, marginTop: 1.5}}
-    //       />
-    //     </Grid>
-    //     <Grid item xs={8} sm={9} className={classes.description}>
-    //       <Grid container alignItems="center">
-    //         <Grid item xs={12} sm={2} className={classes.productname}>
-    //           <Typography variant="h5" component="h2" className={classes.title}>
-    //             {name}
-    //           </Typography>
-    //           <Typography
-    //           color="textSecondary"
-    //         >
-    //           {updatedPrice}
-    //         </Typography>
-    //         </Grid>
-    //         <Grid item xs={12} sm={10}>
-    //           <Grid container>
-    //             <Grid item>
-    //               <IconButton onClick={props.onAdd}>
-    //                 <AddIcon fontSize="small" />
-    //               </IconButton>
-    //             </Grid>
-    //             <Box>
-    //               <Typography variant="body1"> {amount}</Typography>
-    //             </Box>
-    //             <Grid item>
-    //               <IconButton onClick={props.onRemove}>
-    //                 <RemoveIcon fontSize="small" />
-    //               </IconButton>
-    //             </Grid>
-    //             <Box ml={2}>
-    //               <IconButton onClick={props.onDelete}>
-    //                 <DeleteIcon />
-    //               </IconButton>
-    //             </Box>
-    //           </Grid>
-    //         </Grid>
-    //       </Grid>
-    //     </Grid>
-    //   </Grid>
-    // </Card>
   );
 };
 

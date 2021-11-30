@@ -17,7 +17,7 @@ import Checkout from "./Cart/Checkout";
 import Shop from "./Products/Shop";
 import Register from "./Account/Register";
 import RegisterSuccess from "./Account/RegisterSuccess";
-import OrderHistory from "./Account/OrderHistory";
+import ServiceProvider from "./service/ServiceProvider";
 
 const useStyles = makeStyles({
   root: {
@@ -44,58 +44,60 @@ function App() {
   return (
     <AuthProvider>
       <CartProvider>
-        <Router>
-          <Grid container>
-            <Grid item xs={1} sm={1} />
-            <Grid item xs={10} sm={10}>
-              <Header />
-              <AppBar className={classes.root} position="static">
-                <Toolbar></Toolbar>
-              </AppBar>
-            </Grid>
-            <Grid item xs={1} sm={1} />
-          </Grid>
-
-          <Switch>
-            <Route exact path="/">
-              <Grid item container>
-                <Grid item xs={1} sm={1} />
-                <Grid item xs={10} sm={10}>
-                  <Box mt={10}>
-                    <div className={classes.divider}>
-                      <Hidden only="xs">
-                        <Section />
-                      </Hidden>
-                    </div>
-                  </Box>
-                </Grid>
-                <Grid item xs={1} sm={1} />
-                <AboutSection />
+        <ServiceProvider>
+          <Router>
+            <Grid container>
+              <Grid item xs={1} sm={1} />
+              <Grid item xs={10} sm={10}>
+                <Header />
+                <AppBar className={classes.root} position="static">
+                  <Toolbar></Toolbar>
+                </AppBar>
               </Grid>
-            </Route>
-            <Route path="/account">
-              <Account />
-            </Route>
-            <Route path="/signup">
-              <Register />
-            </Route>
-            <Route path="/orderhistory">
+              <Grid item xs={1} sm={1} />
+            </Grid>
+
+            <Switch>
+              <Route exact path="/">
+                <Grid item container>
+                  <Grid item xs={1} sm={1} />
+                  <Grid item xs={10} sm={10}>
+                    <Box mt={10}>
+                      <div className={classes.divider}>
+                        <Hidden only="xs">
+                          <Section />
+                        </Hidden>
+                      </div>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={1} sm={1} />
+                  <AboutSection />
+                </Grid>
+              </Route>
+              <Route path="/account">
+                <Account />
+              </Route>
+              <Route path="/signup">
+                <Register />
+              </Route>
+              {/* <Route path="/orderhistory">
               <OrderHistory/>
-            </Route>
-            <Route path="/success">
-              <RegisterSuccess />
-            </Route>
-            <Route path="/cart">
-              <Cart />
-            </Route>
-            <Route path="/checkout">
-              <Checkout />
-            </Route>
-            <Route path="/shop">
-              <Shop />
-            </Route>
-          </Switch>
-        </Router>
+            </Route> */}
+              <Route path="/success">
+                <RegisterSuccess />
+              </Route>
+              <Route path="/cart">
+                <Cart />
+              </Route>
+              <Route path="/checkout">
+                <Checkout />
+              </Route>
+              <Route path="/shop">
+                <Shop />
+              </Route>
+            </Switch>
+          </Router>
+        </ServiceProvider>
       </CartProvider>
     </AuthProvider>
   );

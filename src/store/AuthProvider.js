@@ -7,7 +7,6 @@ const REGISTER_REST_API_URL = "http://localhost:8080/api/auth/registration";
 
 const AuthProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [loginCredentials, setLoginCredentials] = useState({});
 
   useEffect(() => {
     const storedUserLogin = localStorage.getItem("isLoggedIn");
