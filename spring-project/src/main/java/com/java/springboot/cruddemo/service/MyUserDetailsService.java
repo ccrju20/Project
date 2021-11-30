@@ -42,7 +42,6 @@ public class MyUserDetailsService implements UserDetailsService {
 		myUser.setCreatedAt();
 		
 		String encodedPassword = bCryptPasswordEncoder.encode(myUser.getPassword());
-		
 		myUser.setPassword(encodedPassword);
 		
 		userRepository.save(myUser);
@@ -50,6 +49,10 @@ public class MyUserDetailsService implements UserDetailsService {
 		String jwt = jwtTokenUtil.generateToken(myUser);
 
 		return jwt;
+	}
+	
+	public int findIdByUsername(String username) {
+		return userRepository.findIdByEmail(username);
 	}
 	
 }

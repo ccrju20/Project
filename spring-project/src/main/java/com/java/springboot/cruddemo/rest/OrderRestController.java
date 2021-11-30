@@ -37,6 +37,11 @@ public class OrderRestController {
 	public List<Order> findAll() {
 		return OrderService.findAll();
 	}
+	
+	@GetMapping("/orders/account/{accountId}")
+	public List<Order> findAllById(@PathVariable int accountId) {
+		return OrderService.findByAccountId(accountId);
+	}
 
 	// add mapping for GET /Orders/{OrderId}
 	@GetMapping("/orders/{orderId}")
@@ -55,15 +60,8 @@ public class OrderRestController {
 	@PostMapping("/orders")
 	public Order addOrder(@RequestBody Order theOrder) {
 					
-		String theEmail = theOrder.getOrderDetails().getEmail();
-				
-		
-//		if (CustomerService.checkEmailExists(theEmail)) {
-//			theOrder.setCustomer(CustomerService.findByEmail(theEmail));
-//			if customer/contact info exists in table and guest=0 (meaning they're registered), send error prompting to login
-//			or use another email;
-//		}
-//			
+//		String theEmail = theOrder.getOrderDetails().getEmail();
+					
 		theOrder.setId(0);
 		theOrder.setDateposted();
 		theOrder.setOrdernumber();
@@ -72,20 +70,6 @@ public class OrderRestController {
 		
 		return theOrder;
 	}
-
-//	@PostMapping("/Orderslist")
-//	public boolean addOrders(@RequestBody List<Order> Orders) {
-//		try {
-//			for (Order Order : Orders) {
-//				Order.setId(0);
-//				OrderService.save(Order);
-//			}
-//		} catch (Exception e) {
-//			return false;
-//		}
-//
-//		return true;
-//	}
 
 	// add mapping for PUT /Orders - update existing Order
 	@PutMapping("/orders")

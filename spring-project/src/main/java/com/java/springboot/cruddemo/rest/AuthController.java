@@ -51,13 +51,10 @@ public class AuthController {
 		
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 		
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		int theId = userDetailsService.findIdByUsername(authenticationRequest.getUsername());
+		
+		return ResponseEntity.ok(new AuthenticationResponse(jwt, theId));
 	}
-	
-//	@PostMapping("/registration")
-//	public String register (@RequestBody RegistrationRequest request) {
-//		return registrationService.register(request);
-//	}
 	
 	@PostMapping("/registration")
 	public ResponseEntity<?> register(@RequestBody RegistrationRequest request) {
@@ -67,7 +64,9 @@ public class AuthController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		return ResponseEntity.ok(new AuthenticationResponse(response));
+		int theId = userDetailsService.findIdByUsername(request.getEmail());
+		
+		return ResponseEntity.ok(new AuthenticationResponse(response, theId));
 	}
 
 }

@@ -20,6 +20,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.java.springboot.cruddemo.models.MyUser;
 
 @Entity
@@ -143,6 +145,7 @@ public class Order {
 		this.delivery = delivery;
 	}
 
+//	@JsonIgnore
 	public MyUser getAccount() {
 		return account;
 	}
@@ -159,6 +162,7 @@ public class Order {
 		orderItems.add(orderItem);
 	}
 
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 	public OrderDetails getOrderDetails() {
 		return orderDetails;
 	}

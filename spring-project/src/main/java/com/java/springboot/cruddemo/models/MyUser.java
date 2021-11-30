@@ -23,6 +23,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.java.springboot.cruddemo.entity.ContactInfo;
 
 @Entity
@@ -96,7 +97,8 @@ public class MyUser implements UserDetails {
         String str = now.format(formatter);
         this.created_at = str;
 	}
-
+	
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 	public ContactInfo getContactInfo() {
 		return contactInfo;
 	}
