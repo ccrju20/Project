@@ -17,6 +17,7 @@ import Checkout from "./Cart/Checkout";
 import Shop from "./Products/Shop";
 import Register from "./Account/Register";
 import RegisterSuccess from "./Account/RegisterSuccess";
+import OrderHistory from "./Account/OrderHistory";
 
 const useStyles = makeStyles({
   root: {
@@ -77,6 +78,9 @@ function App() {
             </Route>
             <Route path="/signup">
               <Register />
+            </Route>
+            <Route path="/orderhistory">
+              <OrderHistory/>
             </Route>
             <Route path="/success">
               <RegisterSuccess />

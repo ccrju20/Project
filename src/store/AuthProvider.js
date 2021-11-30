@@ -22,7 +22,7 @@ const AuthProvider = (props) => {
       .then((response) => {
         if (response.data.jwt) {
           localStorage.setItem("user", JSON.stringify(response.data));
-          console.log(response.data);
+          console.log(response);
         }
         return response.data;
       });
@@ -42,11 +42,11 @@ const AuthProvider = (props) => {
   const register = (firstname, lastname, email, password) => {
     return axios
       .post(REGISTER_REST_API_URL, {
-        firstname: firstname,
-        lastname: lastname,
         email: email,
         password: password,
         contactInfo: {
+          firstname: firstname,
+          lastname: lastname,
           email: email,
           phone: "",
           address: "",
@@ -58,7 +58,7 @@ const AuthProvider = (props) => {
       .then((response) => {
         if (response.data.jwt) {
           localStorage.setItem("user", JSON.stringify(response.data));
-          console.log(response.data);
+          console.log(response);
         }
         return response.data;
       });
