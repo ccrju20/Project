@@ -48,7 +48,7 @@ function TabPanel(props) {
 export default function VerticalTabs() {
   const [value, setValue] = React.useState(0);
   const classes = useStyles();
-  const matches = useMediaQuery("(min-width:600px)");
+  const matches = useMediaQuery("(min-width:750px)");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -67,7 +67,6 @@ export default function VerticalTabs() {
           : { width: "100%" }
       }
     >
-      {/* <Box sx={{ borderBottom: 1, borderColor: "divider" }}> */}
       <Box className={!matches ? classes.horizontal : ""}>
         <Tabs
           orientation={matches ? "vertical" : "horizontal"}
@@ -75,7 +74,6 @@ export default function VerticalTabs() {
           value={value}
           onChange={handleChange}
           className={matches ? classes.vertical : ""}
-          // sx={{ borderRight: 1, borderColor: "divider", width: 200 }}
         >
           <Tab label="Personal Info" />
           <Tab label="Order History" />
@@ -84,7 +82,8 @@ export default function VerticalTabs() {
       </Box>
 
       <Grid container>
-        <Grid item xs={12}>
+        <Grid item xs={false} sm={1} />
+        <Grid item xs={12} sm={10}>
           <TabPanel value={value} index={0}>
             Personal Info: First Name: Last Name: Email: Phone: Address: City:
             State: Postal:
@@ -96,6 +95,7 @@ export default function VerticalTabs() {
             Account Settings: Change Password Delete Account
           </TabPanel>
         </Grid>
+        <Grid item xs={false} sm={1} />
       </Grid>
     </Box>
   );
