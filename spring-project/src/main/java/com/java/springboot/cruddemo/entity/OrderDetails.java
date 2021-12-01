@@ -43,12 +43,7 @@ public class OrderDetails {
 	
 	@Column(name="postal")
 	private String postal;
-	
-//	@OneToMany(fetch=FetchType.LAZY)
-//	@JoinColumn(name="customerid")
-//	private List<Order> orders;
-//	
-	
+		
 	public OrderDetails() {
 		
 	}

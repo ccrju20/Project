@@ -23,58 +23,54 @@ public class OrderDetailsRestController {
 
 	private OrderDetailsService orderDetailsService;
 
-	// inject OrderDetails service
 	@Autowired
 	public OrderDetailsRestController(OrderDetailsService theOrderDetailsService) {
 		orderDetailsService = theOrderDetailsService;
 	}
 
-	// exposer "/OrderDetailss" and return list of OrderDetailss
 	@GetMapping("/orderDetails")
 	public List<OrderDetails> findAll() {
 		return orderDetailsService.findAll();
 	}
 
 	// add mapping for GET /OrderDetailss/{OrderDetailsId}
-	@GetMapping("/OrderDetailss/{orderDetailsId}")
-	public OrderDetails getOrderDetails(@PathVariable int OrderDetailsId) {
-
-		OrderDetails theOrderDetails = orderDetailsService.findById(OrderDetailsId);
-
-		if (theOrderDetails == null) {
-			throw new RuntimeException("OrderDetails id not found - " + OrderDetailsId);
-		}
-
-		return theOrderDetails;
-	}
+//	@GetMapping("/OrderDetailss/{orderDetailsId}")
+//	public OrderDetails getOrderDetails(@PathVariable int OrderDetailsId) {
+//
+//		OrderDetails theOrderDetails = orderDetailsService.findById(OrderDetailsId);
+//
+//		if (theOrderDetails == null) {
+//			throw new RuntimeException("OrderDetails id not found - " + OrderDetailsId);
+//		}
+//
+//		return theOrderDetails;
+//	}
 	
-	@GetMapping("/OrderDetailss/email/{orderDetailsEmail}")
-	public OrderDetails getOrderDetails(@PathVariable String OrderDetailsEmail) {
+//	@GetMapping("/OrderDetailss/email/{orderDetailsEmail}")
+//	public OrderDetails getOrderDetails(@PathVariable String OrderDetailsEmail) {
+//
+//		OrderDetails theOrderDetails = orderDetailsService.findByEmail(OrderDetailsEmail);
+//
+//		if (theOrderDetails == null) {
+//			throw new RuntimeException("OrderDetails email not found - " + OrderDetailsEmail);
+//		}
+//
+//		return theOrderDetails;
+//	}
 
-		OrderDetails theOrderDetails = orderDetailsService.findByEmail(OrderDetailsEmail);
+//	@PostMapping("/orderDetails")
+//	public OrderDetails addOrderDetails(@RequestBody OrderDetails theOrderDetails) {
+//
+//		// also just in case they pass an id in JSON ... set id to 0
+//		// this is to force a save of new item ... instead of update
+//
+//		theOrderDetails.setId(0);
+//		
+//		orderDetailsService.save(theOrderDetails);
+//
+//		return theOrderDetails;
+//	}
 
-		if (theOrderDetails == null) {
-			throw new RuntimeException("OrderDetails email not found - " + OrderDetailsEmail);
-		}
-
-		return theOrderDetails;
-	}
-
-	// add mapping for POST /OrderDetailss - add new OrderDetails
-	@PostMapping("/orderDetails")
-	public OrderDetails addOrderDetails(@RequestBody OrderDetails theOrderDetails) {
-
-		// also just in case they pass an id in JSON ... set id to 0
-		// this is to force a save of new item ... instead of update
-
-		theOrderDetails.setId(0);
-		
-		orderDetailsService.save(theOrderDetails);
-
-		return theOrderDetails;
-	}
-
-	// add mapping for PUT /OrderDetails - update existing OrderDetails
 	@PutMapping("/orderDetails")
 	public OrderDetails updateOrderDetails(@RequestBody OrderDetails theOrderDetails) {
 
@@ -83,20 +79,19 @@ public class OrderDetailsRestController {
 		return theOrderDetails;
 	}
 
-	// add mapping for DELETE /OrderDetailss/{OrderDetailsId} - delete OrderDetails
-	@DeleteMapping("/OrderDetailss/{orderDetailsId}")
-	public String deleteOrderDetails(@PathVariable int OrderDetailsId) {
-
-		OrderDetails tempOrderDetails = orderDetailsService.findById(OrderDetailsId);
-
-		// throw exception if null
-		if (tempOrderDetails == null) {
-			throw new RuntimeException("OrderDetails id not found - " + OrderDetailsId);
-		}
-
-		orderDetailsService.deleteById(OrderDetailsId);
-
-		return "Deleted OrderDetails id - " + OrderDetailsId;
-	}
+//	@DeleteMapping("/orderDetails/{orderDetailsId}")
+//	public String deleteOrderDetails(@PathVariable int OrderDetailsId) {
+//
+//		OrderDetails tempOrderDetails = orderDetailsService.findById(OrderDetailsId);
+//
+//		// throw exception if null
+//		if (tempOrderDetails == null) {
+//			throw new RuntimeException("OrderDetails id not found - " + OrderDetailsId);
+//		}
+//
+//		orderDetailsService.deleteById(OrderDetailsId);
+//
+//		return "Deleted OrderDetails id - " + OrderDetailsId;
+//	}
 
 }
