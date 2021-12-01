@@ -22,7 +22,7 @@ const OrderHistory = (props) => {
     serviceCtx.getOrderHistory().then(
       (response) => {
         console.log(response.data);
-        setData(response.data);
+        setData(response.data.reverse());
       },
       (error) => {
         console.log(error);

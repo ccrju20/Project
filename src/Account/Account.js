@@ -5,7 +5,8 @@ import Login from "./Login";
 import AuthContext from "../store/auth-context";
 import Link from "@mui/material/Link";
 import { Link as RouterLink } from "react-router-dom";
-import AccountTabs from "./AccountTabs"
+import AccountTabs from "./AccountTabs";
+import Button from "@mui/material/Button";
 
 const Account = (props) => {
   const authCtx = useContext(AuthContext);
@@ -24,9 +25,11 @@ const Account = (props) => {
             </Box>
 
             <AccountTabs />
-            <p>
-              <button onClick={authCtx.onLogout}>Logout</button>
-            </p>
+            <Box ml={5}>
+              <Button onClick={authCtx.onLogout} variant="contained" size="small">
+                Logout
+              </Button>
+            </Box>
           </>
         )}
       </Grid>
