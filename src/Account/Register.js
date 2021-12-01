@@ -25,6 +25,8 @@ const Register = (props) => {
   const [lastnameError, setLastNameError] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [loggedIn, setLoggedIn] = useState(false);
+
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
   };
@@ -87,6 +89,10 @@ const Register = (props) => {
   };
 
   useEffect(() => {
+    if (localStorage.getItem("isLoggedIn") === "1") {
+      setLoggedIn(true);
+    }
+
     if (
       !emailError &&
       !passwordError &&
@@ -122,6 +128,33 @@ const Register = (props) => {
 
   return (
     <Container maxWidth="xs">
+      {loggedIn && (
+        <>
+          <Box mt={2} textAlign="center">
+            <Typography align="center" variant="subtitle2">
+              Please log out before creating a new account
+            </Typography>
+            <Button
+              onClick={() => {
+                authCtx.onLogout();
+                window.location.reload();
+              }}
+              variant="contained"
+              type="submit"
+              size="small"
+              sx={{
+                backgroundColor: "#41166c",
+                "&:hover": {
+                  backgroundColor: "#290052",
+                },
+                marginTop: 2,
+              }}
+            >
+              Logout
+            </Button>
+          </Box>
+        </>
+      )}
       <Box mt={7} mb={3}>
         <Typography align="center" variant="h5">
           Create Account
@@ -235,6 +268,7 @@ const Register = (props) => {
                   backgroundColor: "#290052",
                 },
               }}
+              disabled={loggedIn}
             >
               Submit
             </Button>

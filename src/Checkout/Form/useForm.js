@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
-import CartContext from "../store/cart-context";
-import UserInfoContext from "../store/userinfo-context";
+import CartContext from "../../store/cart-context";
+import UserInfoContext from "../../store/userinfo-context";
 
 const useForm = (submitForm, validate, value) => {
   const cartCtx = useContext(CartContext);

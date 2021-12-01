@@ -64,29 +64,16 @@ const ConfirmInfo = (props) => {
     });
   });
 
-  // console.log(cartItems);
-
-  let customer = {
-    firstname: firstname,
-    lastname: lastname,
-    email: email,
-    phone: phone,
-  };
-
-  // console.log(customer);
-
-  let method = "";
-  if (pickup) {
-    method = "pickup";
-  } else {
-    method = "delivery";
+  let method = 0;
+  if (!pickup) {
+    method = 1;
   }
 
   const [DataObject, setDataObject] = useState({
     orderItems: cartItems,
     scheduled: pickupordeliverytime,
     status: "processing",
-    method: method,
+    delivery: method,
     orderDetails: {
       firstname: firstname,
       lastname: lastname,
@@ -108,10 +95,10 @@ const ConfirmInfo = (props) => {
 
     console.log(DataObject);
 
-    axios.post(ORDERS_REST_API_URL, DataObject).then((response) => {
-      console.log(response.data.ordernumber);
-      props.ordernumber(response.data.ordernumber);
-    });
+    // axios.post(ORDERS_REST_API_URL, DataObject).then((response) => {
+    //   console.log(response.data.ordernumber);
+    //   props.ordernumber(response.data.ordernumber);
+    // });
 
     cartCtx.items.forEach((item) => {
       cartCtx.deleteItem(item.id);

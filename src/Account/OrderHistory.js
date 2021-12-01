@@ -1,22 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 
-import { Grid, Box, Typography } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import ServiceContext from "../service/service-context";
-import Card from "@material-ui/core/Card";
-import { makeStyles } from "@material-ui/core/styles";
 import OrderHistoryCard from "./OrderHistoryCard";
-
-const useStyles = makeStyles({
-  root: {
-    height: "100px",
-    width: "350px",
-  },
-});
 
 const OrderHistory = (props) => {
   const serviceCtx = useContext(ServiceContext);
   const [data, setData] = useState([]);
-  const classes = useStyles();
 
   useEffect(() => {
     serviceCtx.getOrderHistory().then(
@@ -29,7 +19,7 @@ const OrderHistory = (props) => {
         // setData(error);
       }
     );
-  }, []);
+  }, [serviceCtx]);
 
   return (
     <div>

@@ -1,5 +1,5 @@
 import { React, useContext } from "react";
-import CartContext from "../store/cart-context";
+import CartContext from "../../store/cart-context";
 
 import List from "@mui/material/List";
 import CartListItem from "./CartListItem";

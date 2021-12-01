@@ -3,8 +3,6 @@ import React, { useContext } from "react";
 import { Grid, Box, Typography } from "@material-ui/core";
 import Login from "./Login";
 import AuthContext from "../store/auth-context";
-import Link from "@mui/material/Link";
-import { Link as RouterLink } from "react-router-dom";
 import AccountTabs from "./AccountTabs";
 import Button from "@mui/material/Button";
 

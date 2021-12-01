@@ -12,8 +12,8 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import NumberFormat from "react-number-format";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import BasicDateTimePicker from "./DateTimePicker";
-import BasicDatePicker from "./DatePicker";
+// import BasicDateTimePicker from "./DateTimePicker";
+import BasicDatePicker from "../UIComponents/DatePicker";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 import Radio from "@mui/material/Radio";
@@ -21,7 +21,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import CustomizedSwitch from "./Switch";
+import CustomizedSwitch from "../UIComponents/Switch";
 import DirectionsCarFilledOutlinedIcon from "@mui/icons-material/DirectionsCarFilledOutlined";
 import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 

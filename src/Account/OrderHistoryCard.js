@@ -6,7 +6,6 @@ import Card from "@material-ui/core/Card";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import Hidden from "@material-ui/core/Hidden";
 import Avatar from "@mui/material/Avatar";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 
@@ -34,7 +33,7 @@ const OrderHistoryCard = (props) => {
 
   let arr = [];
   orderitems.map((item) => {
-    arr.push(parseFloat(item.total_price));
+    return arr.push(parseFloat(item.total_price));
   });
   const total = arr.reduce(
     (previousValue, currentValue) => previousValue + currentValue
