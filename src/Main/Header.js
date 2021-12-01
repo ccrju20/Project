@@ -132,10 +132,6 @@ const Header = (props) => {
                 <Typography className={classes.menuText}>CATERING</Typography>
               </Grid>
             </Hidden>
-
-            {authCtx.isLoggedIn && (
-              <Typography className={classes.menuText}>ACCOUNT</Typography>
-            )}
           </Grid>
         </Hidden>
         <IconButton
