@@ -95,10 +95,10 @@ const ConfirmInfo = (props) => {
 
     console.log(DataObject);
 
-    // axios.post(ORDERS_REST_API_URL, DataObject).then((response) => {
-    //   console.log(response.data.ordernumber);
-    //   props.ordernumber(response.data.ordernumber);
-    // });
+    axios.post(ORDERS_REST_API_URL, DataObject).then((response) => {
+      console.log(response.data.ordernumber);
+      props.ordernumber(response.data.ordernumber);
+    });
 
     cartCtx.items.forEach((item) => {
       cartCtx.deleteItem(item.id);

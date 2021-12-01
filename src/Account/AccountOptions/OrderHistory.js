@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 
 import { Box, Typography } from "@material-ui/core";
-import ServiceContext from "../service/service-context";
+import ServiceContext from "../../service/service-context";
 import OrderHistoryCard from "./OrderHistoryCard";
 
 const OrderHistory = (props) => {
@@ -23,7 +23,7 @@ const OrderHistory = (props) => {
 
   return (
     <div>
-      <Typography variant="body1">Order History</Typography>
+      <Typography variant="h5" align="center">Order History</Typography>
       <Box mt={2}>
         {data.map((order) => (
           <Box mb={2} key={order.id}>

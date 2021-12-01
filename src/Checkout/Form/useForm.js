@@ -1,12 +1,9 @@
 import { useState, useEffect, useContext } from "react";
-import CartContext from "../../store/cart-context";
 import UserInfoContext from "../../store/userinfo-context";
 
 const useForm = (submitForm, validate, value) => {
-  const cartCtx = useContext(CartContext);
   const userCtx = useContext(UserInfoContext);
   const [pickup, setPickup] = useState(false);
-  const [asapOrScheduled, setAsapOrScheduled] = useState("ASAP");
   // const [datetime, setDatetime] = useState(new Date());
 
   const [values, setValues] = useState({
@@ -63,7 +60,7 @@ const useForm = (submitForm, validate, value) => {
       userCtx.saveInfo(values);
       console.log(values);
     }
-  }, [errors, isSubmitting, submitForm, values]);
+  }, [errors, isSubmitting, submitForm, values, userCtx]);
 
   return {
     handleChange,
