@@ -43,10 +43,11 @@ const OrderHistoryCard = (props) => {
     <Card>
       <Box className={classes.card}>
         <br></br>
+        <Typography align="center">{date.substring(0, 10)}</Typography>
         <Typography variant="h6" align="center">
           Order #{ordernumber}
         </Typography>
-        <Typography align="center">{date.substring(0, 10)}</Typography>
+        {/* <Typography align="center">{date.substring(0, 10)}</Typography> */}
         <br></br>
       </Box>
 

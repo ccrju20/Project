@@ -17,12 +17,9 @@ const Account = (props) => {
           <Login />
         ) : (
           <>
-            <Box mt={2} mb={3}>
-              <Typography variant="h5">
-                Your Account
-              </Typography>
+            <Box mt={2} mb={4}>
+              <Typography variant="h5">Your Account</Typography>
             </Box>
-
             <AccountTabs />
             <Box ml={5}>
               <Button
