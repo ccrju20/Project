@@ -17,6 +17,7 @@ import Checkout from "./Checkout/Checkout";
 import Shop from "./Products/Shop";
 import Register from "./Account/Register";
 import RegisterSuccess from "./Account/RegisterSuccess";
+import ProductPage from "./Products/ProductPage";
 import ServiceProvider from "./service/ServiceProvider";
 
 const useStyles = makeStyles({
@@ -91,6 +92,9 @@ function App() {
               </Route>
               <Route path="/shop">
                 <Shop />
+              </Route>
+              <Route path="/product">
+                <ProductPage />
               </Route>
             </Switch>
           </Router>

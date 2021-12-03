@@ -28,8 +28,7 @@ const Content = () => {
   }, []);
 
   const productList = products.map((product) => (
-    <Grid item xs={12} sm={matches ? 4 : 12} key={product.id}>
-      <div>
+    <Grid item xs={12} sm={matches ? 4 : 4} key={product.id}>
         <ProductCard
           id={product.id}
           title={product.title}
@@ -37,7 +36,6 @@ const Content = () => {
           imgSrc={product.img}
           description={product.description}
         />
-      </div>
     </Grid>
   ));
 
