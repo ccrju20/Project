@@ -3,6 +3,7 @@ import axios from "axios";
 import ProductCard from "./ProductCard";
 import { Grid } from "@material-ui/core";
 import Skeleton from "@mui/material/Skeleton";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const PRODUCTS_REST_API_URL = "http://localhost:8080/api/products";
 
@@ -10,6 +11,7 @@ const Content = () => {
   const [products, setProducts] = useState([]);
   const [loadError, setLoadError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const matches = useMediaQuery("(min-width:900px)");
 
   useEffect(() => {
     axios
@@ -26,7 +28,7 @@ const Content = () => {
   }, []);
 
   const productList = products.map((product) => (
-    <Grid item xs={12} sm={4} key={product.id}>
+    <Grid item xs={12} sm={matches ? 4 : 12} key={product.id}>
       <div>
         <ProductCard
           id={product.id}
