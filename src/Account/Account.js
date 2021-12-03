@@ -3,9 +3,7 @@ import React, { useContext } from "react";
 import { Grid, Box, Typography } from "@material-ui/core";
 import Login from "./Login";
 import AuthContext from "../store/auth-context";
-import Link from "@mui/material/Link";
-import { Link as RouterLink } from "react-router-dom";
-import AccountTabs from "./AccountTabs";
+import AccountTabs from "./AccountOptions/AccountTabs";
 import Button from "@mui/material/Button";
 
 const Account = (props) => {
@@ -15,18 +13,20 @@ const Account = (props) => {
     <Grid container>
       <Grid item xs={1} />
       <Grid item xs={10}>
-        {!authCtx.isLoggedIn && <Login />}
-        {authCtx.isLoggedIn && (
+        {!authCtx.isLoggedIn ? (
+          <Login />
+        ) : (
           <>
-            <Box mt={2} mb={2}>
-              <Typography align="center" variant="h5">
-                Your Account
-              </Typography>
+            <Box mt={2} mb={4}>
+              <Typography variant="h5">Your Account</Typography>
             </Box>
-
             <AccountTabs />
             <Box ml={5}>
-              <Button onClick={authCtx.onLogout} variant="contained" size="small">
+              <Button
+                onClick={authCtx.onLogout}
+                variant="contained"
+                size="small"
+              >
                 Logout
               </Button>
             </Box>

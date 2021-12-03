@@ -64,29 +64,16 @@ const ConfirmInfo = (props) => {
     });
   });
 
-  // console.log(cartItems);
-
-  let customer = {
-    firstname: firstname,
-    lastname: lastname,
-    email: email,
-    phone: phone,
-  };
-
-  // console.log(customer);
-
-  let method = "";
-  if (pickup) {
-    method = "pickup";
-  } else {
-    method = "delivery";
+  let method = 0;
+  if (!pickup) {
+    method = 1;
   }
 
   const [DataObject, setDataObject] = useState({
     orderItems: cartItems,
     scheduled: pickupordeliverytime,
     status: "processing",
-    method: method,
+    delivery: method,
     orderDetails: {
       firstname: firstname,
       lastname: lastname,

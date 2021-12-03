@@ -1,8 +1,8 @@
 import { React, useState, useCallback } from "react";
 
 import { Grid } from "@material-ui/core";
-import EnterInfo from "./EnterInfo";
-import CheckoutCartList from "./CheckoutCartList";
+import EnterInfo from "./Form/EnterInfo";
+import CheckoutCartList from "./OrderSummary/CheckoutCartList";
 import Confirmation from "./Confirmation";
 import UserInfoProvider from "../store/UserInfoProvider";
 import ConfirmInfo from "./ConfirmInfo";

@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { AppBar, Toolbar, Box } from "@material-ui/core";
@@ -13,7 +13,7 @@ import Account from "./Account/Account";
 import Section from "./Main/Section";
 import AuthProvider from "./store/AuthProvider";
 import CartProvider from "./store/CartProvider";
-import Checkout from "./Cart/Checkout";
+import Checkout from "./Checkout/Checkout";
 import Shop from "./Products/Shop";
 import Register from "./Account/Register";
 import RegisterSuccess from "./Account/RegisterSuccess";
@@ -80,9 +80,6 @@ function App() {
               <Route path="/signup">
                 <Register />
               </Route>
-              {/* <Route path="/orderhistory">
-              <OrderHistory/>
-            </Route> */}
               <Route path="/success">
                 <RegisterSuccess />
               </Route>

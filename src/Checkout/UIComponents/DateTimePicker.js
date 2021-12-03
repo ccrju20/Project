@@ -14,7 +14,7 @@ export default function BasicDateTimePicker(props) {
 
   useEffect(() => {
     setValue(minDate);   
-  }, []);
+  }, [minDate]);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
