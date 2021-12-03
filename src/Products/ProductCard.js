@@ -1,24 +1,21 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardActions from "@material-ui/core/CardActions";
+import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import CartContext from "../store/cart-context";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
-    height: "360px",
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
+    height: "auto",
   },
   title: {
     fontSize: 16,
@@ -43,6 +40,11 @@ const ProductCard = (props) => {
   const { id, title, subtitle, description, imgSrc } = props;
   const cartCtx = useContext(CartContext);
   const [open, setOpen] = useState(false);
+  const history = useHistory();
+
+  useEffect(() => {
+    localStorage.removeItem("product");
+  }, []);
 
   const addToCartHandler = () => {
     cartCtx.addItem({
@@ -56,6 +58,21 @@ const ProductCard = (props) => {
     setOpen(true);
   };
 
+  const handleProduct = (id, title, subtitle, description, imgSrc) => {
+    console.log("clicked");
+    localStorage.setItem(
+      "product",
+      JSON.stringify({
+        id: id,
+        title: title,
+        price: subtitle,
+        description: description,
+        img: imgSrc
+      })
+    );
+    history.push("/product");
+  };
+
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -65,19 +82,25 @@ const ProductCard = (props) => {
   };
 
   return (
-    <Card className={classes.root}>
-      <CardMedia className={classes.image} image={imgSrc} />
-      <CardHeader
-        classes={{ title: classes.title }}
-        title={title}
-        subheader={"$" + subtitle}
-        key={id}
-      />
-      <CardContent className={classes.description}>
-        <Typography variant="body2" component="p">
-          {description}
-        </Typography>
-      </CardContent>
+    <Card>
+      <CardActionArea
+        onClick={() => {
+          handleProduct(id, title, subtitle, description, imgSrc);
+        }}
+      >
+        <CardMedia height={180} component="img" image={imgSrc} alt="item" />
+        <CardHeader
+          classes={{ title: classes.title }}
+          title={title}
+          subheader={"$" + subtitle}
+          key={id}
+        />
+        <CardContent className={classes.description}>
+          <Typography variant="body2" component="p">
+            {description}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
       <CardActions>
         <Button
           className={classes.button}
