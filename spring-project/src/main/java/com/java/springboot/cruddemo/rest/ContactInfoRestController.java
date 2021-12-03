@@ -63,18 +63,18 @@ public class ContactInfoRestController {
 		return theContactInfo;
 	}
 
-	@DeleteMapping("contactInfo/{contactInfoId}")
-	public String deleteContactInfo(@PathVariable int contactInfoId) {
-
-		ContactInfo tempContactInfo = contactInfoService.findById(contactInfoId);
-
-		if (tempContactInfo == null) {
-			throw new RuntimeException("ContactInfo id not found - " + contactInfoId);
-		}
-
-		contactInfoService.deleteById(contactInfoId);
-
-		return "Deleted ContactInfo id - " + contactInfoId;
-	}
+//	@DeleteMapping("contactInfo/{contactInfoId}")
+//	public String deleteContactInfo(@PathVariable int contactInfoId) {
+//
+//		ContactInfo tempContactInfo = contactInfoService.findById(contactInfoId);
+//
+//		if (tempContactInfo == null) {
+//			throw new RuntimeException("ContactInfo id not found - " + contactInfoId);
+//		}
+//
+//		contactInfoService.deleteById(contactInfoId);
+//
+//		return "Deleted ContactInfo id - " + contactInfoId;
+//	}
 
 }

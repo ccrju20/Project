@@ -1,5 +1,7 @@
 package com.java.springboot.cruddemo.rest;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -7,14 +9,19 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.java.springboot.cruddemo.models.AuthenticationRequest;
-import com.java.springboot.cruddemo.models.AuthenticationResponse;
-import com.java.springboot.cruddemo.models.RegistrationRequest;
+import com.java.springboot.cruddemo.entity.Order;
+import com.java.springboot.cruddemo.models.MyUser;
+import com.java.springboot.cruddemo.payload.AuthenticationRequest;
+import com.java.springboot.cruddemo.payload.AuthenticationResponse;
+import com.java.springboot.cruddemo.payload.RegistrationRequest;
 import com.java.springboot.cruddemo.service.MyUserDetailsService;
 import com.java.springboot.cruddemo.service.RegistrationService;
 import com.java.springboot.cruddemo.util.JwtUtil;
@@ -67,6 +74,24 @@ public class AuthController {
 		int theId = userDetailsService.findIdByUsername(request.getEmail());
 		
 		return ResponseEntity.ok(new AuthenticationResponse(response, theId));
+	}
+	
+	@GetMapping("/users/{userId}")
+	public MyUser getOrder(@PathVariable int userId) {
+
+		MyUser user = userDetailsService.findById(userId);;
+
+		return user;
+	}
+	
+	@DeleteMapping("/users/{userId}")
+	public String deleteOrder(@PathVariable int userId) {
+
+		MyUser user = userDetailsService.findById(userId);;
+
+		userDetailsService.deleteById(userId);
+		
+		return "Deleted User ID - " + userId;
 	}
 
 }

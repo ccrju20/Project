@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.java.springboot.cruddemo.entity.Order;
-import com.java.springboot.cruddemo.service.OrderDetailsService;
 import com.java.springboot.cruddemo.service.OrderService;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -23,16 +22,12 @@ import com.java.springboot.cruddemo.service.OrderService;
 public class OrderRestController {
 
 	private OrderService OrderService;
-	private OrderDetailsService orderDetailsService;
 
-	// inject Order service
 	@Autowired
-	public OrderRestController(OrderService theOrderService, OrderDetailsService theOrderDetailsService) {
+	public OrderRestController(OrderService theOrderService) {
 		OrderService = theOrderService;
-		orderDetailsService = theOrderDetailsService;
 	}
 
-	// exposer "/Orders" and return list of Orders
 	@GetMapping("/orders")
 	public List<Order> findAll() {
 		return OrderService.findAll();
@@ -43,7 +38,6 @@ public class OrderRestController {
 		return OrderService.findByAccountId(accountId);
 	}
 
-	// add mapping for GET /Orders/{OrderId}
 	@GetMapping("/orders/{orderId}")
 	public Order getOrder(@PathVariable int orderId) {
 
@@ -56,12 +50,9 @@ public class OrderRestController {
 		return theOrder;
 	}
 
-	// add mapping for POST /Orders - add new Order
 	@PostMapping("/orders")
 	public Order addOrder(@RequestBody Order theOrder) {
-					
-//		String theEmail = theOrder.getOrderDetails().getEmail();
-					
+										
 		theOrder.setId(0);
 		theOrder.setDateposted();
 		theOrder.setOrdernumber();
@@ -71,7 +62,6 @@ public class OrderRestController {
 		return theOrder;
 	}
 
-	// add mapping for PUT /Orders - update existing Order
 	@PutMapping("/orders")
 	public Order updateOrder(@RequestBody Order theOrder) {
 
@@ -80,13 +70,11 @@ public class OrderRestController {
 		return theOrder;
 	}
 
-	// add mapping for DELETE /Orders/{OrderId} - delete Order
 	@DeleteMapping("/orders/{orderId}")
 	public String deleteOrder(@PathVariable int orderId) {
 
 		Order tempOrder = OrderService.findById(orderId);
 
-		// throw exception if null
 		if (tempOrder == null) {
 			throw new RuntimeException("Order id not found - " + orderId);
 		}

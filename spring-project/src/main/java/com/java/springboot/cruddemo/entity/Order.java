@@ -56,7 +56,7 @@ public class Order {
 	@JoinColumn(name="orderid")
 	private List<OrderItem> orderItems;
 	
-	@OneToOne(fetch=FetchType.LAZY, cascade={CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="details_id")
 	private OrderDetails orderDetails;
 	
