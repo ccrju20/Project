@@ -14,14 +14,8 @@ import MuiAlert from "@mui/material/Alert";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
-  root: {
-    height: "auto",
-  },
   title: {
     fontSize: 16,
-  },
-  image: {
-    height: "50%",
   },
   button: {
     marginTop: -10,
