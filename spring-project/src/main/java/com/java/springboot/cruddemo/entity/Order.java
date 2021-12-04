@@ -22,6 +22,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.java.springboot.cruddemo.models.MyUser;
 
 @Entity
@@ -144,12 +145,13 @@ public class Order {
 	public void setDelivery(int delivery) {
 		this.delivery = delivery;
 	}
-
-//	@JsonIgnore
+	
+	@JsonIgnore
 	public MyUser getAccount() {
 		return account;
 	}
 
+	@JsonProperty
 	public void setAccount(MyUser account) {
 		this.account = account;
 	}

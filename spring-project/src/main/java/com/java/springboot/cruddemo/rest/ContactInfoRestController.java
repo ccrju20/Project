@@ -33,7 +33,7 @@ public class ContactInfoRestController {
 		return contactInfoService.findAll();
 	}
 
-	@GetMapping("/Contactinfos/{contactInfoId}")
+	@GetMapping("/contactinfo/{contactInfoId}")
 	public ContactInfo getContactInfo(@PathVariable int contactInfoId) {
 
 		ContactInfo theContactInfo = contactInfoService.findById(contactInfoId);
