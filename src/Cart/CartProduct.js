@@ -47,7 +47,7 @@ const CartProduct = (props) => {
             </ListItemAvatar>
             <ListItemText primary={name} secondary={updatedPrice} />
             <Hidden smDown={true}>
-              <Grid container justify="center" alignItems="center">
+              <Grid container justifyContent="center" alignItems="center">
                 <Grid item>
                   <IconButton onClick={props.onAdd}>
                     <AddCircleOutlineOutlinedIcon />

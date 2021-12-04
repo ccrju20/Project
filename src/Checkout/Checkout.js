@@ -21,29 +21,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Checkout = () => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isConfirmed, setConfirmedInfo] = useState(false);
-  const [orderNumber, setOrderNumber] = useState("");
+  // const [isSubmitted, setIsSubmitted] = useState(false);
+  // const [isConfirmed, setConfirmedInfo] = useState(false);
+  // const [orderNumber, setOrderNumber] = useState("");
   const classes = useStyles();
 
-  const submitForm = useCallback(() => {
-    setIsSubmitted(true);
-  }, [setIsSubmitted]);
+  // const submitForm = useCallback(() => {
+  //   setIsSubmitted(true);
+  // }, [setIsSubmitted]);
 
-  const confirmInfo = () => {
-    setConfirmedInfo(true);
-    // console.log(isConfirmed);
-  };
+  // const confirmInfo = () => {
+  //   setConfirmedInfo(true);
+  //   // console.log(isConfirmed);
+  // };
 
-  const handleOrderNumber = (ordernumber) => {
-    setOrderNumber(ordernumber);
-  };
+  // const handleOrderNumber = (ordernumber) => {
+  //   setOrderNumber(ordernumber);
+  // };
 
   return (
     <Grid container>
       <Grid item xs={1} />
       <Grid item xs={10}>
-        {isSubmitted ? (
+        {/* {isSubmitted ? (
           <Grid container justify="center">
             {isConfirmed ? (
               <Confirmation ordernumber={orderNumber} />
@@ -55,11 +55,12 @@ const Checkout = () => {
             )}
           </Grid>
         ) : (
-          <>
+          <> */}
             <h1> Checkout </h1>
             <Grid container>
               <Grid item xs={12} sm={12} md={6}>
-                <EnterInfo submitForm={submitForm} />
+                {/* <EnterInfo submitForm={submitForm} /> */}
+                <EnterInfo />
               </Grid>
               <Hidden smDown={true}>
                 <Grid item md={1} className={classes.divider} />
@@ -74,8 +75,8 @@ const Checkout = () => {
                 <CheckoutCartList />
               </Grid>
             </Grid>
-          </>
-        )}
+          {/* </>
+        )} */}
       </Grid>
       <Grid item xs={1} />
     </Grid>

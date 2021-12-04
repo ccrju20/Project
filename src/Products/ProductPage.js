@@ -4,23 +4,16 @@ import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import ProductDetails from "./ProductDetails";
 import Button from "@mui/material/Button";
-import { makeStyles } from "@material-ui/core/styles";
 import CartContext from "../store/cart-context";
 import AddCircleOutlineTwoToneIcon from "@mui/icons-material/AddCircleOutlineTwoTone";
 import RemoveCircleOutlineTwoToneIcon from "@mui/icons-material/RemoveCircleOutlineTwoTone";
 import IconButton from "@material-ui/core/IconButton";
 
-const useStyles = makeStyles({
-  price: {
-    color: "grey",
-  },
-});
 
 const ProductPage = () => {
   const [product, setProduct] = useState({});
   const [itemAmount, setItemAmount] = useState(1);
   const cartCtx = useContext(CartContext);
-  const classes = useStyles();
 
   useEffect(() => {
     setProduct(JSON.parse(localStorage.getItem("product")));

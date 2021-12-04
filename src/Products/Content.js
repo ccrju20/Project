@@ -39,14 +39,14 @@ const Content = () => {
     </Grid>
   ));
 
-  const skeletonArray = Array(8).fill("");
+  const skeletonArray = Array(9).fill("");
 
   return (
     <Grid container spacing={4}>
       {!loadError ? (
         productList
       ) : (
-        <Grid container justify="center">
+        <Grid container justifyContent="center">
           <h2>Unable to load items</h2>
         </Grid>
       )}

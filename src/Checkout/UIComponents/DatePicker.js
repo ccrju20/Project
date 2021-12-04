@@ -14,7 +14,6 @@ export default function BasicDatePicker(props) {
         disabled={props.read}
         minDate={props.minDate}
         onChange={(newValue) => {
-        //   setValue(newValue);
           props.handleval(newValue);
 
         }}

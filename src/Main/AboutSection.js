@@ -61,7 +61,7 @@ const AboutSection = () => {
           <Grid item xs={false} />
         </Grid>
       </Grid>
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
           <Box mb={10}>
             <WovenImageList />
           </Box>

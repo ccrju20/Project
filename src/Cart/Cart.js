@@ -47,7 +47,7 @@ const Cart = (props) => {
         <h1>
           Cart <ShoppingBasketTwoToneIcon style={{ marginLeft: 10 }} />
         </h1>
-        <Grid container justify="center">
+        <Grid container justifyContent="center">
           <h3>You have {cartTotalItems} item(s) in your cart</h3>
         </Grid>
         <Grid container spacing={3}>
@@ -76,11 +76,11 @@ const Cart = (props) => {
             Total: {totalAmount}
           </Typography>
           <Box mt={2}>
-            <Grid container justify="center">
+            <Grid container justifyContent="center">
               {cartTotalItems > 0 && (
                 <Link
                   component={RouterLink}
-                  to="/checkout"
+                  to="/check"
                   color="inherit"
                   underline="none"
                 >

@@ -61,7 +61,7 @@ const PersonalInfo = (props) => {
                   </Typography>
                 </Grid>
                 <Grid item xs={1}>
-                  <Grid container justify="flex-end">
+                  <Grid container justifyContent="flex-end">
                     <ArrowForwardIosIcon
                       fontSize="small"
                       style={{ color: "grey" }}
@@ -85,7 +85,7 @@ const PersonalInfo = (props) => {
                   </Typography>
                 </Grid>
                 <Grid item xs={1}>
-                  <Grid container justify="flex-end">
+                  <Grid container justifyContent="flex-end">
                     <ArrowForwardIosIcon
                       fontSize="small"
                       style={{ color: "grey" }}
@@ -119,7 +119,7 @@ const PersonalInfo = (props) => {
                   </Typography>
                 </Grid>
                 <Grid item xs={1}>
-                  <Grid container justify="flex-end">
+                  <Grid container justifyContent="flex-end">
                     <ArrowForwardIosIcon
                       fontSize="small"
                       style={{ color: "grey" }}
@@ -143,7 +143,7 @@ const PersonalInfo = (props) => {
                   </Typography>
                 </Grid>
                 <Grid item xs={1}>
-                  <Grid container justify="flex-end">
+                  <Grid container justifyContent="flex-end">
                     <ArrowForwardIosIcon
                       fontSize="small"
                       style={{ color: "grey" }}
@@ -170,7 +170,7 @@ const PersonalInfo = (props) => {
                   </Typography>
                 </Grid>
                 <Grid item xs={1}>
-                  <Grid container justify="flex-end">
+                  <Grid container justifyContent="flex-end">
                     <ArrowForwardIosIcon
                       fontSize="small"
                       style={{ color: "grey" }}

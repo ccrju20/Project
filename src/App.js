@@ -1,16 +1,13 @@
 import "./App.css";
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { AppBar, Toolbar, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Header from "./Main/Header";
-import AboutSection from "./Main/AboutSection";
 import Cart from "./Cart/Cart";
-import Hidden from "@material-ui/core/Hidden";
 import Account from "./Account/Account";
-import Section from "./Main/Section";
 import AuthProvider from "./store/AuthProvider";
 import CartProvider from "./store/CartProvider";
 import Checkout from "./Checkout/Checkout";
@@ -20,6 +17,9 @@ import RegisterSuccess from "./Account/RegisterSuccess";
 import ProductPage from "./Products/ProductPage";
 import ServiceProvider from "./service/ServiceProvider";
 import UserInfoProvider from "./store/UserInfoProvider";
+import ConfirmInfo from "./Checkout/ConfirmInfo";
+import MainPage from "./MainPage";
+import Check from "./Checkout/Check";
 
 const useStyles = makeStyles({
   root: {
@@ -47,60 +47,39 @@ function App() {
     <AuthProvider>
       <CartProvider>
         <UserInfoProvider>
-        <ServiceProvider>
-          <Router>
-            <Grid container>
-              <Grid item xs={1} sm={1} />
-              <Grid item xs={10} sm={10}>
-                <Header />
-                <AppBar className={classes.root} position="static">
-                  <Toolbar></Toolbar>
-                </AppBar>
-              </Grid>
-              <Grid item xs={1} sm={1} />
-            </Grid>
-
-            <Switch>
-              <Route exact path="/">
-                <Grid item container>
-                  <Grid item xs={1} sm={1} />
-                  <Grid item xs={10} sm={10}>
-                    <Box mt={10}>
-                      <div className={classes.divider}>
-                        <Hidden only="xs">
-                          <Section />
-                        </Hidden>
-                      </div>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={1} sm={1} />
-                  <AboutSection />
+          <ServiceProvider>
+            <Router>
+              <Grid container>
+                <Grid item xs={1} sm={1} />
+                <Grid item xs={10} sm={10}>
+                  <Header />
+                  <AppBar className={classes.root} position="static">
+                    <Toolbar></Toolbar>
+                  </AppBar>
                 </Grid>
-              </Route>
-              <Route path="/account">
-                <Account />
-              </Route>
-              <Route path="/signup">
-                <Register />
-              </Route>
-              <Route path="/success">
-                <RegisterSuccess />
-              </Route>
-              <Route path="/cart">
-                <Cart />
-              </Route>
-              <Route path="/checkout">
-                <Checkout />
-              </Route>
-              <Route path="/shop">
-                <Shop />
-              </Route>
-              <Route path="/product">
-                <ProductPage />
-              </Route>
-            </Switch>
-          </Router>
-        </ServiceProvider>
+                <Grid item xs={1} sm={1} />
+              </Grid>
+
+              <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route path="/account" element={<Account />} />
+
+                <Route path="/signup" element={<Register />} />
+
+                <Route path="/success" element={<RegisterSuccess />} />
+
+                <Route path="/cart" element={<Cart />} />
+                {/* <Route path="/checkout" element={<Checkout />} /> */}
+                <Route path="/check" element={<Check />} />
+
+                <Route path="/confirminfo" element={<ConfirmInfo />} />
+
+                <Route path="/shop" element={<Shop />} />
+
+                <Route path="/product" element={<ProductPage />} />
+              </Routes>
+            </Router>
+          </ServiceProvider>
         </UserInfoProvider>
       </CartProvider>
     </AuthProvider>

@@ -1,4 +1,4 @@
-import { React, useContext, useState } from "react";
+import { React, useContext } from "react";
 import axios from "axios";
 
 import Button from "@material-ui/core/Button";
@@ -69,7 +69,7 @@ const ConfirmInfo = (props) => {
     method = 1;
   }
 
-  const [DataObject, setDataObject] = useState({
+  const DataObject = {
     orderItems: cartItems,
     scheduled: pickupordeliverytime,
     status: "processing",
@@ -84,11 +84,11 @@ const ConfirmInfo = (props) => {
       city: city,
       state: state,
       postal: postal,
-    },
     // account: {
     //   id: 2,
     // },
-  });
+    }
+  };
 
   const onConfirmHandler = () => {
     props.confirmation(true);

@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import CartContext from "../store/cart-context";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   title: {
@@ -34,7 +34,7 @@ const ProductCard = (props) => {
   const { id, title, subtitle, description, imgSrc } = props;
   const cartCtx = useContext(CartContext);
   const [open, setOpen] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.removeItem("product");
@@ -64,7 +64,7 @@ const ProductCard = (props) => {
         img: imgSrc
       })
     );
-    history.push("/product");
+    navigate("/product");
   };
 
   const handleClose = (event, reason) => {

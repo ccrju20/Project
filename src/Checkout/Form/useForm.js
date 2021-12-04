@@ -1,10 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import UserInfoContext from "../../store/userinfo-context";
+import { useNavigate } from "react-router-dom";
+
 
 const useForm = (submitForm, validate, value) => {
   const userCtx = useContext(UserInfoContext);
   const [pickup, setPickup] = useState(false);
   // const [datetime, setDatetime] = useState(new Date());
+  const history = useNavigate();
+
 
   const [values, setValues] = useState({
     firstname: "",
@@ -55,9 +59,10 @@ const useForm = (submitForm, validate, value) => {
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
-      submitForm();
-      
+      // submitForm();
       userCtx.saveInfo(values);
+
+      history.push("/confirminfo");
       console.log(values);
     }
   }, [errors, isSubmitting, submitForm, values, userCtx]);

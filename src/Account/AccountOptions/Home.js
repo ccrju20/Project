@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 
-import { Grid, Box, Typography } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import ServiceContext from "../../service/service-context";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { makeStyles } from "@material-ui/styles";

@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import useForm from "./useForm";
 import validate from "./validateInfo";
+import Contact from './Contact'
 
 import { Grid, Box, Typography } from "@material-ui/core";
 import Accordion from "@material-ui/core/Accordion";
@@ -16,6 +17,10 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import BasicDatePicker from "../UIComponents/DatePicker";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
+
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -26,12 +31,6 @@ import DirectionsCarFilledOutlinedIcon from "@mui/icons-material/DirectionsCarFi
 import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-  },
   accordionRoot: {
     width: "100%",
   },
@@ -39,11 +38,6 @@ const useStyles = makeStyles((theme) => ({
     border: "3px solid",
     width: "180px",
     color: "#837D7D",
-  },
-  divider: {
-    marginTop: 50,
-    marginBottom: 50,
-    width: "80%",
   },
 }));
 
@@ -76,7 +70,7 @@ const EnterInfo = ({ submitForm }, props) => {
     errors,
     handlePickup,
     handleDateTime,
-    handleAsap
+    handleAsap,
   } = useForm(submitForm, validate);
 
   const [pickup, setPickup] = useState(false);
@@ -126,20 +120,23 @@ const EnterInfo = ({ submitForm }, props) => {
     errors.postal,
   ]);
 
-  const minDate = new Date();
-  minDate.setDate(minDate.getDate() + 2);
-  minDate.setHours(8, 0);
-
   useEffect(() => {
+    const minDate = new Date();
+    minDate.setDate(minDate.getDate() + 2);
+    minDate.setHours(8, 0);
     setDateValue(minDate);
   }, []);
 
   return (
     <>
-      <h3>Please enter your info </h3>
-      <form onSubmit={handleSubmit}>
-        <Accordion className={classes.accordionRoot} defaultExpanded={true}>
-          <AccordionSummary
+     <form onSubmit={handleSubmit}>
+    <Contact />
+      {/* <h3>Please enter your info </h3>
+     
+        <Card>
+          <CardHeader title="Contact Info" /> */}
+          {/* <Accordion className={classes.accordionRoot} defaultExpanded={true}> */}
+          {/* <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
@@ -148,8 +145,8 @@ const EnterInfo = ({ submitForm }, props) => {
             {contactInfoError && (
               <ErrorOutlineIcon sx={{ marginLeft: 2, marginTop: -0.25 }} />
             )}
-          </AccordionSummary>
-          <AccordionDetails>
+          </AccordionSummary> */}
+          {/* <CardContent>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -183,10 +180,12 @@ const EnterInfo = ({ submitForm }, props) => {
                   </Typography>
                 )}
               </Grid>
-            </Grid>
-          </AccordionDetails>
-          <AccordionDetails>
-            <Grid container spacing={3}>
+            </Grid> */}
+            {/* </AccordionDetails> */}
+          {/* </CardContent>
+          <CardContent> */}
+            {/* <AccordionDetails> */}
+            {/* <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
@@ -223,9 +222,11 @@ const EnterInfo = ({ submitForm }, props) => {
                   </Typography>
                 )}
               </Grid>
-            </Grid>
-          </AccordionDetails>
-        </Accordion>
+            </Grid> */}
+            {/* </AccordionDetails> */}
+          {/* </CardContent> */}
+          {/* </Accordion> */}
+        {/* </Card> */}
 
         <Grid container justify="center">
           <Grid item sm={4}>
@@ -251,8 +252,10 @@ const EnterInfo = ({ submitForm }, props) => {
         {!pickup && (
           <>
             <h3>Deliver to: </h3>
-            <Accordion className={classes.accordionRoot}>
-              <AccordionSummary
+            <Card>
+              {/* <Accordion className={classes.accordionRoot}> */}
+              <CardHeader title="Shipping"></CardHeader>
+              {/* <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
@@ -261,8 +264,9 @@ const EnterInfo = ({ submitForm }, props) => {
                 {shippingInfoError && (
                   <ErrorOutlineIcon sx={{ marginLeft: 2, marginTop: -0.25 }} />
                 )}
-              </AccordionSummary>
-              <AccordionDetails>
+              </AccordionSummary> */}
+              {/* <AccordionDetails> */}
+              <CardContent>
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={7}>
                     <TextField
@@ -292,8 +296,10 @@ const EnterInfo = ({ submitForm }, props) => {
                     />
                   </Grid>
                 </Grid>
-              </AccordionDetails>
-              <AccordionDetails>
+              </CardContent>
+              {/* </AccordionDetails> */}
+              {/* <AccordionDetails> */}
+              <CardContent>
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={5}>
                     <TextField
@@ -344,8 +350,10 @@ const EnterInfo = ({ submitForm }, props) => {
                     )}
                   </Grid>
                 </Grid>
-              </AccordionDetails>
-            </Accordion>
+              </CardContent>
+              {/* </AccordionDetails> */}
+              {/* </Accordion> */}
+            </Card>
           </>
         )}
         {pickup && (
@@ -380,16 +388,11 @@ const EnterInfo = ({ submitForm }, props) => {
               />
               <Box ml={2} mt={2}>
                 <BasicDatePicker
-                  // val={handleDateTime}
                   handleval={handleDateVal}
                   value={dateValue}
-                  minDate={minDate}
+                  minDate={dateValue}
                   read={asapOrScheduled === "ASAP"}
                 />
-                {/* <BasicDateTimePicker
-                  val={handleDateTime}
-                  read={asapOrScheduled == "ASAP"}
-                /> */}
               </Box>
             </RadioGroup>
           </FormControl>
@@ -398,7 +401,7 @@ const EnterInfo = ({ submitForm }, props) => {
         {/* if ASAP, we'll contact you for delivery updates */}
         {/* pickup times between 8:00 am to 5:00 pm */}
 
-        <Grid container>
+        {/* <Grid container>
           <Box mt={5} mb={5}>
             <Typography variant="body2">
               *For events and catering, please select intended delivery date.
@@ -409,16 +412,20 @@ const EnterInfo = ({ submitForm }, props) => {
               product.
             </Typography>
           </Box>
-        </Grid>
-        <Accordion className={classes.accordionRoot}>
-          <AccordionSummary
+        </Grid> */}
+
+        {/* <Accordion className={classes.accordionRoot}> */}
+        <Card>
+          <CardHeader title="Payment" />
+          {/* <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
             Payment
-          </AccordionSummary>
-        </Accordion>
+          </AccordionSummary> */}
+          </Card>
+        {/* </Accordion> */}
         <br></br>
         <Button
           variant="outlined"
