@@ -5,22 +5,12 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { makeStyles } from "@material-ui/core/styles";
 import StickyNote2OutlinedIcon from "@mui/icons-material/StickyNote2Outlined";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "&$expanded": {
-      margin: 0,
-    },
-  },
-}));
-
 export default function SimpleAccordion() {
   const [expanded, setExpanded] = React.useState(false);
-  const classes = useStyles();
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);

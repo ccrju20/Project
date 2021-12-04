@@ -19,6 +19,7 @@ import Register from "./Account/Register";
 import RegisterSuccess from "./Account/RegisterSuccess";
 import ProductPage from "./Products/ProductPage";
 import ServiceProvider from "./service/ServiceProvider";
+import UserInfoProvider from "./store/UserInfoProvider";
 
 const useStyles = makeStyles({
   root: {
@@ -45,6 +46,7 @@ function App() {
   return (
     <AuthProvider>
       <CartProvider>
+        <UserInfoProvider>
         <ServiceProvider>
           <Router>
             <Grid container>
@@ -99,6 +101,7 @@ function App() {
             </Switch>
           </Router>
         </ServiceProvider>
+        </UserInfoProvider>
       </CartProvider>
     </AuthProvider>
   );
