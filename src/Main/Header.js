@@ -1,19 +1,15 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
-
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Grid, Toolbar, Typography } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { makeStyles, withStyles } from "@material-ui/styles";
 import IconButton from "@material-ui/core/IconButton";
-import { Grid } from "@material-ui/core";
 import Hidden from "@material-ui/core/Hidden";
-import logo from "../Images/logo.png";
+import logo from "./Images/logo.png";
 import Badge from "@material-ui/core/Badge";
-import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import AuthContext from "../store/auth-context.js";
@@ -24,9 +20,6 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "none",
     backgroundColor: "#FFFFFF",
     color: "#837D7D",
-  },
-  typographyStyles: {
-    flex: 1,
   },
   menuText: {
     marginRight: 50,
@@ -47,10 +40,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   links: {
-    marginLeft: 75,
+    marginLeft: 50,
   },
   carticon: {
-    padding: 10,
+    padding: 1,
   },
 }));
 
@@ -93,16 +86,10 @@ const Header = (props) => {
           <IconButton>
             <InstagramIcon />
           </IconButton>
-          <IconButton>
-            <FacebookIcon />
-          </IconButton>
-          <IconButton>
-            <MailOutlineIcon />
-          </IconButton>
         </Hidden>
 
         <Hidden only="xs">
-          <Grid container className={classes.links}>
+          <Grid container className={classes.links} justifyContent="center">
             <Grid item>
               <Typography className={classes.menuText}>ABOUT</Typography>
             </Grid>
@@ -127,7 +114,7 @@ const Header = (props) => {
               </Grid>
             </Hidden>
 
-            <Hidden mdDown={true}>
+            <Hidden smDown={true}>
               <Grid item>
                 <Typography className={classes.menuText}>CATERING</Typography>
               </Grid>
@@ -173,7 +160,7 @@ const Header = (props) => {
             <Link component={RouterLink} to="/cart" color="inherit">
               <MenuItem onClick={handleClose}>About</MenuItem>
             </Link>
-            <Link component={RouterLink} to="/cart" color="inherit">
+            <Link component={RouterLink} to="/shop" color="inherit">
               <MenuItem onClick={handleClose}> Shop</MenuItem>
             </Link>
             <Link component={RouterLink} to="/cart" color="inherit">

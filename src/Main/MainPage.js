@@ -1,30 +1,21 @@
 import { Grid, Box } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import AboutSection from "./Main/AboutSection";
+import AboutSection from "./AboutSection";
 import Hidden from "@material-ui/core/Hidden";
-import Section from "./Main/Section";
-
-const useStyles = makeStyles({
-  divider: {
-    marginTop: "-70px",
-    marginBottom: "50px",
-  },
-});
+import MainSwiper from "./Swiper";
+import ButtonSection from "./ButtonSection";
 
 const MainPage = () => {
-  const classes = useStyles();
 
   return (
     <Grid item container>
       <Grid item xs={1} sm={1} />
       <Grid item xs={10} sm={10}>
-        <Box mt={10}>
-          <div className={classes.divider}>
+        <Box mt={5}>
             <Hidden only="xs">
-              <Section />
+              <MainSwiper />
             </Hidden>
-          </div>
         </Box>
+        <ButtonSection />
       </Grid>
       <Grid item xs={1} sm={1} />
       <AboutSection />
