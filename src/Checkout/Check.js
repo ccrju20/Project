@@ -4,8 +4,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ContactForm from './ContactForm'
 import ShippingForm from './ShippingForm'
-
 import { Grid } from "@material-ui/core";
+import CheckoutCartList from './OrderSummary/CheckoutCartList'
 
 const schema = yup
   .object()
@@ -43,6 +43,7 @@ const Check = () => {
             <input type="submit" />
           </form>
         </FormProvider>
+        <CheckoutCartList/>
       </Grid>
       <Grid item xs={1} />
     </Grid>

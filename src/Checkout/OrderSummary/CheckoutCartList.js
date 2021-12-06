@@ -1,6 +1,5 @@
 import { React, useContext } from "react";
 import CartContext from "../../store/cart-context";
-
 import List from "@mui/material/List";
 import CartListItem from "./CartListItem";
 import { makeStyles } from "@material-ui/core/styles";
@@ -37,6 +36,8 @@ const CheckoutCartList = () => {
   const { totalAmount } = cartCtx;
   const total = `${totalAmount.toFixed(2)}`;
 
+  console.log(cartCtx.items)
+
   return (
       <div className={classes.checkoutlist}>
         <List
@@ -58,7 +59,7 @@ const CheckoutCartList = () => {
           <Typography align="center">Total: ${total}</Typography>
         </div>
 
-        <Grid container justify="center">
+        <Grid container justifyContent="center">
           <Button
             variant="outlined"
             size="small"

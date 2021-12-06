@@ -8,11 +8,12 @@ import CartContext from "../store/cart-context";
 import AddCircleOutlineTwoToneIcon from "@mui/icons-material/AddCircleOutlineTwoTone";
 import RemoveCircleOutlineTwoToneIcon from "@mui/icons-material/RemoveCircleOutlineTwoTone";
 import IconButton from "@material-ui/core/IconButton";
-
+import SnackbarAlert from "../Cart/SnackbarAlert";
 
 const ProductPage = () => {
   const [product, setProduct] = useState({});
   const [itemAmount, setItemAmount] = useState(1);
+  const [open, setOpen] = useState(false);
   const cartCtx = useContext(CartContext);
 
   useEffect(() => {
@@ -27,6 +28,7 @@ const ProductPage = () => {
       price: parseFloat(product.price),
       img: product.img,
     });
+    setOpen(true);
   };
 
   const handleItemRemove = () => {
@@ -37,6 +39,13 @@ const ProductPage = () => {
 
   const handleItemAdd = () => {
     setItemAmount((curr) => curr + 1);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
   };
 
   console.log(cartCtx.items);
@@ -110,6 +119,12 @@ const ProductPage = () => {
                   >
                     Add to Cart
                   </Button>
+                  <SnackbarAlert
+                    open={open}
+                    close={handleClose}
+                    severity="success"
+                    message="Added to Cart!"
+                  />
                 </Box>
               </Grid>
             </Grid>

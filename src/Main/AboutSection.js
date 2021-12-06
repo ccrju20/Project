@@ -45,14 +45,14 @@ const AboutSection = () => {
               </Typography>
             </Grid>
           </Grid>
-          <Grid item sm={12} className={classes.about}>
-          </Grid>
+          {/* <Grid item sm={12} className={classes.about}>
+          </Grid> */}
           <Grid item xs={false} />
         </Grid>
       </Grid>
       <Grid container justifyContent="center">
         <Box mb={10}>
-          <WovenImageList />
+          {/* <WovenImageList /> */}
         </Box>
       </Grid>
     </>

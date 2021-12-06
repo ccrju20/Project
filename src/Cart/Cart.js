@@ -1,4 +1,4 @@
-import { React, useContext } from "react";
+import { React, useState, useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Grid, Typography, Box } from "@material-ui/core";
 import CartProduct from "./CartProduct";
@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import ShoppingBasketTwoToneIcon from "@mui/icons-material/ShoppingBasketTwoTone";
+import SnackbarAlert from "../Cart/SnackbarAlert";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -24,21 +25,32 @@ const Cart = (props) => {
   const cartCtx = useContext(CartContext);
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2).replace("-0", "0")}`;
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
 
   const cartItemRemoveHandler = (id) => {
     cartCtx.removeItem(id);
   };
 
-  const cartItemAddHandler = (product) => {
-    cartCtx.addItem({ ...product, amount: 1 });
+  const cartItemAddHandler = (product, amount) => {
+    cartCtx.addItem({ ...product, amount: amount });
   };
 
   const cartItemDeleteHandler = (id) => {
     cartCtx.deleteItem(id);
+    setOpen(true);
   };
 
-  console.log(cartCtx.totalAmount);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
   const cartTotalItems = cartCtx.items.length;
+
+  console.log(cartCtx.items)
+  console.log(cartCtx.totalAmount)
 
   return (
     <Grid container>
@@ -96,6 +108,12 @@ const Cart = (props) => {
             </Grid>
           </Box>
         </Box>
+        <SnackbarAlert
+          open={open}
+          close={handleClose}
+          severity="success"
+          message="Removed from Cart"
+        />
       </Grid>
       <Grid item xs={1} />
     </Grid>
