@@ -4,6 +4,7 @@ import { Box, Typography } from "@material-ui/core";
 import ServiceContext from "../../service/service-context";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { makeStyles } from "@material-ui/styles";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
 const Home = (props) => {
   const serviceCtx = useContext(ServiceContext);
   const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const classes = useStyles();
 
   useEffect(() => {
@@ -21,6 +23,8 @@ const Home = (props) => {
       (response) => {
         console.log(response);
         setData(response.data);
+
+        setIsLoading(false);
       },
       (error) => {
         console.log(error);
@@ -32,11 +36,17 @@ const Home = (props) => {
   return (
     <>
       <Box mt={2} mb={5} textAlign="center">
-        <AccountCircleOutlinedIcon fontSize="large" />
-        <Typography variant="h4">Welcome, {data.firstname}</Typography>
-        <Box mt={3} className={classes.root}>
-          <Typography variant="body1">Manage your account here</Typography>
-        </Box>
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <>
+            <AccountCircleOutlinedIcon fontSize="large" />
+            <Typography variant="h4">Welcome, {data.firstname}</Typography>
+            <Box mt={3} className={classes.root}>
+              <Typography variant="body1">Manage your account here</Typography>
+            </Box>
+          </>
+        )}
       </Box>
     </>
   );

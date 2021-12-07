@@ -46,9 +46,6 @@ const CartProduct = (props) => {
     const diff = itemAmount - amount;
     console.log(diff);
     props.onAdd(diff);
-
-    // if (itemAmount > amount) {
-    //   props.onAdd()
   };
 
   console.log(amount);

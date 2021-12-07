@@ -1,7 +1,12 @@
-import { React } from "react";
+import { React, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
-import { Grid } from "@material-ui/core";
+import { Grid, Box } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import CustomizedSwitch from "./UIComponents/Switch";
 
 const ContactForm = () => {
   const {
@@ -9,91 +14,129 @@ const ContactForm = () => {
     formState: { errors },
   } = useFormContext();
 
+  const [pickup, setPickup] = useState(false);
+
+  const handleSwitch = (event) => {
+    setPickup(event.target.checked);
+  };
+
   return (
-    <Grid container>
-      <Grid item xs={1} />
-      <Grid item xs={10}>
-          <Controller
-            name="address"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Address"
-                variant="outlined"
-                error={!!errors.address}
-                helperText={errors.address ? errors.address?.message : ""}
-              />
-            )}
-          />
-          <br />
-          <br />
-          <Controller
-            name="addresstwo"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Address 2"
-                variant="outlined"
-                error={!!errors.addresstwo}
-                helperText={errors.addresstwo ? errors.addresstwo?.message : ""}
-              />
-            )}
-          />
-          <br />
-          <br />
-          <Controller
-            name="city"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="City"
-                variant="outlined"
-                error={!!errors.city}
-                helperText={errors.city ? errors.city?.message : ""}
-              />
-            )}
-          />
-          <br />
-          <br />
-          <Controller
-            name="state"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="State"
-                variant="outlined"
-                error={!!errors.state}
-                helperText={errors.state ? errors.state?.message : ""}
-              />
-            )}
-          />
-          <br />
-          <br />
-          <Controller
-            name="postal"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Postal"
-                variant="outlined"
-                error={!!errors.postal}
-                helperText={errors.postal ? errors.postal?.message : ""}
-              />
-            )}
-          />
+    <>
+      <Grid item sm={8}>
+        <Box mt={2}>
+          <CustomizedSwitch checked={pickup} onChange={handleSwitch} />
+        </Box>
       </Grid>
-      <Grid item xs={1} />
-    </Grid>
+
+      {!pickup && (
+        <Card>
+          <CardHeader title="Shipping" />
+          <CardContent>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={7}>
+                <Controller
+                  name="address"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      label="Address"
+                      variant="outlined"
+                      error={!!errors.address}
+                      helperText={errors.address ? errors.address?.message : ""}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12} sm={5}>
+                <Controller
+                  name="addresstwo"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      label="Address 2"
+                      variant="outlined"
+                      error={!!errors.addresstwo}
+                      helperText={
+                        errors.addresstwo ? errors.addresstwo?.message : ""
+                      }
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12} sm={5}>
+                <Controller
+                  name="city"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      label="City"
+                      variant="outlined"
+                      error={!!errors.city}
+                      helperText={errors.city ? errors.city?.message : ""}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12} sm={3}>
+                <Controller
+                  name="state"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      label="State"
+                      variant="outlined"
+                      error={!!errors.state}
+                      helperText={errors.state ? errors.state?.message : ""}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Controller
+                  name="postal"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      label="Postal"
+                      variant="outlined"
+                      error={!!errors.postal}
+                      helperText={errors.postal ? errors.postal?.message : ""}
+                    />
+                  )}
+                />
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      )}
+
+      {pickup && (
+        <Grid container justifyContent="center">
+          <Box>
+            <h3>
+              <LocationOnOutlinedIcon sx={{ marginRight: 2 }} />
+              Pickup location:
+            </h3>
+            <p>87878 Ocean St. Los Angeles, CA</p>
+          </Box>
+        </Grid>
+      )}
+    </>
   );
 };
 
