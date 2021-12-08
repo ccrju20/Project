@@ -1,20 +1,20 @@
-import { React } from "react";
+import { React, useContext } from "react";
+import UserInfoContext from "../store/userinfo-context";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import ContactForm from "./ContactForm";
-import ShippingForm from "./ShippingForm";
-import ScheduleForm from "./ScheduleForm";
+import ContactForm from "./Form/ContactForm";
+import ShippingForm from "./Form/ShippingForm";
+import ScheduleForm from "./Form/ScheduleForm";
 import { Grid, Box, Typography } from "@material-ui/core";
 import CheckoutCartList from "./OrderSummary/CheckoutCartList";
 import Button from "@mui/material/Button";
-import { makeStyles } from "@material-ui/core/styles";
+import { useNavigate } from "react-router-dom";
+// import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(() => ({
-  root: {
-  },
-  
-}));
+// const useStyles = makeStyles(() => ({
+//   root: {},
+// }));
 
 const schema = yup
   .object()
@@ -42,11 +42,16 @@ const schema = yup
   .required();
 
 const Check = () => {
-  const classes = useStyles();
+  const navigate = useNavigate();
+  const userCtx = useContext(UserInfoContext)
   const methods = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    userCtx.saveInfo(data);
+    navigate("/confirminfo");
+  };
 
   return (
     <FormProvider {...methods}>
@@ -79,7 +84,7 @@ const Check = () => {
 
               <Grid item xs={12} sm={12} md={4}>
                 <Box mt={3}>
-                  <CheckoutCartList/>
+                  <CheckoutCartList />
                 </Box>
 
                 <Box mt={5}>
@@ -102,6 +107,7 @@ const Check = () => {
           </Grid>
           <Grid item xs={1} />
         </Grid>
+        <Box mb={50}></Box>
       </form>
     </FormProvider>
   );

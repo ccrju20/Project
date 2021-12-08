@@ -9,7 +9,7 @@ import Container from "@mui/material/Container";
 
 const Register = (props) => {
   const authCtx = useContext(AuthContext);
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -104,7 +104,7 @@ const Register = (props) => {
       authCtx.register(firstname, lastname, email, password).then(
         () => {
           authCtx.setLogin();
-          history.push("/success");
+          navigate("/success");
         },
         (error) => {
           console.log(error.response);

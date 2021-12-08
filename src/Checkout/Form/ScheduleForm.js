@@ -76,7 +76,6 @@ const ScheduleForm = () => {
           />
         )}
       </Box>
-      <Box mb={50}></Box>
     </Box>
   );
 };

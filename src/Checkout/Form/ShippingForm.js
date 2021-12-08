@@ -6,7 +6,7 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import CustomizedSwitch from "./UIComponents/Switch";
+import CustomizedSwitch from "../UIComponents/Switch";
 
 const ContactForm = () => {
   const {
@@ -15,10 +15,6 @@ const ContactForm = () => {
   } = useFormContext();
 
   const [pickup, setPickup] = useState(false);
-
-  const handleSwitch = (event) => {
-    setPickup(event.target.checked);
-  };
 
   console.log(pickup);
   return (

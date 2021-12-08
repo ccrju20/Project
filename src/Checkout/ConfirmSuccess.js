@@ -1,7 +1,7 @@
 import { React } from "react";
 import { Box, Typography } from "@material-ui/core";
 
-const Confirmation = (props) => {
+const ConfirmSuccess = (props) => {
   return (
     <Box mt={2}>
       <Typography align="center" variant="h5">
@@ -15,4 +15,4 @@ const Confirmation = (props) => {
   );
 };
 
-export default Confirmation;
+export default ConfirmSuccess;

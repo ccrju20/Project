@@ -6,7 +6,6 @@ import Cart from "./Cart/Cart";
 import Account from "./Account/Account";
 import AuthProvider from "./store/AuthProvider";
 import CartProvider from "./store/CartProvider";
-import Checkout from "./Checkout/Checkout";
 import Shop from "./Products/Shop";
 import Register from "./Account/Register";
 import RegisterSuccess from "./Account/RegisterSuccess";
