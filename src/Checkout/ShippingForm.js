@@ -23,28 +23,32 @@ const ContactForm = () => {
   console.log(pickup);
   return (
     <>
-      <Grid item sm={8}>
-        <Box mt={2}>
-          <Controller
-            name="pickup"
-            control={control}
-            defaultValue={pickup}
-            render={({ field: { onChange, value } }) => (
-              <CustomizedSwitch
-                checked={pickup}
-                onChange={(event, value) => {
-                  onChange(value);
-                  setPickup(value);
-                  console.log(value);
-                }}
+      <Grid container>
+        <Grid item sm={12}>
+          <Grid container justifyContent="center">
+            <Box mt={1} mb={1}>
+              <Controller
+                name="pickup"
+                control={control}
+                defaultValue={pickup}
+                render={({ field: { onChange, value } }) => (
+                  <CustomizedSwitch
+                    checked={pickup}
+                    onChange={(event, value) => {
+                      onChange(value);
+                      setPickup(value);
+                      console.log(value);
+                    }}
+                  />
+                )}
               />
-            )}
-          />
-        </Box>
+            </Box>
+          </Grid>
+        </Grid>
       </Grid>
 
       {!pickup && (
-        <Card>
+        <Card elevation={3}>
           <CardHeader title="Shipping" />
           <CardContent>
             <Grid container spacing={3}>

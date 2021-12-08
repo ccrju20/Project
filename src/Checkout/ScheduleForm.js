@@ -8,12 +8,7 @@ import { useFormContext, Controller } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import MobileDatePicker from "@mui/lab/MobileDatePicker";
-// import DateTimePicker from "@mui/lab/DateTimePicker";
-// import MobileDateTimePicker from "@mui/lab/MobileDateTimePicker";
-// import InputLabel from "@mui/material/InputLabel";
-// import MenuItem from "@mui/material/MenuItem";
-// import Select from "@mui/material/Select";
+import MobileDateTimePicker from "@mui/lab/MobileDateTimePicker";
 
 const ScheduleForm = () => {
   const {
@@ -24,7 +19,6 @@ const ScheduleForm = () => {
 
   const [asapOrScheduled, setAsapOrScheduled] = useState("ASAP");
   const [dateValue, setDateValue] = useState();
-  const [age, setAge] = useState("");
 
   useEffect(() => {
     const minDate = new Date();
@@ -34,35 +28,34 @@ const ScheduleForm = () => {
   }, []);
 
   return (
-    <Box mb={2}>
-      <FormControl component="fieldset">
-        <Controller
-          control={control}
-          name={"when"}
-          defaultValue="ASAP"
-          render={({ field: { onChange, value } }) => (
-            <RadioGroup
-              defaultValue="ASAP"
-              onChange={(event) => {
-                onChange(event.target.value);
-                setAsapOrScheduled(event.target.value);
-                {event.target.value === "ASAP" && unregister("scheduled")}
-                // console.log(event.target.value);
-                // console.log(asapOrScheduled);
-              }}
-              // {...field}
-              row
-            >
-              <FormControlLabel value="ASAP" control={<Radio />} label="ASAP" />
-              <FormControlLabel
-                value="Scheduled"
-                control={<Radio />}
-                label="Scheduled"
-              />
-            </RadioGroup>
-          )}
-        />
+    <Box>
+      <Controller
+        control={control}
+        name={"when"}
+        defaultValue="ASAP"
+        render={({ field: { onChange, value } }) => (
+          <RadioGroup
+            defaultValue="ASAP"
+            onChange={(event) => {
+              onChange(event.target.value);
+              setAsapOrScheduled(event.target.value);
+              {
+                event.target.value === "ASAP" && unregister("scheduled");
+              }
+            }}
+            row
+          >
+            <FormControlLabel value="ASAP" control={<Radio />} label="ASAP" />
+            <FormControlLabel
+              value="Scheduled"
+              control={<Radio />}
+              label="Scheduled"
+            />
+          </RadioGroup>
+        )}
+      />
 
+      <Box mt={2}>
         {asapOrScheduled === "Scheduled" && (
           <Controller
             control={control}
@@ -70,54 +63,20 @@ const ScheduleForm = () => {
             defaultValue={dateValue}
             render={({ field }) => (
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <MobileDatePicker
+                <MobileDateTimePicker
                   {...field}
-                  label="Date Picker"
-                  renderInput={(params) => <TextField {...params} />}
+                  minutesStep={15}
+                  label="Select Date and Time"
+                  renderInput={(params) => (
+                    <TextField {...params} sx={{ width: "250px" }} />
+                  )}
                 />
               </LocalizationProvider>
             )}
           />
         )}
-
-        {/* <Box ml={2} mt={2}> */}
-        {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <MobileDatePicker
-              label="Date"
-              value={dateValue}
-              onChange={(newValue) => {
-                setDateValue(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            /> */}
-
-        {/* <MobileDateTimePicker
-                value={dateValue}
-                onChange={(newValue) => {
-                  setDateValue(newValue);
-                }}
-                renderInput={(params) => <TextField {...params} />}
-                /> */}
-        {/* </LocalizationProvider> */}
-        {/* </Box> */}
-
-        {/* <FormControl sx={{ m: 1, minWidth: 80 }}>
-          <InputLabel id="demo-simple-select-label">Time</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={age}
-            label="Age"
-            onChange={handleChange}
-          >
-            <MenuItem value={1}>10:00 AM</MenuItem>
-            <MenuItem value={2}>10:30 AM</MenuItem>
-            <MenuItem value={3}>11:00 AM</MenuItem>
-            <MenuItem value={4}>11:30 AM</MenuItem>
-            <MenuItem value={5}>12:00 PM</MenuItem>
-          </Select>
-        </FormControl> */}
-      </FormControl>
+      </Box>
+      <Box mb={50}></Box>
     </Box>
   );
 };

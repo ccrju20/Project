@@ -16,7 +16,7 @@ const ContactForm = () => {
 
   return (
     <>
-      <Card>
+      <Card elevation={3}>
         <CardHeader title="Contact Info" />
         <CardContent>
           <Grid container spacing={3}>

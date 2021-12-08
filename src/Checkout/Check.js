@@ -12,8 +12,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
   root: {
-    backgroundColor: "#f4f2f5",
   },
+  
 }));
 
 const schema = yup
@@ -25,23 +25,19 @@ const schema = yup
     phone: yup.string().min(10).required(),
     //
     pickup: yup.boolean().required(),
-    address: yup.string().when(
-      "pickup", {is: false, then: yup.string().required()}
-    ),
+    address: yup
+      .string()
+      .when("pickup", { is: false, then: yup.string().required() }),
     addresstwo: yup.string(),
-    city: yup.string().when(
-      "pickup", {is: false, then: yup.string().required()}
-    ),
-    state: yup.string().when(
-      "pickup", {is: false, then: yup.string().min(2).required()}
-    ),
-    postal: yup.string().when(
-      "pickup", {is: false, then: yup.string().min(5).required()}
-    ),
-    // when: yup.string().required(),
-    // scheduled: yup.date().when(
-    //   "when", {is: "Scheduled", then: yup.date().required()}
-    // )
+    city: yup
+      .string()
+      .when("pickup", { is: false, then: yup.string().required() }),
+    state: yup
+      .string()
+      .when("pickup", { is: false, then: yup.string().min(2).required() }),
+    postal: yup
+      .string()
+      .when("pickup", { is: false, then: yup.string().min(5).required() }),
   })
   .required();
 
@@ -53,67 +49,61 @@ const Check = () => {
   const onSubmit = (data) => console.log(data);
 
   return (
-    <Grid container>
-      <Grid item xs={1} />
-      <Grid item xs={10}>
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
         <Grid container>
-          <Grid item xs={12} sm={12} md={7}>
-            <Box mt={2} mb={3}>
-              <Typography variant="h5">Form</Typography>
-            </Box>
-            <FormProvider {...methods}>
-              <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <Grid item xs={1} />
+          <Grid item xs={10}>
+            <Grid container>
+              <Grid item xs={12} sm={12} md={7}>
+                <Box mt={2} mb={3}>
+                  <Typography variant="h5">Form</Typography>
+                </Box>
+                {/* <FormProvider {...methods}>
+              <form onSubmit={methods.handleSubmit(onSubmit)}> */}
                 <ContactForm />
                 <br />
                 <br />
                 <ShippingForm />
                 <br />
                 <br />
-                <ScheduleForm />
+                <Grid container justifyContent="center">
+                  <ScheduleForm />
+                </Grid>
+                <br />
+                <br />
                 {/* <input type="submit" /> */}
-                <Button
-                  variant="contained"
-                  fullWidth
-                  type="submit"
-                  sx={{
-                    backgroundColor: "#41166c",
-                    "&:hover": {
-                      backgroundColor: "#290052",
-                    },
-                  }}
-                >
-                  Review Order
-                </Button>
-              </form>
-            </FormProvider>
+              </Grid>
+
+              <Grid item xs={12} sm={12} md={1} />
+
+              <Grid item xs={12} sm={12} md={4}>
+                <Box mt={3}>
+                  <CheckoutCartList/>
+                </Box>
+
+                <Box mt={5}>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    type="submit"
+                    sx={{
+                      backgroundColor: "#41166c",
+                      "&:hover": {
+                        backgroundColor: "#290052",
+                      },
+                    }}
+                  >
+                    Review Order
+                  </Button>
+                </Box>
+              </Grid>
+            </Grid>
           </Grid>
-
-          <Grid item xs={12} sm={12} md={1} />
-
-          <Grid item xs={12} sm={12} md={4}>
-            <Box mt={2} mb={3}>
-              <Typography variant="h5">Order Summary</Typography>
-            </Box>
-
-            <CheckoutCartList />
-            <Button
-              variant="contained"
-              fullWidth
-              type="submit"
-              sx={{
-                backgroundColor: "#41166c",
-                "&:hover": {
-                  backgroundColor: "#290052",
-                },
-              }}
-            >
-              Review Order
-            </Button>
-          </Grid>
+          <Grid item xs={1} />
         </Grid>
-      </Grid>
-      <Grid item xs={1} />
-    </Grid>
+      </form>
+    </FormProvider>
   );
 };
 

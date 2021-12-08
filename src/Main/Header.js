@@ -61,9 +61,11 @@ const Header = (props) => {
   const authCtx = useContext(AuthContext);
   const cartCtx = useContext(CartContext);
 
-  const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
-    return curNumber + item.amount;
-  }, 0);
+  // const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
+  //   return curNumber + item.amount;
+  // }, 0);
+
+  const cartTotalItems = cartCtx.items.length;
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -170,7 +172,7 @@ const Header = (props) => {
         </Menu>
         <IconButton className={classes.carticon}>
           <Link component={RouterLink} to="/cart" color="inherit">
-            <StyledBadge badgeContent={numberOfCartItems} color="secondary">
+            <StyledBadge badgeContent={cartTotalItems} color="secondary">
               <ShoppingCartIcon />
             </StyledBadge>
           </Link>
