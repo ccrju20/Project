@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
-import { Grid, Box } from "@material-ui/core";
+import { Grid, Box, Typography } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -20,11 +20,26 @@ const ContactForm = () => {
     setPickup(event.target.checked);
   };
 
+  console.log(pickup);
   return (
     <>
       <Grid item sm={8}>
         <Box mt={2}>
-          <CustomizedSwitch checked={pickup} onChange={handleSwitch} />
+          <Controller
+            name="pickup"
+            control={control}
+            defaultValue={pickup}
+            render={({ field: { onChange, value } }) => (
+              <CustomizedSwitch
+                checked={pickup}
+                onChange={(event, value) => {
+                  onChange(value);
+                  setPickup(value);
+                  console.log(value);
+                }}
+              />
+            )}
+          />
         </Box>
       </Grid>
 
@@ -126,14 +141,16 @@ const ContactForm = () => {
       )}
 
       {pickup && (
-        <Grid container justifyContent="center">
-          <Box>
-            <h3>
-              <LocationOnOutlinedIcon sx={{ marginRight: 2 }} />
-              Pickup location:
-            </h3>
-            <p>87878 Ocean St. Los Angeles, CA</p>
-          </Box>
+        <Grid container>
+          <Grid item xs={12}>
+            <Card>
+              <CardHeader title="Pickup at" />
+              <CardContent>
+                <LocationOnOutlinedIcon sx={{ marginRight: 2 }} />
+                87878 Ocean St. Los Angeles, CA
+              </CardContent>
+            </Card>
+          </Grid>
         </Grid>
       )}
     </>

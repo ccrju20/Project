@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ContactForm from "./ContactForm";
 import ShippingForm from "./ShippingForm";
+import ScheduleForm from "./ScheduleForm";
 import { Grid, Box, Typography } from "@material-ui/core";
 import CheckoutCartList from "./OrderSummary/CheckoutCartList";
 import Button from "@mui/material/Button";
@@ -11,7 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
   root: {
-    backgroundColor: "#f4f2f5"
+    backgroundColor: "#f4f2f5",
   },
 }));
 
@@ -23,11 +24,24 @@ const schema = yup
     email: yup.string().email().required(),
     phone: yup.string().min(10).required(),
     //
-    address: yup.string().required(),
+    pickup: yup.boolean().required(),
+    address: yup.string().when(
+      "pickup", {is: false, then: yup.string().required()}
+    ),
     addresstwo: yup.string(),
-    city: yup.string().required(),
-    state: yup.string().min(2).required(),
-    postal: yup.string().min(5).required(),
+    city: yup.string().when(
+      "pickup", {is: false, then: yup.string().required()}
+    ),
+    state: yup.string().when(
+      "pickup", {is: false, then: yup.string().min(2).required()}
+    ),
+    postal: yup.string().when(
+      "pickup", {is: false, then: yup.string().min(5).required()}
+    ),
+    // when: yup.string().required(),
+    // scheduled: yup.date().when(
+    //   "when", {is: "Scheduled", then: yup.date().required()}
+    // )
   })
   .required();
 
@@ -42,7 +56,7 @@ const Check = () => {
     <Grid container>
       <Grid item xs={1} />
       <Grid item xs={10}>
-        <Grid container >
+        <Grid container>
           <Grid item xs={12} sm={12} md={7}>
             <Box mt={2} mb={3}>
               <Typography variant="h5">Form</Typography>
@@ -55,6 +69,7 @@ const Check = () => {
                 <ShippingForm />
                 <br />
                 <br />
+                <ScheduleForm />
                 {/* <input type="submit" /> */}
                 <Button
                   variant="contained"
@@ -80,7 +95,7 @@ const Check = () => {
               <Typography variant="h5">Order Summary</Typography>
             </Box>
 
-            <CheckoutCartList/>
+            <CheckoutCartList />
             <Button
               variant="contained"
               fullWidth
@@ -95,7 +110,6 @@ const Check = () => {
               Review Order
             </Button>
           </Grid>
-          
         </Grid>
       </Grid>
       <Grid item xs={1} />
