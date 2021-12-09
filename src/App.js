@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import NavBar from "./Main/NavBar";
+import NavBar from "./AppBar/NavBar";
 import Cart from "./Cart/Cart";
 import Account from "./Account/Account";
 import AuthProvider from "./store/AuthProvider";
@@ -18,6 +18,7 @@ import Check from "./Checkout/Check";
 
 function App() {
   return (
+    <>
     <AuthProvider>
       <CartProvider>
         <UserInfoProvider>
@@ -30,7 +31,6 @@ function App() {
                 <Route path="/signup" element={<Register />} />
                 <Route path="/success" element={<RegisterSuccess />} />
                 <Route path="/cart" element={<Cart />} />
-                {/* <Route path="/checkout" element={<Checkout />} /> */}
                 <Route path="/check" element={<Check />} />
                 <Route path="/confirminfo" element={<ConfirmInfo />} />
                 <Route path="/shop" element={<Shop />} />
@@ -41,6 +41,7 @@ function App() {
         </UserInfoProvider>
       </CartProvider>
     </AuthProvider>
+    </>
   );
 }
 
