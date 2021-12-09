@@ -3,7 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MenuIcon from "@material-ui/icons/Menu";
-import { styled, useTheme, makeStyles, withStyles } from "@material-ui/styles";
+import { makeStyles, withStyles } from "@material-ui/styles";
 import IconButton from "@material-ui/core/IconButton";
 import Hidden from "@material-ui/core/Hidden";
 import Menu from "@material-ui/core/Menu";
@@ -11,53 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Badge from "@material-ui/core/Badge";
 import AuthContext from "../store/auth-context.js";
 import CartContext from "../store/cart-context";
-
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import MuiAppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import CssBaseline from "@mui/material/CssBaseline";
-import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import Cart from '../Cart/Cart'
-
-const drawerWidth = 240;
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-start",
-}));
-
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginRight: -drawerWidth,
-    ...(open && {
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginRight: 0,
-    }),
-  })
-);
+import CartDrawer from "../Cart/CartDrawer";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -105,54 +59,7 @@ const Edge = () => {
 
   return (
     <>
-      <Box sx={{ display: "flex" }}>
-        <Main open={opened}>
-          <DrawerHeader />
-        </Main>
-        <Drawer
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-            },
-          }}
-          variant='temporary'
-          anchor="right"
-          open={opened}
-        >
-          <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
-              <ChevronLeftIcon /> <ChevronRightIcon />
-            </IconButton>
-          </DrawerHeader>
-          <Divider />
-          component
-          <Cart />
-          <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-        </Drawer>
-      </Box>
-
+      <CartDrawer opened={opened} handleDrawerClose={handleDrawerClose} />
       <IconButton
         edge="start"
         className={classes.menuButton}
@@ -202,9 +109,9 @@ const Edge = () => {
       </Menu>
       <IconButton className={classes.carticon} onClick={handleDrawerOpen}>
         {/* <Link component={RouterLink} to="/cart" color="inherit"> */}
-          <StyledBadge badgeContent={cartTotalItems} color="secondary">
-            <ShoppingCartIcon />
-          </StyledBadge>
+        <StyledBadge badgeContent={cartTotalItems} color="secondary">
+          <ShoppingCartIcon />
+        </StyledBadge>
         {/* </Link> */}
       </IconButton>
     </>

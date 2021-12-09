@@ -48,9 +48,6 @@ const CartProduct = (props) => {
     props.onAdd(diff);
   };
 
-  console.log(amount);
-  console.log(itemAmount);
-
   return (
     <Grid container>
       <Grid item xs={false} sm={3} />
