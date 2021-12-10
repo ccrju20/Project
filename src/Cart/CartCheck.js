@@ -16,6 +16,8 @@ import IconButton from "@material-ui/core/IconButton";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DeleteIcon from "@material-ui/icons/Delete";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
 
 const useStyles = makeStyles((theme) => ({
   cardContent: {
@@ -33,157 +35,97 @@ const CartCheck = (props) => {
   const cartCtx = useContext(CartContext);
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2).replace("-0", "0")}`;
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const { name, price, image, amount } = props;
+  const [itemAmount, setItemAmount] = useState(amount);
+  const [removeLimit, setRemoveLimit] = useState(false);
 
-  const cartItemRemoveHandler = (id) => {
-    cartCtx.removeItem(id);
-  };
-
-  const cartItemAddHandler = (product, amount) => {
-    cartCtx.addItem({ ...product, amount: amount });
-  };
-
-  const cartItemDeleteHandler = (id) => {
-    cartCtx.deleteItem(id);
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
+  const handleRemove = () => {
+    if (itemAmount !== 1) {
+      setItemAmount((curr) => curr - 1);
     }
-    setOpen(false);
+  };
+
+  const handleAdd = () => {
+    setItemAmount((curr) => curr + 1);
+  };
+
+  const handleUpdate = () => {
+    const diff = itemAmount - amount;
+    console.log(diff);
+    props.onAdd(diff);
   };
 
   const cartTotalItems = cartCtx.items.length;
 
   return (
-    <Grid container>
-      {/* <Grid item xs={1} />
-      <Grid item xs={10}> */}
-      <Box>
-        <Typography variant="h3">
-          Cart <ShoppingBasketTwoToneIcon fontSize="large" />
-        </Typography>
-      </Box>
-      <Box mb={5}>
-        <Typography variant="body1">
-          You have {cartTotalItems} item(s) in your cart
-        </Typography>
-      </Box>
-      <Grid container spacing={3}>
-        {cartCtx.items.map((product) => (
-          <Grid item xs={12} key={product.id}>
-            <Card>
-              <Grid container>
-                <Grid item xs={3}>
-                  <CardMedia
-                    component="img"
-                    height="80"
-                    sx={{ width: "100%" }}
-                    image={product.img}
-                    alt="product"
-                  />
-                </Grid>
+    <>
+      <Grid item xs={12} >
+        <Card>
+          <Grid container>
+            <Grid item xs={3}>
+              <CardMedia
+                component="img"
+                height="80"
+                sx={{ width: "100%" }}
+                image={image}
+                alt="product"
+              />
+            </Grid>
 
-                <Grid item xs={3}>
-                  <CardHeader
-                  titleTypographyProps={{variant: 'body1'}}
-                    className={classes.cardContent}
-                    title={product.name}
-                    sx={{ padding: "0px" }}
-                    subheader={`$${(product.price * product.amount).toFixed(
-                      2
-                    )}`}
-                  />
-                  {/* <CardContent className={classes.cardContent}>
-                    <Typography>{`$${(product.price * product.amount).toFixed(
-                      2
-                    )}`}</Typography>
-                  </CardContent> */}
-                </Grid>
+            <Grid item xs={3}>
+              <CardHeader
+                titleTypographyProps={{ variant: "body1" }}
+                className={classes.cardContent}
+                title={name}
+                sx={{ padding: "0px" }}
+                subheader={`$${(price * amount).toFixed(2)}`}
+              />
+            </Grid>
 
-                <Grid item xs={4}>
-                  <Grid container direction="column" alignItems="center">
-                    <Grid item>
-                      <IconButton className={classes.cardAction}>
-                        <ArrowDropUpIcon />
-                      </IconButton>
-                    </Grid>
-                    {product.amount}
-                    <Grid item>
-                      <IconButton className={classes.cardAction}>
-                        <ArrowDropDownIcon />
-                      </IconButton>
-                    </Grid>
-                  </Grid>
+            <Grid item xs={3}>
+              <Grid container direction="column" alignItems="center">
+                <Grid item>
+                  <IconButton
+                    className={classes.cardAction}
+                    onClick={handleAdd}
+                  >
+                    <ArrowDropUpIcon />
+                  </IconButton>
                 </Grid>
-
-                <Grid item xs={2}>
-                  <Box mt={2}>
-                    <IconButton>
-                      <DeleteIcon />
-                    </IconButton>
-                  </Box>
+                {itemAmount}
+                <Grid item>
+                  <IconButton
+                    className={classes.cardAction}
+                    onClick={handleRemove}
+                  >
+                    <ArrowDropDownIcon />
+                  </IconButton>
                 </Grid>
               </Grid>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-      <div className={classes.cartdivider}></div>
-      <Divider variant="middle" />
-      <Box mt={2} mb={2}>
-        <Typography align="center" variant="body2">
-          Subtotal: {totalAmount}
-        </Typography>
-        <Typography align="center" variant="h6">
-          Total: {totalAmount}
-        </Typography>
-        <Box mt={2}>
-          <Grid container justifyContent="center">
-            <Link
-              component={RouterLink}
-              to="/cart"
-              color="inherit"
-              underline="none"
-            >
-              <Button
-                variant="outlined"
-                size="small"
-                className={classes.button}
-              >
-                Go to Cart
-              </Button>
-            </Link>
-            {cartTotalItems > 0 && (
-              <Link
-                component={RouterLink}
-                to="/check"
-                color="inherit"
-                underline="none"
-              >
+            </Grid>
+
+            <Grid item xs={3}>
+              <Box >
+                <IconButton onClick={props.onDelete}>
+                  <DeleteIcon />
+                </IconButton>
                 <Button
-                  variant="outlined"
-                  size="small"
-                  className={classes.button}
+                  onClick={handleUpdate}
+                  variant="text"
+                  type="submit"
+                  style={{
+                    color: "blue",
+                    padding: 0,
+                  }}
                 >
-                  Checkout
+                  Update
                 </Button>
-              </Link>
-            )}
+              </Box>
+            </Grid>
           </Grid>
-        </Box>
-      </Box>
-      <SnackbarAlert
-        open={open}
-        close={handleClose}
-        severity="success"
-        message="Removed from Cart"
-      />
-      {/* </Grid>
-      <Grid item xs={1} /> */}
-    </Grid>
+        </Card>
+      </Grid>
+    </>
   );
 };
 

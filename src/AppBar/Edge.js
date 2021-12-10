@@ -59,7 +59,7 @@ const Edge = () => {
 
   return (
     <>
-      <CartDrawer opened={opened} handleDrawerClose={handleDrawerClose} />
+      <CartDrawer opened={opened} handleDrawerClose={handleDrawerClose} handleDrawerOpen={handleDrawerOpen} />
       <IconButton
         edge="start"
         className={classes.menuButton}
