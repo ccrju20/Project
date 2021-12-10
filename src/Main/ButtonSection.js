@@ -28,7 +28,7 @@ const ButtonSection = () => {
       <Grid container>
         <Grid item xs={2} sm={1} />
         <Grid item xs={8} sm={10}>
-          <Grid item container justify="center">
+          <Grid item container justifyContent="center">
             <Grid item>
               <Button
                 variant="outlined"

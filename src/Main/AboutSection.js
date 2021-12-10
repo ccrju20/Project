@@ -25,14 +25,6 @@ const AboutSection = () => {
 
   return (
     <>
-      <Grid container>
-        <Grid item sm={1} />
-        <Grid item sm={10}>
-          <ButtonSection />
-        </Grid>
-        <Grid item sm={1} />
-      </Grid>
-
       <Grid item container className={classes.root}>
         <Grid item xs={false} />
         <Grid item xs={12}>
@@ -53,18 +45,15 @@ const AboutSection = () => {
               </Typography>
             </Grid>
           </Grid>
-          <Grid item sm={12} className={classes.about}>
-          {/* <Typography variant="h3" align="center">
-            New Section
-          </Typography> */}
-        </Grid>
+          {/* <Grid item sm={12} className={classes.about}>
+          </Grid> */}
           <Grid item xs={false} />
         </Grid>
       </Grid>
-      <Grid container justify="center">
-          <Box mb={10}>
-            <WovenImageList />
-          </Box>
+      <Grid container justifyContent="center">
+        <Box mb={10}>
+          {/* <WovenImageList /> */}
+        </Box>
       </Grid>
     </>
   );

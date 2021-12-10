@@ -1,7 +1,6 @@
 import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import OrderHistory from "./OrderHistory";
 import { Grid, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -10,9 +9,6 @@ import PersonalInfo from "./PersonalInfo";
 import Home from "./Home";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "350px",
-  },
   vertical: {
     borderRight: "1px solid lightgrey",
     width: 200,
@@ -30,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index } = props;
 
   return <div>{value === index && <Box sx={{ p: 3 }}>{children}</Box>}</div>;
 }
@@ -74,7 +70,6 @@ export default function VerticalTabs() {
             <OrderHistory />
           </TabPanel>
           <TabPanel value={value} index={3}>
-            Account Settings: Change Password Delete Account
           </TabPanel>
         </Grid>
         <Grid item xs={false} sm={1} />

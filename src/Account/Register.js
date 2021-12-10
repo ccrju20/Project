@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 
 import AuthContext from "../store/auth-context.js";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Grid, Typography, Box } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@mui/material/Button";
@@ -9,7 +9,7 @@ import Container from "@mui/material/Container";
 
 const Register = (props) => {
   const authCtx = useContext(AuthContext);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -104,7 +104,7 @@ const Register = (props) => {
       authCtx.register(firstname, lastname, email, password).then(
         () => {
           authCtx.setLogin();
-          history.push("/success");
+          navigate("/success");
         },
         (error) => {
           console.log(error.response);

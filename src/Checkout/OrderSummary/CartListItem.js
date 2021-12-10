@@ -11,10 +11,10 @@ const CartListItem = (props) => {
 
   return (
     <ListItem>
-      <Hidden xsDown={true}>
+      {/* <Hidden xsDown={true}>
       <ListItemAvatar>
         <Avatar alt="bakeshop" src={image} />
-      </ListItemAvatar></Hidden>
+      </ListItemAvatar></Hidden> */}
       <ListItemText primary={`${name} x ${amount}`}  secondary={price}/>
       <Typography>{updatedPrice}</Typography>
     </ListItem>

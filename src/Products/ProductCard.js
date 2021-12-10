@@ -9,9 +9,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import CartContext from "../store/cart-context";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
-import { useHistory } from "react-router-dom";
+import SnackbarAlert from "../Cart/SnackbarAlert";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   title: {
@@ -25,16 +24,12 @@ const useStyles = makeStyles({
   },
 });
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
 const ProductCard = (props) => {
   const classes = useStyles();
   const { id, title, subtitle, description, imgSrc } = props;
   const cartCtx = useContext(CartContext);
   const [open, setOpen] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.removeItem("product");
@@ -61,10 +56,10 @@ const ProductCard = (props) => {
         title: title,
         price: subtitle,
         description: description,
-        img: imgSrc
+        img: imgSrc,
       })
     );
-    history.push("/product");
+    navigate("/product");
   };
 
   const handleClose = (event, reason) => {
@@ -103,20 +98,12 @@ const ProductCard = (props) => {
         >
           + Add
         </Button>
-        <Snackbar
+        <SnackbarAlert
           open={open}
-          autoHideDuration={3000}
-          onClose={handleClose}
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        >
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            Added to Cart!
-          </Alert>
-        </Snackbar>
+          close={handleClose}
+          severity="success"
+          message="Added to Cart!"
+        />
       </CardActions>
     </Card>
   );

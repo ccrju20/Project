@@ -27,7 +27,6 @@ const OrderHistoryCard = (props) => {
     delivery,
     scheduled,
     status,
-    orderdetails,
     orderitems,
   } = props;
 

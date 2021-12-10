@@ -1,5 +1,4 @@
-import React from "react";
-
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
@@ -14,6 +13,7 @@ import Avatar from "@mui/material/Avatar";
 import Hidden from "@material-ui/core/Hidden";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
   root: {
@@ -27,8 +27,26 @@ const useStyles = makeStyles({
 const CartProduct = (props) => {
   const classes = useStyles();
   const { name, price, image, amount } = props;
-
   const updatedPrice = `$${(price * amount).toFixed(2)}`;
+
+  const [itemAmount, setItemAmount] = useState(amount);
+  const [removeLimit, setRemoveLimit] = useState(false);
+
+  const handleRemove = () => {
+    if (itemAmount !== 1) {
+      setItemAmount((curr) => curr - 1);
+    }
+  };
+
+  const handleAdd = () => {
+    setItemAmount((curr) => curr + 1);
+  };
+
+  const handleUpdate = () => {
+    const diff = itemAmount - amount;
+    console.log(diff);
+    props.onAdd(diff);
+  };
 
   return (
     <Grid container>
@@ -47,18 +65,18 @@ const CartProduct = (props) => {
             </ListItemAvatar>
             <ListItemText primary={name} secondary={updatedPrice} />
             <Hidden smDown={true}>
-              <Grid container justify="center" alignItems="center">
+              <Grid container justifyContent="center" alignItems="center">
                 <Grid item>
-                  <IconButton onClick={props.onAdd}>
-                    <AddCircleOutlineOutlinedIcon />
+                  <IconButton onClick={handleRemove} disabled={removeLimit}>
+                    <RemoveCircleOutlineIcon />
                   </IconButton>
                 </Grid>
                 <Grid item>
-                  <ListItemText sx={{ margin: 1 }} primary={amount} />
+                  <ListItemText sx={{ margin: 1 }} primary={itemAmount} />
                 </Grid>
                 <Grid item>
-                  <IconButton onClick={props.onRemove}>
-                    <RemoveCircleOutlineIcon />
+                  <IconButton onClick={handleAdd}>
+                    <AddCircleOutlineOutlinedIcon />
                   </IconButton>
                 </Grid>
               </Grid>
@@ -72,14 +90,13 @@ const CartProduct = (props) => {
                 className={classes.content}
               >
                 <Grid item>
-                  <IconButton onClick={props.onAdd}>
+                  <IconButton onClick={handleAdd}>
                     <ArrowDropUpIcon />
                   </IconButton>
                 </Grid>
-                <Grid item> {amount}</Grid>
-
+                <Grid item> {itemAmount}</Grid>
                 <Grid item>
-                  <IconButton onClick={props.onRemove}>
+                  <IconButton onClick={handleRemove}>
                     <ArrowDropDownIcon />
                   </IconButton>
                 </Grid>
@@ -91,6 +108,20 @@ const CartProduct = (props) => {
             </IconButton>
           </ListItem>
         </Card>
+        <Button
+          onClick={handleUpdate}
+          variant="contained"
+          fullWidth
+          type="submit"
+          sx={{
+            backgroundColor: "#41166c",
+            "&:hover": {
+              backgroundColor: "#290052",
+            },
+          }}
+        >
+          Update Items
+        </Button>
       </Grid>
       <Grid item xs={false} sm={3} />
     </Grid>
