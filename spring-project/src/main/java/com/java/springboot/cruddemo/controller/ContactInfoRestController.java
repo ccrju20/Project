@@ -1,4 +1,4 @@
-package com.java.springboot.cruddemo.rest;
+package com.java.springboot.cruddemo.controller;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class ContactInfoRestController {
 		return contactInfoService.findAll();
 	}
 
-	@GetMapping("/Contactinfos/{contactInfoId}")
+	@GetMapping("/contactinfo/{contactInfoId}")
 	public ContactInfo getContactInfo(@PathVariable int contactInfoId) {
 
 		ContactInfo theContactInfo = contactInfoService.findById(contactInfoId);
