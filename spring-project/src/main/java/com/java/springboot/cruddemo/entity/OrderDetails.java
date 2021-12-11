@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="order_details")
@@ -17,31 +20,28 @@ public class OrderDetails {
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="firstname")
+	@NotEmpty
 	private String firstname;
 	
-	@Column(name="lastname")
+	@NotEmpty
 	private String lastname;
 	
-	@Column(name="email")
+	@NotEmpty
+	@Email
 	private String email;
 	
-	@Column(name="phone")
+	@NotEmpty
+	@Size(min = 10, message = "number should have at least 10 digits")
 	private String phone;
 	
-	@Column(name="address")
 	private String address;
 	
-	@Column(name="addresstwo")
 	private String addresstwo;
 
-	@Column(name="city")
 	private String city;
 	
-	@Column(name="state")
 	private String state;
 	
-	@Column(name="postal")
 	private String postal;
 		
 	public OrderDetails() {

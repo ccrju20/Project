@@ -1,4 +1,4 @@
-package com.java.springboot.cruddemo.rest;
+package com.java.springboot.cruddemo.controller;
 
 import java.util.List;
 

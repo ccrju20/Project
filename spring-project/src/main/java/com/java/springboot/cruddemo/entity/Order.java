@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Random;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,6 +18,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -31,22 +34,19 @@ public class Order {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
 	private int id;
 	
-	@Column(name="ordernumber")
 	private String ordernumber;
 	
-	@Column(name="dateposted")
 	private String dateposted;
 	
-	@Column(name="scheduled")
+	@NotEmpty
 	private String scheduled;
 	
-	@Column(name="status")
 	private String status;
 	
-	@Column(name="delivery")
+	@Min(value = 0)
+	@Max(value = 1)
 	private int delivery;
 	
 	@ManyToOne
@@ -57,6 +57,7 @@ public class Order {
 	@JoinColumn(name="orderid")
 	private List<OrderItem> orderItems;
 	
+	@Valid
 	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="details_id")
 	private OrderDetails orderDetails;
