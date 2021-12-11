@@ -13,7 +13,9 @@ import { useNavigate } from "react-router-dom";
 // import { makeStyles } from "@material-ui/core/styles";
 
 // const useStyles = makeStyles(() => ({
-//   root: {},
+//   root: {
+//     backgroundColor: "blue"
+//   },
 // }));
 
 const schema = yup
@@ -43,7 +45,7 @@ const schema = yup
 
 const Check = () => {
   const navigate = useNavigate();
-  const userCtx = useContext(UserInfoContext)
+  const userCtx = useContext(UserInfoContext);
   const methods = useForm({
     resolver: yupResolver(schema),
   });
@@ -62,10 +64,12 @@ const Check = () => {
             <Grid container>
               <Grid item xs={12} sm={12} md={7}>
                 <Box mt={2} mb={3}>
-                  <Typography variant="h5">Form</Typography>
+                  <Typography variant="h4">Checkout</Typography>
+                  <Typography variant="subtitle1">
+                    Please enter your information below
+                  </Typography>
                 </Box>
-                {/* <FormProvider {...methods}>
-              <form onSubmit={methods.handleSubmit(onSubmit)}> */}
+
                 <ContactForm />
                 <br />
                 <br />
@@ -75,9 +79,6 @@ const Check = () => {
                 <Grid container justifyContent="center">
                   <ScheduleForm />
                 </Grid>
-                <br />
-                <br />
-                {/* <input type="submit" /> */}
               </Grid>
 
               <Grid item xs={12} sm={12} md={1} />
