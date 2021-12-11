@@ -9,7 +9,7 @@ import StickyNote2OutlinedIcon from "@mui/icons-material/StickyNote2Outlined";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
-export default function SimpleAccordion() {
+const  SimpleAccordion = (props) => {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -40,8 +40,9 @@ export default function SimpleAccordion() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
+            {props.description}
+            {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget. */}
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -91,7 +92,7 @@ export default function SimpleAccordion() {
         >
           <Typography>
             <EditOutlinedIcon fontSize="small" sx={{ marginRight: 1 }} />
-            Custom Options
+            Customization
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -104,3 +105,5 @@ export default function SimpleAccordion() {
     </div>
   );
 }
+
+export default SimpleAccordion

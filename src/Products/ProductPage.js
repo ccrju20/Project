@@ -102,7 +102,7 @@ const ProductPage = () => {
                 </Grid>
 
                 <Box mt={3}>
-                  <ProductDetails />
+                  <ProductDetails description={product.description}/>
                 </Box>
                 <Box mt={3}>
                   <Button

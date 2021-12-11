@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -30,10 +30,6 @@ const ProductCard = (props) => {
   const cartCtx = useContext(CartContext);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    localStorage.removeItem("product");
-  }, []);
 
   const addToCartHandler = () => {
     cartCtx.addItem({
@@ -84,11 +80,11 @@ const ProductCard = (props) => {
           subheader={"$" + subtitle}
           key={id}
         />
-        <CardContent className={classes.description}>
+        {/* <CardContent className={classes.description}>
           <Typography variant="body2" component="p">
             {description}
           </Typography>
-        </CardContent>
+        </CardContent> */}
       </CardActionArea>
       <CardActions>
         <Button

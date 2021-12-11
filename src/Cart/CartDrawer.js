@@ -1,21 +1,12 @@
 import { useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Grid, Typography } from "@material-ui/core";
-
 import Link from "@material-ui/core/Link";
 import CartContext from "../store/cart-context";
 import Button from "@material-ui/core/Button";
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import { styled } from "@material-ui/styles";
 import CartCheck from "../Cart/CartCheck";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
@@ -38,29 +29,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: "flex-start",
 }));
-
-// const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-//   ({ theme, open }) => ({
-//     flexGrow: 1,
-//     padding: theme.spacing(3),
-//     transition: theme.transitions.create("margin", {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.leavingScreen,
-//     }),
-//     marginRight: -drawerWidth,
-//     ...(open && {
-//       transition: theme.transitions.create("margin", {
-//         easing: theme.transitions.easing.easeOut,
-//         duration: theme.transitions.duration.enteringScreen,
-//       }),
-//       marginRight: 0,
-//     }),
-//   })
-// );
 
 const CartDrawer = (props) => {
   const cartCtx = useContext(CartContext);
@@ -77,9 +48,6 @@ const CartDrawer = (props) => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      {/* <Main open={props.opened}>
-        <DrawerHeader />
-      </Main> */}
       <SwipeableDrawer
         sx={{
           width: drawerWidth,
@@ -98,8 +66,6 @@ const CartDrawer = (props) => {
             <ArrowForwardIosIcon />
           </IconButton>
         </DrawerHeader>
-
-        {/* <CartCheck />  */}
 
         <Grid container justifyContent="center">
           <Box>
@@ -121,7 +87,6 @@ const CartDrawer = (props) => {
 
         <Grid container>
           {cartCtx.items.map((product) => (
-            // <Grid item xs={12} key={product.id}>
             <CartCheck
               key={product.id}
               name={product.name}
@@ -131,7 +96,6 @@ const CartDrawer = (props) => {
               onAdd={cartItemAddHandler.bind(null, product)}
               onDelete={cartItemDeleteHandler.bind(null, product.id)}
             />
-            // </Grid>
           ))}
         </Grid>
         <ListItem secondaryAction={`${totalAmount}`}>Subtotal:</ListItem>
@@ -142,52 +106,55 @@ const CartDrawer = (props) => {
           </Typography>
         </Box>
         <Box mt={3} mb={2}>
-          <Link
-            component={RouterLink}
-            to="/cart"
-            color="inherit"
-            underline="none"
-          >
-            <Button
-              onClick={props.handleDrawerClose}
-              variant="contained"
-              fullWidth
-              type="submit"
-              style={{
-                color: "white",
-                backgroundColor: "#290052",
-                "&:hover": {
-                  backgroundColor: "#290052",
-                },
-              }}
-            >
-              Go to Cart
-            </Button>
-          </Link>
-        </Box>
-        <Box mt={1} mb={2}>
-          <Link
-            component={RouterLink}
-            to="/check"
-            color="inherit"
-            underline="none"
-          >
-            <Button
-              onClick={props.handleDrawerClose}
-              variant="contained"
-              fullWidth
-              type="submit"
-              style={{
-                color: "white",
-                backgroundColor: "#290052",
-                "&:hover": {
-                  backgroundColor: "#290052",
-                },
-              }}
-            >
-              Checkout
-            </Button>
-          </Link>
+          <Grid container>
+            <Grid item xs={1} />
+            <Grid item xs={10}>
+              <Link
+                component={RouterLink}
+                to="/cart"
+                color="inherit"
+                underline="none"
+              >
+                <Button
+                  onClick={props.handleDrawerClose}
+                  variant="contained"
+                  fullWidth
+                  type="submit"
+                  style={{
+                    color: "white",
+                    backgroundColor: "#290052",
+                  }}
+                >
+                  Go to Cart
+                </Button>
+              </Link>
+
+              {cartTotalItems > 0 && (
+                <Box mt={1} mb={2}>
+                  <Link
+                    component={RouterLink}
+                    to="/check"
+                    color="inherit"
+                    underline="none"
+                  >
+                    <Button
+                      onClick={props.handleDrawerClose}
+                      variant="contained"
+                      fullWidth
+                      type="submit"
+                      style={{
+                        color: "white",
+                        backgroundColor: "#290052",
+                      }}
+                    >
+                      Checkout
+                    </Button>
+                  </Link>
+                </Box>
+              )}
+            </Grid>
+            <Grid item xs={1} />
+          </Grid>
         </Box>
       </SwipeableDrawer>
     </Box>

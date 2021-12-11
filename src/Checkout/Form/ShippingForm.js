@@ -20,26 +20,24 @@ const ContactForm = () => {
   return (
     <>
       <Grid container>
-        <Grid item sm={12}>
-          <Grid container justifyContent="center">
-            <Box mt={1} mb={1}>
-              <Controller
-                name="pickup"
-                control={control}
-                defaultValue={pickup}
-                render={({ field: { onChange, value } }) => (
-                  <CustomizedSwitch
-                    checked={pickup}
-                    onChange={(event, value) => {
-                      onChange(value);
-                      setPickup(value);
-                      console.log(value);
-                    }}
-                  />
-                )}
-              />
-            </Box>
-          </Grid>
+        <Grid container justifyContent="center">
+          <Box mt={1} mb={1}>
+            <Controller
+              name="pickup"
+              control={control}
+              defaultValue={pickup}
+              render={({ field: { onChange, value } }) => (
+                <CustomizedSwitch
+                  checked={pickup}
+                  onChange={(event, value) => {
+                    onChange(value);
+                    setPickup(value);
+                    console.log(value);
+                  }}
+                />
+              )}
+            />
+          </Box>
         </Grid>
       </Grid>
 
@@ -114,6 +112,10 @@ const ContactForm = () => {
                       variant="outlined"
                       error={!!errors.state}
                       helperText={errors.state ? errors.state?.message : ""}
+                      inputProps={{
+                        maxLength: 2,
+                        style: { textTransform: "uppercase" },
+                      }}
                     />
                   )}
                 />
@@ -131,6 +133,7 @@ const ContactForm = () => {
                       variant="outlined"
                       error={!!errors.postal}
                       helperText={errors.postal ? errors.postal?.message : ""}
+                      inputProps={{ maxLength: 5 }}
                     />
                   )}
                 />
