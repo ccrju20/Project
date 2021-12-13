@@ -120,7 +120,7 @@ const Edge = () => {
           </Link>
         </Hidden>
       </Menu>
-      <IconButton className={classes.carticon} onClick={handleDrawerOpen}>
+      <IconButton className={classes.carticon} onClick={handleDrawerOpen} color="inherit">
         {/* <Link component={RouterLink} to="/cart" color="inherit"> */}
         <StyledBadge badgeContent={cartTotalItems} color="secondary">
           <ShoppingCartIcon />

@@ -1,5 +1,5 @@
 import { AppBar, Grid, Toolbar } from "@material-ui/core";
-import AppbarTest from "./AppbarTest";
+import ScrollNavBar from "./ScrollNavBar";
 import Header from "./Header";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -16,7 +16,7 @@ const NavBar = () => {
 
   return (
     <>
-      <AppbarTest />
+      <ScrollNavBar />
       <Grid container>
         <Grid item xs={1} sm={1} />
         <Grid item xs={10} sm={10}>

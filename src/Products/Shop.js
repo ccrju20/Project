@@ -12,6 +12,7 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Divider from "@mui/material/Divider";
+import Search from "./Search";
 
 const useStyles = makeStyles({
   root: {
