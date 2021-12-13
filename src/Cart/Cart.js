@@ -4,7 +4,7 @@ import { Grid, Typography, Box } from "@material-ui/core";
 import CartProduct from "./CartProduct";
 import Divider from "@material-ui/core/Divider";
 import CartContext from "../store/cart-context";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import ShoppingBasketTwoToneIcon from "@mui/icons-material/ShoppingBasketTwoTone";
@@ -49,9 +49,6 @@ const Cart = (props) => {
 
   const cartTotalItems = cartCtx.items.length;
 
-  // console.log(cartCtx.items)
-  // console.log(cartCtx.totalAmount)
-
   return (
     <Grid container>
       <Grid item xs={1} />
@@ -80,33 +77,65 @@ const Cart = (props) => {
         </Grid>
         <div className={classes.cartdivider}></div>
         <Divider variant="middle" />
-        <Box mt={2} mb={2}>
-          <Typography align="center" variant="body2">
-            Subtotal: {totalAmount}
-          </Typography>
-          <Typography align="center" variant="h6">
-            Total: {totalAmount}
-          </Typography>
-          <Box mt={2}>
-            <Grid container justifyContent="center">
-              {cartTotalItems > 0 && (
+
+        <Box mt={3} mb={3}>
+          <Grid container justifyContent="center">
+            <Grid item xs={5}>
+              {cartTotalItems > 0 ? (
+                <>
+                  <Box mt={1} mb={2}>
+                    <Typography align="center" variant="body2">
+                      Subtotal: {totalAmount}
+                    </Typography>
+                    <Typography align="center" variant="h6">
+                      Total: {totalAmount}
+                    </Typography>
+                  </Box>
+                  <Link
+                    component={RouterLink}
+                    to="/check"
+                    color="inherit"
+                    underline="none"
+                  >
+                    <Button
+                      variant="contained"
+                      fullWidth
+                      type="submit"
+                      sx={{
+                        backgroundColor: "#290052",
+                        "&:hover": {
+                          backgroundColor: "#430085",
+                        },
+                      }}
+                    >
+                      Checkout
+                    </Button>
+                  </Link>
+                </>
+              ) : (
                 <Link
                   component={RouterLink}
-                  to="/check"
+                  to="/shop"
                   color="inherit"
                   underline="none"
                 >
                   <Button
-                    variant="outlined"
-                    size="small"
-                    className={classes.button}
+                    variant="contained"
+                    fullWidth
+                    type="submit"
+                    sx={{
+                      backgroundColor: "#290052",
+                      "&:hover": {
+                        backgroundColor: "#430085",
+                      },
+                    }}
                   >
-                    Checkout
+                    Continue Shopping
                   </Button>
                 </Link>
               )}
             </Grid>
-          </Box>
+          </Grid>
         </Box>
         <SnackbarAlert
           open={open}

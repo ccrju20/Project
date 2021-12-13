@@ -76,9 +76,7 @@ const Check = () => {
                 <ShippingForm />
                 <br />
                 <br />
-                <Grid container justifyContent="center">
-                  <ScheduleForm />
-                </Grid>
+                <ScheduleForm />
               </Grid>
 
               <Grid item xs={12} sm={12} md={1} />
@@ -94,9 +92,9 @@ const Check = () => {
                     fullWidth
                     type="submit"
                     sx={{
-                      backgroundColor: "#41166c",
+                      backgroundColor: "#290052",
                       "&:hover": {
-                        backgroundColor: "#290052",
+                        backgroundColor: "#430085",
                       },
                     }}
                   >

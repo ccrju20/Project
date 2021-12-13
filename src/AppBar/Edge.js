@@ -59,7 +59,11 @@ const Edge = () => {
 
   return (
     <>
-      <CartDrawer opened={opened} handleDrawerClose={handleDrawerClose} handleDrawerOpen={handleDrawerOpen} />
+      <CartDrawer
+        opened={opened}
+        handleDrawerClose={handleDrawerClose}
+        handleDrawerOpen={handleDrawerOpen}
+      />
       <IconButton
         edge="start"
         className={classes.menuButton}
@@ -102,8 +106,17 @@ const Edge = () => {
           <Link component={RouterLink} to="/shop" color="inherit">
             <MenuItem onClick={handleClose}> Shop</MenuItem>
           </Link>
+        </Hidden>
+
+        <Hidden mdUp={true}>
           <Link component={RouterLink} to="/cart" color="inherit">
             <MenuItem onClick={handleClose}>Contact</MenuItem>
+          </Link>
+        </Hidden>
+
+        <Hidden lgUp={true}>
+          <Link component={RouterLink} to="/cart" color="inherit">
+            <MenuItem onClick={handleClose}>Catering</MenuItem>
           </Link>
         </Hidden>
       </Menu>

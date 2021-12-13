@@ -1,12 +1,9 @@
-import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { AppBar, Grid, Toolbar, Typography } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/styles";
-import IconButton from "@material-ui/core/IconButton";
 import Hidden from "@material-ui/core/Hidden";
 import logo from "../Images/logo.png";
-import InstagramIcon from "@material-ui/icons/Instagram";
 import Edge from "./Edge";
 
 const useStyles = makeStyles((theme) => ({
@@ -29,9 +26,6 @@ const useStyles = makeStyles((theme) => ({
       borderBottom: "3px solid #9B89A4",
     },
   },
-  links: {
-    marginLeft: 50,
-  },
 }));
 
 const Header = (props) => {
@@ -43,14 +37,9 @@ const Header = (props) => {
           <Link component={RouterLink} to="/">
             <img src={logo} alt="logo" className={classes.logo} />
           </Link>
-          <Hidden smDown={true}>
-            <IconButton>
-              <InstagramIcon />
-            </IconButton>
-          </Hidden>
 
           <Hidden only="xs">
-            <Grid container className={classes.links} justifyContent="center">
+            <Grid container justifyContent="center">
               <Grid item>
                 <Typography className={classes.menuText}>ABOUT</Typography>
               </Grid>
@@ -75,7 +64,7 @@ const Header = (props) => {
                 </Grid>
               </Hidden>
 
-              <Hidden smDown={true}>
+              <Hidden mdDown={true}>
                 <Grid item>
                   <Typography className={classes.menuText}>CATERING</Typography>
                 </Grid>

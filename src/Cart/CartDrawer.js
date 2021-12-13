@@ -3,7 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { Grid, Typography } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import CartContext from "../store/cart-context";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import ListItem from "@mui/material/ListItem";
 import IconButton from "@material-ui/core/IconButton";
@@ -120,9 +120,11 @@ const CartDrawer = (props) => {
                   variant="contained"
                   fullWidth
                   type="submit"
-                  style={{
-                    color: "white",
+                  sx={{
                     backgroundColor: "#290052",
+                    "&:hover": {
+                      backgroundColor: "#430085",
+                    },
                   }}
                 >
                   Go to Cart
@@ -142,9 +144,11 @@ const CartDrawer = (props) => {
                       variant="contained"
                       fullWidth
                       type="submit"
-                      style={{
-                        color: "white",
+                      sx={{
                         backgroundColor: "#290052",
+                        "&:hover": {
+                          backgroundColor: "#430085",
+                        },
                       }}
                     >
                       Checkout
