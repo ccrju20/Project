@@ -11,6 +11,7 @@ import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Edge from "./Edge";
 import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const useStyles = makeStyles({
   menuText: {
@@ -41,49 +42,74 @@ ScrollTop.propTypes = {
 
 const ScrollNavBar = (props) => {
   const classes = useStyles();
+  const matches = useMediaQuery("(min-width:750px)");
 
   return (
     <React.Fragment>
       <CssBaseline />
       <ScrollTop {...props}>
-        <AppBar style={{ backgroundColor: "#290052", height: 50 }}>
-          <Toolbar sx={{ marginTop: -1}}>
-            <CakeOutlinedIcon />
-            <Box ml={2}>
-              <Typography variant="body1" noWrap>
-                Da Bakeshop
-              </Typography>
-            </Box>
-            <Grid container justifyContent="center">
-              <Grid item>
-                <Typography className={classes.menuText}>ABOUT</Typography>
-              </Grid>
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar style={{ backgroundColor: "#290052", height: 60 }}>
+            <Toolbar>
+              {matches && (
+                <Box display="flex">
+                  <CakeOutlinedIcon />
+                  <Box ml={2}>
+                    <Typography variant="body1" noWrap>
+                      Da Bakeshop
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
 
-              <Grid item>
-                <Typography className={classes.menuText}>
-                  <Link
-                    component={RouterLink}
-                    to="/shop"
-                    color="inherit"
-                    underline="none"
-                    className={classes.hover}
-                  >
-                    SHOP
-                  </Link>
-                </Typography>
-              </Grid>
+              <Grid
+                container
+                justifyContent="center"
+              >
+                {matches ? (
+                  <>
+                    <Box display="flex">
+                      <Typography className={classes.menuText}>
+                        ABOUT
+                      </Typography>
 
-              <Grid item>
-                <Typography className={classes.menuText}>CONTACT</Typography>
-              </Grid>
+                      <Typography className={classes.menuText}>
+                        <Link
+                          component={RouterLink}
+                          to="/shop"
+                          color="inherit"
+                          underline="none"
+                          className={classes.hover}
+                        >
+                          SHOP
+                        </Link>
+                      </Typography>
+                      <Typography className={classes.menuText}>
+                        CONTACT
+                      </Typography>
 
-              <Grid item>
-                <Typography className={classes.menuText}>CATERING</Typography>
+                      <Typography className={classes.menuText}>
+                        CATERING
+                      </Typography>
+                    </Box>
+                  </>
+                ) : (
+                  <>
+                    <Box display="flex">
+                      <CakeOutlinedIcon />
+                      <Box ml={2}>
+                        <Typography variant="body1" noWrap>
+                          Da Bakeshop
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </>
+                )}
               </Grid>
-            </Grid>
-            <Edge />
-          </Toolbar>
-        </AppBar>
+              <Edge />
+            </Toolbar>
+          </AppBar>
+        </Box>
       </ScrollTop>
     </React.Fragment>
   );

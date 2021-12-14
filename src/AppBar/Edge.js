@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
   carticon: {
     padding: 1,
   },
+  badge: {
+    height: 15,
+  }
 }));
 
 const StyledBadge = withStyles((theme) => ({
@@ -121,11 +124,9 @@ const Edge = () => {
         </Hidden>
       </Menu>
       <IconButton className={classes.carticon} onClick={handleDrawerOpen} color="inherit">
-        {/* <Link component={RouterLink} to="/cart" color="inherit"> */}
-        <StyledBadge badgeContent={cartTotalItems} color="secondary">
+        <Badge badgeContent={cartTotalItems} color="secondary" classes={{badge: classes.badge}} >
           <ShoppingCartIcon />
-        </StyledBadge>
-        {/* </Link> */}
+        </Badge>
       </IconButton>
     </>
   );
