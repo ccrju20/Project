@@ -8,7 +8,7 @@ import Search from "./Search";
 
 const PRODUCTS_REST_API_URL = "http://localhost:8080/api/products";
 
-const Content = () => {
+const Content = (props) => {
   const [products, setProducts] = useState([]);
   const [loadError, setLoadError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -16,28 +16,36 @@ const Content = () => {
   const [searchResults, setSearchResults] = useState([]);
   const matches = useMediaQuery("(min-width:900px)");
 
-  const getProducts = useCallback(() => {
-    axios
-      .get(PRODUCTS_REST_API_URL)
-      .then((response) => {
-        setProducts(response.data);
-        setIsLoading(false);
-        console.log(response.data);
-      })
-      .catch((err) => {
-        setLoadError(true);
-        console.log(err.message);
-      });
-  }, []);
+  // const getProducts = useCallback(() => {
+  //   axios
+  //     .get(PRODUCTS_REST_API_URL)
+  //     .then((response) => {
+  //       setProducts(response.data);
+  //       if (props.category !== "all") {
+  //         console.log('not all')
+  //         const filteredProducts = response.data.filter(
+  //           (product) => product.title.toLowerCase() === props.category
+  //         );
+  //         console.log(filteredProducts)
+  //         setProducts(filteredProducts);
+  //       }
+  //       setIsLoading(false);
+  //       console.log(response.data);
+  //     })
+  //     .catch((err) => {
+  //       setLoadError(true);
+  //       console.log(err.message);
+  //     });
+  // }, []);
 
-  useEffect(() => {
-    getProducts();
-  }, [getProducts]);
+  // useEffect(() => {
+  //   getProducts();
+  // }, [getProducts]);
 
   const searchHandler = (searchTerm) => {
     setSearchTerm(searchTerm);
     if (searchTerm !== "") {
-      const productList = products.filter((product) => {
+      const productList = props.products.filter((product) => {
         return product.title.toLowerCase().includes(searchTerm.toLowerCase());
       });
       setSearchResults(productList);
@@ -46,7 +54,7 @@ const Content = () => {
     }
   };
 
-  const productList = products.map((product) => (
+  const productList = props.products.map((product) => (
     <Grid item xs={12} sm={matches ? 4 : 4} key={product.id}>
       <ProductCard
         id={product.id}
@@ -83,20 +91,20 @@ const Content = () => {
     <>
       <Box mb={2}>
         <Search
-          products={products}
+          products={props.products}
           term={searchTerm}
           searchHandler={searchHandler}
         />
       </Box>
       <Grid container spacing={4}>
-        {!loadError ? (
+        {!props.loadError ? (
           <>{searchTerm.length > 0 ? productSearch : productList}</>
         ) : (
           <Grid container justifyContent="center">
             <h2>Unable to load items</h2>
           </Grid>
         )}
-        {isLoading && !loadError && itemsLoading}
+        {props.isLoading && !props.loadError && itemsLoading}
       </Grid>
     </>
   );
