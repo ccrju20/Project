@@ -12,6 +12,7 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Divider from "@mui/material/Divider";
+import Pagination from "@mui/material/Pagination";
 
 const useStyles = makeStyles({
   root: {
@@ -33,33 +34,31 @@ const Shop = () => {
   const [products, setProducts] = useState([]);
   const [loadError, setLoadError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(1);
 
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const matches = useMediaQuery("(min-width:800px)");
 
   const getProducts = useCallback(() => {
     axios
-      .get(PRODUCTS_REST_API_URL)
+      .get(PRODUCTS_REST_API_URL, { params: { title: selectedCategory, page: page } })
       .then((response) => {
-        setProducts(response.data);
-        if (selectedCategory !== "all") {
-          console.log("not all");
-          const filteredProducts = response.data.filter((product) =>
+        setProducts(response.data.products);
+        if (selectedCategory !== null) {
+          const filteredProducts = response.data.products.filter((product) =>
             product.title.toLowerCase().includes(selectedCategory)
           );
-          console.log(filteredProducts);
           setProducts(filteredProducts);
         }
         setIsLoading(false);
-        console.log(response.data);
       })
       .catch((err) => {
         setLoadError(true);
         console.log(err.message);
       });
-  }, [selectedCategory]);
+  }, [selectedCategory, page]);
 
   useEffect(() => {
     getProducts();
@@ -67,6 +66,11 @@ const Shop = () => {
 
   const handleClick = () => {
     setOpen(!open);
+  };
+
+  const handlePageChange = (event, value) => {
+    console.log(value);
+    setPage(value);
   };
 
   return (
@@ -89,7 +93,7 @@ const Shop = () => {
                 <ListItemButton
                   onClick={() => {
                     console.log("all");
-                    setSelectedCategory("all");
+                    setSelectedCategory(null);
                   }}
                 >
                   <ListItemText primary="Shop All" />
@@ -149,6 +153,8 @@ const Shop = () => {
               loadError={loadError}
               isLoading={isLoading}
             />
+            <br />
+            <Pagination count={2} onChange={handlePageChange} />
           </Grid>
         </Grid>
       </Grid>

@@ -22,7 +22,7 @@ const ServiceProvider = (props) => {
 
   const serviceContext = {
     getOrderHistory: getOrderHistory,
-    getUserInfo: getUserInfo
+    getUserInfo: getUserInfo,
   };
 
   return (

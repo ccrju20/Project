@@ -18,16 +18,20 @@ const ContactForm = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    serviceCtx.getUserInfo().then(
-      (response) => {
-        console.log(response);
-        setData(response.data);
-        setIsLoading(false);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    if (localStorage.getItem("user")) {
+      serviceCtx.getUserInfo().then(
+        (response) => {
+          console.log(response);
+          setData(response.data);
+          setIsLoading(false);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      setIsLoading(false);
+    }
   }, [serviceCtx]);
 
   console.log(errors);
