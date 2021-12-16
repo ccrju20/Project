@@ -16,7 +16,6 @@ const ContactForm = () => {
 
   const [pickup, setPickup] = useState(false);
 
-  console.log(pickup);
   return (
     <>
       <Grid container>

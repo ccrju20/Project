@@ -4,7 +4,6 @@ import Content from "./Content";
 import { Grid, Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
 import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -13,7 +12,6 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Divider from "@mui/material/Divider";
-import Search from "./Search";
 
 const useStyles = makeStyles({
   root: {
@@ -24,7 +22,6 @@ const useStyles = makeStyles({
   divider: {
     borderRight: "2px solid lightgrey",
     height: "50em",
-    // marginTop: 100,
     marginRight: 30,
     marginBottom: 50,
   },
@@ -38,7 +35,7 @@ const Shop = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const matches = useMediaQuery("(min-width:800px)");
 
@@ -70,7 +67,7 @@ const Shop = () => {
 
   const handleClick = () => {
     setOpen(!open);
-  }; 
+  };
 
   return (
     <Grid container>
@@ -100,7 +97,6 @@ const Shop = () => {
                 <Divider variant="middle" />
                 <ListItemButton
                   onClick={() => {
-                    console.log("cookies");
                     setSelectedCategory("cookiez");
                   }}
                 >
@@ -109,8 +105,15 @@ const Shop = () => {
                 <Divider variant="middle" />
                 <ListItemButton
                   onClick={() => {
+                    setSelectedCategory("cupcake");
+                  }}
+                >
+                  <ListItemText primary="Cupcakes" />
+                </ListItemButton>
+                <Divider variant="middle" />
+                <ListItemButton
+                  onClick={() => {
                     handleClick();
-                    console.log("cake");
                     setSelectedCategory("cake");
                   }}
                 >
@@ -130,6 +133,10 @@ const Shop = () => {
                     </ListItemButton>
                   </List>
                 </Collapse>
+                <Divider variant="middle" />
+                <ListItemButton>
+                  <ListItemText primary="Other" />
+                </ListItemButton>
               </List>
             </Box>
           </Grid>

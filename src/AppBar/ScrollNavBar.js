@@ -12,11 +12,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import Edge from "./Edge";
 import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles({
   menuText: {
     marginRight: 50,
     fontSize: 14,
+  },
+  logo: {
+    "&:hover": { backgroundColor: "#290052" },
   },
 });
 
@@ -53,19 +57,29 @@ const ScrollNavBar = (props) => {
             <Toolbar>
               {matches && (
                 <Box display="flex">
-                  <CakeOutlinedIcon />
-                  <Box ml={2}>
-                    <Typography variant="body1" noWrap>
-                      Da Bakeshop
-                    </Typography>
-                  </Box>
+                  <Link
+                    component={RouterLink}
+                    to="/"
+                    color="inherit"
+                    underline="none"
+                  >
+                    <IconButton
+                      className={classes.logo}
+                      color="inherit"
+                      disableRipple={true}
+                    >
+                      <CakeOutlinedIcon />
+                      <Box ml={2}>
+                        <Typography variant="body1" noWrap>
+                          Da Bakeshop
+                        </Typography>
+                      </Box>
+                    </IconButton>
+                  </Link>
                 </Box>
               )}
 
-              <Grid
-                container
-                justifyContent="center"
-              >
+              <Grid container justifyContent="center">
                 {matches ? (
                   <>
                     <Box display="flex">
