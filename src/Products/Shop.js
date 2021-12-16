@@ -70,7 +70,7 @@ const Shop = () => {
 
   const handleClick = () => {
     setOpen(!open);
-  };
+  }; 
 
   return (
     <Grid container>
