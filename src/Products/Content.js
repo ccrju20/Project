@@ -1,17 +1,12 @@
-import React, { useEffect, useState, useCallback } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import ProductCard from "./ProductCard";
 import { Grid, Box } from "@material-ui/core";
 import Skeleton from "@mui/material/Skeleton";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Search from "./Search";
 
-const PRODUCTS_REST_API_URL = "http://localhost:8080/api/products";
-
 const Content = (props) => {
   const [products, setProducts] = useState([]);
-  const [loadError, setLoadError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const matches = useMediaQuery("(min-width:900px)");

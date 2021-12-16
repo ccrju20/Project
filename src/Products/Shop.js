@@ -4,7 +4,6 @@ import Content from "./Content";
 import { Grid, Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
 import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -13,7 +12,7 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Divider from "@mui/material/Divider";
-import Search from "./Search";
+import Pagination from "@mui/material/Pagination";
 
 const useStyles = makeStyles({
   root: {
@@ -24,7 +23,6 @@ const useStyles = makeStyles({
   divider: {
     borderRight: "2px solid lightgrey",
     height: "50em",
-    // marginTop: 100,
     marginRight: 30,
     marginBottom: 50,
   },
@@ -36,33 +34,31 @@ const Shop = () => {
   const [products, setProducts] = useState([]);
   const [loadError, setLoadError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(1);
 
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [open, setOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const matches = useMediaQuery("(min-width:800px)");
 
   const getProducts = useCallback(() => {
     axios
-      .get(PRODUCTS_REST_API_URL)
+      .get(PRODUCTS_REST_API_URL, { params: { title: selectedCategory, page: page } })
       .then((response) => {
-        setProducts(response.data);
-        if (selectedCategory !== "all") {
-          console.log("not all");
-          const filteredProducts = response.data.filter((product) =>
+        setProducts(response.data.products);
+        if (selectedCategory !== null) {
+          const filteredProducts = response.data.products.filter((product) =>
             product.title.toLowerCase().includes(selectedCategory)
           );
-          console.log(filteredProducts);
           setProducts(filteredProducts);
         }
         setIsLoading(false);
-        console.log(response.data);
       })
       .catch((err) => {
         setLoadError(true);
         console.log(err.message);
       });
-  }, [selectedCategory]);
+  }, [selectedCategory, page]);
 
   useEffect(() => {
     getProducts();
@@ -70,7 +66,12 @@ const Shop = () => {
 
   const handleClick = () => {
     setOpen(!open);
-  }; 
+  };
+
+  const handlePageChange = (event, value) => {
+    console.log(value);
+    setPage(value);
+  };
 
   return (
     <Grid container>
@@ -92,7 +93,7 @@ const Shop = () => {
                 <ListItemButton
                   onClick={() => {
                     console.log("all");
-                    setSelectedCategory("all");
+                    setSelectedCategory(null);
                   }}
                 >
                   <ListItemText primary="Shop All" />
@@ -100,7 +101,6 @@ const Shop = () => {
                 <Divider variant="middle" />
                 <ListItemButton
                   onClick={() => {
-                    console.log("cookies");
                     setSelectedCategory("cookiez");
                   }}
                 >
@@ -109,8 +109,15 @@ const Shop = () => {
                 <Divider variant="middle" />
                 <ListItemButton
                   onClick={() => {
+                    setSelectedCategory("cupcake");
+                  }}
+                >
+                  <ListItemText primary="Cupcakes" />
+                </ListItemButton>
+                <Divider variant="middle" />
+                <ListItemButton
+                  onClick={() => {
                     handleClick();
-                    console.log("cake");
                     setSelectedCategory("cake");
                   }}
                 >
@@ -130,6 +137,10 @@ const Shop = () => {
                     </ListItemButton>
                   </List>
                 </Collapse>
+                <Divider variant="middle" />
+                <ListItemButton>
+                  <ListItemText primary="Other" />
+                </ListItemButton>
               </List>
             </Box>
           </Grid>
@@ -142,6 +153,8 @@ const Shop = () => {
               loadError={loadError}
               isLoading={isLoading}
             />
+            <br />
+            <Pagination count={2} onChange={handlePageChange} />
           </Grid>
         </Grid>
       </Grid>
