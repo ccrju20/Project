@@ -5,13 +5,13 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles, withStyles } from "@material-ui/styles";
 import IconButton from "@material-ui/core/IconButton";
-import Hidden from "@material-ui/core/Hidden";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Badge from "@material-ui/core/Badge";
 import AuthContext from "../store/auth-context.js";
 import CartContext from "../store/cart-context";
 import CartDrawer from "../Cart/CartDrawer";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
   },
   carticon: {
     padding: 1,
+  },
+  badge: {
+    height: 15,
   },
 }));
 
@@ -33,12 +36,18 @@ const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 
 const Edge = () => {
-  const [opened, setOpened] = useState(false);
-  const classes = useStyles();
   const authCtx = useContext(AuthContext);
   const cartCtx = useContext(CartContext);
-  const cartTotalItems = cartCtx.items.length;
+  const [opened, setOpened] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const classes = useStyles();
+
+  const matches = useMediaQuery("(min-width:750px)");
+  const matchesContact = useMediaQuery("(min-width:960px)");
+  const matchesCatering = useMediaQuery("(min-width:1280px)");
+
+  const cartTotalItems = cartCtx.items.length;
+
   const open = Boolean(anchorEl);
 
   const handleDrawerOpen = () => {
@@ -59,7 +68,11 @@ const Edge = () => {
 
   return (
     <>
-      <CartDrawer opened={opened} handleDrawerClose={handleDrawerClose} handleDrawerOpen={handleDrawerOpen} />
+      <CartDrawer
+        opened={opened}
+        handleDrawerClose={handleDrawerClose}
+        handleDrawerOpen={handleDrawerOpen}
+      />
       <IconButton
         edge="start"
         className={classes.menuButton}
@@ -95,24 +108,42 @@ const Edge = () => {
           </Link>
         )}
 
-        <Hidden smUp={true}>
+        {!matches && (
           <Link component={RouterLink} to="/cart" color="inherit">
             <MenuItem onClick={handleClose}>About</MenuItem>
           </Link>
+        )}
+
+        {!matches && (
           <Link component={RouterLink} to="/shop" color="inherit">
             <MenuItem onClick={handleClose}> Shop</MenuItem>
           </Link>
+        )}
+
+        {!matchesContact && (
           <Link component={RouterLink} to="/cart" color="inherit">
             <MenuItem onClick={handleClose}>Contact</MenuItem>
           </Link>
-        </Hidden>
+        )}
+
+        {!matchesCatering && (
+          <Link component={RouterLink} to="/cart" color="inherit">
+            <MenuItem onClick={handleClose}>Catering</MenuItem>
+          </Link>
+        )}
       </Menu>
-      <IconButton className={classes.carticon} onClick={handleDrawerOpen}>
-        {/* <Link component={RouterLink} to="/cart" color="inherit"> */}
-        <StyledBadge badgeContent={cartTotalItems} color="secondary">
+      <IconButton
+        className={classes.carticon}
+        onClick={handleDrawerOpen}
+        color="inherit"
+      >
+        <Badge
+          badgeContent={cartTotalItems}
+          color="secondary"
+          classes={{ badge: classes.badge }}
+        >
           <ShoppingCartIcon />
-        </StyledBadge>
-        {/* </Link> */}
+        </Badge>
       </IconButton>
     </>
   );

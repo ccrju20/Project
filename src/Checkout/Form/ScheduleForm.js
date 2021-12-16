@@ -28,7 +28,8 @@ const ScheduleForm = () => {
   }, []);
 
   return (
-    <Box>
+    <>
+    <Grid container justifyContent="center">
       <Controller
         control={control}
         name={"when"}
@@ -55,8 +56,8 @@ const ScheduleForm = () => {
         )}
       />
 
-      <Box mt={2}>
-        {asapOrScheduled === "Scheduled" && (
+      {asapOrScheduled === "Scheduled" && (
+        <Box mt={2}>
           <Controller
             control={control}
             name={"scheduled"}
@@ -74,9 +75,10 @@ const ScheduleForm = () => {
               </LocalizationProvider>
             )}
           />
-        )}
-      </Box>
-    </Box>
+        </Box>
+      )}
+      </Grid>
+    </>
   );
 };
 

@@ -1,4 +1,5 @@
-import { React, useState } from "react";
+import { React, useState, useEffect, useCallback } from "react";
+import axios from "axios";
 import Content from "./Content";
 import { Grid, Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,6 +13,7 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Divider from "@mui/material/Divider";
+import Search from "./Search";
 
 const useStyles = makeStyles({
   root: {
@@ -28,14 +30,47 @@ const useStyles = makeStyles({
   },
 });
 
+const PRODUCTS_REST_API_URL = "http://localhost:8080/api/products";
+
 const Shop = () => {
+  const [products, setProducts] = useState([]);
+  const [loadError, setLoadError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   const classes = useStyles();
   const [open, setOpen] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const matches = useMediaQuery("(min-width:800px)");
+
+  const getProducts = useCallback(() => {
+    axios
+      .get(PRODUCTS_REST_API_URL)
+      .then((response) => {
+        setProducts(response.data);
+        if (selectedCategory !== "all") {
+          console.log("not all");
+          const filteredProducts = response.data.filter((product) =>
+            product.title.toLowerCase().includes(selectedCategory)
+          );
+          console.log(filteredProducts);
+          setProducts(filteredProducts);
+        }
+        setIsLoading(false);
+        console.log(response.data);
+      })
+      .catch((err) => {
+        setLoadError(true);
+        console.log(err.message);
+      });
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    getProducts();
+  }, [getProducts]);
 
   const handleClick = () => {
     setOpen(!open);
-  };
+  }; 
 
   return (
     <Grid container>
@@ -54,15 +89,31 @@ const Shop = () => {
                   </ListSubheader>
                 }
               >
-                <ListItemButton>
+                <ListItemButton
+                  onClick={() => {
+                    console.log("all");
+                    setSelectedCategory("all");
+                  }}
+                >
                   <ListItemText primary="Shop All" />
                 </ListItemButton>
                 <Divider variant="middle" />
-                <ListItemButton>
+                <ListItemButton
+                  onClick={() => {
+                    console.log("cookies");
+                    setSelectedCategory("cookiez");
+                  }}
+                >
                   <ListItemText primary="Cookies" />
                 </ListItemButton>
                 <Divider variant="middle" />
-                <ListItemButton onClick={handleClick}>
+                <ListItemButton
+                  onClick={() => {
+                    handleClick();
+                    console.log("cake");
+                    setSelectedCategory("cake");
+                  }}
+                >
                   <ListItemText primary="Cakes" />
                   {open ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
@@ -86,7 +137,11 @@ const Shop = () => {
           {matches && <Grid item className={classes.divider} />}
 
           <Grid item xs={12} sm={matches ? 9 : 12}>
-            <Content />
+            <Content
+              products={products}
+              loadError={loadError}
+              isLoading={isLoading}
+            />
           </Grid>
         </Grid>
       </Grid>
