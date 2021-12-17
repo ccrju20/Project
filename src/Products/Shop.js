@@ -35,6 +35,8 @@ const Shop = () => {
   const [loadError, setLoadError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const [pageDisplay, setPageDisplay] = useState();
+  const [allProducts, setAllProducts] = useState({});
 
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -43,14 +45,16 @@ const Shop = () => {
 
   const getProducts = useCallback(() => {
     axios
-      .get(PRODUCTS_REST_API_URL, { params: { title: selectedCategory, page: page } })
+      .get(PRODUCTS_REST_API_URL, {
+        params: { title: selectedCategory, page: page },
+      })
       .then((response) => {
+        console.log(response.data);
         setProducts(response.data.products);
-        if (selectedCategory !== null) {
-          const filteredProducts = response.data.products.filter((product) =>
-            product.title.toLowerCase().includes(selectedCategory)
-          );
-          setProducts(filteredProducts);
+        {
+          response.data.totalItems < 10
+            ? setPageDisplay(false)
+            : setPageDisplay(true);
         }
         setIsLoading(false);
       })
@@ -63,6 +67,19 @@ const Shop = () => {
   useEffect(() => {
     getProducts();
   }, [getProducts]);
+
+  useEffect(() => {
+    axios
+      .get(PRODUCTS_REST_API_URL + "/all")
+      .then((response) => {
+        console.log(response.data);
+        setAllProducts(response.data);
+      })
+      .catch((err) => {
+        setLoadError(true);
+        console.log(err.message);
+      });
+  }, []);
 
   const handleClick = () => {
     setOpen(!open);
@@ -102,6 +119,7 @@ const Shop = () => {
                 <ListItemButton
                   onClick={() => {
                     setSelectedCategory("cookiez");
+                    setPage(1);
                   }}
                 >
                   <ListItemText primary="Cookies" />
@@ -110,6 +128,7 @@ const Shop = () => {
                 <ListItemButton
                   onClick={() => {
                     setSelectedCategory("cupcake");
+                    setPage(1);
                   }}
                 >
                   <ListItemText primary="Cupcakes" />
@@ -119,6 +138,7 @@ const Shop = () => {
                   onClick={() => {
                     handleClick();
                     setSelectedCategory("cake");
+                    setPage(1);
                   }}
                 >
                   <ListItemText primary="Cakes" />
@@ -148,13 +168,17 @@ const Shop = () => {
           {matches && <Grid item className={classes.divider} />}
 
           <Grid item xs={12} sm={matches ? 9 : 12}>
+            {pageDisplay && (
+              <Grid container justifyContent="flex-end">
+                <Pagination count={2} onChange={handlePageChange} page={page} />
+              </Grid>
+            )}
             <Content
               products={products}
+              allProducts={allProducts}
               loadError={loadError}
               isLoading={isLoading}
             />
-            <br />
-            <Pagination count={2} onChange={handlePageChange} />
           </Grid>
         </Grid>
       </Grid>
