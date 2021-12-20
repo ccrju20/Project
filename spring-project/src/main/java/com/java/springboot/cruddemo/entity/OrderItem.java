@@ -27,6 +27,10 @@ public class OrderItem {
 	@OneToOne
 	@JoinColumn(name="productid")
 	private Product product;
+	
+	@OneToOne
+	@JoinColumn(name="product_option")
+	private ProductOption productOption;
 			
 	public OrderItem() {
 		

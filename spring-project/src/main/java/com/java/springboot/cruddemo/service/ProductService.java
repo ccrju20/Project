@@ -53,9 +53,9 @@ public class ProductService {
 		return productRepository.findAll(pageable);
 	}
 	
-	public Page<Product> findByTitle(String title, int pageNo, int pageSize) {
+	public Page<Product> findByCategory(String category, int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
-		return productRepository.findByTitleContaining(title, pageable);
+		return productRepository.findByCategoryContaining(category, pageable);
 	}
 
 }
