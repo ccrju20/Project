@@ -44,7 +44,7 @@ const CartCheck = (props) => {
                 className={classes.cardContent}
                 title={`${name} (${amount})`}
                 sx={{ padding: "0px" }}
-                subheader={`$${(price * amount).toFixed(2)}`}
+                subheader={`$${(price).toFixed(2)}`}
               />
             </Grid>
 

@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 const CartProduct = (props) => {
   const classes = useStyles();
   const { name, price, image, amount } = props;
-  const updatedPrice = `$${(price * amount).toFixed(2)}`;
+  const updatedPrice = `$${price.toFixed(2)}`;
 
   const [itemAmount, setItemAmount] = useState(amount);
   const [removeLimit, setRemoveLimit] = useState(false);

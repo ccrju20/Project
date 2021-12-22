@@ -37,16 +37,16 @@ const Shop = () => {
   const [page, setPage] = useState(1);
   const [pageDisplay, setPageDisplay] = useState();
   const [allProducts, setAllProducts] = useState({});
-
-  const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const classes = useStyles();
   const matches = useMediaQuery("(min-width:800px)");
 
   const getProducts = useCallback(() => {
     axios
       .get(PRODUCTS_REST_API_URL, {
-        params: { title: selectedCategory, page: page },
+        params: { category: selectedCategory, page: page },
       })
       .then((response) => {
         console.log(response.data);
@@ -118,7 +118,7 @@ const Shop = () => {
                 <Divider variant="middle" />
                 <ListItemButton
                   onClick={() => {
-                    setSelectedCategory("cookiez");
+                    setSelectedCategory("cookie");
                     setPage(1);
                   }}
                 >
@@ -137,7 +137,7 @@ const Shop = () => {
                 <ListItemButton
                   onClick={() => {
                     handleClick();
-                    setSelectedCategory("cake");
+                    setSelectedCategory("0");
                     setPage(1);
                   }}
                 >
@@ -146,13 +146,31 @@ const Shop = () => {
                 </ListItemButton>
                 <Collapse in={open} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton
+                      sx={{ pl: 4 }}
+                      onClick={() => {
+                        setSelectedCategory("6");
+                        setPage(1);
+                      }}
+                    >
                       <ListItemText primary={`6" Cakes`} />
                     </ListItemButton>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton
+                      sx={{ pl: 4 }}
+                      onClick={() => {
+                        setSelectedCategory("8");
+                        setPage(1);
+                      }}
+                    >
                       <ListItemText primary={`8" Cakes`} />
                     </ListItemButton>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton
+                      sx={{ pl: 4 }}
+                      onClick={() => {
+                        setSelectedCategory("10");
+                        setPage(1);
+                      }}
+                    >
                       <ListItemText primary={`10" Cakes`} />
                     </ListItemButton>
                   </List>

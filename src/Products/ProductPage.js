@@ -10,27 +10,55 @@ import RemoveCircleOutlineTwoToneIcon from "@mui/icons-material/RemoveCircleOutl
 import IconButton from "@material-ui/core/IconButton";
 import SnackbarAlert from "../Cart/SnackbarAlert";
 
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+
 const ProductPage = () => {
   const [product, setProduct] = useState({});
   const [itemAmount, setItemAmount] = useState(1);
   const [open, setOpen] = useState(false);
   const cartCtx = useContext(CartContext);
+  const [price, setPrice] = useState("");
+  const [productOptions, setProductOptions] = useState([]);
+  const [selectedOption, setSelectedOption] = useState("");
+  const [productId, setProductId] = useState();
 
   useEffect(() => {
-    setProduct(JSON.parse(localStorage.getItem("product")));
+    const productItem = JSON.parse(localStorage.getItem("product"));
+    setProduct(productItem);
+    setPrice(productItem.price);
+    setProductId(productItem.options[0].id)
+    if (productItem.options.length > 1) {
+      setProductOptions(productItem.options);
+    }
   }, []);
 
+  // console.log(product);
+  // console.log(productOptions);
+
   const addToCartHandler = () => {
-    cartCtx.addItem({
-      id: product.id,
-      name: product.title,
-      amount: itemAmount,
-      price: parseFloat(product.price),
-      img: product.img,
-    });
+    console.log(
+      {
+        id: productId,
+        name: product.title,
+        amount: itemAmount,
+        price: parseFloat(price),
+        img: product.img,
+      }
+    )
+    // cartCtx.addItem({
+    //   id: product.id,
+    //   name: product.title,
+    //   amount: itemAmount,
+    //   price: parseFloat(price),
+    //   // price: parseFloat(product.price),
+    //   img: product.img,
+    // });
     setOpen(true);
   };
-
+  
   const handleItemRemove = () => {
     if (itemAmount !== 1) {
       setItemAmount((curr) => curr - 1);
@@ -48,8 +76,23 @@ const ProductPage = () => {
     setOpen(false);
   };
 
+  const handleOption = (event) => {
+    setSelectedOption(event.target.value);
+    setProductId(event.target.value);
+    const result = productOptions.filter(option => option.id === event.target.value)
+    setPrice(result[0].price);
+  };
+
   console.log(cartCtx.items);
   console.log(itemAmount);
+  // console.log(productId);
+
+  const options = productOptions.map((productOption) => (
+    <MenuItem value={productOption.id} key={productOption.id}>
+      {productOption.size}
+      {product.category === "Cake" ? `" Cake` : <> {product.category}(s)</>}
+    </MenuItem>
+  ));
 
   return (
     <>
@@ -58,13 +101,12 @@ const ProductPage = () => {
         <Grid item xs={10}>
           <Box mt={5} mb={5}>
             <Typography sx={{ fontSize: 18 }}>
-              Baked Goods > Category
+              Baked Goods > {product.category}
             </Typography>
           </Box>
 
           <Box mb={5}>
             <Grid container>
-              {/* <Grid item xs={false} sm={1} /> */}
               <Grid item xs={12} sm={6}>
                 <Card>
                   <CardMedia
@@ -78,10 +120,7 @@ const ProductPage = () => {
               <Grid item xs={false} sm={1} />
               <Grid item xs={12} sm={4}>
                 <Typography variant="h3">{product.title}</Typography>
-                <Typography variant="h5">${product.price}</Typography>
-                <Typography sx={{ fontSize: 18 }}>
-                  {product.description}
-                </Typography>
+                <Typography variant="h5">${price}</Typography>
 
                 <Grid container>
                   <Grid item>
@@ -101,8 +140,25 @@ const ProductPage = () => {
                   </Grid>
                 </Grid>
 
+                {productOptions.length > 1 && (
+                  <Box mt={2}>
+                    <FormControl fullWidth>
+                      <InputLabel>Select Size</InputLabel>
+                      <Select
+                        value={selectedOption}
+                        label="Select Size"
+                        onChange={(event) => {
+                          handleOption(event);
+                        }}
+                      >
+                        {options}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                )}
+
                 <Box mt={3}>
-                  <ProductDetails description={product.description}/>
+                  <ProductDetails description={product.description} />
                 </Box>
                 <Box mt={3}>
                   <Button

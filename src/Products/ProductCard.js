@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 
 const ProductCard = (props) => {
   const classes = useStyles();
-  const { id, title, subtitle, description, imgSrc } = props;
+  const { id, title, subtitle, description, imgSrc, category, options } = props;
   const cartCtx = useContext(CartContext);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -43,7 +43,15 @@ const ProductCard = (props) => {
     setOpen(true);
   };
 
-  const handleProduct = (id, title, subtitle, description, imgSrc) => {
+  const handleProduct = (
+    id,
+    title,
+    subtitle,
+    description,
+    imgSrc,
+    category,
+    options
+  ) => {
     console.log("clicked");
     localStorage.setItem(
       "product",
@@ -53,6 +61,8 @@ const ProductCard = (props) => {
         price: subtitle,
         description: description,
         img: imgSrc,
+        category: category,
+        options: options
       })
     );
     navigate("/product");
@@ -70,7 +80,7 @@ const ProductCard = (props) => {
     <Card>
       <CardActionArea
         onClick={() => {
-          handleProduct(id, title, subtitle, description, imgSrc);
+          handleProduct(id, title, subtitle, description, imgSrc, category, options);
         }}
       >
         <CardMedia height={180} component="img" image={imgSrc} alt="item" />
@@ -80,11 +90,6 @@ const ProductCard = (props) => {
           subheader={"$" + subtitle}
           key={id}
         />
-        {/* <CardContent className={classes.description}>
-          <Typography variant="body2" component="p">
-            {description}
-          </Typography>
-        </CardContent> */}
       </CardActionArea>
       <CardActions>
         <Button

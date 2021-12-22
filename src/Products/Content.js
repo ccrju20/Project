@@ -28,9 +28,11 @@ const Content = (props) => {
       <ProductCard
         id={product.id}
         title={product.title}
-        subtitle={product.price}
+        subtitle={product.options[0].price}
         imgSrc={product.img}
         description={product.description}
+        category={product.category}
+        options={product.options}
       />
     </Grid>
   ));
@@ -43,6 +45,8 @@ const Content = (props) => {
         subtitle={product.price}
         imgSrc={product.img}
         description={product.description}
+        category={product.category}
+        options={product.options}
       />
     </Grid>
   ));
