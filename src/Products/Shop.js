@@ -109,8 +109,8 @@ const Shop = () => {
               >
                 <ListItemButton
                   onClick={() => {
-                    console.log("all");
                     setSelectedCategory(null);
+                    setPage(1);
                   }}
                 >
                   <ListItemText primary="Shop All" />
@@ -137,7 +137,7 @@ const Shop = () => {
                 <ListItemButton
                   onClick={() => {
                     handleClick();
-                    setSelectedCategory("0");
+                    setSelectedCategory("Cake");
                     setPage(1);
                   }}
                 >

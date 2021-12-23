@@ -32,8 +32,9 @@ const ProductCard = (props) => {
   const navigate = useNavigate();
 
   const addToCartHandler = () => {
+    console.log(options[0].id);
     cartCtx.addItem({
-      id: props.id,
+      id: options[0].id,
       name: props.title,
       amount: 1,
       price: parseFloat(props.subtitle),

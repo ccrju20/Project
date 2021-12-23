@@ -24,41 +24,30 @@ const ProductPage = () => {
   const [productOptions, setProductOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [productId, setProductId] = useState();
+  const [name, setName] = useState("");
 
   useEffect(() => {
     const productItem = JSON.parse(localStorage.getItem("product"));
     setProduct(productItem);
+    setName(productItem.title);
     setPrice(productItem.price);
-    setProductId(productItem.options[0].id)
+    setProductId(productItem.options[0].id);
     if (productItem.options.length > 1) {
       setProductOptions(productItem.options);
     }
   }, []);
 
-  // console.log(product);
-  // console.log(productOptions);
-
   const addToCartHandler = () => {
-    console.log(
-      {
-        id: productId,
-        name: product.title,
-        amount: itemAmount,
-        price: parseFloat(price),
-        img: product.img,
-      }
-    )
-    // cartCtx.addItem({
-    //   id: product.id,
-    //   name: product.title,
-    //   amount: itemAmount,
-    //   price: parseFloat(price),
-    //   // price: parseFloat(product.price),
-    //   img: product.img,
-    // });
+    cartCtx.addItem({
+      id: productId,
+      name: name,
+      amount: itemAmount,
+      price: parseFloat(price),
+      img: product.img,
+    });
     setOpen(true);
   };
-  
+
   const handleItemRemove = () => {
     if (itemAmount !== 1) {
       setItemAmount((curr) => curr - 1);
@@ -79,13 +68,19 @@ const ProductPage = () => {
   const handleOption = (event) => {
     setSelectedOption(event.target.value);
     setProductId(event.target.value);
-    const result = productOptions.filter(option => option.id === event.target.value)
+    const result = productOptions.filter(
+      (option) => option.id === event.target.value
+    );
+    {
+      product.category === "Cake"
+        ? setName(`${product.title} ${result[0].size}"`)
+        : setName(`${product.title} size ${result[0].size}`);
+    }
     setPrice(result[0].price);
   };
 
   console.log(cartCtx.items);
   console.log(itemAmount);
-  // console.log(productId);
 
   const options = productOptions.map((productOption) => (
     <MenuItem value={productOption.id} key={productOption.id}>
