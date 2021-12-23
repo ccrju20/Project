@@ -56,7 +56,6 @@ public class Product {
 		return options;
 	}
 
-	@JsonProperty
 	public void setOptions(List<ProductOption> options) {
 		this.options = options;
 	}
