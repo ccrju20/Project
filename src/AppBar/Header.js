@@ -3,8 +3,8 @@ import { AppBar, Grid, Toolbar, Typography } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/styles";
 import Hidden from "@material-ui/core/Hidden";
-import logo from "../Images/logo.png";
 import Edge from "./Edge";
+import Logo from '../Logo';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,9 +35,7 @@ const Header = (props) => {
     <>
       <AppBar className={classes.root} position="static">
         <Toolbar>
-          <Link component={RouterLink} to="/">
-            <img src={logo} alt="logo" className={classes.logo} />
-          </Link>
+          <Logo/>
 
           <Hidden only="xs">
             <Grid container justifyContent="center">

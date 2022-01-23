@@ -6,10 +6,11 @@ import * as yup from "yup";
 import ContactForm from "./Form/ContactForm";
 import ShippingForm from "./Form/ShippingForm";
 import ScheduleForm from "./Form/ScheduleForm";
-import { Grid, Box, Typography } from "@material-ui/core";
+import { Grid, Box, Typography, Toolbar } from "@material-ui/core";
 import CheckoutCartList from "./OrderSummary/CheckoutCartList";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import Logo from "../Logo";
 
 const schema = yup
   .object()
@@ -47,6 +48,7 @@ const Check = () => {
     userCtx.saveInfo(data);
     navigate("/confirminfo");
   };
+  // const classes = useStyles();
 
   // const serviceCtx = useContext(ServiceContext);
   // const [data, setData] = useState("");
@@ -64,59 +66,65 @@ const Check = () => {
   // }, [serviceCtx]);
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <Grid container>
-          <Grid item xs={1} />
-          <Grid item xs={10}>
-            <Grid container>
-              <Grid item xs={12} sm={12} md={7}>
-                <Box mt={2} mb={3}>
-                  <Typography variant="h4">Checkout</Typography>
-                  <Typography variant="subtitle1">
-                    Please enter your information below
-                  </Typography>
-                </Box>
+    <>
+      <Toolbar>
+        <Logo />
+      </Toolbar>
 
-                <ContactForm />
-                <br />
-                <br />
-                <ShippingForm />
-                <br />
-                <br />
-                <ScheduleForm />
-              </Grid>
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <Grid container>
+            <Grid item xs={1} />
+            <Grid item xs={10}>
+              <Grid container>
+                <Grid item xs={12} sm={12} md={7}>
+                  <Box mt={2} mb={3}>
+                    <Typography variant="h4">Checkout</Typography>
+                    <Typography variant="subtitle1">
+                      Please enter your information below
+                    </Typography>
+                  </Box>
 
-              <Grid item xs={12} sm={12} md={1} />
+                  <ContactForm />
+                  <br />
+                  <br />
+                  <ShippingForm />
+                  <br />
+                  <br />
+                  <ScheduleForm />
+                </Grid>
 
-              <Grid item xs={12} sm={12} md={4}>
-                <Box mt={3}>
-                  <CheckoutCartList />
-                </Box>
+                <Grid item xs={12} sm={12} md={1} />
 
-                <Box mt={5}>
-                  <Button
-                    variant="contained"
-                    fullWidth
-                    type="submit"
-                    sx={{
-                      backgroundColor: "#290052",
-                      "&:hover": {
-                        backgroundColor: "#430085",
-                      },
-                    }}
-                  >
-                    Review Order
-                  </Button>
-                </Box>
+                <Grid item xs={12} sm={12} md={4}>
+                  <Box mt={3}>
+                    <CheckoutCartList />
+                  </Box>
+
+                  <Box mt={5}>
+                    <Button
+                      variant="contained"
+                      fullWidth
+                      type="submit"
+                      sx={{
+                        backgroundColor: "#290052",
+                        "&:hover": {
+                          backgroundColor: "#430085",
+                        },
+                      }}
+                    >
+                      Review Order
+                    </Button>
+                  </Box>
+                </Grid>
               </Grid>
             </Grid>
+            <Grid item xs={1} />
           </Grid>
-          <Grid item xs={1} />
-        </Grid>
-        <Box mb={50}></Box>
-      </form>
-    </FormProvider>
+          <Box mb={50}></Box>
+        </form>
+      </FormProvider>
+    </>
   );
 };
 
