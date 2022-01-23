@@ -2,8 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Box } from "@material-ui/core";
 import { Typography } from "@mui/material";
-import WovenImageList from "./ImageList";
-import ButtonSection from "./ButtonSection";
 
 const useStyles = makeStyles({
   root: {

@@ -10,18 +10,8 @@ import IconButton from "@material-ui/core/IconButton";
 import { styled } from "@material-ui/styles";
 import CartCheck from "../Cart/CartCheck";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import { makeStyles } from "@material-ui/core/styles";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ShoppingBasketTwoToneIcon from "@mui/icons-material/ShoppingBasketTwoTone";
-
-const useStyles = makeStyles((theme) => ({
-  button: {
-    backgroundColor: "#41166c",
-    "&:hover": {
-      backgroundColor: "#290052",
-    },
-  },
-}));
 
 const drawerWidth = 360;
 
@@ -35,7 +25,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const CartDrawer = (props) => {
   const cartCtx = useContext(CartContext);
-  const classes = useStyles();
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2).replace("-0", "0")}`;
   const cartTotalItems = cartCtx.items.length;
 

@@ -3,7 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MenuIcon from "@material-ui/icons/Menu";
-import { makeStyles, withStyles } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/styles";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -25,15 +25,6 @@ const useStyles = makeStyles((theme) => ({
     height: 15,
   },
 }));
-
-const StyledBadge = withStyles((theme) => ({
-  badge: {
-    right: -8,
-    top: 2,
-    border: `2px solid ${theme.palette.background.paper}`,
-    padding: "0 4px",
-  },
-}))(Badge);
 
 const Edge = () => {
   const authCtx = useContext(AuthContext);

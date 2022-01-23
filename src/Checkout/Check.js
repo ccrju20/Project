@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useContext } from "react";
+import { React, useContext } from "react";
 import UserInfoContext from "../store/userinfo-context";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,15 +10,6 @@ import { Grid, Box, Typography } from "@material-ui/core";
 import CheckoutCartList from "./OrderSummary/CheckoutCartList";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import ServiceContext from "../service/service-context";
-
-// import { makeStyles } from "@material-ui/core/styles";
-
-// const useStyles = makeStyles(() => ({
-//   root: {
-//     backgroundColor: "blue"
-//   },
-// }));
 
 const schema = yup
   .object()

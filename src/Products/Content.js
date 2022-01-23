@@ -6,7 +6,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Search from "./Search";
 
 const Content = (props) => {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const matches = useMediaQuery("(min-width:900px)");
@@ -18,9 +18,10 @@ const Content = (props) => {
         return product.title.toLowerCase().includes(searchTerm.toLowerCase());
       });
       setSearchResults(productList);
-    } else {
-      setSearchResults(products);
-    }
+    } 
+    // else {
+    //   setSearchResults(products);
+    // }
   };
 
   const productList = props.products.map((product) => (

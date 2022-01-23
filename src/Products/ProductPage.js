@@ -71,11 +71,9 @@ const ProductPage = () => {
     const result = productOptions.filter(
       (option) => option.id === event.target.value
     );
-    {
-      product.category === "Cake"
-        ? setName(`${product.title} ${result[0].size}"`)
-        : setName(`${product.title} size ${result[0].size}`);
-    }
+    product.category === "Cake"
+      ? setName(`${product.title} ${result[0].size}"`)
+      : setName(`${product.title} size ${result[0].size}`);
     setPrice(result[0].price);
   };
 

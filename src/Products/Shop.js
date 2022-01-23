@@ -51,11 +51,9 @@ const Shop = () => {
       .then((response) => {
         console.log(response.data);
         setProducts(response.data.products);
-        {
-          response.data.totalItems < 10
-            ? setPageDisplay(false)
-            : setPageDisplay(true);
-        }
+        response.data.totalItems < 10
+          ? setPageDisplay(false)
+          : setPageDisplay(true);
         setIsLoading(false);
       })
       .catch((err) => {
