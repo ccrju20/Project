@@ -48,6 +48,7 @@ const Cart = (props) => {
   };
 
   const cartTotalItems = cartCtx.items.length;
+  console.log(cartCtx.totalAmount)
 
   return (
     <Grid container>

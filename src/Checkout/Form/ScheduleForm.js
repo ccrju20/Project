@@ -1,9 +1,8 @@
 import { React, useState, useEffect } from "react";
-import { Grid, Box, Typography } from "@material-ui/core";
+import { Grid, Box } from "@material-ui/core";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
 import { useFormContext, Controller } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -14,7 +13,6 @@ const ScheduleForm = () => {
   const {
     control,
     unregister,
-    formState: { errors },
   } = useFormContext();
 
   const [asapOrScheduled, setAsapOrScheduled] = useState("ASAP");
@@ -40,9 +38,7 @@ const ScheduleForm = () => {
             onChange={(event) => {
               onChange(event.target.value);
               setAsapOrScheduled(event.target.value);
-              {
-                event.target.value === "ASAP" && unregister("scheduled");
-              }
+              event.target.value === "ASAP" && unregister("scheduled")
             }}
             row
           >

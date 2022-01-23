@@ -5,9 +5,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardActions from "@material-ui/core/CardActions";
 import CardActionArea from "@mui/material/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import CartContext from "../store/cart-context";
 import SnackbarAlert from "../Cart/SnackbarAlert";
 import { useNavigate } from "react-router-dom";
@@ -26,14 +24,15 @@ const useStyles = makeStyles({
 
 const ProductCard = (props) => {
   const classes = useStyles();
-  const { id, title, subtitle, description, imgSrc } = props;
+  const { id, title, subtitle, description, imgSrc, category, options } = props;
   const cartCtx = useContext(CartContext);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   const addToCartHandler = () => {
+    console.log(options[0].id);
     cartCtx.addItem({
-      id: props.id,
+      id: options[0].id,
       name: props.title,
       amount: 1,
       price: parseFloat(props.subtitle),
@@ -43,7 +42,15 @@ const ProductCard = (props) => {
     setOpen(true);
   };
 
-  const handleProduct = (id, title, subtitle, description, imgSrc) => {
+  const handleProduct = (
+    id,
+    title,
+    subtitle,
+    description,
+    imgSrc,
+    category,
+    options
+  ) => {
     console.log("clicked");
     localStorage.setItem(
       "product",
@@ -53,6 +60,8 @@ const ProductCard = (props) => {
         price: subtitle,
         description: description,
         img: imgSrc,
+        category: category,
+        options: options
       })
     );
     navigate("/product");
@@ -70,7 +79,7 @@ const ProductCard = (props) => {
     <Card>
       <CardActionArea
         onClick={() => {
-          handleProduct(id, title, subtitle, description, imgSrc);
+          handleProduct(id, title, subtitle, description, imgSrc, category, options);
         }}
       >
         <CardMedia height={180} component="img" image={imgSrc} alt="item" />
@@ -80,11 +89,6 @@ const ProductCard = (props) => {
           subheader={"$" + subtitle}
           key={id}
         />
-        {/* <CardContent className={classes.description}>
-          <Typography variant="body2" component="p">
-            {description}
-          </Typography>
-        </CardContent> */}
       </CardActionArea>
       <CardActions>
         <Button

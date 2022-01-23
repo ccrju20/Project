@@ -6,47 +6,22 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Search from "./Search";
 
 const Content = (props) => {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const matches = useMediaQuery("(min-width:900px)");
 
-  // const getProducts = useCallback(() => {
-  //   axios
-  //     .get(PRODUCTS_REST_API_URL)
-  //     .then((response) => {
-  //       setProducts(response.data);
-  //       if (props.category !== "all") {
-  //         console.log('not all')
-  //         const filteredProducts = response.data.filter(
-  //           (product) => product.title.toLowerCase() === props.category
-  //         );
-  //         console.log(filteredProducts)
-  //         setProducts(filteredProducts);
-  //       }
-  //       setIsLoading(false);
-  //       console.log(response.data);
-  //     })
-  //     .catch((err) => {
-  //       setLoadError(true);
-  //       console.log(err.message);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   getProducts();
-  // }, [getProducts]);
-
   const searchHandler = (searchTerm) => {
     setSearchTerm(searchTerm);
     if (searchTerm !== "") {
-      const productList = props.products.filter((product) => {
+      const productList = props.allProducts.filter((product) => {
         return product.title.toLowerCase().includes(searchTerm.toLowerCase());
       });
       setSearchResults(productList);
-    } else {
-      setSearchResults(products);
-    }
+    } 
+    // else {
+    //   setSearchResults(products);
+    // }
   };
 
   const productList = props.products.map((product) => (
@@ -54,9 +29,11 @@ const Content = (props) => {
       <ProductCard
         id={product.id}
         title={product.title}
-        subtitle={product.price}
+        subtitle={product.options[0].price}
         imgSrc={product.img}
         description={product.description}
+        category={product.category}
+        options={product.options}
       />
     </Grid>
   ));
@@ -66,9 +43,11 @@ const Content = (props) => {
       <ProductCard
         id={product.id}
         title={product.title}
-        subtitle={product.price}
+        subtitle={product.options[0].price}
         imgSrc={product.img}
         description={product.description}
+        category={product.category}
+        options={product.options}
       />
     </Grid>
   ));
@@ -86,7 +65,7 @@ const Content = (props) => {
     <>
       <Box mb={2}>
         <Search
-          products={props.products}
+          products={props.allProducts}
           term={searchTerm}
           searchHandler={searchHandler}
         />

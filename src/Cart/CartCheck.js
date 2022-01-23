@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React } from "react";
 import { Grid, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -40,11 +40,11 @@ const CartCheck = (props) => {
 
             <Grid item xs={6}>
               <CardHeader
-                titleTypographyProps={{ variant: "body1" }}
+                titleTypographyProps={{ variant: "body2" }}
                 className={classes.cardContent}
                 title={`${name} (${amount})`}
                 sx={{ padding: "0px" }}
-                subheader={`$${(price * amount).toFixed(2)}`}
+                subheader={`$${(price).toFixed(2)}`}
               />
             </Grid>
 

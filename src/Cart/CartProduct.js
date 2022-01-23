@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
@@ -27,10 +27,18 @@ const useStyles = makeStyles({
 const CartProduct = (props) => {
   const classes = useStyles();
   const { name, price, image, amount } = props;
-  const updatedPrice = `$${(price * amount).toFixed(2)}`;
+  const updatedPrice = `$${price.toFixed(2)}`;
 
   const [itemAmount, setItemAmount] = useState(amount);
   const [removeLimit, setRemoveLimit] = useState(false);
+
+  useEffect(() => {
+    if (itemAmount === 1) {
+      setRemoveLimit(true);
+    } else {
+      setRemoveLimit(false);
+    }
+  }, [itemAmount]);
 
   const handleRemove = () => {
     if (itemAmount !== 1) {
