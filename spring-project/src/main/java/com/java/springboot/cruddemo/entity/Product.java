@@ -1,45 +1,63 @@
 package com.java.springboot.cruddemo.entity;
 
-import javax.persistence.Column;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name="product")
 public class Product {
 	
-	// define fields
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
 	private int id;
 	
-	@Column(name="title")
 	private String title;
 	
-	@Column(name="price")
-	private String price;
+//	private String price;
 	
-	@Column(name="description")
 	private String description;
 	
-	@Column(name="img")
 	private String img;
 	
-	// define constructors
+	private String category;
+	
+	private int active;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="product_id")
+	private List<ProductOption> options;
+	
 	public Product() {
 		
 	}
-	
-	public Product(String title, String price, String description, String img) {
+
+	public Product(String title, String description, String img, String category, int active,
+			List<ProductOption> options) {
 		this.title = title;
-		this.price = price;
 		this.description = description;
 		this.img = img;
+		this.category = category;
+		this.active = active;
+		this.options = options;
+	}
+
+	public List<ProductOption> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<ProductOption> options) {
+		this.options = options;
 	}
 
 	public int getId() {
@@ -58,13 +76,13 @@ public class Product {
 		this.title = title;
 	}
 
-	public String getPrice() {
-		return price;
-	}
-
-	public void setPrice(String price) {
-		this.price = price;
-	}
+//	public String getPrice() {
+//		return price;
+//	}
+//
+//	public void setPrice(String price) {
+//		this.price = price;
+//	}
 
 	public String getDescription() {
 		return description;
@@ -81,11 +99,22 @@ public class Product {
 	public void setImg(String img) {
 		this.img = img;
 	}
-
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", title=" + title + ", price=" + price + ", description=" + description + "]";
-	}
 	
-	// change test
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
+	}
+
 }

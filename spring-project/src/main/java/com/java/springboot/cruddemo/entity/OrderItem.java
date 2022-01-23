@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="order_items")
 public class OrderItem {
@@ -27,15 +29,22 @@ public class OrderItem {
 	@OneToOne
 	@JoinColumn(name="productid")
 	private Product product;
+	
+	@OneToOne
+	@JoinColumn(name="product_option")
+	private ProductOption productOption;
 			
 	public OrderItem() {
 		
 	}
-	
-	public OrderItem(String quantity, String total_price) {
+
+	public OrderItem(String quantity, String total_price, Product product, ProductOption productOption) {
 		this.quantity = quantity;
 		this.total_price = total_price;
+		this.product = product;
+		this.productOption = productOption;
 	}
+
 
 	public int getId() {
 		return id;
@@ -67,6 +76,14 @@ public class OrderItem {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+	
+	public ProductOption getProductOption() {
+		return productOption;
+	}
+	
+	public void setProductOption(ProductOption productOption) {
+		this.productOption = productOption;
 	}
 
 	@Override

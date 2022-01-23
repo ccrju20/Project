@@ -39,17 +39,17 @@ public class ProductRestController {
 	
 	@GetMapping("/products")
 	public ResponseEntity<Map<String, Object>> findAll(
-			@RequestParam(required = false) String title,
+			@RequestParam(required = false) String category,
 			@RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "5") int size
+			@RequestParam(defaultValue = "9") int size
 			) {
 		
 		try {
 			List<Product> products = new ArrayList<Product>();			
 			Page<Product> pageProducts = productService.findPaginated(page, size);
 			
-			if (title != null) {
-				pageProducts = productService.findByTitle(title, page, size);
+			if (category != null) {
+				pageProducts = productService.findByCategory(category, page, size);
 			}
 			
 			products = pageProducts.getContent();
@@ -67,10 +67,10 @@ public class ProductRestController {
 		
 	}
 
-//	@GetMapping("/products")
-//	public List<Product> findAll() {
-//		return productService.findAll();
-//	}
+	@GetMapping("/products/all")
+	public List<Product> findAll() {
+		return productService.findAll();
+	}
 
 	@GetMapping("/products/{productId}")
 	public Product getProduct(@PathVariable int productId) {

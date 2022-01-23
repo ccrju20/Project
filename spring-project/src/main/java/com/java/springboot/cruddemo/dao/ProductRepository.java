@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.java.springboot.cruddemo.entity.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-	Page<Product> findByTitleContaining(String title, Pageable pageable);
+	Page<Product> findByCategory(String category, Pageable pageable);
 }
