@@ -1,5 +1,6 @@
-import { React, useContext } from "react";
+import { React, useState, useContext, useEffect } from "react";
 import UserInfoContext from "../store/userinfo-context";
+import CartContext from "../store/cart-context";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -11,6 +12,17 @@ import CheckoutCartList from "./OrderSummary/CheckoutCartList";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import Logo from "../Logo";
+
+import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import PaymentForm from "./Form/PaymentForm";
+
+const PAYMENT_INTENT_REST_API_URL =
+  "http://localhost:8080/api/create-payment-intent";
+const stripePromise = loadStripe(
+  "pk_test_51KOQICI7AFq6GjKYYTPlwHtznGbgswqahPKsN9LMNgsu7A9Enj9L80WsjPGvoDF8TvPrDPP3GEJA7VKqjqQemrj600uhdiiVpO"
+);
 
 const schema = yup
   .object()
@@ -40,6 +52,7 @@ const schema = yup
 const Check = () => {
   const navigate = useNavigate();
   const userCtx = useContext(UserInfoContext);
+  const cartCtx = useContext(CartContext);
   const methods = useForm({
     resolver: yupResolver(schema),
   });
@@ -47,6 +60,28 @@ const Check = () => {
     console.log(data);
     userCtx.saveInfo(data);
     navigate("/confirminfo");
+  };
+
+  const items = cartCtx.items;
+
+  const [clientSecret, setClientSecret] = useState("");
+
+  useEffect(() => {
+    // Create PaymentIntent as soon as the page loads
+    axios.post(PAYMENT_INTENT_REST_API_URL, {}).then((res) => {
+      // res.json();
+      console.log(res);
+      setClientSecret(res.data.clientSecret);
+      console.log(res.data.clientSecret);
+    });
+  }, []);
+
+  const appearance = {
+    theme: "stripe",
+  };
+  const options = {
+    clientSecret,
+    appearance,
   };
 
   return (
@@ -78,6 +113,13 @@ const Check = () => {
                   <br />
                   <br />
                   <ScheduleForm />
+                  <br />
+                  <br />
+                  {clientSecret && (
+                    <Elements options={options} stripe={stripePromise}>
+                      <PaymentForm />
+                    </Elements>
+                  )}
                 </Grid>
 
                 <Grid item xs={12} sm={12} md={1} />
