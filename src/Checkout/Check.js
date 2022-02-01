@@ -48,27 +48,13 @@ const Check = () => {
     userCtx.saveInfo(data);
     navigate("/confirminfo");
   };
-  // const classes = useStyles();
-
-  // const serviceCtx = useContext(ServiceContext);
-  // const [data, setData] = useState("");
-
-  // useEffect(() => {
-  //   serviceCtx.getUserInfo().then(
-  //     (response) => {
-  //       console.log(response);
-  //       setData(response.data.firstname);
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     }
-  //   );
-  // }, [serviceCtx]);
 
   return (
     <>
       <Toolbar>
-        <Logo />
+        <Grid container justifyContent="center">
+          <Logo />
+        </Grid>
       </Toolbar>
 
       <FormProvider {...methods}>
