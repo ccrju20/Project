@@ -1,7 +1,9 @@
 import { React } from "react";
 import { Box, Typography } from "@material-ui/core";
 
-const ConfirmSuccess = (props) => {
+const ConfirmSuccess = () => {
+  const orderNumber = localStorage.getItem("ordernumber");
+
   return (
     <Box mt={2}>
       <Typography align="center" variant="h5">
@@ -9,7 +11,7 @@ const ConfirmSuccess = (props) => {
       </Typography>
       <br></br>
       <Typography align="center" variant="body1">
-        Your order number is #{props.ordernumber}
+        Your order number is #{orderNumber}
       </Typography>
     </Box>
   );

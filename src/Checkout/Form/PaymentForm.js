@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import {
   PaymentElement,
   useStripe,
-  useElements
+  useElements,
 } from "@stripe/react-stripe-js";
 
-const PaymentForm = () => {
+import CircularProgress from "@mui/material/CircularProgress";
+import Button from "@mui/material/Button";
+import { Box } from "@material-ui/core";
+
+const PaymentForm = (props) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -28,66 +32,71 @@ const PaymentForm = () => {
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
       switch (paymentIntent.status) {
         case "succeeded":
-          setMessage("Payment succeeded!");
+          props.setMessage("Payment succeeded!");
           break;
         case "processing":
-          setMessage("Your payment is processing.");
+          props.setMessage("Your payment is processing.");
           break;
         case "requires_payment_method":
-          setMessage("Your payment was not successful, please try again.");
+          props.setMessage("Your payment was not successful, please try again.");
           break;
         default:
-          setMessage("Something went wrong.");
+          props.setMessage("Something went wrong.");
           break;
       }
     });
   }, [stripe]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     if (!stripe || !elements) {
-      // Stripe.js has not yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
     setIsLoading(true);
 
+    props.submit();
+
     const { error } = await stripe.confirmPayment({
       elements,
-      confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000/confirminfo",
-      },
+        confirmParams: {
+          return_url: "http://localhost:3000/ordersuccess",
+        },
     });
-
-    // This point will only be reached if there is an immediate error when
-    // confirming the payment. Otherwise, your customer will be redirected to
-    // your `return_url`. For some payment methods like iDEAL, your customer will
-    // be redirected to an intermediate site first to authorize the payment, then
-    // redirected to the `return_url`.
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
     } else {
       setMessage("An unexpected error occured.");
     }
-
     setIsLoading(false);
   };
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
-        <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-        </span>
-      </button>
+
+      <Box mt={5}>
+        <Button
+          disabled={isLoading || !stripe || !elements}
+          variant="contained"
+          fullWidth
+          type="submit"
+          sx={{
+            backgroundColor: "#290052",
+            "&:hover": {
+              backgroundColor: "#430085",
+            },
+          }}
+        >
+          {isLoading ? <CircularProgress /> : "Confirm Order"}
+        </Button>
+      </Box>
+
       {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
+      {message && <h3>{message}</h3>}
     </form>
   );
-}
+};
 
-export default PaymentForm
+export default PaymentForm;

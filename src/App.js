@@ -14,6 +14,8 @@ import UserInfoProvider from "./store/UserInfoProvider";
 import ConfirmInfo from "./Checkout/ConfirmInfo";
 import MainPage from "./Main/MainPage";
 import Check from "./Checkout/Check";
+import PaymentPage from "./Checkout/PaymentPage";
+import ConfirmSuccess from './Checkout/ConfirmSuccess'
 import WithNav from "./WithNav";
 import WithoutNav from "./WithoutNav";
 
@@ -32,13 +34,16 @@ function App() {
                     <Route path="/signup" element={<Register />} />
                     <Route path="/success" element={<RegisterSuccess />} />
                     <Route path="/cart" element={<Cart />} />
-                    <Route path="/confirminfo" element={<ConfirmInfo />} />
                     <Route path="/shop" element={<Shop />} />
-                    <Route path="/product" element={<ProductPage />} />
+                    <Route path="/product" element={<ProductPage />} />                    
+                    <Route path="/ordersuccess" element={<ConfirmSuccess />} />
                   </Route>
 
                   <Route element={<WithoutNav />}>
-                    <Route path="/check" element={<Check />} />
+                    <Route path="/check" element={<Check />} />{" "}
+                    <Route path="/payment" element={<PaymentPage />} />
+                    <Route path="/confirminfo" element={<ConfirmInfo />} />
+
                   </Route>
                 </Routes>
               </BrowserRouter>

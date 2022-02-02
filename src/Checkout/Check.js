@@ -7,82 +7,94 @@ import * as yup from "yup";
 import ContactForm from "./Form/ContactForm";
 import ShippingForm from "./Form/ShippingForm";
 import ScheduleForm from "./Form/ScheduleForm";
+import PaymentPage from "./PaymentPage";
 import { Grid, Box, Typography, Toolbar } from "@material-ui/core";
 import CheckoutCartList from "./OrderSummary/CheckoutCartList";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import Logo from "../Logo";
+import Divider from "@mui/material/Divider";
 
-import axios from "axios";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import PaymentForm from "./Form/PaymentForm";
+import Checkout from "./Checkout";
 
-const PAYMENT_INTENT_REST_API_URL =
-  "http://localhost:8080/api/create-payment-intent";
-const stripePromise = loadStripe(
-  "pk_test_51KOQICI7AFq6GjKYYTPlwHtznGbgswqahPKsN9LMNgsu7A9Enj9L80WsjPGvoDF8TvPrDPP3GEJA7VKqjqQemrj600uhdiiVpO"
-);
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import ConfirmInfo from "./ConfirmInfo";
 
-const schema = yup
-  .object()
-  .shape({
-    firstname: yup.string().required(),
-    lastname: yup.string().required(),
-    email: yup.string().email().required(),
-    phone: yup.string().min(10).required(),
-    //
-    pickup: yup.boolean().required(),
-    address: yup
-      .string()
-      .when("pickup", { is: false, then: yup.string().required() }),
-    addresstwo: yup.string(),
-    city: yup
-      .string()
-      .when("pickup", { is: false, then: yup.string().required() }),
-    state: yup
-      .string()
-      .when("pickup", { is: false, then: yup.string().min(2).required() }),
-    postal: yup
-      .string()
-      .when("pickup", { is: false, then: yup.string().min(5).required() }),
-  })
-  .required();
+import {
+  PaymentElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
+
+// const schema = yup
+//   .object()
+//   .shape({
+//     firstname: yup.string().required(),
+//     lastname: yup.string().required(),
+//     email: yup.string().email().required(),
+//     phone: yup.string().min(10).required(),
+//     //
+//     pickup: yup.boolean().required(),
+//     address: yup
+//       .string()
+//       .when("pickup", { is: false, then: yup.string().required() }),
+//     addresstwo: yup.string(),
+//     city: yup
+//       .string()
+//       .when("pickup", { is: false, then: yup.string().required() }),
+//     state: yup
+//       .string()
+//       .when("pickup", { is: false, then: yup.string().min(2).required() }),
+//     postal: yup
+//       .string()
+//       .when("pickup", { is: false, then: yup.string().min(5).required() }),
+//   })
+//   .required();
+
+const steps = ["Enter Information ", "Review and Confirm"];
 
 const Check = () => {
+  const [activeStep, setActiveStep] = useState(0);
+
+  const placeOrder = () => {
+    setActiveStep(activeStep + 1);
+
+  };
+
+  const handleNext = () => {
+    setActiveStep(activeStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
+  };
+
   const navigate = useNavigate();
   const userCtx = useContext(UserInfoContext);
-  const cartCtx = useContext(CartContext);
-  const methods = useForm({
-    resolver: yupResolver(schema),
-  });
+  // const methods = useForm({
+  //   resolver: yupResolver(schema),
+  // });
   const onSubmit = (data) => {
     console.log(data);
     userCtx.saveInfo(data);
-    navigate("/confirminfo");
+    // navigate("/confirminfo");
+    // navigate("/payment");
   };
 
-  const items = cartCtx.items;
-
-  const [clientSecret, setClientSecret] = useState("");
-
-  useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
-    axios.post(PAYMENT_INTENT_REST_API_URL, {}).then((res) => {
-      // res.json();
-      console.log(res);
-      setClientSecret(res.data.clientSecret);
-      console.log(res.data.clientSecret);
-    });
-  }, []);
-
-  const appearance = {
-    theme: "stripe",
-  };
-  const options = {
-    clientSecret,
-    appearance,
-  };
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <Checkout handleNext={handleNext} />;
+      case 1:
+        return <PaymentPage handleNext={handleNext} />;
+      // case 2:
+      //   return <ConfirmInfo />;
+      default:
+        throw new Error("Unknown step");
+    }
+  }
 
   return (
     <>
@@ -92,66 +104,82 @@ const Check = () => {
         </Grid>
       </Toolbar>
 
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <Grid container>
-            <Grid item xs={1} />
-            <Grid item xs={10}>
-              <Grid container>
-                <Grid item xs={12} sm={12} md={7}>
-                  <Box mt={2} mb={3}>
-                    <Typography variant="h4">Checkout</Typography>
-                    <Typography variant="subtitle1">
-                      Please enter your information below
-                    </Typography>
-                  </Box>
+      {/* <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}> */}
+      <Grid container>
+        <Grid item xs={1} />
+        <Grid item xs={10}>
+          <Box mb={2}>
+            <Divider variant="middle" />
+          </Box>
 
-                  <ContactForm />
-                  <br />
-                  <br />
-                  <ShippingForm />
-                  <br />
-                  <br />
-                  <ScheduleForm />
-                  <br />
-                  <br />
-                  {clientSecret && (
-                    <Elements options={options} stripe={stripePromise}>
-                      <PaymentForm />
-                    </Elements>
-                  )}
-                </Grid>
-
-                <Grid item xs={12} sm={12} md={1} />
-
-                <Grid item xs={12} sm={12} md={4}>
-                  <Box mt={3}>
-                    <CheckoutCartList />
-                  </Box>
-
-                  <Box mt={5}>
-                    <Button
-                      variant="contained"
-                      fullWidth
-                      type="submit"
-                      sx={{
-                        backgroundColor: "#290052",
-                        "&:hover": {
-                          backgroundColor: "#430085",
-                        },
-                      }}
-                    >
-                      Review Order
+          {/* <Checkout /> */}
+          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <>
+            {activeStep === steps.length ? (
+              <>
+                <Typography variant="h5" gutterBottom>
+                  Thank you for your order.
+                </Typography>
+                <Typography variant="subtitle1">
+                  Your order number is #2001539. We have emailed your order
+                  confirmation, and will send you an update when your order has
+                  shipped.
+                </Typography>
+              </>
+            ) : (
+              <>
+                {getStepContent(activeStep)}
+                <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                  {activeStep !== 0 && (
+                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                      Back
                     </Button>
-                  </Box>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={1} />
-          </Grid>
-          <Box mb={50}></Box>
-        </form>
-      </FormProvider>
+                  )}
+
+                  {activeStep > 0 && (
+                    <>
+                      {activeStep === steps.length - 1 ? (
+                        <Button
+                          sx={{
+                            backgroundColor: "#290052",
+                            "&:hover": {
+                              backgroundColor: "#430085",
+                            },
+                          }}
+                          variant="contained"
+                          onClick={placeOrder}
+                          sx={{ mt: 3, ml: 1 }}
+                        >
+                          Place Order
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="contained"
+                          onClick={handleNext}
+                          sx={{ mt: 3, ml: 1 }}
+                        >
+                          Next
+                        </Button>
+                      )}
+                    </>
+                  )}
+                </Box>
+              </>
+            )}
+          </>
+        </Grid>
+        <Grid item xs={1} />
+      </Grid>
+      <Box mb={50}></Box>
+      {/* </form>
+      </FormProvider> */}
     </>
   );
 };
