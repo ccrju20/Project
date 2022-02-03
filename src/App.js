@@ -11,7 +11,6 @@ import RegisterSuccess from "./Account/RegisterSuccess";
 import ProductPage from "./Products/ProductPage";
 import ServiceProvider from "./service/ServiceProvider";
 import UserInfoProvider from "./store/UserInfoProvider";
-import ConfirmInfo from "./Checkout/ConfirmInfo";
 import MainPage from "./Main/MainPage";
 import Check from "./Checkout/Check";
 import PaymentPage from "./Checkout/PaymentPage";
@@ -40,10 +39,8 @@ function App() {
                   </Route>
 
                   <Route element={<WithoutNav />}>
-                    <Route path="/check" element={<Check />} />{" "}
+                    <Route path="/check" element={<Check />} />
                     <Route path="/payment" element={<PaymentPage />} />
-                    <Route path="/confirminfo" element={<ConfirmInfo />} />
-
                   </Route>
                 </Routes>
               </BrowserRouter>

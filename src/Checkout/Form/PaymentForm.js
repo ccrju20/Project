@@ -4,7 +4,6 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 import { Box } from "@material-ui/core";
@@ -12,7 +11,6 @@ import { Box } from "@material-ui/core";
 const PaymentForm = (props) => {
   const stripe = useStripe();
   const elements = useElements();
-
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,16 +30,16 @@ const PaymentForm = (props) => {
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
       switch (paymentIntent.status) {
         case "succeeded":
-          props.setMessage("Payment succeeded!");
+          setMessage("Payment succeeded!");
           break;
         case "processing":
-          props.setMessage("Your payment is processing.");
+          setMessage("Your payment is processing.");
           break;
         case "requires_payment_method":
-          props.setMessage("Your payment was not successful, please try again.");
+          setMessage("Your payment was not successful, please try again.");
           break;
         default:
-          props.setMessage("Something went wrong.");
+          setMessage("Something went wrong.");
           break;
       }
     });

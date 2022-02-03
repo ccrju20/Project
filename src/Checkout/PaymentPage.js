@@ -1,16 +1,16 @@
 import { React, useState, useEffect, useContext } from "react";
 import PaymentForm from "./Form/PaymentForm";
-import { Grid, Box, Typography, Toolbar } from "@material-ui/core";
+import { Grid, Box, Typography } from "@material-ui/core";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import ConfirmInfo from "./ConfirmInfo";
 import UserInfoContext from "../store/userinfo-context";
 import CartContext from "../store/cart-context";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CheckoutCartList from "./OrderSummary/CheckoutCartList";
+import Button from "@mui/material/Button";
 
 const ORDERS_REST_API_URL = "http://localhost:8080/api/orders";
 
@@ -24,13 +24,8 @@ const PaymentPage = (props) => {
   const [clientSecret, setClientSecret] = useState("");
   const userContext = useContext(UserInfoContext);
   const cartCtx = useContext(CartContext);
-  const [confirmed, setConfirmed] = useState(false);
-  const [orderNumber, setOrderNumber] = useState();
-  // const userContext = useContext(UserInfoContext);
-  // console.log(userContext.info);
 
   useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
     axios.post(PAYMENT_INTENT_REST_API_URL, {}).then((res) => {
       setClientSecret(res.data.clientSecret);
       console.log(res.data.clientSecret);
@@ -115,11 +110,16 @@ const PaymentPage = (props) => {
     },
   };
 
+  const handleBack = () => {
+    props.handleBack();
+  };
+
   const submit = () => {
     axios.post(ORDERS_REST_API_URL, DataObject).then((response) => {
-      // console.log(response.data.ordernumber);
-      // setOrderNumber(response.data.ordernumber);
-      localStorage.setItem("ordernumber", JSON.stringify(response.data.ordernumber));
+      localStorage.setItem(
+        "ordernumber",
+        JSON.stringify(response.data.ordernumber)
+      );
     });
 
     cartCtx.items.forEach((item) => {
@@ -129,11 +129,15 @@ const PaymentPage = (props) => {
 
   return (
     <>
-      <Grid container>
-        <Grid item xs={2} />
-        <Grid item xs={8}>
-          <Typography variant="h5">Order Details</Typography>
-          <br></br>
+      <Button onClick={handleBack}>Back</Button>
+
+      <Box mb={3}>
+        <Grid container justifyContent="center">
+          <Typography variant="h5">Your Order Details </Typography>
+        </Grid>
+      </Box>
+      <Grid container justifyContent="space-evenly">
+        <Grid item xs={12} sm={12} md={6}>
           <Card elevation={3}>
             <CardHeader title="Contact Info" />
             <CardContent>
@@ -144,7 +148,9 @@ const PaymentPage = (props) => {
                 <Grid item xs={12} sm={6}>
                   {email}
                 </Grid>
-                <Grid item xs={12} sm={6}>{address} {city} {state} {postal}</Grid>
+                <Grid item xs={12} sm={6}>
+                  {address} {city} {state} {postal}
+                </Grid>
                 <Grid item xs={12} sm={6}>
                   {phone}
                 </Grid>
@@ -152,21 +158,18 @@ const PaymentPage = (props) => {
             </CardContent>
           </Card>
 
-          <CheckoutCartList />
-
-          <Box mt={5} mb={3}>
-            <Typography variant="h5">Enter Payment Details:</Typography>
+          <Box mt={3} mb={2}>
+            <Typography variant="h5">Enter Card Details</Typography>
           </Box>
-
-          <Grid item>
-            {clientSecret && (
-              <Elements options={options} stripe={stripePromise}>
-                <PaymentForm submit={submit} />
-              </Elements>
-            )}
-          </Grid>
+          {clientSecret && (
+            <Elements options={options} stripe={stripePromise}>
+              <PaymentForm submit={submit} />
+            </Elements>
+          )}
         </Grid>
-        <Grid item xs={2} />
+        <Grid item xs={12} sm={12} md={5}>
+          <CheckoutCartList />
+        </Grid>
       </Grid>
     </>
   );

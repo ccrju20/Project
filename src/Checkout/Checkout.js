@@ -1,16 +1,14 @@
-import { React, useState, useContext, useEffect } from "react";
+import { React, useContext } from "react";
 import { Grid, Box, Typography } from "@material-ui/core";
 import ContactForm from "./Form/ContactForm";
 import ShippingForm from "./Form/ShippingForm";
 import ScheduleForm from "./Form/ScheduleForm";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import CheckoutCartList from "./OrderSummary/CheckoutCartList";
-
 import * as yup from "yup";
 import UserInfoContext from "../store/userinfo-context";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import CheckoutCartList from "./OrderSummary/CheckoutCartList";
+import Button from "@mui/material/Button";
 
 const schema = yup
   .object()
@@ -67,8 +65,6 @@ const Checkout = (props) => {
               <br />
               <br />
               <ScheduleForm />
-              <br />
-              <br />
             </Grid>
             <Grid item xs={12} sm={12} md={1} />
             <Grid item xs={12} sm={12} md={4}>
