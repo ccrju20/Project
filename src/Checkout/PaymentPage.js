@@ -26,10 +26,12 @@ const PaymentPage = (props) => {
   const cartCtx = useContext(CartContext);
 
   useEffect(() => {
-    axios.post(PAYMENT_INTENT_REST_API_URL, {}).then((res) => {
-      setClientSecret(res.data.clientSecret);
-      console.log(res.data.clientSecret);
-    });
+    axios
+      .post(PAYMENT_INTENT_REST_API_URL, { items: cartCtx.items })
+      .then((res) => {
+        setClientSecret(res.data.clientSecret);
+        console.log(res.data.clientSecret);
+      });
   }, []);
 
   const appearance = {
@@ -80,6 +82,9 @@ const PaymentPage = (props) => {
       product: {
         id: item.id,
       },
+      productOption: {
+        id : item.option
+      },
       total_price: `${(item.amount * item.price).toFixed(2)}`,
     });
   });
@@ -123,7 +128,7 @@ const PaymentPage = (props) => {
     });
 
     cartCtx.items.forEach((item) => {
-      cartCtx.deleteItem(item.id);
+      cartCtx.deleteItem(item.option);
     });
   };
 
