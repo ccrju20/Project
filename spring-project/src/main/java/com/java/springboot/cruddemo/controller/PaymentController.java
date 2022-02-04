@@ -1,12 +1,14 @@
 package com.java.springboot.cruddemo.controller;
 
-import org.springframework.beans.factory.annotation.Value;
+import java.util.ArrayList;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.java.springboot.cruddemo.dto.CartItem;
 import com.java.springboot.cruddemo.dto.CreatePayment;
 import com.java.springboot.cruddemo.dto.CreatePaymentResponse;
 import com.stripe.exception.StripeException;
@@ -18,10 +20,18 @@ import com.stripe.param.PaymentIntentCreateParams;
 @RequestMapping("/api")
 public class PaymentController {
 
+	static long calculateOrderAmount(CartItem[] items) {
+		double total = 0;
+		for (CartItem x : items) {
+			total += x.getTotal();
+		}
+		return (long) (total * 100);
+	}
+
 	@PostMapping("/create-payment-intent")
 	public CreatePaymentResponse createPaymentIntent(@RequestBody CreatePayment createPayment) throws StripeException {
 		PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
-				.setAmount(15 * 100L)
+				.setAmount(calculateOrderAmount(createPayment.getItems()))
 				.setCurrency("usd")
 				.build();
 

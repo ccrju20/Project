@@ -2,9 +2,13 @@ package com.java.springboot.cruddemo.dto;
 
 public class CartItem {
 	public int amount;
-	public int price;
+	public double price;
+
+	public CartItem() {
+		
+	}
 	
-	public CartItem(int amount, int price) {
+	public CartItem(int amount, double price) {
 		this.amount = amount;
 		this.price = price;
 	}
@@ -17,11 +21,15 @@ public class CartItem {
 		this.amount = amount;
 	}
 
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
+	}
+	
+	public double getTotal() {
+		return this.amount * this.price;
 	}
 }
