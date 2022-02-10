@@ -1,7 +1,5 @@
 package com.java.springboot.cruddemo.controller;
 
-import java.util.ArrayList;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
