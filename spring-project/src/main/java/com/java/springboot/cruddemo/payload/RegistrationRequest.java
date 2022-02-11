@@ -1,40 +1,27 @@
 package com.java.springboot.cruddemo.payload;
 
+import javax.validation.constraints.NotNull;
+
 import com.java.springboot.cruddemo.entity.ContactInfo;
 
 public class RegistrationRequest {
 
-	private String firstname;
-	private String lastname;
+	@NotNull
 	private String email;
+
+	@NotNull
 	private String password;
+
 	private ContactInfo contactInfo;
-	
+
 	public RegistrationRequest() {
-		
+
 	}
-	
-	public RegistrationRequest(String firstname, String lastname, String email, String password) {
-		this.firstname = firstname;
-		this.lastname = lastname;
+
+	public RegistrationRequest(String email, String password, ContactInfo contactInfo) {
 		this.email = email;
 		this.password = password;
-	}
-
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+		this.contactInfo = contactInfo;
 	}
 
 	public String getEmail() {
@@ -56,5 +43,5 @@ public class RegistrationRequest {
 	public ContactInfo getContactInfo() {
 		return contactInfo;
 	}
-	
+
 }

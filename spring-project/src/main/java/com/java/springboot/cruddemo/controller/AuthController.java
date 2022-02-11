@@ -1,6 +1,6 @@
 package com.java.springboot.cruddemo.controller;
 
-import java.util.Optional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.java.springboot.cruddemo.entity.Order;
 import com.java.springboot.cruddemo.models.MyUser;
 import com.java.springboot.cruddemo.payload.AuthenticationRequest;
 import com.java.springboot.cruddemo.payload.AuthenticationResponse;
@@ -64,7 +63,7 @@ public class AuthController {
 	}
 	
 	@PostMapping("/registration")
-	public ResponseEntity<?> register(@RequestBody RegistrationRequest request) {
+	public ResponseEntity<?> register(@Valid @RequestBody RegistrationRequest request) {
 		final String response = registrationService.register(request);
 		
 		if (response.startsWith("Error")) {
