@@ -47,6 +47,13 @@ public class OrderDetails {
 	public OrderDetails() {
 		
 	}
+	
+	public OrderDetails(String firstname, String lastname, String email, String phone) {
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.phone = phone;
+	}
 
 	public OrderDetails(String firstname, String lastname, String email, String phone, String address, String addresstwo,
 			String city, String state, String postal) {

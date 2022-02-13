@@ -56,10 +56,6 @@ public class MyUserDetailsService implements UserDetailsService {
 		return jwt;
 	}
 
-	public int findIdByUsername(String username) {
-		return userRepository.findIdByEmail(username);
-	}
-
 	public MyUser findById(int theId) {
 		Optional<MyUser> user = userRepository.findById(theId);
 
@@ -72,6 +68,10 @@ public class MyUserDetailsService implements UserDetailsService {
 		}
 
 		return theUser;
+	}
+	
+	public int findIdByUsername(String username) {
+		return userRepository.findIdByEmail(username);
 	}
 
 	public void deleteById(int theId) {

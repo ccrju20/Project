@@ -7,16 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java.springboot.cruddemo.dao.OrderRepository;
+import com.java.springboot.cruddemo.dao.UserRepository;
 import com.java.springboot.cruddemo.entity.Order;
+import com.java.springboot.cruddemo.models.MyUser;
 
 @Service
 public class OrderService{
 	
 	private OrderRepository OrderRepository;
 	
+	private UserRepository userRepository;
+	
 	@Autowired
-	public OrderService(OrderRepository theOrderRepository) {
+	public OrderService(OrderRepository theOrderRepository, UserRepository theUserRepository) {
 		OrderRepository = theOrderRepository;
+		userRepository = theUserRepository;
 	}
 
 	public List<Order> findAll() {
@@ -46,8 +51,18 @@ public class OrderService{
 	}
 
 	public List<Order> findByAccountId(int id) {
-		List<Order> result =  OrderRepository.findByAccountId(id);
-		return result;
+		Optional<MyUser> user = userRepository.findById(id);
+		
+		List<Order> theOrders = null;
+
+		if (user.isPresent()) {
+			Optional<List<Order>> result = OrderRepository.findByAccountId(id);
+			theOrders = result.get();
+		} else {
+			throw new RuntimeException("Did not find Orders with User id - " + id);
+		}
+		
+		return theOrders;
 	}
 
 }
