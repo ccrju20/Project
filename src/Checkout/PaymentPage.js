@@ -83,7 +83,7 @@ const PaymentPage = (props) => {
         id: item.id,
       },
       productOption: {
-        id : item.option
+        id: item.option,
       },
       total_price: `${(item.amount * item.price).toFixed(2)}`,
     });
@@ -93,7 +93,6 @@ const PaymentPage = (props) => {
   if (!pickup) {
     method = 1;
   }
-
   const DataObject = {
     orderItems: cartItems,
     scheduled: scheduledTime,
@@ -109,11 +108,14 @@ const PaymentPage = (props) => {
       city: city,
       state: state,
       postal: postal,
-      // account: {
-      //   id: 2,
-      // },
     },
   };
+
+  const user = localStorage.getItem("user");
+  if (user) {
+    let userId = JSON.parse(user).theId;
+    DataObject.account = { id: userId };
+  }
 
   const handleBack = () => {
     props.handleBack();
