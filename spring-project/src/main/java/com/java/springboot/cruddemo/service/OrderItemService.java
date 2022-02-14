@@ -34,7 +34,6 @@ public class OrderItemService {
 			theOrderItem = result.get();
 		}
 		else {
-			// we didn't find the OrderItem
 			throw new RuntimeException("Did not find OrderItem id - " + theId);
 		}
 		return theOrderItem;
