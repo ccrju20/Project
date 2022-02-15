@@ -73,8 +73,12 @@ class OrderServiceTest {
 		underTest.findById(theId);
 
 		// then
-		then(orderRepository).should().findById(theId);
-		Optional<Order> theOrder = orderRepository.findById(theId);
+        ArgumentCaptor<Integer> idArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
+
+		then(orderRepository).should().findById(idArgumentCaptor.capture());
+		
+		int idValue = idArgumentCaptor.getValue();
+		Optional<Order> theOrder = orderRepository.findById(idValue);
 		assertThat(theOrder).isEqualTo(Optional.of(order));
 	}
 	
@@ -107,8 +111,12 @@ class OrderServiceTest {
 	    underTest.findByAccountId(theId);
 		
 		// then
-		then(orderRepository).should().findByAccountId(theId);
-		Optional<List<Order>> theOrders = orderRepository.findByAccountId(theId);
+        ArgumentCaptor<Integer> idArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
+
+		then(orderRepository).should().findByAccountId(idArgumentCaptor.capture());
+		
+		int idValue = idArgumentCaptor.getValue();
+		Optional<List<Order>> theOrders = orderRepository.findByAccountId(idValue);
 		assertThat(theOrders).isEqualTo(Optional.of(orders));
 	}
 	

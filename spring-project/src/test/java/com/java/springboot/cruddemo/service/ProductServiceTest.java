@@ -110,14 +110,19 @@ class ProductServiceTest {
 		underTest.findPaginated(pageNo, pageSize);
 		
 		// then
-		then(productRepository).should().findAll(pageable);
-		Page<Product> thePageProducts = productRepository.findAll(pageable);
+        ArgumentCaptor<Pageable> pageableArgumentCaptor = ArgumentCaptor.forClass(Pageable.class);
+
+		then(productRepository).should().findAll(pageableArgumentCaptor.capture());
+		
+        Pageable pageableValue = pageableArgumentCaptor.getValue();
+		Page<Product> thePageProducts = productRepository.findAll(pageableValue);
 		assertThat(thePageProducts.getContent()).isEqualTo(products);
 	}
 	
 	@Test
 	void itShouldFindPageOfProductsByCategory() {
 		// given
+		String category = "category";
 		int pageNo = 1;
 		int pageSize = 2;
 		Pageable pageable = PageRequest.of(pageNo -1, pageSize);
@@ -125,14 +130,21 @@ class ProductServiceTest {
 		List<Product> products = new ArrayList<>();
 		Page<Product> pagedProducts = new PageImpl<Product>(products);
 
-		given(productRepository.findByCategory("category", pageable)).willReturn(pagedProducts);
+		given(productRepository.findByCategory(category, pageable)).willReturn(pagedProducts);
 
 		// when
-		underTest.findByCategory("category", pageNo, pageSize);
+		underTest.findByCategory(category, pageNo, pageSize);
 		
 		// then
-		then(productRepository).should().findByCategory("category", pageable);
-		Page<Product> thePageProducts = productRepository.findByCategory("category", pageable);
+        ArgumentCaptor<Pageable> pageableArgumentCaptor = ArgumentCaptor.forClass(Pageable.class);
+        ArgumentCaptor<String> categoryArgumentCaptor = ArgumentCaptor.forClass(String.class);
+
+		then(productRepository).should().findByCategory(categoryArgumentCaptor.capture(), pageableArgumentCaptor.capture());
+
+		Pageable pageableValue = pageableArgumentCaptor.getValue();
+		String categoryValue = categoryArgumentCaptor.getValue();
+		
+		Page<Product> thePageProducts = productRepository.findByCategory(categoryValue, pageableValue);
 		assertThat(thePageProducts.getContent()).isEqualTo(products);
 	}
 	
@@ -152,8 +164,12 @@ class ProductServiceTest {
 		underTest.findByCategory(category, pageNo, pageSize);
 		
 		// then
-		then(productOptionsRepository).should().findProductsBySize(productSize);
-		List<Product> theListProducts = productOptionsRepository.findProductsBySize(productSize);
+        ArgumentCaptor<Integer> productSizeArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
+
+		then(productOptionsRepository).should().findProductsBySize(productSizeArgumentCaptor.capture());
+		
+		int productSizeValue = productSizeArgumentCaptor.getValue();
+		List<Product> theListProducts = productOptionsRepository.findProductsBySize(productSizeValue);
 		Page<Product> productsPage = new PageImpl<>(theListProducts, pageable, theListProducts.size());
 		
 		assertThat(productsPage.getContent()).isEqualTo(products);
