@@ -23,20 +23,6 @@ public class OrderDetailsService {
 		return OrderDetailsRepository.findAll();
 	}
 
-//	public OrderDetails findById(int theId) {
-//		Optional<OrderDetails> result = OrderDetailsRepository.findById(theId);
-//		
-//		OrderDetails theOrderDetails = null;
-//		
-//		if (result.isPresent()) {
-//			theOrderDetails = result.get();
-//		}
-//		else {
-//			throw new RuntimeException("Did not find OrderDetails id - " + theId);
-//		}
-//		return theOrderDetails;
-//	}
-
 	public void save(OrderDetails theOrderDetails) {
 		OrderDetailsRepository.save(theOrderDetails);
 	}
@@ -44,15 +30,5 @@ public class OrderDetailsService {
 	public void deleteById(int theId) {
 		OrderDetailsRepository.deleteById(theId);
 	}
-
-//	public boolean checkEmailExists(String theEmail) {
-//		OrderDetails result = OrderDetailsRepository.findByEmail(theEmail);
-//		
-//		if (result == null) {
-//			return false;
-//		}
-//		
-//		return true;
-//	}
 
 }

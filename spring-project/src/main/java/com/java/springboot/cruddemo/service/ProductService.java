@@ -40,7 +40,7 @@ public class ProductService {
 			theProduct = result.get();
 		}
 		else {
-			throw new RuntimeException("Did not find product id - " + theId);
+			throw new RuntimeException("Did not find Product id - " + theId);
 		}
 		return theProduct;
 	}

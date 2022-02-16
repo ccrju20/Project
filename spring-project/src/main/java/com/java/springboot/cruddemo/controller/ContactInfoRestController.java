@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.java.springboot.cruddemo.entity.ContactInfo;
 import com.java.springboot.cruddemo.service.ContactInfoService;
+import com.java.springboot.cruddemo.service.MyUserDetailsService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -23,9 +23,12 @@ public class ContactInfoRestController {
 
 	private ContactInfoService contactInfoService;
 
+	private MyUserDetailsService userDetailsService;
+
 	@Autowired
-	public ContactInfoRestController(ContactInfoService theContactInfoService) {
+	public ContactInfoRestController(ContactInfoService theContactInfoService, MyUserDetailsService theUserDetailsService) {
 		contactInfoService = theContactInfoService;
+		userDetailsService = theUserDetailsService;
 	}
 
 	@GetMapping("/contactinfo")
@@ -33,13 +36,25 @@ public class ContactInfoRestController {
 		return contactInfoService.findAll();
 	}
 
-	@GetMapping("/contactinfo/{contactInfoId}")
-	public ContactInfo getContactInfo(@PathVariable int contactInfoId) {
-
-		ContactInfo theContactInfo = contactInfoService.findById(contactInfoId);
+//	@GetMapping("/contactinfo/{contactInfoId}")
+//	public ContactInfo getContactInfo(@PathVariable int contactInfoId) {
+//
+//		ContactInfo theContactInfo = contactInfoService.findById(contactInfoId);
+//
+//		if (theContactInfo == null) {
+//			throw new RuntimeException("ContactInfo id not found - " + contactInfoId);
+//		}
+//
+//		return theContactInfo;
+//	}
+	
+	@GetMapping("/contactinfo/{userId}")
+	public ContactInfo getContactInfo(@PathVariable int userId) {
+		
+		ContactInfo theContactInfo = userDetailsService.findContactInfo(userId);
 
 		if (theContactInfo == null) {
-			throw new RuntimeException("ContactInfo id not found - " + contactInfoId);
+			throw new RuntimeException("User info not found - " + userId);
 		}
 
 		return theContactInfo;

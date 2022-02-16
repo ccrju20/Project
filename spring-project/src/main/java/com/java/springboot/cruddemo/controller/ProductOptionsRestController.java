@@ -33,6 +33,7 @@ public class ProductOptionsRestController {
 		return productOptionsService.findAll();
 	}
 	
+	// Get a product option using the option_id
 	@GetMapping("/products/options/{optionId}")
 	public ProductOption findById(@PathVariable int optionId) {
 		
@@ -41,6 +42,7 @@ public class ProductOptionsRestController {
 		return productOption;
 	}
 
+	// Get a list of product options using product id
 	@GetMapping("/products/{productId}/options")
 	public List<ProductOption> getProduct(@PathVariable int productId) {
 
@@ -49,6 +51,7 @@ public class ProductOptionsRestController {
 		return productOptions;
 	}
 
+	// Add option to an existing product
 	@PostMapping("/products/options")
 	public ProductOption addProduct(@RequestBody ProductOption theProductOption) {
 
@@ -59,6 +62,7 @@ public class ProductOptionsRestController {
 		return theProductOption;
 	}
 
+	// Edit a product option
 	@PutMapping("/products/options")
 	public ProductOption updateProductOption(@RequestBody ProductOption theProductOption) {
 
@@ -67,6 +71,7 @@ public class ProductOptionsRestController {
 		return theProductOption;
 	}
 
+	// Deleting product option using option_id > id
 	@DeleteMapping("/products/options/{productOptionId}")
 	public String deleteProductOption(@PathVariable int productOptionId) {
 

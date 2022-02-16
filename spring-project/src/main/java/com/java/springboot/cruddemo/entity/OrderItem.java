@@ -1,6 +1,5 @@
 package com.java.springboot.cruddemo.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,21 +8,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name="order_items")
 public class OrderItem {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
 	private int id;
 	
-	@Column(name="quantity")
 	private String quantity;
 	
-	@Column(name="total_price")
 	private String total_price;
 	
 	@OneToOne

@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="user_info")
@@ -14,8 +15,10 @@ public class ContactInfo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@NotNull
 	private String firstname;
 	
+	@NotNull
 	private String lastname;
 	
 	private String email;
@@ -34,6 +37,11 @@ public class ContactInfo {
 	
 	public ContactInfo() {
 		
+	}
+	
+	public ContactInfo(String firstname, String lastname) {
+		this.firstname = firstname;
+		this.lastname = lastname;
 	}
 	
 	public ContactInfo(String firstname, String lastname, String email, String phone, String address, String addresstwo,

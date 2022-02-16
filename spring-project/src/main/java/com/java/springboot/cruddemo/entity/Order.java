@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,6 +23,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -36,8 +38,10 @@ public class Order {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
+	@Column(nullable=false)
 	private String ordernumber;
 	
+	@Column(nullable=false)
 	private String dateposted;
 	
 	@NotEmpty
@@ -53,11 +57,13 @@ public class Order {
 	@JoinColumn(name="account_id")
 	private MyUser account;
 	
+	@NotNull
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="orderid")
 	private List<OrderItem> orderItems;
 	
 	@Valid
+	@NotNull
 	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="details_id")
 	private OrderDetails orderDetails;
@@ -178,7 +184,5 @@ public class Order {
 	public String toString() {
 		return "Order [id=" + id + ", ordernumber=" + ordernumber + ", dateposted=" + dateposted + "]";
 	}
-	
-	
 	
 }

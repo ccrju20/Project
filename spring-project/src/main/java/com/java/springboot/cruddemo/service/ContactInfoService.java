@@ -23,19 +23,19 @@ public class ContactInfoService {
 		return ContactInfoRepository.findAll();
 	}
 
-	public ContactInfo findById(int theId) {
-		Optional<ContactInfo> result = ContactInfoRepository.findById(theId);
-		
-		ContactInfo theContactInfo = null;
-		
-		if (result.isPresent()) {
-			theContactInfo = result.get();
-		}
-		else {
-			throw new RuntimeException("Did not find ContactInfo id - " + theId);
-		}
-		return theContactInfo;
-	}
+//	public ContactInfo findById(int theId) {
+//		Optional<ContactInfo> result = ContactInfoRepository.findById(theId);
+//		
+//		ContactInfo theContactInfo = null;
+//		
+//		if (result.isPresent()) {
+//			theContactInfo = result.get();
+//		}
+//		else {
+//			throw new RuntimeException("Did not find ContactInfo id - " + theId);
+//		}
+//		return theContactInfo;
+//	}
 
 	public void save(ContactInfo theContactInfo) {
 		ContactInfoRepository.save(theContactInfo);
