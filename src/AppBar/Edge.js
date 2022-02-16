@@ -16,10 +16,10 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
-    padding: 1,
+    padding: 5,
   },
   carticon: {
-    padding: 1,
+    padding: 7,
   },
   badge: {
     height: 15,

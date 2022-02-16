@@ -28,8 +28,8 @@ const CartDrawer = (props) => {
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2).replace("-0", "0")}`;
   const cartTotalItems = cartCtx.items.length;
 
-  const cartItemDeleteHandler = (id) => {
-    cartCtx.deleteItem(id);
+  const cartItemDeleteHandler = (option) => {
+    cartCtx.deleteItem(option);
   };
   const cartItemAddHandler = (product, amount) => {
     cartCtx.addItem({ ...product, amount: amount });
@@ -77,13 +77,13 @@ const CartDrawer = (props) => {
         <Grid container>
           {cartCtx.items.map((product) => (
             <CartCheck
-              key={product.id}
+              key={product.option}
               name={product.name}
               price={product.price}
               image={product.img}
               amount={product.amount}
               onAdd={cartItemAddHandler.bind(null, product)}
-              onDelete={cartItemDeleteHandler.bind(null, product.id)}
+              onDelete={cartItemDeleteHandler.bind(null, product.option)}
             />
           ))}
         </Grid>

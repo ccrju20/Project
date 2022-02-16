@@ -14,7 +14,7 @@ const ContactForm = () => {
   } = useFormContext();
 
   const serviceCtx = useContext(ServiceContext);
-  const [data, setData] = useState({});
+  const [data, setData] = useState({firstname: "", lastname: "", email: ""});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

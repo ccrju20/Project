@@ -39,6 +39,7 @@ const Shop = () => {
   const [allProducts, setAllProducts] = useState({});
   const [open, setOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const classes = useStyles();
   const matches = useMediaQuery("(min-width:800px)");
@@ -109,6 +110,7 @@ const Shop = () => {
                   onClick={() => {
                     setSelectedCategory(null);
                     setPage(1);
+                    setSearchTerm("");
                   }}
                 >
                   <ListItemText primary="Shop All" />
@@ -118,6 +120,7 @@ const Shop = () => {
                   onClick={() => {
                     setSelectedCategory("cookie");
                     setPage(1);
+                    setSearchTerm("");
                   }}
                 >
                   <ListItemText primary="Cookies" />
@@ -127,6 +130,7 @@ const Shop = () => {
                   onClick={() => {
                     setSelectedCategory("cupcake");
                     setPage(1);
+                    setSearchTerm("");
                   }}
                 >
                   <ListItemText primary="Cupcakes" />
@@ -137,6 +141,7 @@ const Shop = () => {
                     handleClick();
                     setSelectedCategory("Cake");
                     setPage(1);
+                    setSearchTerm("");
                   }}
                 >
                   <ListItemText primary="Cakes" />
@@ -149,6 +154,7 @@ const Shop = () => {
                       onClick={() => {
                         setSelectedCategory("6");
                         setPage(1);
+                        setSearchTerm("");
                       }}
                     >
                       <ListItemText primary={`6" Cakes`} />
@@ -158,6 +164,7 @@ const Shop = () => {
                       onClick={() => {
                         setSelectedCategory("8");
                         setPage(1);
+                        setSearchTerm("");
                       }}
                     >
                       <ListItemText primary={`8" Cakes`} />
@@ -167,6 +174,7 @@ const Shop = () => {
                       onClick={() => {
                         setSelectedCategory("10");
                         setPage(1);
+                        setSearchTerm("");
                       }}
                     >
                       <ListItemText primary={`10" Cakes`} />
@@ -190,6 +198,8 @@ const Shop = () => {
               </Grid>
             )}
             <Content
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
               products={products}
               allProducts={allProducts}
               loadError={loadError}

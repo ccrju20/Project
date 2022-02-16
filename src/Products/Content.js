@@ -6,22 +6,20 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Search from "./Search";
 
 const Content = (props) => {
-  // const [products, setProducts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const matches = useMediaQuery("(min-width:900px)");
 
   const searchHandler = (searchTerm) => {
-    setSearchTerm(searchTerm);
+    props.setSearchTerm(searchTerm);
     if (searchTerm !== "") {
       const productList = props.allProducts.filter((product) => {
         return product.title.toLowerCase().includes(searchTerm.toLowerCase());
       });
       setSearchResults(productList);
     } 
-    // else {
-    //   setSearchResults(products);
-    // }
+    else {
+      setSearchResults([]);
+    }
   };
 
   const productList = props.products.map((product) => (
@@ -66,13 +64,13 @@ const Content = (props) => {
       <Box mb={2}>
         <Search
           products={props.allProducts}
-          term={searchTerm}
+          term={props.searchTerm}
           searchHandler={searchHandler}
         />
       </Box>
       <Grid container spacing={4}>
         {!props.loadError ? (
-          <>{searchTerm.length > 0 ? productSearch : productList}</>
+          <>{props.searchTerm.length > 0 ? productSearch : productList}</>
         ) : (
           <Grid container justifyContent="center">
             <h2>Unable to load items</h2>

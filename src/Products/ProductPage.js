@@ -24,6 +24,7 @@ const ProductPage = () => {
   const [productOptions, setProductOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [productId, setProductId] = useState();
+  const [productOptionsId, setProductOptionsId] = useState();
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -31,7 +32,8 @@ const ProductPage = () => {
     setProduct(productItem);
     setName(productItem.title);
     setPrice(productItem.price);
-    setProductId(productItem.options[0].id);
+    setProductId(productItem.id);
+    setProductOptionsId(productItem.options[0].id)
     if (productItem.options.length > 1) {
       setProductOptions(productItem.options);
     }
@@ -40,6 +42,7 @@ const ProductPage = () => {
   const addToCartHandler = () => {
     cartCtx.addItem({
       id: productId,
+      option: productOptionsId,
       name: name,
       amount: itemAmount,
       price: parseFloat(price),
@@ -67,7 +70,7 @@ const ProductPage = () => {
 
   const handleOption = (event) => {
     setSelectedOption(event.target.value);
-    setProductId(event.target.value);
+    setProductOptionsId(event.target.value);
     const result = productOptions.filter(
       (option) => option.id === event.target.value
     );

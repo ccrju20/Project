@@ -55,7 +55,7 @@ const OrderHistoryCard = (props) => {
         <Grid item xs={12} sm={4}>
           <List>
             <ListItem sx={{ fontWeight: "bold" }}>
-              Order Total: ${total}
+              Order Total: ${total.toFixed(2)}
             </ListItem>
             <ListItem sx={{ fontWeight: "bold" }}>Status: {status}</ListItem>
             <ListItem>Method: {delivery > 0 ? `Delivery` : `Pickup`}</ListItem>

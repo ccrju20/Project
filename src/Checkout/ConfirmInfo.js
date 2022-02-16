@@ -1,10 +1,14 @@
 import { React, useContext, useState } from "react";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography, Toolbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import UserInfoContext from "../store/userinfo-context";
 import CartContext from "../store/cart-context";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
+import Logo from "../Logo";
 
 const ORDERS_REST_API_URL = "http://localhost:8080/api/orders";
 
@@ -98,7 +102,7 @@ const ConfirmInfo = (props) => {
 
     axios.post(ORDERS_REST_API_URL, DataObject).then((response) => {
       console.log(response.data.ordernumber);
-      setOrderNumber(response.data.ordernumber)
+      setOrderNumber(response.data.ordernumber);
     });
 
     cartCtx.items.forEach((item) => {
@@ -108,26 +112,47 @@ const ConfirmInfo = (props) => {
 
   return (
     <>
-      <Grid container>
+      {/* <Grid container>
         <Grid item xs={1} />
-        <Grid item xs={10}>
+        <Grid item xs={10}> */}
           {!confirmed ? (
             <>
-              <h2>Please confirm your information below</h2>
+              <Typography variant="h5">
+                Please confirm your information:
+              </Typography>
               <br></br>
+              <Card elevation={3}>
+                <CardHeader title="Contact Info" />
+                <CardContent>
+                  <Grid container spacing={3}>
+                    <Grid item xs={12} sm={6}>
+                      {firstname} {lastname}
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      {email}
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      {phone}
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                    {address}
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                    {city} {state} {postal}
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
 
-              <h5>
-                Name: {firstname} {lastname}
-              </h5>
-              <h5>Email: {email}</h5>
-              <h5>Phone: {phone}</h5>
-
-              <h5>Shipping Address: </h5>
-              <h5>{address}</h5>
-              <h5>
-                {city} {state} {postal}
-              </h5>
-              <Button
+              <Card elevation={3}>
+                <CardHeader title="Order Items" />
+                <CardContent>
+                  <Grid container spacing={3}>
+                  </Grid>
+                </CardContent>
+              </Card>
+              
+              {/* <Button
                 onClick={onConfirmHandler}
                 variant="outlined"
                 size="small"
@@ -135,18 +160,18 @@ const ConfirmInfo = (props) => {
                 type="submit"
               >
                 Order
-              </Button>
+              </Button> */}
             </>
           ) : (
             <>
-            <h1>confirmed</h1>
-            <h1>{orderNumber}</h1>
+              <h1>confirmed</h1>
+              <h1>{orderNumber}</h1>
             </>
           )}
-        </Grid>
+        {/* </Grid>
 
         <Grid item xs={1} />
-      </Grid>
+      </Grid> */}
     </>
   );
 };

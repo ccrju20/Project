@@ -1,7 +1,6 @@
 import "./App.css";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import NavBar from "./AppBar/NavBar";
 import Cart from "./Cart/Cart";
 import Account from "./Account/Account";
 import AuthProvider from "./store/AuthProvider";
@@ -12,35 +11,43 @@ import RegisterSuccess from "./Account/RegisterSuccess";
 import ProductPage from "./Products/ProductPage";
 import ServiceProvider from "./service/ServiceProvider";
 import UserInfoProvider from "./store/UserInfoProvider";
-import ConfirmInfo from "./Checkout/ConfirmInfo";
 import MainPage from "./Main/MainPage";
 import Check from "./Checkout/Check";
+import PaymentPage from "./Checkout/PaymentPage";
+import ConfirmSuccess from './Checkout/ConfirmSuccess'
+import WithNav from "./WithNav";
+import WithoutNav from "./WithoutNav";
 
 function App() {
   return (
     <>
-    <AuthProvider>
-      <CartProvider>
-        <UserInfoProvider>
-          <ServiceProvider>
-            <BrowserRouter>
-              <NavBar />
-              <Routes>
-                <Route path="/" element={<MainPage />} />
-                <Route path="/account" element={<Account />} />
-                <Route path="/signup" element={<Register />} />
-                <Route path="/success" element={<RegisterSuccess />} />
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/check" element={<Check />} />
-                <Route path="/confirminfo" element={<ConfirmInfo />} />
-                <Route path="/shop" element={<Shop />} />
-                <Route path="/product" element={<ProductPage />} />
-              </Routes>
-            </BrowserRouter>
-          </ServiceProvider>
-        </UserInfoProvider>
-      </CartProvider>
-    </AuthProvider>
+      <AuthProvider>
+        <CartProvider>
+          <UserInfoProvider>
+            <ServiceProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route element={<WithNav />}>
+                    <Route path="/" element={<MainPage />} />
+                    <Route path="/account" element={<Account />} />
+                    <Route path="/signup" element={<Register />} />
+                    <Route path="/success" element={<RegisterSuccess />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/shop" element={<Shop />} />
+                    <Route path="/product" element={<ProductPage />} />                    
+                    <Route path="/ordersuccess" element={<ConfirmSuccess />} />
+                  </Route>
+
+                  <Route element={<WithoutNav />}>
+                    <Route path="/check" element={<Check />} />
+                    <Route path="/payment" element={<PaymentPage />} />
+                  </Route>
+                </Routes>
+              </BrowserRouter>
+            </ServiceProvider>
+          </UserInfoProvider>
+        </CartProvider>
+      </AuthProvider>
     </>
   );
 }

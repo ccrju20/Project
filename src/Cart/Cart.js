@@ -35,8 +35,8 @@ const Cart = (props) => {
     cartCtx.addItem({ ...product, amount: amount });
   };
 
-  const cartItemDeleteHandler = (id) => {
-    cartCtx.deleteItem(id);
+  const cartItemDeleteHandler = (option) => {
+    cartCtx.deleteItem(option);
     setOpen(true);
   };
 
@@ -62,16 +62,17 @@ const Cart = (props) => {
         </Grid>
         <Grid container spacing={3}>
           {cartCtx.items.map((product) => (
-            <Grid item xs={12} key={product.id}>
+            <Grid item xs={12} key={product.option}>
               <CartProduct
-                key={product.id}
+                key={product.option}
                 name={product.name}
                 price={product.price}
                 image={product.img}
                 amount={product.amount}
+                option={product.option}
                 onAdd={cartItemAddHandler.bind(null, product)}
                 onRemove={cartItemRemoveHandler.bind(null, product.id)}
-                onDelete={cartItemDeleteHandler.bind(null, product.id)}
+                onDelete={cartItemDeleteHandler.bind(null, product.option)}
               />
             </Grid>
           ))}
