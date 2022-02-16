@@ -1,6 +1,7 @@
 package com.java.springboot.cruddemo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import com.java.springboot.cruddemo.dto.CartItem;
@@ -11,6 +12,7 @@ import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
 
 @Service
+@ConditionalOnProperty(value = "stripe.enabled", havingValue = "true")
 public class StripeService implements CreatePaymentBuilder{
 	
 	static long calculateOrderAmount(CartItem[] items) {

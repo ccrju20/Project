@@ -9,23 +9,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.java.springboot.cruddemo.dto.CreatePayment;
 import com.java.springboot.cruddemo.dto.CreatePaymentResponse;
-import com.java.springboot.cruddemo.service.StripeService;
+import com.java.springboot.cruddemo.service.PaymentService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class PaymentController {
 	
-	private StripeService stripeService;
+	private PaymentService paymentService;
 	
 	@Autowired
-	public PaymentController(StripeService theStripeService) {
-		this.stripeService = theStripeService;
+	public PaymentController(PaymentService paymentService) {
+		this.paymentService = paymentService;
 	}
 
 	@PostMapping("/create-payment-intent")
 	public CreatePaymentResponse createPaymentIntent(@RequestBody CreatePayment createPayment) {
-		return stripeService.chargeItems(createPayment);
+		return paymentService.chargeItems(createPayment);
 	}
 	
 //	@PostMapping("/create-payment-intent")
