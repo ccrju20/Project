@@ -76,7 +76,7 @@ public class AuthController {
 	}
 	
 	@GetMapping("/users/{userId}")
-	public MyUser getOrder(@PathVariable int userId) {
+	public MyUser getUser(@PathVariable int userId) {
 
 		MyUser user = userDetailsService.findById(userId);;
 
@@ -84,7 +84,7 @@ public class AuthController {
 	}
 	
 	@DeleteMapping("/users/{userId}")
-	public String deleteOrder(@PathVariable int userId) {
+	public String deleteUser(@PathVariable int userId) {
 
 		MyUser user = userDetailsService.findById(userId);;
 

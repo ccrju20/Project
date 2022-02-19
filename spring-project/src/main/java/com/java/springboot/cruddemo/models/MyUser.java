@@ -41,7 +41,7 @@ public class MyUser implements UserDetails {
 	@NotNull
 	private String password;
 	
-	private String created_at;
+	private String createdAt;
 	
 	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="contact_info")
@@ -60,7 +60,7 @@ public class MyUser implements UserDetails {
 		this.roles = myUserRole;
 		this.contactInfo = contactInfo;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -81,6 +81,7 @@ public class MyUser implements UserDetails {
 		this.password = password;
 	}
 
+	@JsonIgnore
 	@Override
 	public String getUsername() {
 		return email;
@@ -91,14 +92,14 @@ public class MyUser implements UserDetails {
 	}
 	
 	public String getCreatedAt() {
-		return created_at;
+		return createdAt;
 	}
 	
 	public void setCreatedAt() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate now = LocalDate.now(ZoneId.of("America/New_York"));
         String str = now.format(formatter);
-        this.created_at = str;
+        this.createdAt = str;
 	}
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
@@ -110,21 +111,25 @@ public class MyUser implements UserDetails {
 		this.contactInfo = contactInfo;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonLocked() {
 		return true;
 	}
-
+	
+	@JsonIgnore
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
-
+	
+	@JsonIgnore
 	@Override
 	public boolean isEnabled() {
 		return true;
