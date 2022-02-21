@@ -29,11 +29,10 @@ public class PaymentIntegrationTest {
 	private MockMvc mockMvc;
 
 	@Test
-	void itShouldCreatePaymentIntentSuccessfully() throws Exception {
+	void itShouldCreateStripePaymentIntent() throws Exception {
 		// given
 		CartItem[] cartItems = new CartItem[]{};
 		CreatePayment createPayment = new CreatePayment(cartItems);
-		
 
 		// when 
 		ResultActions paymentIntentResultActions = mockMvc.perform(MockMvcRequestBuilders.post("/api/create-payment-intent")

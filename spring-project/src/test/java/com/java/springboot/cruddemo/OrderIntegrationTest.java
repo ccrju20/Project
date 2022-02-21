@@ -38,7 +38,7 @@ public class OrderIntegrationTest {
 	private MockMvc mockMvc;
 
 	@Test
-	void itShouldFindOrderAfterPlacing() throws Exception {
+	void itShouldGetOrderAfterPlacing() throws Exception {
 		// given
 		Order order = new Order("ordernumber", "dateposted", "scheduled", "status", 0, new MyUser(),
 				new ArrayList<OrderItem>(), new OrderDetails("first", "last", "test@gmail.com", "1111111111"));
@@ -48,16 +48,17 @@ public class OrderIntegrationTest {
 				.contentType(MediaType.APPLICATION_JSON).content(Objects.requireNonNull(objectToJson(order))));
 
 		// then
+		int orderId = 1;
 		orderResultActions.andExpect(status().isCreated());
-		orderResultActions.andExpect(MockMvcResultMatchers.jsonPath("$.id", CoreMatchers.is(1)));
+		orderResultActions.andExpect(MockMvcResultMatchers.jsonPath("$.id", CoreMatchers.is(orderId)));
 
 		//
-		mockMvc.perform(get("/api/orders/1").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+		mockMvc.perform(get("/api/orders/{orderId}", orderId).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(jsonPath("$.id").value(1));
 	}
 
 	@Test
-	void itShouldFindOrdersForAuthenticatedUser() throws Exception {
+	void itShouldGetOrdersForAuthenticatedUser() throws Exception {
 		// given
 		String email = "test@gmail.com";
 		RegistrationRequest regRequest = new RegistrationRequest(email, "password", new ContactInfo("first", "last"));
@@ -66,17 +67,17 @@ public class OrderIntegrationTest {
 
 		AuthenticationRequest authRequest = new AuthenticationRequest(email, "password");
 		mockMvc.perform(MockMvcRequestBuilders.post("/api/auth/login").contentType(MediaType.APPLICATION_JSON)
-				.content(Objects.requireNonNull(objectToJson(authRequest))));
+				.content(Objects.requireNonNull(objectToJson(authRequest)))).andExpect(status().isOk());
 
 		// get user
-		String json = mockMvc.perform(get("/api/auth/users/1").accept(MediaType.APPLICATION_JSON)).andReturn()
+		String theUser = mockMvc.perform(get("/api/auth/users/1").accept(MediaType.APPLICATION_JSON)).andReturn()
 				.getResponse().getContentAsString();
-		MyUser account = new ObjectMapper().readValue(json, MyUser.class);
+		MyUser account = new ObjectMapper().readValue(theUser, MyUser.class);
 
 		Order order = new Order("ordernumber", "dateposted", "scheduled", "status", 0, account,
 				new ArrayList<OrderItem>(), new OrderDetails("first", "last", email, "1111111111"));
 
-		// add account field to post request body since Order method getAccount is set to ignore
+		// add account field to post request body since Order method getAccount ignored
 		JSONObject jsonobj = new JSONObject(objectToJson(order)).put("account",
 				new JSONObject().put("id", account.getId()));
 		String postBody = String.valueOf(jsonobj);
