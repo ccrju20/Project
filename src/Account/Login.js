@@ -139,6 +139,7 @@ const Login = (props) => {
                   backgroundColor: "#290052",
                 },
               }}
+              data-cy="login-submit"
             >
               Submit
             </Button>
