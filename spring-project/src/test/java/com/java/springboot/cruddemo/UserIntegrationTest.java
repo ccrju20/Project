@@ -57,7 +57,8 @@ public class UserIntegrationTest {
 		loginResultActions.andExpect(MockMvcResultMatchers.jsonPath("$.jwt").isString());
 
 		//
-		mockMvc.perform(get("/api/auth/users/1").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+		int userId = 1;
+		mockMvc.perform(get("/api/auth/users/{userId}", userId).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(jsonPath("$.email").value(email));
 	}
 

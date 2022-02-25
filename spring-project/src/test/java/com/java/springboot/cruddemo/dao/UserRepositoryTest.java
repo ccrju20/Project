@@ -23,20 +23,40 @@ import com.java.springboot.cruddemo.models.MyUserRole;
 class UserRepositoryTest {
 	
 	@Autowired
-	private UserRepository underTest;
+	private UserRepository underTestMain;
+	
+	@Autowired
+	private ContactInfoRepository underTestExtension;
 	
 	@Test
 	@Order(1)
+	void itShouldSaveContactInfo() {
+		// given
+		ContactInfo info = new ContactInfo("First", "Last", "test@gmail.com", "", "", "",
+				"", "", "");
+		
+		// when
+		underTestExtension.save(info);
+		
+		// then
+		Optional<ContactInfo> contactinfo = underTestExtension.findById(1);
+		assertThat(contactinfo).isPresent().hasValueSatisfying(c -> {
+			assertThat(c).isEqualTo(info);
+		});
+	}
+	
+	@Test
+	@Order(2)
 	void itShouldSaveUser() {
 		// given
 		ContactInfo info = new ContactInfo("First", "Last");
 		MyUser user = new MyUser("test@gmail.com", "password", MyUserRole.USER, info);
 		
 		// when
-		underTest.save(user);
+		underTestMain.save(user);
 		
 		// then
-		Optional<MyUser> theUser = underTest.findById(1);
+		Optional<MyUser> theUser = underTestMain.findById(1);
 		assertThat(theUser).isPresent()
 		.hasValueSatisfying(u -> {
 			assertThat(u).isEqualTo(user);
@@ -51,7 +71,7 @@ class UserRepositoryTest {
 		
 		// when		
 		// then
-		assertThatThrownBy(() -> underTest.save(user))
+		assertThatThrownBy(() -> underTestMain.save(user))
 		.isInstanceOf(ConstraintViolationException.class);
 	}
 	
@@ -63,7 +83,7 @@ class UserRepositoryTest {
 		
 		// when		
 		// then
-		assertThatThrownBy(() -> underTest.save(user))
+		assertThatThrownBy(() -> underTestMain.save(user))
 		.isInstanceOf(ConstraintViolationException.class);
 	}
 	
@@ -74,10 +94,10 @@ class UserRepositoryTest {
 		MyUser user = new MyUser("test2@gmail.com", "password", MyUserRole.USER, info);
 		
 		// when
-		underTest.save(user);
+		underTestMain.save(user);
 		
 		// then
-		Optional<MyUser> theUser = underTest.findByEmail("test2@gmail.com");
+		Optional<MyUser> theUser = underTestMain.findByEmail("test2@gmail.com");
 		
 		assertThat(theUser).isEqualTo(Optional.of(user));
 	}
