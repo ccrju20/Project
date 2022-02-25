@@ -49,6 +49,23 @@ describe("Shop", () => {
     cy.contains("You have 1 item(s) in your cart").should("be.visible");
   });
 
+    // Add 2 different items to Cart from Shop page
+    it("should add 2 products to cart", () => {
+      cy.intercept("GET", "http://localhost:8080/api/products?page=1", {
+        fixture: "products.json",
+      });
+      cy.visit("/shop");
+      cy.get("span").contains("+ Add").click();
+      cy.contains("Added to Cart!").should("be.visible");
+  
+      cy.get(".MuiButton-label").eq(1).click();
+      cy.contains("Added to Cart!").should("be.visible");
+
+      cy.get(".makeStyles-badge-12").should("contain", "2");
+      cy.get(".makeStyles-carticon-11").first().click();
+      cy.contains("You have 2 item(s) in your cart").should("be.visible");
+    });
+
   // Get Products by Category
   it("should mock get products by category", () => {
     cy.intercept(
