@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+/cypress/integration/1-getting-started
+/cypress/integration/2-advanced-examples
 
 # testing
 /coverage

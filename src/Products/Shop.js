@@ -36,7 +36,7 @@ const Shop = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [pageDisplay, setPageDisplay] = useState();
-  const [allProducts, setAllProducts] = useState({});
+  const [allProducts, setAllProducts] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");

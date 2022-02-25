@@ -8,7 +8,7 @@ import CardActionArea from "@mui/material/CardActionArea";
 import Button from "@material-ui/core/Button";
 import CartContext from "../store/cart-context";
 import SnackbarAlert from "../Cart/SnackbarAlert";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, generatePath } from "react-router-dom";
 
 const useStyles = makeStyles({
   title: {
@@ -62,10 +62,10 @@ const ProductCard = (props) => {
         description: description,
         img: imgSrc,
         category: category,
-        options: options
+        options: options,
       })
     );
-    navigate("/product");
+    navigate(generatePath("/product/:id", { id }));
   };
 
   const handleClose = (event, reason) => {
@@ -80,7 +80,15 @@ const ProductCard = (props) => {
     <Card>
       <CardActionArea
         onClick={() => {
-          handleProduct(id, title, subtitle, description, imgSrc, category, options);
+          handleProduct(
+            id,
+            title,
+            subtitle,
+            description,
+            imgSrc,
+            category,
+            options
+          );
         }}
       >
         <CardMedia height={180} component="img" image={imgSrc} alt="item" />
