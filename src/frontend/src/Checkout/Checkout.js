@@ -1,4 +1,4 @@
-import { React, useContext } from "react";
+import { React, useContext, useEffect } from "react";
 import { Grid, Box, Typography } from "@material-ui/core";
 import ContactForm from "./Form/ContactForm";
 import ShippingForm from "./Form/ShippingForm";
@@ -45,6 +45,7 @@ const Checkout = (props) => {
     userCtx.saveInfo(data);
     props.handleNext();
   };
+
   return (
     <>
       <FormProvider {...methods}>

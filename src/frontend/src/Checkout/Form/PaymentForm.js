@@ -6,7 +6,7 @@ import {
 } from "@stripe/react-stripe-js";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
-import { Box } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 
 const PaymentForm = (props) => {
   const stripe = useStripe();
@@ -54,46 +54,60 @@ const PaymentForm = (props) => {
 
     setIsLoading(true);
 
-    props.submit();
-
-    const { error } = await stripe.confirmPayment({
+    const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
-        confirmParams: {
-          return_url: "http://localhost:3000/ordersuccess",
-        },
+      redirect: "if_required",
+      // confirmParams: {
+      //   return_url: "http://localhost:3000/ordersuccess",
+      // },
     });
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
+
+    if (paymentIntent) {
+      if (paymentIntent.status === "succeeded") {
+        props.submit();
+      }
     } else {
-      setMessage("An unexpected error occured.");
+      if (error.type === "card_error" || error.type === "validation_error") {
+        setMessage(error.message);
+      } else {
+        setMessage("An unexpected error occured.");
+      }
     }
+
     setIsLoading(false);
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <PaymentElement id="payment-element" />
-
-      <Box mt={5}>
-        <Button
-          disabled={isLoading || !stripe || !elements}
-          variant="contained"
-          fullWidth
-          type="submit"
-          sx={{
-            backgroundColor: "#290052",
-            "&:hover": {
-              backgroundColor: "#430085",
-            },
-          }}
-        >
-          {isLoading ? <CircularProgress /> : "Confirm Order"}
-        </Button>
-      </Box>
-
+    <>
       {/* Show any error or success messages */}
-      {message && <h3>{message}</h3>}
-    </form>
+      {message && (
+        <Box mb={2}>
+          <Typography color="secondary" variant="caption">
+            {message}
+          </Typography>
+        </Box>
+      )}
+      <form id="payment-form" onSubmit={handleSubmit}>
+        <PaymentElement id="payment-element" />
+
+        <Box mt={5}>
+          <Button
+            disabled={isLoading || !stripe || !elements}
+            variant="contained"
+            fullWidth
+            type="submit"
+            sx={{
+              backgroundColor: "#290052",
+              "&:hover": {
+                backgroundColor: "#430085",
+              },
+            }}
+          >
+            {isLoading ? <CircularProgress /> : "Confirm Order"}
+          </Button>
+        </Box>
+      </form>
+    </>
   );
 };
 

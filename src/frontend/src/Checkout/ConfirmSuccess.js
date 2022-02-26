@@ -4,7 +4,7 @@ import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt
 
 const ConfirmSuccess = () => {
   let number = localStorage.getItem("ordernumber");
-  const orderNumber = number.substr(1,8)
+  const orderNumber = number.substr(0, 8)
 
   return (
     <Box mt={5}>

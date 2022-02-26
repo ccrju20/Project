@@ -28,8 +28,6 @@ const CheckoutCartList = () => {
   const { totalAmount } = cartCtx;
   const total = `$${totalAmount.toFixed(2)}`;
 
-  console.log(cartCtx.items);
-
   return (
     <Card className={classes.root} elevation={5}>
       <Box mt={2} mb={1} ml={2}>
@@ -49,7 +47,6 @@ const CheckoutCartList = () => {
       </List>
       <div className={classes.cartdivider}></div>
       <Divider flexItem={true} />
-      {/* <div className={classes.checkouttotal}> */}
       <Box mt={3} mb={3}>
         <Grid container justifyContent="center">
           <Grid item xs={3}>
@@ -65,7 +62,6 @@ const CheckoutCartList = () => {
           </Grid>
         </Grid>
       </Box>
-      {/* </div> */}
     </Card>
   );
 };
