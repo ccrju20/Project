@@ -95,8 +95,6 @@ const Shop = () => {
       <Grid item xs={10} sm={10}>
         <Box mt={3} mb={4}>
           <Typography variant="h4">Baked Goods</Typography>
-          <h5>Test Change</h5>
-          <h4>Another Test Change</h4>
         </Box>
         <Grid container>
           <Grid item xs={12} sm={matches ? 2 : false}>

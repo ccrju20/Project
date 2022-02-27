@@ -41,30 +41,20 @@ describe("Shop", () => {
       fixture: "products.json",
     });
     cy.visit("/shop");
-    cy.get("span").contains("+ Add").click();
-    cy.contains("Added to Cart!").should("be.visible");
-    cy.get(".makeStyles-badge-12").should("contain", "1");
 
-    cy.get(".makeStyles-carticon-11").first().click();
-    cy.contains("You have 1 item(s) in your cart").should("be.visible");
+    // pass in product id(s) from products.json fixture
+    cy.addOneToCart(1);
   });
 
-    // Add 2 different items to Cart from Shop page
-    it("should add 2 products to cart", () => {
-      cy.intercept("GET", "http://localhost:8080/api/products?page=1", {
-        fixture: "products.json",
-      });
-      cy.visit("/shop");
-      cy.get("span").contains("+ Add").click();
-      cy.contains("Added to Cart!").should("be.visible");
-  
-      cy.get(".MuiButton-label").eq(1).click();
-      cy.contains("Added to Cart!").should("be.visible");
-
-      cy.get(".makeStyles-badge-12").should("contain", "2");
-      cy.get(".makeStyles-carticon-11").first().click();
-      cy.contains("You have 2 item(s) in your cart").should("be.visible");
+  // Add 2 different items to Cart from Shop page
+  it("should add 2 products to cart", () => {
+    cy.intercept("GET", "http://localhost:8080/api/products?page=1", {
+      fixture: "products.json",
     });
+    cy.visit("/shop");
+
+    cy.addTwoToCart(1, 2);
+  });
 
   // Get Products by Category
   it("should mock get products by category", () => {
@@ -83,12 +73,16 @@ describe("Shop", () => {
 
   // Search Product
   it("should mock find products by search", () => {
-    cy.fixture('products').then((json) => {
-      cy.intercept('GET', 'http://localhost:8080/api/products/all', json.products)
-    })
+    cy.fixture("products").then((json) => {
+      cy.intercept(
+        "GET",
+        "http://localhost:8080/api/products/all",
+        json.products
+      );
+    });
 
     cy.visit("/shop");
-    cy.get("[placeholder='Search']").click().type("product 1")
+    cy.get("[placeholder='Search']").click().type("product 1");
     cy.get(".MuiCardMedia-root").should("have.length", 1);
   });
 });
