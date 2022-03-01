@@ -1,39 +1,48 @@
 /// <reference types="cypress" />
 
 describe("Product Page", () => {
-  beforeEach(() => {
-    cy.fixture("products").then((json) => {
-      cy.intercept("GET", "http://localhost:8080/api/products?page=1", json);
-    });
-    cy.visit("/shop");
-  });
-
   // Add to Cart from Product page
   it("should add product to cart", () => {
-    // pass product id
-    cy.addToCartFromProductPage(2);
+    cy.addToCartFromProductPage(2); // pass product id
+    cy.assertSnackbarAndBadge(1); // pass in total cart items
+    cy.assertCartDrawer(2, 1); // pass in product id and amount
+
+    cy.addToCartFromProductPage(1);
+    cy.assertSnackbarAndBadge(2);
+    cy.assertCartDrawer(1, 1);
+
+    // pass in array of objects(products) with id, qty, option
+    cy.assertCartTotal([
+      { id: 2, qt: 1, option: 1 },
+      { id: 1, qt: 1, option: 1 },
+    ]);
   });
 
   // Increase quantity and Add to Cart
   it("should increase qty and add product to cart", () => {
-    // pass product id and qty
-    cy.increaseProductQty(1, 1);
+    cy.addProductWithQuantity(1, 2); // pass product id and qty
+    cy.assertSnackbarAndBadge(1);
+    cy.assertCartDrawer(1, 2);
+
+    cy.addProductWithQuantity(4, 3);
+    cy.assertSnackbarAndBadge(2);
+    cy.assertCartDrawer(4, 3);
+
+    cy.assertCartTotal([
+      { id: 1, qt: 2, option: 1 },
+      { id: 4, qt: 3, option: 1 },
+    ]);
   });
 
   // Select size option and Add to Cart
   it("should select different size and add product to cart", () => {
-    cy.contains("Product 1").click();
+    cy.addProductWithOption(1, 2) // pass product id and optionNo
+    cy.assertSnackbarAndBadge(1);
 
-    cy.get(".MuiFormControl-root").click();
-    cy.get("[data-value='2']").click();
-    cy.contains("$9.99").should("be.visible");
+    cy.get(".makeStyles-carticon-11").eq(1).click();
 
-    cy.contains("Add to Cart").click();
-    cy.contains("Added to Cart!").should("be.visible");
-    cy.get(".makeStyles-badge-12").should("contain", "1");
-
-    cy.get(".makeStyles-carticon-11").first().click();
-    cy.contains("size 4").should("be.visible");
-    cy.contains("Total: $9.99").should("be.visible");
+    cy.assertCartTotal([
+      { id: 1, qt: 1, option: 2 },
+    ]);
   });
 });

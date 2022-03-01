@@ -118,7 +118,7 @@ const Shop = () => {
                 <Divider variant="middle" />
                 <ListItemButton
                   onClick={() => {
-                    setSelectedCategory("cookie");
+                    setSelectedCategory("Cookie");
                     setPage(1);
                     setSearchTerm("");
                   }}
@@ -128,7 +128,7 @@ const Shop = () => {
                 <Divider variant="middle" />
                 <ListItemButton
                   onClick={() => {
-                    setSelectedCategory("cupcake");
+                    setSelectedCategory("Cupcake");
                     setPage(1);
                     setSearchTerm("");
                   }}

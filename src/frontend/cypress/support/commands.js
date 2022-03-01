@@ -40,11 +40,6 @@ Cypress.Commands.add("addOneToCart", (productNumber) => {
   cy.get("[class='MuiButton-label']")
     .eq(productNumber - 1)
     .click();
-  cy.contains("Added to Cart!").should("be.visible");
-  cy.get(".makeStyles-badge-12").should("contain", "1");
-
-  cy.get(".makeStyles-carticon-11").first().click();
-  cy.contains("You have 1 item(s) in your cart").should("be.visible");
 });
 
 Cypress.Commands.add("addTwoToCart", (productNumber, productNumberTwo) => {
@@ -56,16 +51,58 @@ Cypress.Commands.add("addTwoToCart", (productNumber, productNumberTwo) => {
   cy.get("[class='MuiButton-label']")
     .eq(productNumber - 1)
     .click();
-  cy.contains("Added to Cart!").should("be.visible");
-  cy.get(".makeStyles-badge-12").should("contain", "1");
 
   cy.get("[class='MuiButton-label']")
     .eq(productNumberTwo - 1)
     .click();
+});
+
+// Select Category from Shop Page
+Cypress.Commands.add("selectCategory", (category) => {
+  cy.fixture("products").then((json) => {
+    const theProducts = json.products.filter(
+      (product) => product.category === category
+    );
+    const alteredProducts = { ...json, products: theProducts };
+    cy.intercept(
+      "GET",
+      `http://localhost:8080/api/products?category=${category}&page=1`,
+      alteredProducts
+    );
+  });
+  cy.visit("/shop");
+
+  cy.get("span").contains(`${category}`).click();
+});
+
+// Assert Snackbar and Cart Icon Badge
+Cypress.Commands.add("assertSnackbarAndBadge", (totalCartItems) => {
   cy.contains("Added to Cart!").should("be.visible");
-  cy.get(".makeStyles-badge-12").should("contain", "2");
-  cy.get(".makeStyles-carticon-11").first().click();
-  cy.contains("You have 2 item(s) in your cart").should("be.visible");
+  cy.get(".makeStyles-badge-12").should("contain", `${totalCartItems}`);
+});
+
+// Assert Cart Drawer
+Cypress.Commands.add("assertCartDrawer", (productId, qty) => {
+  cy.get(".makeStyles-carticon-11").eq(1).click();
+
+  cy.contains(`Product ${productId} (${qty})`).should("be.visible");
+});
+
+// Assert Cart Total
+Cypress.Commands.add("assertCartTotal", (products) => {
+  cy.fixture("products").then((json) => {
+    let prodTotal = 0;
+    products.forEach(
+      (product) =>
+        (prodTotal +=
+          json.products[product.id - 1].options[product.option - 1].price *
+          product.qt)
+    );
+
+    cy.get(
+      "[class='MuiTypography-root MuiTypography-h5 MuiTypography-alignCenter']"
+    ).should("contain", prodTotal.toFixed(2));
+  });
 });
 
 // Add to Cart from Product page passing in product ID
@@ -77,49 +114,49 @@ Cypress.Commands.add("addToCartFromProductPage", (productId) => {
 
   cy.contains(`Product ${productId}`).click();
   cy.contains("Add to Cart").click();
-  cy.contains("Added to Cart!").should("be.visible");
-  cy.get(".makeStyles-badge-12").should("contain", "1");
-
-  cy.get(".makeStyles-carticon-11").eq(1).click();
-  cy.contains(`Product ${productId} (1)`).should("be.visible");
-
-  cy.fixture("products").then((json) => {
-    cy.get(
-      "[class='MuiTypography-root MuiTypography-h5 MuiTypography-alignCenter']"
-    ).should(
-      "contain",
-      json.products[productId - 1].options[0].price
-    );
-  });
 });
 
-// Increase Product Qty from Product page passing in product ID and amount
-Cypress.Commands.add("increaseProductQty", (productId, qtyAmount) => {
+// Add from Product page passing in product ID and amount
+Cypress.Commands.add("addProductWithQuantity", (productId, qtyAmount) => {
   cy.fixture("products").then((json) => {
     cy.intercept("GET", "http://localhost:8080/api/products?page=1", json);
   });
   cy.visit("/shop");
 
   cy.contains(`Product ${productId}`).click();
-  _.times(qtyAmount, () =>
+  _.times(qtyAmount - 1, () =>
     cy.get("[data-testid='AddCircleOutlineTwoToneIcon']").click()
   );
-  const totalQty = qtyAmount + 1;
-  cy.get(".MuiTypography-h6").should("contain", `${totalQty}`);
+  cy.get(".MuiTypography-h6").should("contain", `${qtyAmount}`);
 
   cy.contains("Add to Cart").click();
-  cy.contains("Added to Cart!").should("be.visible");
-  cy.get(".makeStyles-badge-12").should("contain", "1");
+});
 
-  cy.get(".makeStyles-carticon-11").eq(1).click();
-  cy.contains(`Product ${productId} (${totalQty})`).should("be.visible");
+Cypress.Commands.add("addProductWithOption", (productId, optionNo) => {
+  cy.fixture("products").then((json) => {
+    cy.intercept("GET", "http://localhost:8080/api/products?page=1", json);
+  });
+  cy.visit("/shop");
+
+  cy.contains(`Product ${productId}`).click();
+  cy.get(".MuiFormControl-root").click();
 
   cy.fixture("products").then((json) => {
-    cy.get(
-      "[class='MuiTypography-root MuiTypography-h5 MuiTypography-alignCenter']"
-    ).should(
-      "contain",
-      (json.products[productId - 1].options[0].price * totalQty).toFixed(2)
-    );
+    const productOptionId =
+      json.products[productId - 1].options[optionNo - 1].id;
+
+    const productOptionPrice =
+      json.products[productId - 1].options[optionNo - 1].price;
+
+    const productOptionSize =
+      json.products[productId - 1].options[optionNo - 1].size;
+
+    cy.get(`[data-value='${productOptionId}']`).click();
+    cy.contains(productOptionPrice).should("be.visible");
+    cy.contains("Add to Cart").click();
+
+    // cy.get(".makeStyles-carticon-11").first().click();
+    // cy.get(".MuiCardHeader-title").should("contain", productOptionSize);
+    // cy.contains(`Total: $${productOptionPrice}`).should("be.visible");
   });
 });
