@@ -80,7 +80,7 @@ const CartProduct = (props) => {
                   </IconButton>
                 </Grid>
                 <Grid item>
-                  <ListItemText sx={{ margin: 1 }} primary={itemAmount} />
+                  <ListItemText data-cy="cartQty" sx={{ margin: 1 }} primary={itemAmount} />
                 </Grid>
                 <Grid item>
                   <IconButton onClick={handleAdd}>
@@ -127,6 +127,7 @@ const CartProduct = (props) => {
               backgroundColor: "#290052",
             },
           }}
+          data-cy="update"
         >
           Update Items
         </Button>

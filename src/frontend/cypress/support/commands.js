@@ -88,6 +88,28 @@ Cypress.Commands.add("assertCartDrawer", (productId, qty) => {
   cy.contains(`Product ${productId} (${qty})`).should("be.visible");
 });
 
+// Assert Cart Drawer for Products with Options
+Cypress.Commands.add(
+  "assertCartDrawerProductOptions",
+  (productId, optionNo, qty) => {
+    cy.get(".makeStyles-carticon-11").eq(1).click();
+
+    cy.fixture("products").then((json) => {
+      const productOptionPrice =
+        json.products[productId - 1].options[optionNo - 1].price;
+
+      const productOptionSize =
+        json.products[productId - 1].options[optionNo - 1].size;
+
+      cy.get(".MuiCardHeader-title")
+        .should("contain", productOptionSize)
+        .and("contain", `Product ${productId}`)
+        .and("contain", `(${qty})`);
+      cy.get(".MuiCardHeader-subheader").should("contain", productOptionPrice);
+    });
+  }
+);
+
 // Assert Cart Total
 Cypress.Commands.add("assertCartTotal", (products) => {
   cy.fixture("products").then((json) => {
@@ -132,15 +154,18 @@ Cypress.Commands.add("addProductWithQuantity", (productId, qtyAmount) => {
   cy.contains("Add to Cart").click();
 });
 
-Cypress.Commands.add("addProductWithOption", (productId, optionNo) => {
+Cypress.Commands.add("addProductWithOption", (productId, optionNo, qtyAmount) => {
   cy.fixture("products").then((json) => {
     cy.intercept("GET", "http://localhost:8080/api/products?page=1", json);
   });
   cy.visit("/shop");
 
   cy.contains(`Product ${productId}`).click();
+  _.times(qtyAmount - 1, () =>
+    cy.get("[data-testid='AddCircleOutlineTwoToneIcon']").click()
+  );
+  cy.get(".MuiTypography-h6").should("contain", `${qtyAmount}`);
   cy.get(".MuiFormControl-root").click();
-
   cy.fixture("products").then((json) => {
     const productOptionId =
       json.products[productId - 1].options[optionNo - 1].id;
@@ -148,15 +173,29 @@ Cypress.Commands.add("addProductWithOption", (productId, optionNo) => {
     const productOptionPrice =
       json.products[productId - 1].options[optionNo - 1].price;
 
-    const productOptionSize =
-      json.products[productId - 1].options[optionNo - 1].size;
-
     cy.get(`[data-value='${productOptionId}']`).click();
     cy.contains(productOptionPrice).should("be.visible");
     cy.contains("Add to Cart").click();
-
-    // cy.get(".makeStyles-carticon-11").first().click();
-    // cy.get(".MuiCardHeader-title").should("contain", productOptionSize);
-    // cy.contains(`Total: $${productOptionPrice}`).should("be.visible");
   });
+});
+
+// Assert Cart Page (individual item)
+Cypress.Commands.add("assertCartPage", (productId, pos, qty) => {
+  cy.get(".makeStyles-carticon-11").eq(1).click();
+  cy.contains("Go to Cart").click();
+  cy.contains(`Product ${productId}`).should("be.visible");
+  cy.get("[data-cy='cartQty']")
+    .eq(pos - 1)
+    .should("contain", qty)
+});
+
+// Update Item (individual item)
+Cypress.Commands.add("updateItem", (pos, isIncrease) => {
+  if (isIncrease) {
+    cy.get("[data-testid='AddCircleOutlineOutlinedIcon']").eq(pos - 1).click()
+    cy.get("[data-cy='update']").eq(pos - 1).click();
+  } else {
+    cy.get("[data-testid='RemoveCircleOutlineIcon']").eq(pos -1 ).click()
+    cy.get("[data-cy='update']").eq(pos - 1).click();
+  }
 });

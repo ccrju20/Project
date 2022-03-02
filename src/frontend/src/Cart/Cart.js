@@ -89,7 +89,7 @@ const Cart = (props) => {
                     <Typography align="center" variant="body2">
                       Subtotal: {totalAmount}
                     </Typography>
-                    <Typography align="center" variant="h6">
+                    <Typography align="center" variant="h5">
                       Total: {totalAmount}
                     </Typography>
                   </Box>
