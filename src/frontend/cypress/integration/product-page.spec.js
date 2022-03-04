@@ -2,55 +2,64 @@
 
 describe("Product Page", () => {
 
-  beforeEach(() => {
-    cy.fixture("products").then((json) => {
-      cy.intercept("GET", "http://localhost:8080/api/products?page=1", json);
-    });
-    cy.visit("/shop");
-  })
-
-  // Add to Cart from Product page
+  // Add to Cart from Product page - 1 product
   it("should add product to cart", () => {
-    cy.contains("Product 1").click();
-    cy.contains("Add to Cart").click();
-    cy.contains("Added to Cart!").should("be.visible");
-    cy.get(".makeStyles-badge-12").should("contain", "1");
+    cy.addToCartFromProductPage(4); // pass product id
+      cy.assertSnackbarAndBadge(1); // pass in total cart items
+      cy.assertCartDrawer(4, 1); // pass in product id and amount
 
-    cy.get(".makeStyles-carticon-11").first().click();
-    cy.contains("You have 1 item(s) in your cart").should("be.visible");
-    cy.contains("Total: $4.99").should("be.visible");
+    // pass in array of objects(products) with id, qty, option
+    // option always 1 by default unless testing product options
+    cy.assertCartTotal([
+      { id: 2, qt: 1, option: 1 },
+    ]);
+  });
+
+  // Add to Cart from Product page - more than 1 product
+  it("should add 2 products to cart", () => {
+    cy.addToCartFromProductPage(1);
+      cy.assertSnackbarAndBadge(1); 
+      cy.assertCartDrawer(1, 1);
+
+    cy.addToCartFromProductPage(2);
+      cy.assertSnackbarAndBadge(2);
+      cy.assertCartDrawer(2, 1);
+
+    cy.assertCartTotal([
+      { id: 1, qt: 1, option: 1 },
+      { id: 2, qt: 1, option: 1 },
+    ]);
   });
 
   // Increase quantity and Add to Cart
   it("should increase qty and add product to cart", () => {
-    cy.contains("Product 1").click();
+    cy.addProductWithQuantity(1, 2); // pass product id and qty
+      cy.assertSnackbarAndBadge(1);
+      cy.assertCartDrawer(1, 2);
 
-    cy.get("[data-testid='AddCircleOutlineTwoToneIcon']").click();
-    cy.get(".MuiTypography-h6").should("contain", "2");
+    cy.addProductWithQuantity(4, 3);
+      cy.assertSnackbarAndBadge(2);
+      cy.assertCartDrawer(4, 3);
 
-    cy.contains("Add to Cart").click();
-    cy.contains("Added to Cart!").should("be.visible");
-    cy.get(".makeStyles-badge-12").should("contain", "1");
-
-    cy.get(".makeStyles-carticon-11").first().click();
-    cy.contains("Product 1 (2)").should("be.visible");
-    cy.contains("Total: $9.98").should("be.visible");
+    cy.assertCartTotal([
+      { id: 1, qt: 2, option: 1 },
+      { id: 4, qt: 3, option: 1 },
+    ]);
   });
 
   // Select size option and Add to Cart
   it("should select different size and add product to cart", () => {
-    cy.contains("Product 1").click();
+    cy.addProductWithOption(7, 3, 2) // pass product id, optionNo, qty
+      cy.assertSnackbarAndBadge(1);
+      cy.assertCartDrawerProductOptions(7, 3, 2) // pass in productId, optionNo, qty
+    
+    cy.addProductWithOption(1, 2, 1)
+      cy.assertSnackbarAndBadge(2);
+      cy.assertCartDrawerProductOptions(1, 2, 1) 
 
-    cy.get(".MuiFormControl-root").click();
-    cy.get("[data-value='2']").click();
-    cy.contains("$9.99").should("be.visible");
-
-    cy.contains("Add to Cart").click();
-    cy.contains("Added to Cart!").should("be.visible");
-    cy.get(".makeStyles-badge-12").should("contain", "1");
-
-    cy.get(".makeStyles-carticon-11").first().click();
-    cy.contains("size 4").should("be.visible");
-    cy.contains("Total: $9.99").should("be.visible");
+    cy.assertCartTotal([
+      { id: 7, qt: 2, option: 3 },
+      { id: 1, qt: 1, option: 2 },
+    ]);
   });
 });

@@ -11,6 +11,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CheckoutCartList from "./OrderSummary/CheckoutCartList";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 const ORDERS_REST_API_URL = "http://localhost:8080/api/orders";
 
@@ -24,6 +25,7 @@ const PaymentPage = (props) => {
   const [clientSecret, setClientSecret] = useState("");
   const userContext = useContext(UserInfoContext);
   const cartCtx = useContext(CartContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -32,6 +34,8 @@ const PaymentPage = (props) => {
         setClientSecret(res.data.clientSecret);
         console.log(res.data.clientSecret);
       });
+
+    localStorage.removeItem("ordernumber");
   }, []);
 
   const appearance = {
@@ -117,17 +121,22 @@ const PaymentPage = (props) => {
     DataObject.account = { id: userId };
   }
 
+  const total = localStorage.getItem("total");
+
   const handleBack = () => {
     props.handleBack();
   };
 
-  const submit = () => {
-    axios.post(ORDERS_REST_API_URL, DataObject).then((response) => {
-      localStorage.setItem(
-        "ordernumber",
-        JSON.stringify(response.data.ordernumber)
-      );
-    });
+  const submit = async () => {
+    try {
+      const resp = await axios.post(ORDERS_REST_API_URL, DataObject);
+      console.log(resp.data.ordernumber);
+      localStorage.setItem("ordernumber", resp.data.ordernumber)
+    } catch {
+      console.log("backend error");
+    }
+
+    navigate("/ordersuccess");
 
     cartCtx.items.forEach((item) => {
       cartCtx.deleteItem(item.option);
@@ -137,7 +146,6 @@ const PaymentPage = (props) => {
   return (
     <>
       <Button onClick={handleBack}>Back</Button>
-
       <Box mb={3}>
         <Grid container justifyContent="center">
           <Typography variant="h5">Your Order Details </Typography>
@@ -177,6 +185,7 @@ const PaymentPage = (props) => {
         <Grid item xs={12} sm={12} md={5}>
           <CheckoutCartList />
         </Grid>
+        <h3>{total}</h3>
       </Grid>
     </>
   );

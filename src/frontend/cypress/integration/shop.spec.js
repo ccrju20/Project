@@ -37,11 +37,7 @@ describe("Shop", () => {
 
   // Add to Cart from Shop page
   it("should add 1 product to cart", () => {
-    cy.intercept("GET", "http://localhost:8080/api/products?page=1", {
-      fixture: "products.json",
-    });
-    cy.visit("/shop");
-    cy.get("span").contains("+ Add").click();
+    cy.addOneToCart(1); // pass in product id
     cy.contains("Added to Cart!").should("be.visible");
     cy.get(".makeStyles-badge-12").should("contain", "1");
 
@@ -49,46 +45,37 @@ describe("Shop", () => {
     cy.contains("You have 1 item(s) in your cart").should("be.visible");
   });
 
-    // Add 2 different items to Cart from Shop page
-    it("should add 2 products to cart", () => {
-      cy.intercept("GET", "http://localhost:8080/api/products?page=1", {
-        fixture: "products.json",
-      });
-      cy.visit("/shop");
-      cy.get("span").contains("+ Add").click();
-      cy.contains("Added to Cart!").should("be.visible");
-  
-      cy.get(".MuiButton-label").eq(1).click();
-      cy.contains("Added to Cart!").should("be.visible");
+  // Add 2 different items to Cart from Shop page
+  it("should add 2 products to cart", () => {
+    cy.addTwoToCart(1, 2); // pass in product ids
+    cy.contains("Added to Cart!").should("be.visible");
+    cy.get(".makeStyles-badge-12").should("contain", "2");
 
-      cy.get(".makeStyles-badge-12").should("contain", "2");
-      cy.get(".makeStyles-carticon-11").first().click();
-      cy.contains("You have 2 item(s) in your cart").should("be.visible");
-    });
+    cy.get(".makeStyles-carticon-11").first().click();
+    cy.contains("You have 2 item(s) in your cart").should("be.visible");
+  });
 
   // Get Products by Category
   it("should mock get products by category", () => {
-    cy.intercept(
-      "GET",
-      "http://localhost:8080/api/products?category=Cake&page=1",
-      {
-        fixture: "products-page2",
-      }
-    );
-    cy.visit("/shop");
+    cy.selectCategory("Cookie");
+    cy.get(".MuiCardMedia-root").should("have.length", 1);
 
-    cy.get("span").contains("Cake").click();
+    cy.selectCategory("Cake");
     cy.get(".MuiCardMedia-root").should("have.length", 2);
   });
 
   // Search Product
   it("should mock find products by search", () => {
-    cy.fixture('products').then((json) => {
-      cy.intercept('GET', 'http://localhost:8080/api/products/all', json.products)
-    })
+    cy.fixture("products").then((json) => {
+      cy.intercept(
+        "GET",
+        "http://localhost:8080/api/products/all",
+        json.products
+      );
+    });
 
     cy.visit("/shop");
-    cy.get("[placeholder='Search']").click().type("product 1")
+    cy.get("[placeholder='Search']").click().type("product 1");
     cy.get(".MuiCardMedia-root").should("have.length", 1);
   });
 });
