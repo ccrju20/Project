@@ -107,4 +107,14 @@ describe("Cart Page", () => {
       { id: 4, qt: 1, option: 1 },
     ]);
   })
+
+  // Empty the cart
+  it("should display empty cart after removing", () => {
+    cy.addOneToCart(1);
+      cy.assertCartPage(1, 1, 1)
+      cy.get("[data-cy='delete']").click();
+
+    cy.contains("You have 0 item(s) in your cart").should("be.visible")
+    cy.get("[type='submit']").should("contain", "Continue Shopping")
+  })
 });

@@ -107,10 +107,10 @@ const PaymentPage = (props) => {
       lastname: lastname,
       email: email,
       phone: phone,
-      address: address,
-      addresstwo: addresstwo,
-      city: city,
-      state: state,
+      address: address.toUpperCase(),
+      addresstwo: addresstwo.toUpperCase(),
+      city: city.toUpperCase(),
+      state: state.toUpperCase(),
       postal: postal,
     },
   };
@@ -164,7 +164,7 @@ const PaymentPage = (props) => {
                   {email}
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  {address} {city} {state} {postal}
+                  {address} {city} {state.toUpperCase()} {postal}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   {phone}
