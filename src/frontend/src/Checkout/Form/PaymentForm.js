@@ -82,12 +82,12 @@ const PaymentForm = (props) => {
       {/* Show any error or success messages */}
       {message && (
         <Box mb={2}>
-          <Typography color="secondary" variant="caption">
+          <Typography color="secondary" variant="caption" data-cy="error">
             {message}
           </Typography>
         </Box>
       )}
-      <form id="payment-form" onSubmit={handleSubmit}>
+      <form id="payment-form" onSubmit={handleSubmit} data-cy="payment">
         <PaymentElement id="payment-element" />
 
         <Box mt={5}>

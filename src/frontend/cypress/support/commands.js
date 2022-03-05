@@ -229,3 +229,39 @@ Cypress.Commands.add("fillShippingCheckout", () => {
   cy.get("[name='state']").click().type("CA");
   cy.get("[name='postal']").click().type("91007");
 });
+
+Cypress.Commands.add("getStripeElement", (fieldName) => {
+  if (Cypress.config("chromeWebSecurity")) {
+    throw new Error(
+      "To get stripe element `chromeWebSecurity` must be disabled"
+    );
+  }
+
+  const selector = `input[id="${fieldName}"]`;
+
+  cy.get("iframe")
+    .eq(1)
+    .its("0.contentDocument.body")
+    .should("not.be.empty")
+    .then(cy.wrap)
+    .find(selector);
+});
+
+Cypress.Commands.add("getByTestId", (testid) => {
+  return cy.get(`[data-cy=${testId}]`);
+});
+
+Cypress.Commands.add("mockPaymentIntents", () => {
+  // mocking our create payment intent endpoint
+  cy.intercept("POST", "http://localhost:8080/api/create-payment-intent", {
+    fixture: "payment-intent.json",
+  }).as("createPaymentIntent");
+
+  // mocking stripe confirm payment intent endpoint
+  cy.intercept("POST", "https://api.stripe.com/v1/payment_intents/*/confirm", {
+    fixture: "payment-intent-object",
+    // body: {
+    //   error: false,
+    // },
+  }).as("confirmPayment");
+});

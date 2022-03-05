@@ -10,10 +10,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import MobileDateTimePicker from "@mui/lab/MobileDateTimePicker";
 
 const ScheduleForm = () => {
-  const {
-    control,
-    unregister,
-  } = useFormContext();
+  const { control, unregister } = useFormContext();
 
   const [asapOrScheduled, setAsapOrScheduled] = useState("ASAP");
   const [dateValue, setDateValue] = useState();
@@ -27,52 +24,56 @@ const ScheduleForm = () => {
 
   return (
     <>
-    <Grid container justifyContent="center">
-      <Controller
-        control={control}
-        name={"when"}
-        defaultValue="ASAP"
-        render={({ field: { onChange, value } }) => (
-          <RadioGroup
-            defaultValue="ASAP"
-            onChange={(event) => {
-              onChange(event.target.value);
-              setAsapOrScheduled(event.target.value);
-              event.target.value === "ASAP" && unregister("scheduled")
-            }}
-            row
-          >
-            <FormControlLabel value="ASAP" control={<Radio />} label="ASAP" />
-            <FormControlLabel
-              value="Scheduled"
-              control={<Radio />}
-              label="Scheduled"
-            />
-          </RadioGroup>
-        )}
-      />
+      <Grid container justifyContent="center">
+        <Controller
+          control={control}
+          name={"when"}
+          defaultValue="ASAP"
+          render={({ field: { onChange, value } }) => (
+            <RadioGroup
+              defaultValue="ASAP"
+              onChange={(event) => {
+                onChange(event.target.value);
+                setAsapOrScheduled(event.target.value);
+                event.target.value === "ASAP" && unregister("scheduled");
+              }}
+              row
+            >
+              <FormControlLabel value="ASAP" control={<Radio />} label="ASAP" />
+              <FormControlLabel
+                value="Scheduled"
+                control={<Radio />}
+                label="Scheduled"
+              />
+            </RadioGroup>
+          )}
+        />
 
-      {asapOrScheduled === "Scheduled" && (
-        <Box mt={2}>
-          <Controller
-            control={control}
-            name={"scheduled"}
-            defaultValue={dateValue}
-            render={({ field }) => (
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <MobileDateTimePicker
-                  {...field}
-                  minutesStep={15}
-                  label="Select Date and Time"
-                  renderInput={(params) => (
-                    <TextField {...params} sx={{ width: "250px" }} />
-                  )}
-                />
-              </LocalizationProvider>
-            )}
-          />
-        </Box>
-      )}
+        {asapOrScheduled === "Scheduled" && (
+          <Box mt={2}>
+            <Controller
+              control={control}
+              name={"scheduled"}
+              defaultValue={dateValue}
+              render={({ field }) => (
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <MobileDateTimePicker
+                    {...field}
+                    minutesStep={15}
+                    label="Select Date and Time"
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        sx={{ width: "250px" }}
+                        data-cy="dateTimePicker"
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
+              )}
+            />
+          </Box>
+        )}
       </Grid>
     </>
   );

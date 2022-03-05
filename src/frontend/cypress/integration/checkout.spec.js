@@ -47,64 +47,77 @@ describe("Checkout", () => {
   //     cy.contains("Pickup Location").should("be.visible");
   //   });
 
-  //   // Confirm Scheduled option
-  //   it("should display scheduled date time field", () => {
-  //     cy.addOneToCart(1);
-  //     cy.goToCheckout();
-
-  //     cy.contains("Scheduled").click();
-  //     cy.get("fieldset")
-  //       .children(".css-1z7n62")
-  //       .should("contain", "Select Date and Time");
-
-  //     cy.get(
-  //       "[class='MuiOutlinedInput-input MuiInputBase-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input']"
-  //     ).click();
-
-  //     cy.get("[class='PrivatePickersToolbar-root css-yquuwn']").should(
-  //       "contain",
-  //       "Select Date and Time"
-  //     );
-  //   });
-
-  // Continue to Payment - Delivery, ASAP
-  it("should continue to payment - delivery ASAP", () => {
+  // Confirm Scheduled option
+  it("should display scheduled date time field", () => {
     cy.addOneToCart(1);
     cy.goToCheckout();
 
-    // mocking our create payment intent endpoint
-    cy.intercept("POST", "http://localhost:8080/api/create-payment-intent", {
-      fixture: "payment-intent.json",
-    }).as("createPaymentIntent");
+    cy.contains("Scheduled").click();
+    cy.get("fieldset")
+      .children(".css-1z7n62")
+      .should("contain", "Select Date and Time");
 
-    // mocking stripe confirm payment intent endpoint
-    cy.intercept(
-      "POST",
-      "https://api.stripe.com/v1/payment_intents/*/confirm",
-      {
-        body: {
-          // stripe client requires `error` to be present for both success and failed response
-          error: false,
-        },
-      }
-    ).as("confirmPayment");
+    cy.get("[data-cy='dateTimePicker']").click();
+
+    cy.get("[class='PrivatePickersToolbar-root css-yquuwn']").should(
+      "contain",
+      "Select Date and Time"
+    );
+  });
+
+  // // Continue to Payment - Delivery, ASAP
+  // it("should continue to payment - delivery asap", () => {
+  //   cy.addOneToCart(1);
+  //   cy.goToCheckout();
+  //   cy.mockPaymentIntents();
+
+  //   cy.fillContactCheckout();
+  //   cy.fillShippingCheckout();
+  //   cy.contains("Continue to Payment").click();
+
+  //   cy.get("[data-testid='CheckCircleIcon']").should("exist");
+  //   cy.contains("Your Order Details").should("be.visible");
+  //   cy.contains("DELIVERY").should("be.visible")
+  //   cy.contains("ASAP").should("be.visible")
+  // });
+
+  // Continue to Payment - Delivery, Scheduled
+  it("should continue to payment - delivery scheduled", () => {
+    cy.addOneToCart(1);
+    cy.goToCheckout();
+    cy.mockPaymentIntents();
 
     cy.fillContactCheckout();
     cy.fillShippingCheckout();
+    cy.contains("Scheduled").click();
+    cy.get("[data-cy='dateTimePicker']").click();
+    cy.contains("OK").click();
 
     cy.contains("Continue to Payment").click();
 
-    cy.wait(5000);
-    cy.get("iframe")
-      .its("0.contentDocument.body")
-      .then(cy.wrap)
-      .get("[id='Field-numberInput']");
-
-    cy.get("[data-testid='CheckCircleIcon']").should("be.visible");
+    cy.get("[data-testid='CheckCircleIcon']").should("exist");
     cy.contains("Your Order Details").should("be.visible");
-  });
+    cy.contains("DELIVERY").should("be.visible");
+    cy.get(".MuiGrid-grid-sm-6")
+      .eq(5)
+      .invoke("text")
+      .then((text) => {
+        const testDate = new Date();
+        testDate.setDate(testDate.getDate() + 2);
+        testDate.setHours(10, 0);
 
-  // Continue to Payment - Pickup, ASAP
+        let scheduledTime = "";
+        scheduledTime = new Intl.DateTimeFormat("en-US", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+        }).format(testDate);
+
+        expect(text).to.be.eq(scheduledTime);
+      });
+  });
 
   // Continue to Payment - Delivery, Scheduled
 
