@@ -47,8 +47,6 @@ const PaymentPage = (props) => {
   };
 
   /// From ConfirmInfo
-  console.log(userContext.info);
-
   const {
     firstname,
     lastname,

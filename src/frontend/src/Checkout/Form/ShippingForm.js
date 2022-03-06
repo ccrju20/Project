@@ -31,8 +31,8 @@ const ContactForm = () => {
                   onChange={(event, value) => {
                     onChange(value);
                     setPickup(value);
-                    console.log(value);
                   }}
+                  data-cy="switch"
                 />
               )}
             />

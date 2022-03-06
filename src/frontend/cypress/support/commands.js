@@ -247,16 +247,14 @@ Cypress.Commands.add("getStripeElement", (fieldName) => {
     .find(selector);
 });
 
-Cypress.Commands.add("getByTestId", (testid) => {
-  return cy.get(`[data-cy=${testId}]`);
-});
-
-Cypress.Commands.add("mockPaymentIntents", () => {
+Cypress.Commands.add("mockPaymentIntent", () => {
   // mocking our create payment intent endpoint
   cy.intercept("POST", "http://localhost:8080/api/create-payment-intent", {
     fixture: "payment-intent.json",
   }).as("createPaymentIntent");
+});
 
+Cypress.Commands.add("mockConfirmPayment", () => {
   // mocking stripe confirm payment intent endpoint
   cy.intercept("POST", "https://api.stripe.com/v1/payment_intents/*/confirm", {
     fixture: "payment-intent-object",
@@ -264,4 +262,26 @@ Cypress.Commands.add("mockPaymentIntents", () => {
     //   error: false,
     // },
   }).as("confirmPayment");
+});
+
+Cypress.Commands.add("fillCardInfo", () => {
+  cy.getByTestId("payment").within(() => {
+    cy.getStripeElement("Field-numberInput").type("4242424242424242");
+    cy.getStripeElement("Field-expiryInput").type("0422");
+    cy.getStripeElement("Field-cvcInput").type("789");
+    cy.getStripeElement("Field-postalCodeInput").type("91007");
+  });
+});
+
+Cypress.Commands.add("confirmOrder", () => {
+  cy.contains("Confirm Order").click();
+
+  cy.wait("@confirmPayment").then(() => {
+    // mocking order post request
+    cy.intercept("POST", "http://localhost:8080/api/orders", {
+      fixture: "order-success.json",
+    }).as("orderSuccess");
+
+    cy.wait("@orderSuccess");
+  });
 });
