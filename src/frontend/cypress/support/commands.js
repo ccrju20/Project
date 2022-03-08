@@ -231,13 +231,18 @@ Cypress.Commands.add("fillShippingCheckout", () => {
 });
 
 Cypress.Commands.add("getStripeElement", (fieldName) => {
-  if (Cypress.config("chromeWebSecurity")) {
-    throw new Error(
-      "To get stripe element `chromeWebSecurity` must be disabled"
-    );
-  }
-
   const selector = `input[id="${fieldName}"]`;
+
+  cy.get("iframe")
+    .eq(1)
+    .its("0.contentDocument.body")
+    .should("not.be.empty")
+    .then(cy.wrap)
+    .find(selector);
+});
+
+Cypress.Commands.add("getStripeElementError", (fieldName) => {
+  const selector = `p[id="${fieldName}"]`;
 
   cy.get("iframe")
     .eq(1)
@@ -250,17 +255,18 @@ Cypress.Commands.add("getStripeElement", (fieldName) => {
 Cypress.Commands.add("mockPaymentIntent", () => {
   // mocking our create payment intent endpoint
   cy.intercept("POST", "http://localhost:8080/api/create-payment-intent", {
-    fixture: "payment-intent.json",
+    body: {
+      clientSecret: "pi_3KZheGI7AFq6GjKY1OtlH2rT_secret_iuPuWPUmrFWHugGotfLU8Xhtj"
+    }
   }).as("createPaymentIntent");
 });
 
 Cypress.Commands.add("mockConfirmPayment", () => {
   // mocking stripe confirm payment intent endpoint
   cy.intercept("POST", "https://api.stripe.com/v1/payment_intents/*/confirm", {
-    fixture: "payment-intent-object",
-    // body: {
-    //   error: false,
-    // },
+    body: {
+      status: "succeeded",
+    },
   }).as("confirmPayment");
 });
 
@@ -273,13 +279,14 @@ Cypress.Commands.add("fillCardInfo", () => {
   });
 });
 
-Cypress.Commands.add("confirmOrder", () => {
+Cypress.Commands.add("confirmOrderSuccess", () => {
   cy.contains("Confirm Order").click();
-
   cy.wait("@confirmPayment").then(() => {
     // mocking order post request
     cy.intercept("POST", "http://localhost:8080/api/orders", {
-      fixture: "order-success.json",
+      body: {
+        ordernumber: "ABCD1234",
+      },
     }).as("orderSuccess");
 
     cy.wait("@orderSuccess");
