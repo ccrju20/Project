@@ -8,7 +8,7 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 
-const steps = ["Enter Information ", "Review and Confirm"];
+const steps = ["Enter Information ", "Review and Pay"];
 
 const Check = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -46,7 +46,7 @@ const Check = () => {
           <Box mb={2}>
             <Divider variant="middle" />
           </Box>
-          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }} alternativeLabel>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>

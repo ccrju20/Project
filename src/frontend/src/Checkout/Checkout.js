@@ -13,25 +13,51 @@ import Button from "@mui/material/Button";
 const schema = yup
   .object()
   .shape({
-    firstname: yup.string().required(),
-    lastname: yup.string().required(),
-    email: yup.string().email().required(),
-    phone: yup.string().min(10).required(),
+    firstname: yup.string().trim().required("*First name is required"),
+    lastname: yup.string().trim().required("*Last name is required"),
+    email: yup.string().email("*Must be a valid email").required("*Email is required"),
+    phone: yup
+      .string()
+      .min(10, "*Must be at least 10 characters")
+      .trim()
+      .required(),
     //
     pickup: yup.boolean().required(),
     address: yup
       .string()
-      .when("pickup", { is: false, then: yup.string().required() }),
-    addresstwo: yup.string(),
+      .trim()
+      .when("pickup", {
+        is: false,
+        then: yup.string().required("*Address is required"),
+      }),
+    addresstwo: yup.string().trim(),
     city: yup
       .string()
-      .when("pickup", { is: false, then: yup.string().required() }),
+      .trim()
+      .when("pickup", {
+        is: false,
+        then: yup.string().required("*City is required"),
+      }),
     state: yup
       .string()
-      .when("pickup", { is: false, then: yup.string().min(2).required() }),
+      .trim()
+      .when("pickup", {
+        is: false,
+        then: yup
+          .string()
+          .min(2, "*Must be 2 characters")
+          .required(),
+      }),
     postal: yup
       .string()
-      .when("pickup", { is: false, then: yup.string().min(5).required() }),
+      .trim()
+      .when("pickup", {
+        is: false,
+        then: yup
+          .string()
+          .min(5, "*Must be at least 5 characters")
+          .required(),
+      }),
   })
   .required();
 

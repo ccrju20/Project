@@ -154,30 +154,33 @@ Cypress.Commands.add("addProductWithQuantity", (productId, qtyAmount) => {
   cy.contains("Add to Cart").click();
 });
 
-Cypress.Commands.add("addProductWithOption", (productId, optionNo, qtyAmount) => {
-  cy.fixture("products").then((json) => {
-    cy.intercept("GET", "http://localhost:8080/api/products?page=1", json);
-  });
-  cy.visit("/shop");
+Cypress.Commands.add(
+  "addProductWithOption",
+  (productId, optionNo, qtyAmount) => {
+    cy.fixture("products").then((json) => {
+      cy.intercept("GET", "http://localhost:8080/api/products?page=1", json);
+    });
+    cy.visit("/shop");
 
-  cy.contains(`Product ${productId}`).click();
-  _.times(qtyAmount - 1, () =>
-    cy.get("[data-testid='AddCircleOutlineTwoToneIcon']").click()
-  );
-  cy.get(".MuiTypography-h6").should("contain", `${qtyAmount}`);
-  cy.get(".MuiFormControl-root").click();
-  cy.fixture("products").then((json) => {
-    const productOptionId =
-      json.products[productId - 1].options[optionNo - 1].id;
+    cy.contains(`Product ${productId}`).click();
+    _.times(qtyAmount - 1, () =>
+      cy.get("[data-testid='AddCircleOutlineTwoToneIcon']").click()
+    );
+    cy.get(".MuiTypography-h6").should("contain", `${qtyAmount}`);
+    cy.get(".MuiFormControl-root").click();
+    cy.fixture("products").then((json) => {
+      const productOptionId =
+        json.products[productId - 1].options[optionNo - 1].id;
 
-    const productOptionPrice =
-      json.products[productId - 1].options[optionNo - 1].price;
+      const productOptionPrice =
+        json.products[productId - 1].options[optionNo - 1].price;
 
-    cy.get(`[data-value='${productOptionId}']`).click();
-    cy.contains(productOptionPrice).should("be.visible");
-    cy.contains("Add to Cart").click();
-  });
-});
+      cy.get(`[data-value='${productOptionId}']`).click();
+      cy.contains(productOptionPrice).should("be.visible");
+      cy.contains("Add to Cart").click();
+    });
+  }
+);
 
 // Assert Cart Page (individual item)
 Cypress.Commands.add("assertCartPage", (productId, pos, qty) => {
@@ -186,16 +189,106 @@ Cypress.Commands.add("assertCartPage", (productId, pos, qty) => {
   cy.contains(`Product ${productId}`).should("be.visible");
   cy.get("[data-cy='cartQty']")
     .eq(pos - 1)
-    .should("contain", qty)
+    .should("contain", qty);
 });
 
 // Update Item (individual item)
 Cypress.Commands.add("updateItem", (pos, isIncrease) => {
   if (isIncrease) {
-    cy.get("[data-testid='AddCircleOutlineOutlinedIcon']").eq(pos - 1).click()
-    cy.get("[data-cy='update']").eq(pos - 1).click();
+    cy.get("[data-testid='AddCircleOutlineOutlinedIcon']")
+      .eq(pos - 1)
+      .click();
+    cy.get("[data-cy='update']")
+      .eq(pos - 1)
+      .click();
   } else {
-    cy.get("[data-testid='RemoveCircleOutlineIcon']").eq(pos -1 ).click()
-    cy.get("[data-cy='update']").eq(pos - 1).click();
+    cy.get("[data-testid='RemoveCircleOutlineIcon']")
+      .eq(pos - 1)
+      .click();
+    cy.get("[data-cy='update']")
+      .eq(pos - 1)
+      .click();
   }
+});
+
+Cypress.Commands.add("goToCheckout", () => {
+  cy.get(".makeStyles-carticon-11").eq(1).click();
+  cy.contains("Checkout").click();
+});
+
+Cypress.Commands.add("fillContactCheckout", () => {
+  cy.get("[name='firstname']").click().type("Test");
+  cy.get("[name='lastname']").click().type("Test");
+  cy.get("[name='email']").click().type("test@gmail.com");
+  cy.get("[name='phone']").click().type("3105555555");
+});
+
+Cypress.Commands.add("fillShippingCheckout", () => {
+  cy.get("[name='address']").click().type("123 Test Address");
+  cy.get("[name='city']").click().type("Los Angeles");
+  cy.get("[name='state']").click().type("CA");
+  cy.get("[name='postal']").click().type("91007");
+});
+
+Cypress.Commands.add("getStripeElement", (fieldName) => {
+  const selector = `input[id="${fieldName}"]`;
+
+  cy.get("iframe")
+    .eq(1)
+    .its("0.contentDocument.body")
+    .should("not.be.empty")
+    .then(cy.wrap)
+    .find(selector);
+});
+
+Cypress.Commands.add("getStripeElementError", (fieldName) => {
+  const selector = `p[id="${fieldName}"]`;
+
+  cy.get("iframe")
+    .eq(1)
+    .its("0.contentDocument.body")
+    .should("not.be.empty")
+    .then(cy.wrap)
+    .find(selector);
+});
+
+Cypress.Commands.add("mockPaymentIntent", () => {
+  // mocking our create payment intent endpoint
+  cy.intercept("POST", "http://localhost:8080/api/create-payment-intent", {
+    body: {
+      clientSecret: "pi_3KZheGI7AFq6GjKY1OtlH2rT_secret_iuPuWPUmrFWHugGotfLU8Xhtj"
+    }
+  }).as("createPaymentIntent");
+});
+
+Cypress.Commands.add("mockConfirmPayment", () => {
+  // mocking stripe confirm payment intent endpoint
+  cy.intercept("POST", "https://api.stripe.com/v1/payment_intents/*/confirm", {
+    body: {
+      status: "succeeded",
+    },
+  }).as("confirmPayment");
+});
+
+Cypress.Commands.add("fillCardInfo", () => {
+  cy.getByTestId("payment").within(() => {
+    cy.getStripeElement("Field-numberInput").type("4242424242424242");
+    cy.getStripeElement("Field-expiryInput").type("0422");
+    cy.getStripeElement("Field-cvcInput").type("789");
+    cy.getStripeElement("Field-postalCodeInput").type("91007");
+  });
+});
+
+Cypress.Commands.add("confirmOrderSuccess", () => {
+  cy.contains("Confirm Order").click();
+  cy.wait("@confirmPayment").then(() => {
+    // mocking order post request
+    cy.intercept("POST", "http://localhost:8080/api/orders", {
+      body: {
+        ordernumber: "ABCD1234",
+      },
+    }).as("orderSuccess");
+
+    cy.wait("@orderSuccess");
+  });
 });

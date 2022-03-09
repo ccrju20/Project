@@ -47,8 +47,6 @@ const PaymentPage = (props) => {
   };
 
   /// From ConfirmInfo
-  console.log(userContext.info);
-
   const {
     firstname,
     lastname,
@@ -73,7 +71,6 @@ const PaymentPage = (props) => {
       day: "2-digit",
       hour: "2-digit",
       minute: "2-digit",
-      second: "2-digit",
     }).format(scheduled);
   } else {
     scheduledTime = "ASAP";
@@ -107,10 +104,10 @@ const PaymentPage = (props) => {
       lastname: lastname,
       email: email,
       phone: phone,
-      address: address,
-      addresstwo: addresstwo,
-      city: city,
-      state: state,
+      address: address.toUpperCase(),
+      addresstwo: addresstwo.toUpperCase(),
+      city: city.toUpperCase(),
+      state: state.toUpperCase(),
       postal: postal,
     },
   };
@@ -131,7 +128,7 @@ const PaymentPage = (props) => {
     try {
       const resp = await axios.post(ORDERS_REST_API_URL, DataObject);
       console.log(resp.data.ordernumber);
-      localStorage.setItem("ordernumber", resp.data.ordernumber)
+      localStorage.setItem("ordernumber", resp.data.ordernumber);
     } catch {
       console.log("backend error");
     }
@@ -164,10 +161,16 @@ const PaymentPage = (props) => {
                   {email}
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  {address} {city} {state} {postal}
+                  {address.toUpperCase()} {city.toUpperCase()} {state.toUpperCase()} {postal}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   {phone}
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  {pickup ? "PICKUP :" : "DELIVERY :"}
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  {when !== "ASAP" ? scheduledTime : when}
                 </Grid>
               </Grid>
             </CardContent>

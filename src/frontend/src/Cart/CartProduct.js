@@ -112,7 +112,7 @@ const CartProduct = (props) => {
             </Hidden>
 
             <IconButton onClick={props.onDelete}>
-              <DeleteIcon />
+              <DeleteIcon data-cy="delete"/>
             </IconButton>
           </ListItem>
         </Card>

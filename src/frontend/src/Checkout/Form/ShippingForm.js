@@ -31,8 +31,8 @@ const ContactForm = () => {
                   onChange={(event, value) => {
                     onChange(value);
                     setPickup(value);
-                    console.log(value);
                   }}
+                  data-cy="switch"
                 />
               )}
             />
@@ -146,7 +146,7 @@ const ContactForm = () => {
         <Grid container>
           <Grid item xs={12}>
             <Card>
-              <CardHeader title="Pickup at" />
+              <CardHeader title="Pickup Location:" />
               <CardContent>
                 <LocationOnOutlinedIcon sx={{ marginRight: 2 }} />
                 87878 Ocean St. Los Angeles, CA
