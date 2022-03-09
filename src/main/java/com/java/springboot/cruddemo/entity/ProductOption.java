@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name="product_options")
 public class ProductOption {
@@ -21,8 +23,8 @@ public class ProductOption {
 	private int id;
 	
 	private int option_id;
-	
-	private String price;
+
+	private BigDecimal price;
 	
 	private int size; 
 	
@@ -34,7 +36,7 @@ public class ProductOption {
 		
 	}
 
-	public ProductOption(int option_id, String price, int size, Product product) {
+	public ProductOption(int option_id, BigDecimal price, int size, Product product) {
 		this.option_id = option_id;
 		this.price = price;
 		this.size = size;
@@ -57,11 +59,11 @@ public class ProductOption {
 		this.option_id = option_id;
 	}
 
-	public String getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

@@ -1,6 +1,7 @@
 package com.java.springboot.cruddemo.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,7 +38,7 @@ public class ContactInfoRestController {
 	}
 	
 	@GetMapping("/contactinfo/{userId}")
-	public ContactInfo getContactInfo(@PathVariable int userId) {
+	public ContactInfo getContactInfo(@PathVariable UUID userId) {
 		
 		ContactInfo theContactInfo = userDetailsService.findContactInfo(userId);
 
@@ -48,15 +49,15 @@ public class ContactInfoRestController {
 		return theContactInfo;
 	}
 	
-	@PostMapping("/contactinfo")
-	public ContactInfo addContactInfo(@RequestBody ContactInfo theContactInfo) {
-		
-		theContactInfo.setId(0);
-		
-		contactInfoService.save(theContactInfo);
-
-		return theContactInfo;
-	}
+//	@PostMapping("/contactinfo")
+//	public ContactInfo addContactInfo(@RequestBody ContactInfo theContactInfo) {
+//
+//		theContactInfo.setId(0);
+//
+//		contactInfoService.save(theContactInfo);
+//
+//		return theContactInfo;
+//	}
 
 	@PutMapping("/contactinfo")
 	public ContactInfo updateContactInfo(@RequestBody ContactInfo theContactInfo) {

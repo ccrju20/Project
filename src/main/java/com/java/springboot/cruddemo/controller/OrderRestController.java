@@ -25,67 +25,57 @@ import com.java.springboot.cruddemo.service.OrderService;
 @RequestMapping("/api")
 public class OrderRestController {
 
-	private OrderService OrderService;
+    private OrderService OrderService;
 
-	@Autowired
-	public OrderRestController(OrderService theOrderService) {
-		OrderService = theOrderService;
-	}
+    @Autowired
+    public OrderRestController(OrderService theOrderService) {
+        OrderService = theOrderService;
+    }
 
-	@GetMapping("/orders")
-	public List<Order> findAll() {
-		return OrderService.findAll();
-	}
-	
-	@GetMapping("/orders/account/{accountId}")
-	public List<Order> findAllById(@PathVariable int accountId) {
-		return OrderService.findByAccountId(accountId);
-	}
+    @GetMapping("/orders")
+    public List<Order> findAll() {
+        return OrderService.findAll();
+    }
 
-	@GetMapping("/orders/{orderId}")
-	public Order getOrder(@PathVariable int orderId) {
+    @GetMapping("/orders/account/{accountId}")
+    public List<Order> findAllById(@PathVariable int accountId) {
+        return OrderService.findByAccountId(accountId);
+    }
 
-		Order theOrder = OrderService.findById(orderId);
+    @GetMapping("/orders/{orderId}")
+    public Order getOrder(@PathVariable int orderId) {
 
-		if (theOrder == null) {
-			throw new RuntimeException("Order id not found - " + orderId);
-		}
+        return OrderService.findById(orderId);
+    }
 
-		return theOrder;
-	}
+    @PostMapping("/orders")
+    public ResponseEntity<Order> addOrder(@Valid @RequestBody Order theOrder) {
 
-	@PostMapping("/orders")
-	public ResponseEntity<Order> addOrder(@Valid @RequestBody Order theOrder) {
-										
-		theOrder.setId(0);
-		theOrder.setDateposted();
-		theOrder.setOrdernumber();
-	
-		OrderService.save(theOrder);
-		
-		return new ResponseEntity<Order>(theOrder, HttpStatus.CREATED);
-	}
+        OrderService.save(theOrder);
 
-	@PutMapping("/orders")
-	public Order updateOrder(@RequestBody Order theOrder) {
+        return new ResponseEntity<Order>(theOrder, HttpStatus.CREATED);
+    }
 
-		OrderService.save(theOrder);
+    @PutMapping("/orders")
+    public Order updateOrder(@RequestBody Order theOrder) {
 
-		return theOrder;
-	}
+        OrderService.save(theOrder);
 
-	@DeleteMapping("/orders/{orderId}")
-	public String deleteOrder(@PathVariable int orderId) {
+        return theOrder;
+    }
 
-		Order tempOrder = OrderService.findById(orderId);
+    @DeleteMapping("/orders/{orderId}")
+    public String deleteOrder(@PathVariable int orderId) {
 
-		if (tempOrder == null) {
-			throw new RuntimeException("Order id not found - " + orderId);
-		}
+        Order tempOrder = OrderService.findById(orderId);
 
-		OrderService.deleteById(orderId);
+        if (tempOrder == null) {
+            throw new RuntimeException("Order id not found - " + orderId);
+        }
 
-		return "Deleted Order id - " + orderId;
-	}
+        OrderService.deleteById(orderId);
+
+        return "Deleted Order id - " + orderId;
+    }
 
 }

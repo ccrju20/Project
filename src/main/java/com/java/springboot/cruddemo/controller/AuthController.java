@@ -25,6 +25,8 @@ import com.java.springboot.cruddemo.service.MyUserDetailsService;
 import com.java.springboot.cruddemo.service.RegistrationService;
 import com.java.springboot.cruddemo.util.JwtUtil;
 
+import java.util.UUID;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/auth")
@@ -57,7 +59,7 @@ public class AuthController {
 		
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 		
-		int theId = userDetailsService.findIdByUsername(authenticationRequest.getUsername());
+		UUID theId = userDetailsService.findUUIDByUsername(authenticationRequest.getUsername());
 		
 		return ResponseEntity.ok(new AuthenticationResponse(jwt, theId));
 	}
@@ -70,7 +72,7 @@ public class AuthController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		int theId = userDetailsService.findIdByUsername(request.getEmail());
+		UUID theId = userDetailsService.findUUIDByUsername(request.getEmail());
 		
 		return ResponseEntity.ok(new AuthenticationResponse(response, theId));
 	}

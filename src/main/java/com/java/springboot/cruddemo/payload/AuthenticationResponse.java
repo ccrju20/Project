@@ -1,12 +1,14 @@
 package com.java.springboot.cruddemo.payload;
 
+import java.util.UUID;
+
 public class AuthenticationResponse {
 
 	private final String jwt;
 	
-	private int theId;
+	private UUID theId;
 
-	public AuthenticationResponse(String jwt, int theId) {
+	public AuthenticationResponse(String jwt, UUID theId) {
 		this.jwt = jwt;
 		this.theId = theId;
 	}
@@ -15,7 +17,7 @@ public class AuthenticationResponse {
 		return jwt;
 	}
 	
-	public int getTheId() {
+	public UUID getTheId() {
 		return theId;
 	}
 }

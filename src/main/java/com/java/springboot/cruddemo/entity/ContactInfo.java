@@ -21,8 +21,6 @@ public class ContactInfo {
 	@NotNull
 	private String lastname;
 	
-	private String email;
-	
 	private String phone;
 	
 	private String address;
@@ -44,11 +42,10 @@ public class ContactInfo {
 		this.lastname = lastname;
 	}
 	
-	public ContactInfo(String firstname, String lastname, String email, String phone, String address, String addresstwo,
+	public ContactInfo(String firstname, String lastname, String phone, String address, String addresstwo,
 			String city, String state, String postal) {
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.email = email;
 		this.phone = phone;
 		this.address = address;
 		this.addresstwo = addresstwo;
@@ -83,14 +80,6 @@ public class ContactInfo {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getPhone() {

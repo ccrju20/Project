@@ -1,6 +1,7 @@
 package com.java.springboot.cruddemo.service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,13 +39,13 @@ public class MyUserDetailsService implements UserDetailsService {
 
 	public String signUpUser(MyUser myUser) {
 		boolean userExists = userRepository.findByEmail(myUser.getEmail()).isPresent();
-
 		if (userExists) {
 //			throw new IllegalStateException("Email already taken");
 			return "Error: Email already taken";
 		}
 
 		myUser.setCreatedAt();
+		myUser.setUuid(UUID.randomUUID());
 
 		String encodedPassword = bCryptPasswordEncoder.encode(myUser.getPassword());
 		myUser.setPassword(encodedPassword);
@@ -70,15 +71,15 @@ public class MyUserDetailsService implements UserDetailsService {
 		return theUser;
 	}
 	
-	public int findIdByUsername(String username) {
-		return userRepository.findIdByEmail(username);
+	public UUID findUUIDByUsername(String username) {
+		return userRepository.findUUIDByEmail(username);
 	}
 
 	public void deleteById(int theId) {
 		userRepository.deleteById(theId);
 	}
 	
-	public ContactInfo findContactInfo(int theId) {
+	public ContactInfo findContactInfo(UUID theId) {
 		return userRepository.findContactInfoById(theId);
 	}
 }

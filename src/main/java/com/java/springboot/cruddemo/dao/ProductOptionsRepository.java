@@ -22,4 +22,7 @@ public interface ProductOptionsRepository extends JpaRepository<ProductOption, I
 	
 	@Query("SELECT o.product from ProductOption o WHERE o.size = ?1")
 	List<Product> findProductsBySize(int size);
+
+	@Query("SELECT o.price from ProductOption o WHERE o.id = ?1")
+	String findPriceById(int id);
 } 
