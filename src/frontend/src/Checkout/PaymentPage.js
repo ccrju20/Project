@@ -79,14 +79,14 @@ const PaymentPage = (props) => {
   let cartItems = [];
   cartCtx.items.forEach((item) => {
     cartItems.push({
-      quantity: `${item.amount}`,
+      quantity: item.amount,
       product: {
         id: item.id,
       },
       productOption: {
         id: item.option,
-      },
-      total_price: `${(item.amount * item.price).toFixed(2)}`,
+        price: item.price
+      }
     });
   });
 
@@ -97,7 +97,6 @@ const PaymentPage = (props) => {
   const DataObject = {
     orderItems: cartItems,
     scheduled: scheduledTime,
-    status: "processing",
     delivery: method,
     orderDetails: {
       firstname: firstname,
@@ -116,6 +115,8 @@ const PaymentPage = (props) => {
   if (user) {
     let userId = JSON.parse(user).theId;
     DataObject.account = { id: userId };
+  } else {
+    DataObject.account = {id: "00000000-0000-0000-0000-000000000000"}
   }
 
   const total = localStorage.getItem("total");
