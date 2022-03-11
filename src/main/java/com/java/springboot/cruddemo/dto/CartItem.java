@@ -1,14 +1,16 @@
 package com.java.springboot.cruddemo.dto;
 
+import java.math.BigDecimal;
+
 public class CartItem {
 	public int amount;
-	public double price;
+	public BigDecimal price;
 
 	public CartItem() {
 		
 	}
 	
-	public CartItem(int amount, double price) {
+	public CartItem(int amount, BigDecimal price) {
 		this.amount = amount;
 		this.price = price;
 	}
@@ -21,15 +23,15 @@ public class CartItem {
 		this.amount = amount;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 	
-	public double getTotal() {
-		return this.amount * this.price;
+	public BigDecimal getTotal() {
+		return new BigDecimal(this.amount).multiply(this.price);
 	}
 }

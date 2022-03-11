@@ -46,6 +46,7 @@ public class ProductService {
 	}
 
 	public void save(Product theProduct) {
+		theProduct.setId(0);
 		productRepository.save(theProduct);
 	}
 

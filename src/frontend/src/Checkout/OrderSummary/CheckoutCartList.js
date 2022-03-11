@@ -28,6 +28,8 @@ const CheckoutCartList = () => {
   const { totalAmount } = cartCtx;
   const total = `$${totalAmount.toFixed(2)}`;
 
+  console.log(cartCtx.items)
+
   return (
     <Card className={classes.root} elevation={5}>
       <Box mt={2} mb={1} ml={2}>
@@ -37,7 +39,7 @@ const CheckoutCartList = () => {
       <List sx={{ width: "100%", maxWidth: 700, bgcolor: "background.paper" }}>
         {cartCtx.items.map((product) => (
           <CartListItem
-            key={product.id}
+            key={product.option}
             name={product.name}
             price={product.price}
             image={product.img}

@@ -2,15 +2,7 @@ package com.java.springboot.cruddemo.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -27,7 +19,7 @@ public class Product {
 	private String description;
 	
 	private String img;
-	
+
 	private String category;
 	
 	private int active;

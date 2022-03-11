@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name="order_items")
@@ -15,10 +16,10 @@ public class OrderItem {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	
-	private String quantity;
-	
-	private String total_price;
+
+	private int quantity;
+
+	private BigDecimal total_price;
 	
 	@OneToOne
 	@JoinColumn(name="productid")
@@ -32,13 +33,12 @@ public class OrderItem {
 		
 	}
 
-	public OrderItem(String quantity, String total_price, Product product, ProductOption productOption) {
+	public OrderItem(int quantity, BigDecimal total_price, Product product, ProductOption productOption) {
 		this.quantity = quantity;
 		this.total_price = total_price;
 		this.product = product;
 		this.productOption = productOption;
 	}
-
 
 	public int getId() {
 		return id;
@@ -48,19 +48,19 @@ public class OrderItem {
 		this.id = id;
 	}
 
-	public String getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(String quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
-	public String getTotal_price() {
+	public BigDecimal getTotal_price() {
 		return total_price;
 	}
 
-	public void setTotal_price(String total_price) {
+	public void setTotal_price(BigDecimal total_price) {
 		this.total_price = total_price;
 	}
 
@@ -82,8 +82,12 @@ public class OrderItem {
 
 	@Override
 	public String toString() {
-		return "OrderItem [id=" + id + ", quantity=" + quantity + ", total_price=" + total_price + ", product="
-				+ product + "]";
+		return "OrderItem{" +
+				"id=" + id +
+				", quantity=" + quantity +
+				", total_price=" + total_price +
+				", product=" + product +
+				", productOption=" + productOption +
+				'}';
 	}
-	
 }

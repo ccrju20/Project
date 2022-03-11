@@ -6,19 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -29,6 +19,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.java.springboot.cruddemo.models.MyUser;
+import com.java.springboot.cruddemo.models.MyUserRole;
+import org.apache.tomcat.jni.Local;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="orders")
@@ -42,21 +35,21 @@ public class Order {
 	private String ordernumber;
 	
 	@Column(nullable=false)
-	private String dateposted;
+	private LocalDateTime dateposted;
 	
 	@NotEmpty
 	private String scheduled;
-	
-	private String status;
+
+	@Enumerated(EnumType.STRING)
+	private OrderStatus status;
 	
 	@Min(value = 0)
 	@Max(value = 1)
 	private int delivery;
-	
-	@ManyToOne
-	@JoinColumn(name="account_id")
-	private MyUser account;
-	
+
+	@Type(type = "uuid-char")
+	private UUID account;
+
 	@NotNull
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="orderid")
@@ -72,10 +65,9 @@ public class Order {
 		
 	}
 
-	public Order(String ordernumber, String dateposted, String scheduled, String status, int delivery, MyUser account,
+	public Order(String ordernumber, String scheduled, OrderStatus status, int delivery, UUID account,
 			List<OrderItem> orderItems, OrderDetails orderDetails) {
 		this.ordernumber = ordernumber;
-		this.dateposted = dateposted;
 		this.scheduled = scheduled;
 		this.status = status;
 		this.delivery = delivery;
@@ -111,14 +103,13 @@ public class Order {
 	}
 
 	public String getDateposted() {
-		return dateposted;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+		String formattedDate = dateposted.format(formatter);
+		return formattedDate;
 	}
 	
 	public void setDateposted() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now(ZoneId.of("America/New_York"));
-        String str = now.format(formatter);
-        this.dateposted = str;
+		this.dateposted = LocalDateTime.now();
 	}
 	
 	public List<OrderItem> getOrderItems() {
@@ -137,12 +128,12 @@ public class Order {
 		this.scheduled = scheduled;
 	}
 
-	public String getStatus() {
+	public OrderStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatus(OrderStatus orderStatus) {
+		this.status = orderStatus;
 	}
 
 	public int getDelivery() {
@@ -154,12 +145,12 @@ public class Order {
 	}
 	
 	@JsonIgnore
-	public MyUser getAccount() {
+	public UUID getAccount() {
 		return account;
 	}
 
 	@JsonProperty
-	public void setAccount(MyUser account) {
+	public void setAccount(UUID account) {
 		this.account = account;
 	}
 

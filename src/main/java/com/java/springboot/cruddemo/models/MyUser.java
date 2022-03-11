@@ -1,10 +1,12 @@
 package com.java.springboot.cruddemo.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,6 +21,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,8 +43,11 @@ public class MyUser implements UserDetails {
 
 	@NotNull
 	private String password;
+
+	@Type(type = "uuid-char")
+	private UUID uuid;
 	
-	private String createdAt;
+	private LocalDateTime createdAt;
 	
 	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="contact_info")
@@ -90,16 +96,23 @@ public class MyUser implements UserDetails {
 	public String getEmail() {
 		return email;
 	}
-	
+
+	public UUID getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(UUID uuid) {
+		this.uuid = uuid;
+	}
+
 	public String getCreatedAt() {
-		return createdAt;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+		String formattedDate = createdAt.format(formatter);
+		return formattedDate;
 	}
 	
 	public void setCreatedAt() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        LocalDate now = LocalDate.now(ZoneId.of("America/New_York"));
-        String str = now.format(formatter);
-        this.createdAt = str;
+        this.createdAt = LocalDateTime.now();;
 	}
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 

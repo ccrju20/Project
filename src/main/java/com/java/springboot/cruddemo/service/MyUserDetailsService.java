@@ -1,6 +1,7 @@
 package com.java.springboot.cruddemo.service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,11 +18,11 @@ import com.java.springboot.cruddemo.util.JwtUtil;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
 
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	private JwtUtil jwtTokenUtil;
+	private final JwtUtil jwtTokenUtil;
 	
 	@Autowired
 	public MyUserDetailsService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, JwtUtil jwtTokenUtil) {
@@ -38,13 +39,13 @@ public class MyUserDetailsService implements UserDetailsService {
 
 	public String signUpUser(MyUser myUser) {
 		boolean userExists = userRepository.findByEmail(myUser.getEmail()).isPresent();
-
 		if (userExists) {
 //			throw new IllegalStateException("Email already taken");
 			return "Error: Email already taken";
 		}
 
 		myUser.setCreatedAt();
+		myUser.setUuid(UUID.randomUUID());
 
 		String encodedPassword = bCryptPasswordEncoder.encode(myUser.getPassword());
 		myUser.setPassword(encodedPassword);
@@ -70,15 +71,17 @@ public class MyUserDetailsService implements UserDetailsService {
 		return theUser;
 	}
 	
-	public int findIdByUsername(String username) {
-		return userRepository.findIdByEmail(username);
+	public UUID findUUIDByUsername(String username) {
+		return userRepository.findUUIDByEmail(username);
 	}
 
 	public void deleteById(int theId) {
-		userRepository.deleteById(theId);
-	}
-	
-	public ContactInfo findContactInfo(int theId) {
-		return userRepository.findContactInfoById(theId);
+		Optional<MyUser> user = userRepository.findById(theId);
+
+		if (user.isPresent()) {
+			userRepository.deleteById(theId);
+		} else {
+			throw new RuntimeException("Did not find User id - " + theId);
+		}
 	}
 }

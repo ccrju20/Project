@@ -1,91 +1,103 @@
 package com.java.springboot.cruddemo.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
+import com.java.springboot.cruddemo.entity.OrderDetails;
+import com.java.springboot.cruddemo.entity.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.java.springboot.cruddemo.entity.Order;
 import com.java.springboot.cruddemo.service.OrderService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/orders")
 public class OrderRestController {
 
-	private OrderService OrderService;
+    private final OrderService OrderService;
 
-	@Autowired
-	public OrderRestController(OrderService theOrderService) {
-		OrderService = theOrderService;
-	}
+    @Autowired
+    public OrderRestController(OrderService theOrderService) {
+        OrderService = theOrderService;
+    }
 
-	@GetMapping("/orders")
-	public List<Order> findAll() {
-		return OrderService.findAll();
-	}
-	
-	@GetMapping("/orders/account/{accountId}")
-	public List<Order> findAllById(@PathVariable int accountId) {
-		return OrderService.findByAccountId(accountId);
-	}
+    @GetMapping("/")
+    public List<Order> findAll() {
+        return OrderService.findAll();
+    }
 
-	@GetMapping("/orders/{orderId}")
-	public Order getOrder(@PathVariable int orderId) {
+    @GetMapping("/account/{accountId}")
+    public List<Order> findAllById(@PathVariable UUID accountId) {
+        return OrderService.findByAccountId(accountId);
+    }
 
-		Order theOrder = OrderService.findById(orderId);
+    @GetMapping("/{orderId}")
+    public Order getOrder(@PathVariable int orderId) {
+        return OrderService.findById(orderId);
+    }
 
-		if (theOrder == null) {
-			throw new RuntimeException("Order id not found - " + orderId);
-		}
+    @GetMapping("/id/{orderNo}")
+    public Order findOrder(@PathVariable String orderNo) {
+        return OrderService.findByOrderNo(orderNo);
+    }
 
-		return theOrder;
-	}
+    @PostMapping("/")
+    public ResponseEntity<Order> addOrder(@Valid @RequestBody Order theOrder) {
 
-	@PostMapping("/orders")
-	public ResponseEntity<Order> addOrder(@Valid @RequestBody Order theOrder) {
-										
-		theOrder.setId(0);
-		theOrder.setDateposted();
-		theOrder.setOrdernumber();
-	
-		OrderService.save(theOrder);
-		
-		return new ResponseEntity<Order>(theOrder, HttpStatus.CREATED);
-	}
+        OrderService.save(theOrder);
 
-	@PutMapping("/orders")
-	public Order updateOrder(@RequestBody Order theOrder) {
+        return new ResponseEntity<Order>(theOrder, HttpStatus.CREATED);
+    }
 
-		OrderService.save(theOrder);
+    @PutMapping("/")
+    public Order updateOrder(@RequestBody Order theOrder) {
 
-		return theOrder;
-	}
+        OrderService.update(theOrder);
 
-	@DeleteMapping("/orders/{orderId}")
-	public String deleteOrder(@PathVariable int orderId) {
+        return theOrder;
+    }
 
-		Order tempOrder = OrderService.findById(orderId);
+    @DeleteMapping("/{orderId}")
+    public String deleteOrder(@PathVariable int orderId) {
 
-		if (tempOrder == null) {
-			throw new RuntimeException("Order id not found - " + orderId);
-		}
+        OrderService.deleteById(orderId);
 
-		OrderService.deleteById(orderId);
+        return "Deleted Order id - " + orderId;
+    }
 
-		return "Deleted Order id - " + orderId;
-	}
+    @PutMapping("/orderdetails")
+    public OrderDetails updateOrderDetails(@RequestBody OrderDetails theOrderDetails) {
 
+        OrderService.saveOrderDetails(theOrderDetails);
+
+        return theOrderDetails;
+    }
+
+    @PutMapping("/orderitems")
+    public OrderItem updateOrderItem(@RequestBody OrderItem theOrderItem) {
+
+        OrderService.saveOrderItem(theOrderItem);
+
+        return theOrderItem;
+    }
+
+    @DeleteMapping("/orderitems/{orderItemId}")
+    public String deleteOrderItem(@PathVariable int orderItemId) {
+
+        OrderService.deleteOrderItemById(orderItemId);
+
+        return "Deleted OrderItem id - " + orderItemId;
+    }
+
+    @PutMapping("/order/{orderNo}/status/{newStatus}")
+    public String updateOrderStatus(@PathVariable String orderNo, @PathVariable String newStatus) {
+        OrderService.updateStatus(orderNo, newStatus);
+        return "Updated order status to " + newStatus;
+    }
 }

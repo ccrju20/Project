@@ -11,6 +11,9 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 @Service
 @ConditionalOnProperty(value = "stripe.enabled", havingValue = "true")
 public class StripeService implements CreatePaymentBuilder{
@@ -18,7 +21,7 @@ public class StripeService implements CreatePaymentBuilder{
 	static long calculateOrderAmount(CartItem[] items) {
 		double total = 0;
 		for (CartItem x : items) {
-			total += x.getTotal();
+			total += x.getTotal().doubleValue();
 		}
 		return (long) (total * 100);
 	}

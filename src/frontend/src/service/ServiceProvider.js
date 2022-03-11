@@ -10,13 +10,11 @@ const ServiceProvider = (props) => {
 
   const getOrderHistory = () => {
     const id = JSON.parse(localStorage.getItem("user")).theId;
-    console.log(id);
     return axios.get(ORDERS_REST_API_URL + id, { headers: authHeader() });
   };
 
   const getUserInfo = () => {
     const id = JSON.parse(localStorage.getItem("user")).theId;
-    console.log(id);
     return axios.get(USERINFO_REST_API_URL + id, { headers: authHeader() });
   };
 
