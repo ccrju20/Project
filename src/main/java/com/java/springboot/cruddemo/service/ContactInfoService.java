@@ -2,7 +2,10 @@ package com.java.springboot.cruddemo.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
+import com.java.springboot.cruddemo.dao.UserRepository;
+import com.java.springboot.cruddemo.models.MyUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,38 +14,39 @@ import com.java.springboot.cruddemo.entity.ContactInfo;
 
 @Service
 public class ContactInfoService {
-	
-	private ContactInfoRepository ContactInfoRepository;
+
+	private final UserRepository userRepository;
+	private final ContactInfoRepository contactInfoRepository;
 	
 	@Autowired
-	public ContactInfoService(ContactInfoRepository theContactInfoRepository) {
-		ContactInfoRepository = theContactInfoRepository;
+	public ContactInfoService(ContactInfoRepository theContactInfoRepository, UserRepository theUserRepository) {
+		contactInfoRepository = theContactInfoRepository;
+		userRepository = theUserRepository;
 	}
 
-	public List<ContactInfo> findAll() {
-		return ContactInfoRepository.findAll();
+	public ContactInfo findContactInfo(UUID theId) {
+		ContactInfo theContactInfo = userRepository.findContactInfoById(theId);
+		if (theContactInfo == null) {
+			throw new RuntimeException("User info not found - " + theId);
+		}
+		return theContactInfo;
 	}
 
-//	public ContactInfo findById(int theId) {
-//		Optional<ContactInfo> result = ContactInfoRepository.findById(theId);
-//		
-//		ContactInfo theContactInfo = null;
-//		
-//		if (result.isPresent()) {
-//			theContactInfo = result.get();
-//		}
-//		else {
-//			throw new RuntimeException("Did not find ContactInfo id - " + theId);
-//		}
-//		return theContactInfo;
-//	}
+	public String findEmailByUuid(UUID id) {
+		Optional<MyUser> user = userRepository.findByUuid(id);
+		String email = "";
+
+		if (user.isPresent()) {
+			email = user.get().getEmail();
+		} else {
+			throw new RuntimeException("Did not find User id - " + id);
+		}
+
+		return email;
+	}
 
 	public void save(ContactInfo theContactInfo) {
-		ContactInfoRepository.save(theContactInfo);
-	}
-
-	public void deleteById(int theId) {
-		ContactInfoRepository.deleteById(theId);
+		contactInfoRepository.save(theContactInfo);
 	}
 
 }

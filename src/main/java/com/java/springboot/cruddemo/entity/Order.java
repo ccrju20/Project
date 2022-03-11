@@ -46,10 +46,6 @@ public class Order {
 	@Min(value = 0)
 	@Max(value = 1)
 	private int delivery;
-	
-//	@ManyToOne
-//	@JoinColumn(name="account_id")
-//	private MyUser account;
 
 	@Type(type = "uuid-char")
 	private UUID account;

@@ -18,11 +18,11 @@ import com.java.springboot.cruddemo.util.JwtUtil;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
 
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	private JwtUtil jwtTokenUtil;
+	private final JwtUtil jwtTokenUtil;
 	
 	@Autowired
 	public MyUserDetailsService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, JwtUtil jwtTokenUtil) {
@@ -76,10 +76,12 @@ public class MyUserDetailsService implements UserDetailsService {
 	}
 
 	public void deleteById(int theId) {
-		userRepository.deleteById(theId);
-	}
-	
-	public ContactInfo findContactInfo(UUID theId) {
-		return userRepository.findContactInfoById(theId);
+		Optional<MyUser> user = userRepository.findById(theId);
+
+		if (user.isPresent()) {
+			userRepository.deleteById(theId);
+		} else {
+			throw new RuntimeException("Did not find User id - " + theId);
+		}
 	}
 }

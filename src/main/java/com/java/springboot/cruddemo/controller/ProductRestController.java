@@ -87,8 +87,6 @@ public class ProductRestController {
 	@PostMapping("/products")
 	public Product addProduct(@RequestBody Product theProduct) {
 
-		theProduct.setId(0);
-
 		productService.save(theProduct);
 
 		return theProduct;
