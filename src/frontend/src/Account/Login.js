@@ -53,8 +53,6 @@ const Login = (props) => {
 
   useEffect(() => {
     if (!emailError && !passwordError && isSubmitting) {
-      console.log("success");
-
       authCtx.onLogin(email, password).then(
         () => {
           authCtx.setLogin();
