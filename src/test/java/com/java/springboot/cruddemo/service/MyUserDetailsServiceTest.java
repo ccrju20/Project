@@ -43,7 +43,7 @@ class MyUserDetailsServiceTest {
 	@BeforeEach
 	void setUp() {
 		MockitoAnnotations.openMocks(this);
-		underTest = new MyUserDetailsService(userRepository, bCryptPasswordEncoder, jwtTokenUtil);
+		underTest = new MyUserDetailsService(authenticationManager, userRepository, bCryptPasswordEncoder, jwtTokenUtil);
 	}
 
 	@Test

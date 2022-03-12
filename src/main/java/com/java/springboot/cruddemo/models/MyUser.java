@@ -148,4 +148,13 @@ public class MyUser implements UserDetails {
 		return true;
 	}
 
+
+	@Override
+	public String toString() {
+		return "MyUser{" +
+				"email='" + email + '\'' +
+				", uuid=" + uuid +
+				", contactInfo=" + contactInfo +
+				'}';
+	}
 }

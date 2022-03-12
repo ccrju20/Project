@@ -20,5 +20,4 @@ public interface UserRepository extends JpaRepository<MyUser, Integer> {
 	@Query("SELECT u.contactInfo from MyUser u WHERE u.uuid = ?1")
 	ContactInfo findContactInfoById(UUID id);
 
-
 }

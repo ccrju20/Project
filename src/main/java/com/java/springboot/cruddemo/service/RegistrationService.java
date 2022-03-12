@@ -1,5 +1,6 @@
 package com.java.springboot.cruddemo.service;
 
+import com.java.springboot.cruddemo.payload.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public class RegistrationService {
 	@Autowired
 	private MyUserDetailsService myUserDetailsService;
 	
-	public String register(RegistrationRequest request) {
+	public AuthenticationResponse register(RegistrationRequest request) {
 		return myUserDetailsService.signUpUser(
 				new MyUser(
 						request.getEmail(),
