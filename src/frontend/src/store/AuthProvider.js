@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AuthContext from "./auth-context";
 
-const LOGIN_REST_API_URL = "http://localhost:8080/api/auth/login";
-const REGISTER_REST_API_URL = "http://localhost:8080/api/auth/registration";
+const LOGIN_REST_API_URL = "http://localhost:8080/api/v1/auth/login";
+const REGISTER_REST_API_URL = "http://localhost:8080/api/v1/auth/registration";
 
 const AuthProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

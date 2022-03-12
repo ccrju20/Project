@@ -28,7 +28,7 @@ const useStyles = makeStyles({
   },
 });
 
-const PRODUCTS_REST_API_URL = "http://localhost:8080/api/products";
+const PRODUCTS_REST_API_URL = "http://localhost:8080/api/v1/products";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -59,6 +59,7 @@ const Shop = () => {
       })
       .catch((err) => {
         setLoadError(true);
+        console.log(err);
         console.log(err.message);
       });
   }, [selectedCategory, page]);

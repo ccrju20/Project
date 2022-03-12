@@ -3,8 +3,8 @@ import axios from "axios";
 import authHeader from "./authHeader";
 import ServiceContext from "./service-context";
 
-const ORDERS_REST_API_URL = "http://localhost:8080/api/orders/account/";
-const USERINFO_REST_API_URL = "http://localhost:8080/api/contactinfo/";
+const ORDERS_REST_API_URL = "http://localhost:8080/api/v1/orders/account/";
+const USERINFO_REST_API_URL = "http://localhost:8080/api/v1/auth/contactinfo/";
 
 const ServiceProvider = (props) => {
 
