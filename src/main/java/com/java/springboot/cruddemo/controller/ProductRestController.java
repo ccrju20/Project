@@ -61,7 +61,7 @@ public class ProductRestController {
     public ResponseEntity<Product> addProduct(@RequestBody Product theProduct) {
         productService.save(theProduct);
 
-        return new ResponseEntity<Product>(theProduct, HttpStatus.CREATED);
+        return new ResponseEntity<>(theProduct, HttpStatus.CREATED);
     }
 
     @PutMapping("")
@@ -82,11 +82,9 @@ public class ProductRestController {
     @PostMapping("/productslist")
     public void addProducts(@RequestBody List<Product> products) {
         for (Product product : products) {
-            product.setId(0);
             productService.save(product);
         }
     }
-
 
     /// Product Options
 
@@ -111,7 +109,7 @@ public class ProductRestController {
     public ResponseEntity<ProductOption> addProductOption(@RequestBody ProductOption theProductOption) {
         productOptionsService.save(theProductOption);
 
-        return new ResponseEntity<ProductOption>(theProductOption, HttpStatus.CREATED);
+        return new ResponseEntity<>(theProductOption, HttpStatus.CREATED);
     }
 
     // Edit a product option

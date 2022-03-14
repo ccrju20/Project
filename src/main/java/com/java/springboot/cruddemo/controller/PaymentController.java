@@ -13,10 +13,10 @@ import com.java.springboot.cruddemo.service.PaymentService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/payment")
 public class PaymentController {
 	
-	private PaymentService paymentService;
+	private final PaymentService paymentService;
 	
 	@Autowired
 	public PaymentController(PaymentService paymentService) {
@@ -27,16 +27,5 @@ public class PaymentController {
 	public CreatePaymentResponse createPaymentIntent(@RequestBody CreatePayment createPayment) {
 		return paymentService.chargeItems(createPayment);
 	}
-	
-//	@PostMapping("/create-payment-intent")
-//	public CreatePaymentResponse createPaymentIntent(@RequestBody CreatePayment createPayment) throws StripeException {
-//		PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
-//				.setAmount(calculateOrderAmount(createPayment.getItems()))
-//				.setCurrency("usd")
-//				.build();
-//
-//		PaymentIntent paymentIntent = PaymentIntent.create(params);
-//
-//		return new CreatePaymentResponse(paymentIntent.getClientSecret());
-//	}
+
 }

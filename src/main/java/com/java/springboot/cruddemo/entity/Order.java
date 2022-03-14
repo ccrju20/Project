@@ -154,14 +154,6 @@ public class Order {
 		this.account = account;
 	}
 
-	public void add(OrderItem orderItem) {
-		if (orderItems == null) {
-			orderItems = new ArrayList<>();
-		}
-		
-		orderItems.add(orderItem);
-	}
-
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 	public OrderDetails getOrderDetails() {
 		return orderDetails;

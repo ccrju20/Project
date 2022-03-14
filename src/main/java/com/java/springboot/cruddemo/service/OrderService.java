@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import com.java.springboot.cruddemo.dao.*;
 import com.java.springboot.cruddemo.entity.*;
+import com.java.springboot.cruddemo.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,16 +35,10 @@ public class OrderService {
     }
 
     public Order findById(int theId) {
-        Optional<Order> result = OrderRepository.findById(theId);
+        Order order = OrderRepository.findById(theId)
+                .orElseThrow(() -> new ObjectNotFoundException("Did not find Order id " + theId));
 
-        Order theOrder = null;
-
-        if (result.isPresent()) {
-            theOrder = result.get();
-        } else {
-            throw new RuntimeException("Did not find Order id - " + theId);
-        }
-        return theOrder;
+        return order;
     }
 
     public void save(Order theOrder) {
@@ -62,45 +57,28 @@ public class OrderService {
     }
 
     public void update(Order theOrder) {
-//        theOrder.setStatus(OrderStatus.PROCESSING);
         OrderRepository.save(theOrder);
     }
 
     public Order findByOrderNo (String orderNo) {
-        Optional<Order> theOrder = OrderRepository.findByOrderNumber(orderNo);
+       Order theOrder = OrderRepository.findByOrderNumber(orderNo)
+               .orElseThrow(() -> new ObjectNotFoundException("Did not find order " + orderNo));
 
-        Order order = null;
-        if (theOrder.isPresent()) {
-            order = theOrder.get();
-        } else {
-            throw new RuntimeException("Order Number not found - " + orderNo);
-        }
-
-        return order;
+        return theOrder;
     }
 
     public void deleteById(int theId) {
-        Optional<Order> tempOrder = OrderRepository.findById(theId);
+        OrderRepository.findById(theId)
+                .orElseThrow(() -> new ObjectNotFoundException("Did not find order id " + theId));
 
-        if (tempOrder == null) {
-            throw new RuntimeException("Order id not found - " + theId);
-        }
         OrderRepository.deleteById(theId);
     }
 
     public List<Order> findByAccountId(UUID id) {
-        Optional<MyUser> user = userRepository.findByUuid(id);
+        userRepository.findByUuid(id)
+                .orElseThrow(() -> new ObjectNotFoundException(String.format("User id %s not found", id)));
 
-        List<Order> theOrders = null;
-
-        if (user.isPresent()) {
-            Optional<List<Order>> result = OrderRepository.findByAccount(id);
-            theOrders = result.get();
-        } else {
-            throw new RuntimeException("Did not find Orders with User id - " + id);
-        }
-
-        return theOrders;
+       return OrderRepository.findByAccount(id).get();
     }
 
     public void saveOrderDetails(OrderDetails theOrderDetails) {
@@ -112,22 +90,15 @@ public class OrderService {
     }
 
     public void deleteOrderItemById(int theId) {
-        Optional<OrderItem> tempOrderItem = orderItemRepository.findById(theId);
+        orderItemRepository.findById(theId)
+                .orElseThrow(() -> new ObjectNotFoundException(String.format("Order item id %s not found", theId)));
 
-        if (tempOrderItem == null) {
-            throw new RuntimeException("OrderItem id not found - " + theId);
-        }
         orderItemRepository.deleteById(theId);
     }
 
     public void updateStatus(String orderNo, String newStatus) {
-        Optional<Order> theOrder = OrderRepository.findByOrderNumber(orderNo);
-        Order order = null;
-        if (theOrder.isPresent()) {
-            order = theOrder.get();
-        } else {
-            throw new RuntimeException("Order Number not found - " + orderNo);
-        }
+        Order order = OrderRepository.findByOrderNumber(orderNo)
+                .orElseThrow(() -> new ObjectNotFoundException("Did not find order number " + orderNo));
 
         order.setStatus(OrderStatus.valueOf(newStatus.toUpperCase()));
         OrderRepository.save(order);

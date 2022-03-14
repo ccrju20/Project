@@ -9,7 +9,7 @@ import com.java.springboot.cruddemo.dto.CreatePaymentResponse;
 @Service
 public class PaymentService {
 	
-	private CreatePaymentBuilder createPaymentBuilder;
+	private final CreatePaymentBuilder createPaymentBuilder;
 
 	@Autowired
 	public PaymentService(CreatePaymentBuilder createPaymentBuilder) {

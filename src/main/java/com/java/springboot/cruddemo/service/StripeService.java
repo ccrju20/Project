@@ -26,7 +26,7 @@ public class StripeService implements CreatePaymentBuilder{
 		return (long) (total * 100);
 	}
 	
-	private StripeApi stripeApi;
+	private final StripeApi stripeApi;
 	
 	@Autowired
 	public StripeService(StripeApi stripeApi) {
