@@ -66,6 +66,7 @@ public class ProductService {
                 List<Product> products = productOptionsRepository.findProductsBySize(size);
                 Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
                 pageProducts = new PageImpl<>(products, pageable, products.size());
+
             } else {
                 Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
                 pageProducts = productRepository.findByCategory(category, pageable);

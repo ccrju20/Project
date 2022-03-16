@@ -21,6 +21,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -46,7 +50,9 @@ public class MyUser implements UserDetails {
 
 	@Type(type = "uuid-char")
 	private UUID uuid;
-	
+
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime createdAt;
 	
 	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
@@ -105,10 +111,11 @@ public class MyUser implements UserDetails {
 		this.uuid = uuid;
 	}
 
-	public String getCreatedAt() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
-		String formattedDate = createdAt.format(formatter);
-		return formattedDate;
+	public LocalDateTime getCreatedAt() {
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+//		String formattedDate = createdAt.format(formatter);
+//		return formattedDate;
+		return createdAt;
 	}
 	
 	public void setCreatedAt() {
