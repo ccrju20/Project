@@ -1,4 +1,4 @@
-package com.java.springboot.cruddemo;
+package com.java.springboot.cruddemo.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

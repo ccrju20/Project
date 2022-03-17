@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import java.util.Objects;
 
+import com.java.springboot.cruddemo.models.MyUser;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,26 +40,32 @@ public class UserIntegrationTest {
 		ContactInfo contactInfo = new ContactInfo("Test", "User");
 		RegistrationRequest regRequest = new RegistrationRequest(email, password, contactInfo);
 
-		ResultActions registrationResultActions = mockMvc.perform(MockMvcRequestBuilders.post("/api/auth/registration")
+		ResultActions registrationResultActions = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/registration")
 				.contentType(MediaType.APPLICATION_JSON).content(Objects.requireNonNull(objectToJson(regRequest))));
 
 		// when
 		AuthenticationRequest authRequest = new AuthenticationRequest(email, password);
-		ResultActions loginResultActions = mockMvc.perform(MockMvcRequestBuilders.post("/api/auth/login")
+		ResultActions loginResultActions = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/login")
 				.contentType(MediaType.APPLICATION_JSON).content(Objects.requireNonNull(objectToJson(authRequest))));
 
+		// get user
+		String theUser = mockMvc.perform(get("/api/v1/auth/users/1").accept(MediaType.APPLICATION_JSON)).andReturn()
+				.getResponse().getContentAsString();
+		MyUser account = new ObjectMapper().readValue(theUser, MyUser.class);
+		String uuid = account.getUuid().toString();
+
 		// then
-		registrationResultActions.andExpect(status().isOk());
-		registrationResultActions.andExpect(MockMvcResultMatchers.jsonPath("$.theId", CoreMatchers.is(1)));
+		registrationResultActions.andExpect(status().isCreated());
+		registrationResultActions.andExpect(MockMvcResultMatchers.jsonPath("$.theId", CoreMatchers.is(uuid)));
 		registrationResultActions.andExpect(MockMvcResultMatchers.jsonPath("$.jwt").isString());
 
 		loginResultActions.andExpect(status().isOk());
-		loginResultActions.andExpect(MockMvcResultMatchers.jsonPath("$.theId", CoreMatchers.is(1)));
+		loginResultActions.andExpect(MockMvcResultMatchers.jsonPath("$.theId", CoreMatchers.is(uuid)));
 		loginResultActions.andExpect(MockMvcResultMatchers.jsonPath("$.jwt").isString());
 
 		//
 		int userId = 1;
-		mockMvc.perform(get("/api/auth/users/{userId}", userId).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+		mockMvc.perform(get("/api/v1/auth/users/{userId}", userId).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(jsonPath("$.email").value(email));
 	}
 

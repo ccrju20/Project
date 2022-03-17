@@ -69,10 +69,13 @@ public class OrderIntegrationTest {
     void itShouldGetOrdersForAuthenticatedUser() throws Exception {
         // given
         String email = "test@gmail.com";
+
+        // user registers
         RegistrationRequest regRequest = new RegistrationRequest(email, "password", new ContactInfo("first", "last"));
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/registration").contentType(MediaType.APPLICATION_JSON)
                 .content(Objects.requireNonNull(objectToJson(regRequest))));
 
+        // user logs in
         AuthenticationRequest authRequest = new AuthenticationRequest(email, "password");
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/login").contentType(MediaType.APPLICATION_JSON)
                 .content(Objects.requireNonNull(objectToJson(authRequest)))).andExpect(status().isOk());
@@ -82,15 +85,12 @@ public class OrderIntegrationTest {
                 .getResponse().getContentAsString();
         MyUser account = new ObjectMapper().readValue(theUser, MyUser.class);
 
+        // user places order
         Order order = new Order("ordernumber", LocalDateTime.now(), "scheduled", OrderStatus.PROCESSING, 0, account.getUuid(),
                 new ArrayList<OrderItem>(), new OrderDetails("first", "last", email, "1111111111"));
 
-        // add account field to post request body
-        JSONObject jsonobj = new JSONObject(objectToJson(order)).put("account", account.getUuid());
-        String postBody = String.valueOf(jsonobj);
-
         ResultActions orderResultActions = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/orders").contentType(MediaType.APPLICATION_JSON)
-                .content(Objects.requireNonNull(postBody)));
+                .content(Objects.requireNonNull(objectToJson(order))));
 
         orderResultActions.andExpect(status().isCreated());
 

@@ -152,13 +152,11 @@ public class Order {
 	public void setDelivery(int delivery) {
 		this.delivery = delivery;
 	}
-	
-	@JsonIgnore
+
 	public UUID getAccount() {
 		return account;
 	}
 
-	@JsonProperty
 	public void setAccount(UUID account) {
 		this.account = account;
 	}
