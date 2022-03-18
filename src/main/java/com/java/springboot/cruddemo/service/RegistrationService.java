@@ -10,10 +10,10 @@ import com.java.springboot.cruddemo.payload.RegistrationRequest;
 
 @Service
 public class RegistrationService {
-	
+
 	@Autowired
 	private MyUserDetailsService myUserDetailsService;
-	
+
 	public AuthenticationResponse register(RegistrationRequest request) {
 		return myUserDetailsService.signUpUser(
 				new MyUser(
