@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 const ORDERS_REST_API_URL = "http://localhost:8080/api/orders";
 
 const PAYMENT_INTENT_REST_API_URL =
-  "http://localhost:8080/api/create-payment-intent";
+  "http://localhost:8080/api/v1/payment/create-payment-intent";
 const stripePromise = loadStripe(
   "pk_test_51KOQICI7AFq6GjKYYTPlwHtznGbgswqahPKsN9LMNgsu7A9Enj9L80WsjPGvoDF8TvPrDPP3GEJA7VKqjqQemrj600uhdiiVpO"
 );

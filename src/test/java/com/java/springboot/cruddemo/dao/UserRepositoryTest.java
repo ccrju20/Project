@@ -7,6 +7,8 @@ import java.util.Optional;
 
 import javax.validation.ConstraintViolationException;
 
+import com.java.springboot.cruddemo.dao.ContactInfoRepository;
+import com.java.springboot.cruddemo.dao.UserRepository;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -32,8 +34,7 @@ class UserRepositoryTest {
 	@Order(1)
 	void itShouldSaveContactInfo() {
 		// given
-		ContactInfo info = new ContactInfo("First", "Last", "test@gmail.com", "", "", "",
-				"", "", "");
+		ContactInfo info = new ContactInfo("First", "Last");
 		
 		// when
 		underTestExtension.save(info);

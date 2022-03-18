@@ -27,7 +27,7 @@ public class OrderRestController {
         OrderService = theOrderService;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<Order> findAll() {
         return OrderService.findAll();
     }
@@ -47,17 +47,15 @@ public class OrderRestController {
         return OrderService.findByOrderNo(orderNo);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Order> addOrder(@Valid @RequestBody Order theOrder) {
-
         OrderService.save(theOrder);
 
-        return new ResponseEntity<Order>(theOrder, HttpStatus.CREATED);
+        return new ResponseEntity<>(theOrder, HttpStatus.CREATED);
     }
 
-    @PutMapping("/")
+    @PutMapping("")
     public Order updateOrder(@RequestBody Order theOrder) {
-
         OrderService.update(theOrder);
 
         return theOrder;
@@ -65,15 +63,13 @@ public class OrderRestController {
 
     @DeleteMapping("/{orderId}")
     public String deleteOrder(@PathVariable int orderId) {
-
         OrderService.deleteById(orderId);
 
-        return "Deleted Order id - " + orderId;
+        return "Deleted Order id " + orderId;
     }
 
     @PutMapping("/orderdetails")
     public OrderDetails updateOrderDetails(@RequestBody OrderDetails theOrderDetails) {
-
         OrderService.saveOrderDetails(theOrderDetails);
 
         return theOrderDetails;
@@ -81,7 +77,6 @@ public class OrderRestController {
 
     @PutMapping("/orderitems")
     public OrderItem updateOrderItem(@RequestBody OrderItem theOrderItem) {
-
         OrderService.saveOrderItem(theOrderItem);
 
         return theOrderItem;
@@ -89,12 +84,12 @@ public class OrderRestController {
 
     @DeleteMapping("/orderitems/{orderItemId}")
     public String deleteOrderItem(@PathVariable int orderItemId) {
-
         OrderService.deleteOrderItemById(orderItemId);
 
         return "Deleted OrderItem id - " + orderItemId;
     }
 
+    // Update order status
     @PutMapping("/order/{orderNo}/status/{newStatus}")
     public String updateOrderStatus(@PathVariable String orderNo, @PathVariable String newStatus) {
         OrderService.updateStatus(orderNo, newStatus);

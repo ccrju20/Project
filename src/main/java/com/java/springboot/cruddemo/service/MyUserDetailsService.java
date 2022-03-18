@@ -1,9 +1,14 @@
 package com.java.springboot.cruddemo.service;
 
-import java.util.Optional;
 import java.util.UUID;
 
+import com.java.springboot.cruddemo.exception.ObjectNotFoundException;
+import com.java.springboot.cruddemo.exception.UsernameExistsException;
+import com.java.springboot.cruddemo.payload.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,77 +16,74 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.java.springboot.cruddemo.dao.UserRepository;
-import com.java.springboot.cruddemo.entity.ContactInfo;
 import com.java.springboot.cruddemo.models.MyUser;
 import com.java.springboot.cruddemo.util.JwtUtil;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
-	private final UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final JwtUtil jwtTokenUtil;
 
-	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    public MyUserDetailsService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, JwtUtil jwtTokenUtil) {
+        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.jwtTokenUtil = jwtTokenUtil;
+    }
 
-	private final JwtUtil jwtTokenUtil;
-	
-	@Autowired
-	public MyUserDetailsService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, JwtUtil jwtTokenUtil) {
-		this.userRepository = userRepository;
-		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-		this.jwtTokenUtil = jwtTokenUtil;
-	}
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Not found: " + username));
+    }
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return userRepository.findByEmail(username)
-				.orElseThrow(() -> new UsernameNotFoundException("Not found: " + username));
-	}
+    public AuthenticationResponse authenticate(AuthenticationManager authenticationManager, String username, String password) throws Exception {
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, password));
+        } catch (BadCredentialsException e) {
+            throw new Exception("Incorrect username or password", e);
+        }
 
-	public String signUpUser(MyUser myUser) {
-		boolean userExists = userRepository.findByEmail(myUser.getEmail()).isPresent();
-		if (userExists) {
-//			throw new IllegalStateException("Email already taken");
-			return "Error: Email already taken";
-		}
+        UserDetails userDetails = userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Not found: " + username));
 
-		myUser.setCreatedAt();
-		myUser.setUuid(UUID.randomUUID());
+        String jwt = jwtTokenUtil.generateToken(userDetails);
+        UUID theId = userRepository.findUUIDByEmail(username);
 
-		String encodedPassword = bCryptPasswordEncoder.encode(myUser.getPassword());
-		myUser.setPassword(encodedPassword);
+        return new AuthenticationResponse(jwt, theId);
+    }
 
-		userRepository.save(myUser);
+    public AuthenticationResponse signUpUser(MyUser myUser) {
+       if (userRepository.findByEmail(myUser.getEmail()).isPresent()) {
+            throw new UsernameExistsException(String.format("Username %s already taken", myUser.getEmail()));
+       }
 
-		String jwt = jwtTokenUtil.generateToken(myUser);
+        myUser.setCreatedAt();
+        myUser.setUuid(UUID.randomUUID());
+        String encodedPassword = bCryptPasswordEncoder.encode(myUser.getPassword());
+        myUser.setPassword(encodedPassword);
 
-		return jwt;
-	}
+        userRepository.save(myUser);
+        String jwt = jwtTokenUtil.generateToken(myUser);
 
-	public MyUser findById(int theId) {
-		Optional<MyUser> user = userRepository.findById(theId);
+        return new AuthenticationResponse(jwt, myUser.getUuid());
+    }
 
-		MyUser theUser = null;
+    public MyUser findById(int theId) {
+        MyUser user = userRepository.findById(theId)
+                .orElseThrow(() -> new ObjectNotFoundException("Did not find User id " + theId));
 
-		if (user.isPresent()) {
-			theUser = user.get();
-		} else {
-			throw new RuntimeException("Did not find User id - " + theId);
-		}
+        return user;
+    }
 
-		return theUser;
-	}
-	
-	public UUID findUUIDByUsername(String username) {
-		return userRepository.findUUIDByEmail(username);
-	}
+    public void deleteById(int theId) {
+        userRepository.findById(theId)
+                .orElseThrow(() -> new ObjectNotFoundException("Did not find User id " + theId));
 
-	public void deleteById(int theId) {
-		Optional<MyUser> user = userRepository.findById(theId);
+        userRepository.deleteById(theId);
+    }
 
-		if (user.isPresent()) {
-			userRepository.deleteById(theId);
-		} else {
-			throw new RuntimeException("Did not find User id - " + theId);
-		}
-	}
 }

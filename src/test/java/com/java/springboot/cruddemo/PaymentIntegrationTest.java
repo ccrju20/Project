@@ -35,7 +35,7 @@ public class PaymentIntegrationTest {
 		CreatePayment createPayment = new CreatePayment(cartItems);
 
 		// when 
-		ResultActions paymentIntentResultActions = mockMvc.perform(MockMvcRequestBuilders.post("/api/create-payment-intent")
+		ResultActions paymentIntentResultActions = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/payment/create-payment-intent")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content(Objects.requireNonNull(objectToJson(createPayment))));
 		

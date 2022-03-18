@@ -18,6 +18,12 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.java.springboot.cruddemo.models.MyUser;
 import com.java.springboot.cruddemo.models.MyUserRole;
 import org.apache.tomcat.jni.Local;
@@ -35,6 +41,7 @@ public class Order {
 	private String ordernumber;
 	
 	@Column(nullable=false)
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime dateposted;
 	
 	@NotEmpty
@@ -65,9 +72,10 @@ public class Order {
 		
 	}
 
-	public Order(String ordernumber, String scheduled, OrderStatus status, int delivery, UUID account,
+	public Order(String ordernumber, LocalDateTime dateposted, String scheduled, OrderStatus status, int delivery, UUID account,
 			List<OrderItem> orderItems, OrderDetails orderDetails) {
 		this.ordernumber = ordernumber;
+		this.dateposted = dateposted;
 		this.scheduled = scheduled;
 		this.status = status;
 		this.delivery = delivery;
@@ -102,10 +110,11 @@ public class Order {
         this.ordernumber = builder.toString();
 	}
 
-	public String getDateposted() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
-		String formattedDate = dateposted.format(formatter);
-		return formattedDate;
+	public LocalDateTime getDateposted() {
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+//		String formattedDate = dateposted.format(formatter);
+//		return formattedDate;
+		return dateposted;
 	}
 	
 	public void setDateposted() {
@@ -143,23 +152,13 @@ public class Order {
 	public void setDelivery(int delivery) {
 		this.delivery = delivery;
 	}
-	
-	@JsonIgnore
+
 	public UUID getAccount() {
 		return account;
 	}
 
-	@JsonProperty
 	public void setAccount(UUID account) {
 		this.account = account;
-	}
-
-	public void add(OrderItem orderItem) {
-		if (orderItems == null) {
-			orderItems = new ArrayList<>();
-		}
-		
-		orderItems.add(orderItem);
 	}
 
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
@@ -173,7 +172,16 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", ordernumber=" + ordernumber + ", dateposted=" + dateposted + "]";
+		return "Order{" +
+				"id=" + id +
+				", ordernumber='" + ordernumber + '\'' +
+				", dateposted=" + dateposted +
+				", scheduled='" + scheduled + '\'' +
+				", status=" + status +
+				", delivery=" + delivery +
+				", account=" + account +
+				", orderItems=" + orderItems +
+				", orderDetails=" + orderDetails +
+				'}';
 	}
-	
 }

@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.java.springboot.cruddemo.dao.UserRepository;
+import com.java.springboot.cruddemo.exception.ObjectNotFoundException;
 import com.java.springboot.cruddemo.models.MyUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,38 +16,25 @@ import com.java.springboot.cruddemo.entity.ContactInfo;
 @Service
 public class ContactInfoService {
 
-	private final UserRepository userRepository;
-	private final ContactInfoRepository contactInfoRepository;
-	
-	@Autowired
-	public ContactInfoService(ContactInfoRepository theContactInfoRepository, UserRepository theUserRepository) {
-		contactInfoRepository = theContactInfoRepository;
-		userRepository = theUserRepository;
-	}
+    private final UserRepository userRepository;
+    private final ContactInfoRepository contactInfoRepository;
 
-	public ContactInfo findContactInfo(UUID theId) {
-		ContactInfo theContactInfo = userRepository.findContactInfoById(theId);
-		if (theContactInfo == null) {
-			throw new RuntimeException("User info not found - " + theId);
-		}
-		return theContactInfo;
-	}
+    @Autowired
+    public ContactInfoService(ContactInfoRepository contactInfoRepository, UserRepository userRepository) {
+        this.contactInfoRepository = contactInfoRepository;
+        this.userRepository = userRepository;
+    }
 
-	public String findEmailByUuid(UUID id) {
-		Optional<MyUser> user = userRepository.findByUuid(id);
-		String email = "";
+    public ContactInfo findContactInfo(UUID theId) {
+        ContactInfo theContactInfo = userRepository.findContactInfoById(theId);
+        if (theContactInfo == null) {
+            throw new ObjectNotFoundException("User uuid not found - " + theId);
+        }
+        return theContactInfo;
+    }
 
-		if (user.isPresent()) {
-			email = user.get().getEmail();
-		} else {
-			throw new RuntimeException("Did not find User id - " + id);
-		}
-
-		return email;
-	}
-
-	public void save(ContactInfo theContactInfo) {
-		contactInfoRepository.save(theContactInfo);
-	}
+    public void save(ContactInfo theContactInfo) {
+        contactInfoRepository.save(theContactInfo);
+    }
 
 }
