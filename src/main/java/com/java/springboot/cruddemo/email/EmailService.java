@@ -16,7 +16,7 @@ public class EmailService implements EmailSender{
     private JavaMailSender mailSender;
 
     @Override
-    @Async
+    @Async("threadPoolTaskExecutor")
     public void sendEmail(String to, String email) {
         try{
             MimeMessage mimeMessage = mailSender.createMimeMessage();

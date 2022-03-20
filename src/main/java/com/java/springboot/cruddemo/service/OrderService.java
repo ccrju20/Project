@@ -47,6 +47,10 @@ public class OrderService {
         theOrder.setOrdernumber();
         theOrder.setStatus(OrderStatus.PROCESSING);
 
+        if (theOrder.getAccount() == null) {
+            theOrder.setAccount(UUID.randomUUID());
+        }
+
         List<OrderItem> theOrderItems = theOrder.getOrderItems();
 
         theOrderItems.forEach(orderItem -> orderItem
@@ -60,9 +64,9 @@ public class OrderService {
         OrderRepository.save(theOrder);
     }
 
-    public Order findByOrderNo (String orderNo) {
-       Order theOrder = OrderRepository.findByOrderNumber(orderNo)
-               .orElseThrow(() -> new ObjectNotFoundException("Did not find order " + orderNo));
+    public Order findByOrderNo(String orderNo) {
+        Order theOrder = OrderRepository.findByOrderNumber(orderNo)
+                .orElseThrow(() -> new ObjectNotFoundException("Did not find order " + orderNo));
 
         return theOrder;
     }
@@ -78,7 +82,7 @@ public class OrderService {
         userRepository.findByUuid(id)
                 .orElseThrow(() -> new ObjectNotFoundException(String.format("User id %s not found", id)));
 
-       return OrderRepository.findByAccount(id).get();
+        return OrderRepository.findByAccount(id).get();
     }
 
     public void saveOrderDetails(OrderDetails theOrderDetails) {

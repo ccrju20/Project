@@ -75,10 +75,6 @@ public class MyUserDetailsService implements UserDetailsService {
 
         emailSender.sendEmail(myUser.getEmail(), buildEmail(myUser.getContactInfo().getFirstname()));
 
-        // create EmailNotificationRequest (first, last, email)
-        // kafkaTemplate.send("topicName", EmailNotificationRequest)
-        // Kafka Listener class/consumer --> EmailService.send(EmailNotificationRequest req)
-
         return new AuthenticationResponse(jwt, myUser.getUuid());
     }
 

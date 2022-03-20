@@ -27,7 +27,7 @@ public class OrderRestController {
         OrderService = theOrderService;
     }
 
-    @GetMapping("")
+    @GetMapping
     public List<Order> findAll() {
         return OrderService.findAll();
     }
@@ -47,14 +47,14 @@ public class OrderRestController {
         return OrderService.findByOrderNo(orderNo);
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<Order> addOrder(@Valid @RequestBody Order theOrder) {
         OrderService.save(theOrder);
 
         return new ResponseEntity<>(theOrder, HttpStatus.CREATED);
     }
 
-    @PutMapping("")
+    @PutMapping
     public Order updateOrder(@RequestBody Order theOrder) {
         OrderService.update(theOrder);
 

@@ -4,9 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class CreatePayment {
 
-	@SerializedName("items")
-	CartItem[] items;
-	
+	private CartItem[] items;
+
 	public CreatePayment() {
 	}
 
