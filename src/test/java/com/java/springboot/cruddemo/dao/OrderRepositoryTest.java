@@ -37,7 +37,7 @@ class OrderRepositoryTest {
                 "ordernumber",
                 LocalDateTime.now(),
                 "scheduled",
-                OrderStatus.PROCESSING,
+                OrderStatus.PENDING,
                 0,
                 UUID.randomUUID(),
                 orderItems,
@@ -58,7 +58,7 @@ class OrderRepositoryTest {
         // given
         List<OrderItem> orderItems = new ArrayList<>();
 
-        Order order = new Order("ordernumber", LocalDateTime.now(), "scheduled", OrderStatus.PROCESSING, 0, UUID.randomUUID(), orderItems, null);
+        Order order = new Order("ordernumber", LocalDateTime.now(), "scheduled", OrderStatus.PENDING, 0, UUID.randomUUID(), orderItems, null);
 
         // when
         // then
@@ -71,7 +71,7 @@ class OrderRepositoryTest {
         // given
         OrderDetails orderDetails = new OrderDetails("first", "last", "test@gmail.com", "5555555555");
 
-        Order order = new Order("ordernumber", LocalDateTime.now(), "scheduled", OrderStatus.PROCESSING, 0, UUID.randomUUID(), null,
+        Order order = new Order("ordernumber", LocalDateTime.now(), "scheduled", OrderStatus.PENDING, 0, UUID.randomUUID(), null,
                 orderDetails);
 
         // when
@@ -86,7 +86,7 @@ class OrderRepositoryTest {
         List<OrderItem> orderItems = new ArrayList<>();
         OrderDetails orderDetails = new OrderDetails("first", "last", "test@gmail.com", "5555555555");
 
-        Order order = new Order("ordernumber", LocalDateTime.now(), "", OrderStatus.PROCESSING, 0, UUID.randomUUID(), orderItems, orderDetails);
+        Order order = new Order("ordernumber", LocalDateTime.now(), "", OrderStatus.PENDING, 0, UUID.randomUUID(), orderItems, orderDetails);
 
         // when
         // then
@@ -100,7 +100,7 @@ class OrderRepositoryTest {
         List<OrderItem> orderItems = new ArrayList<>();
         OrderDetails orderDetails = new OrderDetails("first", "last", "test@gmail.com", "5555555555");
 
-        Order order = new Order(null, LocalDateTime.now(), "scheduled", OrderStatus.PROCESSING, 0, UUID.randomUUID(), orderItems, orderDetails);
+        Order order = new Order(null, LocalDateTime.now(), "scheduled", OrderStatus.PENDING, 0, UUID.randomUUID(), orderItems, orderDetails);
 
         // when
         // then
@@ -114,7 +114,7 @@ class OrderRepositoryTest {
         List<OrderItem> orderItems = new ArrayList<>();
         OrderDetails orderDetails = new OrderDetails("first", "last", "test@gmail.com", "5555555555");
 
-        Order order = new Order("ordernumber", null, "scheduled", OrderStatus.PROCESSING, 0, UUID.randomUUID(), orderItems, orderDetails);
+        Order order = new Order("ordernumber", null, "scheduled", OrderStatus.PENDING, 0, UUID.randomUUID(), orderItems, orderDetails);
 
         // when
         // then

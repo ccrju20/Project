@@ -33,7 +33,7 @@ public class ContactInfoService {
         return theContactInfo;
     }
 
-    public void save(ContactInfo theContactInfo) {
+    public void saveContactInfo(ContactInfo theContactInfo) {
         contactInfoRepository.save(theContactInfo);
     }
 

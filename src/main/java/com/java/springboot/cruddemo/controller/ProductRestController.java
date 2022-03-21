@@ -36,8 +36,8 @@ public class ProductRestController {
         productOptionsService = theProductOptionsService;
     }
 
-    @GetMapping("")
-    public ResponseEntity<Map<String, Object>> findAll(
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> findAllPaginatedProducts(
             @RequestParam(required = false) String category,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "9") int size
@@ -48,32 +48,32 @@ public class ProductRestController {
     }
 
     @GetMapping("/all")
-    public List<Product> findAll() {
-        return productService.findAll();
+    public List<Product> findAllProducts() {
+        return productService.findAllProducts();
     }
 
     @GetMapping("/{productId}")
     public Product getProduct(@PathVariable int productId) {
-        return productService.findById(productId);
+        return productService.findProductById(productId);
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<Product> addProduct(@RequestBody Product theProduct) {
-        productService.save(theProduct);
+        productService.saveProduct(theProduct);
 
         return new ResponseEntity<>(theProduct, HttpStatus.CREATED);
     }
 
-    @PutMapping("")
+    @PutMapping
     public Product updateProduct(@RequestBody Product theProduct) {
-        productService.update(theProduct);
+        productService.updateProduct(theProduct);
 
         return theProduct;
     }
 
     @DeleteMapping("/{productId}")
     public String deleteProduct(@PathVariable int productId) {
-        productService.deleteById(productId);
+        productService.deleteProductById(productId);
 
         return "Deleted product id - " + productId;
     }
@@ -82,7 +82,7 @@ public class ProductRestController {
     @PostMapping("/productslist")
     public void addProducts(@RequestBody List<Product> products) {
         for (Product product : products) {
-            productService.save(product);
+            productService.saveProduct(product);
         }
     }
 
