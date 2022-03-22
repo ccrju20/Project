@@ -61,13 +61,13 @@ class OrderServiceTest {
     @Test
     void itShouldSaveNewOrder() {
         // given
-        Order order = new Order("ordernumber", LocalDateTime.now(), "scheduled", OrderStatus.PROCESSING, 0, UUID.randomUUID(),
+        Order order = new Order("ordernumber", LocalDateTime.now(), "scheduled", OrderStatus.PENDING, 0, UUID.randomUUID(),
                 new ArrayList<OrderItem>(), new OrderDetails());
 
         given(orderRepository.findById(1)).willReturn(Optional.empty());
 
         // when
-        underTest.save(order);
+        underTest.saveOrder(order);
 
         // then
         then(orderRepository).should().save(orderArgumentCaptor.capture());
@@ -79,13 +79,13 @@ class OrderServiceTest {
     void itShouldFindOrderById() {
         // given
         int theId = 1;
-        Order order = new Order("ordernumber", LocalDateTime.now(), "scheduled", OrderStatus.PROCESSING, 0, UUID.randomUUID(),
+        Order order = new Order("ordernumber", LocalDateTime.now(), "scheduled", OrderStatus.PENDING, 0, UUID.randomUUID(),
                 new ArrayList<OrderItem>(), new OrderDetails());
 
         given(orderRepository.findById(theId)).willReturn(Optional.of(order));
 
         // when
-        underTest.findById(theId);
+        underTest.findOrderById(theId);
 
         // then
         ArgumentCaptor<Integer> idArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
@@ -103,7 +103,7 @@ class OrderServiceTest {
         given(orderRepository.findById(theId)).willReturn(Optional.empty());
 
         // when
-        assertThatThrownBy(() -> underTest.findById(theId))
+        assertThatThrownBy(() -> underTest.findOrderById(theId))
                 .isInstanceOf(ObjectNotFoundException.class)
                 .hasMessageContaining("Did not find Order id " + theId);
 
@@ -122,7 +122,7 @@ class OrderServiceTest {
         given(orderRepository.findByAccount(theId)).willReturn(Optional.of(orders));
 
         // when
-        underTest.findByAccountId(theId);
+        underTest.findOrderByAccountId(theId);
 
         // then
         then(orderRepository).should().findByAccount(uuidArgumentCaptor.capture());
@@ -139,7 +139,7 @@ class OrderServiceTest {
         given(orderRepository.findByAccount(theId)).willReturn(Optional.empty());
 
         // when
-        assertThatThrownBy(() -> underTest.findByAccountId(theId))
+        assertThatThrownBy(() -> underTest.findOrderByAccountId(theId))
                 .isInstanceOf(ObjectNotFoundException.class)
                 .hasMessageContaining(String.format("User id %s not found", theId));
 

@@ -49,7 +49,7 @@ public class OrderIntegrationTest {
         // given
         List<OrderItem> orderItems = new ArrayList<>();
         OrderDetails orderDetails = new OrderDetails("first", "last", "test@gmail.com", "1111111111");
-        Order order = new Order("ordernumber", LocalDateTime.now(), "scheduled", OrderStatus.PROCESSING, 0, UUID.randomUUID(),
+        Order order = new Order("ordernumber", LocalDateTime.now(), "scheduled", OrderStatus.PENDING, 0, UUID.randomUUID(),
                 orderItems, orderDetails);
         // when
         ResultActions orderResultActions = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/orders")
@@ -86,7 +86,7 @@ public class OrderIntegrationTest {
         MyUser account = new ObjectMapper().readValue(theUser, MyUser.class);
 
         // user places order
-        Order order = new Order("ordernumber", LocalDateTime.now(), "scheduled", OrderStatus.PROCESSING, 0, account.getUuid(),
+        Order order = new Order("ordernumber", LocalDateTime.now(), "scheduled", OrderStatus.PENDING, 0, account.getUuid(),
                 new ArrayList<OrderItem>(), new OrderDetails("first", "last", email, "1111111111"));
 
         ResultActions orderResultActions = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/orders").contentType(MediaType.APPLICATION_JSON)

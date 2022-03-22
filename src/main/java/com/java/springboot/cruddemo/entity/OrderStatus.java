@@ -1,9 +1,11 @@
 package com.java.springboot.cruddemo.entity;
 
 public enum OrderStatus {
-    PROCESSING,
+    PENDING,
     CONFIRMED,
-    OUT_FOR_DELIVERY,
+    SHIPPED,
+    DELIVERED,
     COMPLETE,
-    CANCELED
+    CANCELED,
+    REFUNDED
 }

@@ -12,8 +12,9 @@ import CardContent from "@material-ui/core/CardContent";
 import CheckoutCartList from "./OrderSummary/CheckoutCartList";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import DataObject from "./DataObject";
 
-const ORDERS_REST_API_URL = "http://localhost:8080/api/orders";
+const ORDERS_REST_API_URL = "http://localhost:8080/api/v1/orders";
 
 const PAYMENT_INTENT_REST_API_URL =
   "http://localhost:8080/api/v1/payment/create-payment-intent";
@@ -26,6 +27,7 @@ const PaymentPage = (props) => {
   const userContext = useContext(UserInfoContext);
   const cartCtx = useContext(CartContext);
   const navigate = useNavigate();
+  const { dataObject, scheduledTime } = DataObject();
 
   useEffect(() => {
     axios
@@ -33,6 +35,7 @@ const PaymentPage = (props) => {
       .then((res) => {
         setClientSecret(res.data.clientSecret);
         console.log(res.data.clientSecret);
+        console.log(res.data);
       });
 
     localStorage.removeItem("ordernumber");
@@ -46,7 +49,6 @@ const PaymentPage = (props) => {
     appearance,
   };
 
-  /// From ConfirmInfo
   const {
     firstname,
     lastname,
@@ -62,63 +64,6 @@ const PaymentPage = (props) => {
     pickup,
   } = userContext.info;
 
-  let scheduledTime = "";
-
-  if (when !== "ASAP") {
-    scheduledTime = new Intl.DateTimeFormat("en-US", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-    }).format(scheduled);
-  } else {
-    scheduledTime = "ASAP";
-  }
-
-  let cartItems = [];
-  cartCtx.items.forEach((item) => {
-    cartItems.push({
-      quantity: item.amount,
-      product: {
-        id: item.id,
-      },
-      productOption: {
-        id: item.option,
-        price: item.price
-      }
-    });
-  });
-
-  let method = 0;
-  if (!pickup) {
-    method = 1;
-  }
-  const DataObject = {
-    orderItems: cartItems,
-    scheduled: scheduledTime,
-    delivery: method,
-    orderDetails: {
-      firstname: firstname,
-      lastname: lastname,
-      email: email,
-      phone: phone,
-      address: address.toUpperCase(),
-      addresstwo: addresstwo.toUpperCase(),
-      city: city.toUpperCase(),
-      state: state.toUpperCase(),
-      postal: postal,
-    },
-  };
-
-  const user = localStorage.getItem("user");
-  if (user) {
-    let userId = JSON.parse(user).theId;
-    DataObject.account = { id: userId };
-  } else {
-    DataObject.account = {id: "00000000-0000-0000-0000-000000000000"}
-  }
-
   const total = localStorage.getItem("total");
 
   const handleBack = () => {
@@ -127,7 +72,8 @@ const PaymentPage = (props) => {
 
   const submit = async () => {
     try {
-      const resp = await axios.post(ORDERS_REST_API_URL, DataObject);
+      // const resp = await axios.post(ORDERS_REST_API_URL, DataObject);
+      const resp = await axios.post(ORDERS_REST_API_URL, dataObject);
       console.log(resp.data.ordernumber);
       localStorage.setItem("ordernumber", resp.data.ordernumber);
     } catch {
@@ -162,7 +108,8 @@ const PaymentPage = (props) => {
                   {email}
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  {address.toUpperCase()} {city.toUpperCase()} {state.toUpperCase()} {postal}
+                  {address.toUpperCase()} {city.toUpperCase()}{" "}
+                  {state.toUpperCase()} {postal}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   {phone}

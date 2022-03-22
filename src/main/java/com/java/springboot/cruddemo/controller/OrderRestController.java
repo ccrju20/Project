@@ -27,19 +27,19 @@ public class OrderRestController {
         OrderService = theOrderService;
     }
 
-    @GetMapping("")
-    public List<Order> findAll() {
-        return OrderService.findAll();
+    @GetMapping
+    public List<Order> findAllOrders() {
+        return OrderService.findAllOrders();
     }
 
     @GetMapping("/account/{accountId}")
-    public List<Order> findAllById(@PathVariable UUID accountId) {
-        return OrderService.findByAccountId(accountId);
+    public List<Order> findAllOrdersById(@PathVariable UUID accountId) {
+        return OrderService.findOrderByAccountId(accountId);
     }
 
     @GetMapping("/{orderId}")
     public Order getOrder(@PathVariable int orderId) {
-        return OrderService.findById(orderId);
+        return OrderService.findOrderById(orderId);
     }
 
     @GetMapping("/id/{orderNo}")
@@ -47,23 +47,23 @@ public class OrderRestController {
         return OrderService.findByOrderNo(orderNo);
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<Order> addOrder(@Valid @RequestBody Order theOrder) {
-        OrderService.save(theOrder);
+        OrderService.saveOrder(theOrder);
 
         return new ResponseEntity<>(theOrder, HttpStatus.CREATED);
     }
 
-    @PutMapping("")
+    @PutMapping
     public Order updateOrder(@RequestBody Order theOrder) {
-        OrderService.update(theOrder);
+        OrderService.updateOrder(theOrder);
 
         return theOrder;
     }
 
     @DeleteMapping("/{orderId}")
     public String deleteOrder(@PathVariable int orderId) {
-        OrderService.deleteById(orderId);
+        OrderService.deleteOrderById(orderId);
 
         return "Deleted Order id " + orderId;
     }
@@ -92,7 +92,7 @@ public class OrderRestController {
     // Update order status
     @PutMapping("/order/{orderNo}/status/{newStatus}")
     public String updateOrderStatus(@PathVariable String orderNo, @PathVariable String newStatus) {
-        OrderService.updateStatus(orderNo, newStatus);
+        OrderService.updateOrderStatus(orderNo, newStatus);
         return "Updated order status to " + newStatus;
     }
 }

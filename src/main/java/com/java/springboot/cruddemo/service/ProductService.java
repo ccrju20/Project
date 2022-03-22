@@ -30,27 +30,27 @@ public class ProductService {
         productOptionsRepository = theProductOptionsRepository;
     }
 
-    public List<Product>  findAll() {
+    public List<Product>  findAllProducts() {
         return productRepository.findAll();
     }
 
-    public Product findById(int theId) {
+    public Product findProductById(int theId) {
         Product result = productRepository.findById(theId)
                 .orElseThrow(() -> new ObjectNotFoundException(String.format("Product with id %s not found", theId)));
 
         return result;
     }
 
-    public void update(Product theProduct) {
+    public void updateProduct(Product theProduct) {
         productRepository.save(theProduct);
     }
 
-    public void save(Product theProduct) {
+    public void saveProduct(Product theProduct) {
         theProduct.setId(0);
         productRepository.save(theProduct);
     }
 
-    public void deleteById(int theId) {
+    public void deleteProductById(int theId) {
         productRepository.findById(theId)
                 .orElseThrow(() -> new ObjectNotFoundException(String.format("Product with id %s not found", theId)));
 

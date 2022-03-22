@@ -2,6 +2,7 @@ package com.java.springboot.cruddemo.service;
 
 import java.util.UUID;
 
+import com.java.springboot.cruddemo.email.EmailSender;
 import com.java.springboot.cruddemo.exception.ObjectNotFoundException;
 import com.java.springboot.cruddemo.exception.UsernameExistsException;
 import com.java.springboot.cruddemo.payload.AuthenticationResponse;
@@ -25,12 +26,14 @@ public class MyUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JwtUtil jwtTokenUtil;
+    private final EmailSender emailSender;
 
     @Autowired
-    public MyUserDetailsService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, JwtUtil jwtTokenUtil) {
+    public MyUserDetailsService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, JwtUtil jwtTokenUtil, EmailSender emailSender) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.jwtTokenUtil = jwtTokenUtil;
+        this.emailSender = emailSender;
     }
 
     @Override
@@ -69,17 +72,19 @@ public class MyUserDetailsService implements UserDetailsService {
         userRepository.save(myUser);
         String jwt = jwtTokenUtil.generateToken(myUser);
 
+        emailSender.sendEmail(myUser.getEmail(), myUser.getContactInfo().getFirstname());
+
         return new AuthenticationResponse(jwt, myUser.getUuid());
     }
 
-    public MyUser findById(int theId) {
+    public MyUser findUserById(int theId) {
         MyUser user = userRepository.findById(theId)
                 .orElseThrow(() -> new ObjectNotFoundException("Did not find User id " + theId));
 
         return user;
     }
 
-    public void deleteById(int theId) {
+    public void deleteUserById(int theId) {
         userRepository.findById(theId)
                 .orElseThrow(() -> new ObjectNotFoundException("Did not find User id " + theId));
 

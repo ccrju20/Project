@@ -283,7 +283,7 @@ Cypress.Commands.add("confirmOrderSuccess", () => {
   cy.contains("Confirm Order").click();
   cy.wait("@confirmPayment").then(() => {
     // mocking order post request
-    cy.intercept("POST", "http://localhost:8080/api/orders", {
+    cy.intercept("POST", "http://localhost:8080/api/v1/orders", {
       body: {
         ordernumber: "ABCD1234",
       },

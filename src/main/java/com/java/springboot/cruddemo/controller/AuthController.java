@@ -54,14 +54,14 @@ public class AuthController {
 
     @GetMapping("/users/{userId}")
     public MyUser getUser(@PathVariable int userId) {
-        MyUser user = userDetailsService.findById(userId);
+        MyUser user = userDetailsService.findUserById(userId);
 
         return user;
     }
 
     @DeleteMapping("/users/{userId}")
     public String deleteUser(@PathVariable int userId) {
-        userDetailsService.deleteById(userId);
+        userDetailsService.deleteUserById(userId);
 
         return "Deleted User id - " + userId;
     }
@@ -73,7 +73,7 @@ public class AuthController {
 
     @PutMapping("/contactinfo")
     public ContactInfo updateContactInfo(@RequestBody ContactInfo theContactInfo) {
-        contactInfoService.save(theContactInfo);
+        contactInfoService.saveContactInfo(theContactInfo);
 
         return theContactInfo;
     }

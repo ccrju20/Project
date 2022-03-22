@@ -50,7 +50,7 @@ class ProductServiceTest {
         given(productRepository.findById(1)).willReturn(Optional.empty());
 
         // when
-        underTest.save(product);
+        underTest.saveProduct(product);
 
         // then
         then(productRepository).should().save(productArgumentCaptor.capture());
@@ -67,7 +67,7 @@ class ProductServiceTest {
         given(productRepository.findById(theId)).willReturn(Optional.of(product));
 
         // when
-        underTest.findById(theId);
+        underTest.findProductById(theId);
 
         // then
         then(productRepository).should().findById(theId);
@@ -82,7 +82,7 @@ class ProductServiceTest {
         given(productRepository.findById(theId)).willReturn(Optional.empty());
 
         // when
-        assertThatThrownBy(() -> underTest.findById(theId))
+        assertThatThrownBy(() -> underTest.findProductById(theId))
                 .isInstanceOf(ObjectNotFoundException.class)
                 .hasMessageContaining(String.format("Product with id %s not found", theId));
 

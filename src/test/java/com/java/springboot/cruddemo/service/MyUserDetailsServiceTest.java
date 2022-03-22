@@ -1,6 +1,7 @@
 package com.java.springboot.cruddemo.service;
 
 import com.java.springboot.cruddemo.dao.UserRepository;
+import com.java.springboot.cruddemo.email.EmailSender;
 import com.java.springboot.cruddemo.entity.ContactInfo;
 import com.java.springboot.cruddemo.exception.ObjectNotFoundException;
 import com.java.springboot.cruddemo.exception.UsernameExistsException;
@@ -23,6 +24,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
 
 class MyUserDetailsServiceTest {
@@ -35,6 +37,9 @@ class MyUserDetailsServiceTest {
     @Mock
     private JwtUtil jwtTokenUtil;
 
+    @Mock
+    private EmailSender emailSender;
+
     private MyUserDetailsService underTest;
 
     @Captor
@@ -43,7 +48,7 @@ class MyUserDetailsServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        underTest = new MyUserDetailsService(userRepository, bCryptPasswordEncoder, jwtTokenUtil);
+        underTest = new MyUserDetailsService(userRepository, bCryptPasswordEncoder, jwtTokenUtil, emailSender);
     }
 
     @Test
@@ -54,6 +59,7 @@ class MyUserDetailsServiceTest {
         MyUser user = new MyUser("test@gmail.com", "password", MyUserRole.USER, info);
 
         given(userRepository.findByEmail(email)).willReturn(Optional.empty());
+        doNothing().when(emailSender).sendEmail("email", "firstname");
 
         // when
         underTest.signUpUser(user);
@@ -92,7 +98,7 @@ class MyUserDetailsServiceTest {
         given(userRepository.findById(theId)).willReturn(Optional.of(user));
 
         // when
-        underTest.findById(theId);
+        underTest.findUserById(theId);
 
         // then
         then(userRepository).should().findById(theId);
@@ -107,7 +113,7 @@ class MyUserDetailsServiceTest {
         given(userRepository.findById(theId)).willReturn(Optional.empty());
 
         // when
-        assertThatThrownBy(() -> underTest.findById(theId))
+        assertThatThrownBy(() -> underTest.findUserById(theId))
                 .isInstanceOf(ObjectNotFoundException.class)
                 .hasMessageContaining("Did not find User id " + theId);
 

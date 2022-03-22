@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/api/v1/auth/**").permitAll()
-			.antMatchers("/api/v1/payment/create-payment-intent").permitAll()
+			.antMatchers("/api/v1/payment/**").permitAll()
 			.antMatchers("/api/v1/products/**").permitAll()
 			.antMatchers("/api/v1/orders/**").permitAll()
 //			.antMatchers("/api/orders").hasAnyAuthority("USER")
