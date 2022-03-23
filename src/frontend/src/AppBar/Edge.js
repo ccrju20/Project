@@ -12,6 +12,8 @@ import AuthContext from "../store/auth-context.js";
 import CartContext from "../store/cart-context";
 import CartDrawer from "../Cart/CartDrawer";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import MenuDrawer from "./MenuDrawer";
+import AccountMenu from "./AccountMenu";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -33,6 +35,7 @@ const Edge = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
 
+  const matchesAbout = useMediaQuery("(min-width:800px)");
   const matches = useMediaQuery("(min-width:750px)");
   const matchesContact = useMediaQuery("(min-width:960px)");
   const matchesCatering = useMediaQuery("(min-width:1280px)");
@@ -40,6 +43,7 @@ const Edge = () => {
   const cartTotalItems = cartCtx.items.length;
 
   const open = Boolean(anchorEl);
+  const [menuDrawerOpen, setMenuDrawerOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpened(true);
@@ -50,7 +54,14 @@ const Edge = () => {
   };
 
   const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
+    {
+      matches ? setAnchorEl(event.currentTarget) : setMenuDrawerOpen(true);
+    }
+    // setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setMenuDrawerOpen(false);
   };
 
   const handleClose = () => {
@@ -64,6 +75,12 @@ const Edge = () => {
         handleDrawerClose={handleDrawerClose}
         handleDrawerOpen={handleDrawerOpen}
       />
+      <MenuDrawer
+        opened={menuDrawerOpen}
+        handleMenuClose={handleMenuClose}
+        handleMenuOpen={handleMenu}
+      />
+      {authCtx.isLoggedIn && <AccountMenu />}
       <IconButton
         edge="start"
         className={classes.menuButton}
@@ -89,9 +106,11 @@ const Edge = () => {
         open={open}
         onClose={handleClose}
       >
-        <Link component={RouterLink} to="/account" color="inherit">
-          <MenuItem onClick={handleClose}>Account</MenuItem>
-        </Link>
+        {!authCtx.isLoggedIn && (
+          <Link component={RouterLink} to="/account" color="inherit">
+            <MenuItem onClick={handleClose}>Log In</MenuItem>
+          </Link>
+        )}
 
         {!authCtx.isLoggedIn && (
           <Link component={RouterLink} to="/signup" color="inherit">
@@ -99,7 +118,7 @@ const Edge = () => {
           </Link>
         )}
 
-        {!matches && (
+        {!matchesAbout && (
           <Link component={RouterLink} to="/cart" color="inherit">
             <MenuItem onClick={handleClose}>About</MenuItem>
           </Link>

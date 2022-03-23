@@ -59,7 +59,11 @@ const CartDrawer = (props) => {
         <Grid container justifyContent="center">
           <Box>
             <Typography variant="h4">
-              Cart <ShoppingBasketTwoToneIcon fontSize="large" />
+              Cart
+              <ShoppingBasketTwoToneIcon
+                style={{ marginBottom: -5, marginLeft: 5 }}
+                fontSize="large"
+              />
             </Typography>
           </Box>
 

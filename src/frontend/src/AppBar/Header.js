@@ -2,20 +2,15 @@ import { Link as RouterLink } from "react-router-dom";
 import { AppBar, Grid, Toolbar, Typography } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/styles";
-import Hidden from "@material-ui/core/Hidden";
 import Edge from "./Edge";
-import Logo from '../Logo';
+import Logo from "../Logo";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     boxShadow: "none",
     backgroundColor: "#FFFFFF",
     color: "#837D7D",
-  },
-  logo: {
-    marginTop: 20,
-    marginRight: 10,
-    marginBottom: 10,
   },
   menuText: {
     marginRight: 50,
@@ -30,48 +25,81 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = (props) => {
   const classes = useStyles();
-  
+
+  const smallToolbar = useMediaQuery("(min-width:345px)");
+  const hideAll = useMediaQuery("(min-width:650px)");
+  const matchesAbout = useMediaQuery("(min-width:800px)");
+  const matchesContact = useMediaQuery("(min-width:960px)");
+  const matchesCatering = useMediaQuery("(min-width:1280px)");
+
+  const linkTarget = () => {
+    if (window.location.pathname === "/shop") {
+      window.location.reload();
+    }
+  };
+
   return (
     <>
       <AppBar className={classes.root} position="static">
-        <Toolbar>
-          <Logo/>
+        {!hideAll && (
+          <Grid container justifyContent="center">
+            <Logo />
+            {!smallToolbar ? (
+              <Toolbar>
+                <Edge />
+              </Toolbar>
+            ) : (
+              <Edge />
+            )}
+          </Grid>
+        )}
+        {hideAll && (
+          <Toolbar>
+            {hideAll && <Logo />}
 
-          <Hidden only="xs">
-            <Grid container justifyContent="center">
-              <Grid item>
-                <Typography className={classes.menuText}>ABOUT</Typography>
-              </Grid>
+            <>
+              <Grid container justifyContent="center">
+                {matchesAbout && (
+                  <Grid item>
+                    <Typography className={classes.menuText}>ABOUT</Typography>
+                  </Grid>
+                )}
 
-              <Grid item>
-                <Typography className={classes.menuText}>
-                  <Link
-                    component={RouterLink}
-                    to="/shop"
-                    color="inherit"
-                    underline="none"
-                    className={classes.hover}
-                  >
-                    SHOP
-                  </Link>
-                </Typography>
-              </Grid>
-
-              <Hidden smDown={true}>
                 <Grid item>
-                  <Typography className={classes.menuText}>CONTACT</Typography>
+                  <Typography className={classes.menuText}>
+                    <Link
+                      component={RouterLink}
+                      to="/shop"
+                      onClick={linkTarget}
+                      color="inherit"
+                      underline="none"
+                      className={classes.hover}
+                    >
+                      SHOP
+                    </Link>
+                  </Typography>
                 </Grid>
-              </Hidden>
 
-              <Hidden mdDown={true}>
-                <Grid item>
-                  <Typography className={classes.menuText}>CATERING</Typography>
-                </Grid>
-              </Hidden>
-            </Grid>
-          </Hidden>
-          <Edge />
-        </Toolbar>
+                {matchesContact && (
+                  <Grid item>
+                    <Typography className={classes.menuText}>
+                      CONTACT
+                    </Typography>
+                  </Grid>
+                )}
+
+                {matchesCatering && (
+                  <Grid item>
+                    <Typography className={classes.menuText}>
+                      CATERING
+                    </Typography>
+                  </Grid>
+                )}
+              </Grid>
+              {hideAll && <Edge />}
+            </>
+          </Toolbar>
+        )}
       </AppBar>
     </>
   );

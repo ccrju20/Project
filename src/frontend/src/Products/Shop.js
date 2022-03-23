@@ -38,7 +38,7 @@ const Shop = () => {
   const [pageDisplay, setPageDisplay] = useState();
   const [allProducts, setAllProducts] = useState([]);
   const [open, setOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
 
   const classes = useStyles();
@@ -60,7 +60,6 @@ const Shop = () => {
       .catch((err) => {
         setLoadError(true);
         console.log(err);
-        console.log(err.message);
       });
   }, [selectedCategory, page]);
 
@@ -77,7 +76,7 @@ const Shop = () => {
       })
       .catch((err) => {
         setLoadError(true);
-        console.log(err.message);
+        console.log(err);
       });
   }, []);
 
@@ -86,7 +85,6 @@ const Shop = () => {
   };
 
   const handlePageChange = (event, value) => {
-    console.log(value);
     setPage(value);
   };
 
@@ -109,7 +107,7 @@ const Shop = () => {
               >
                 <ListItemButton
                   onClick={() => {
-                    setSelectedCategory(null);
+                    setSelectedCategory("all");
                     setPage(1);
                     setSearchTerm("");
                   }}
@@ -119,7 +117,7 @@ const Shop = () => {
                 <Divider variant="middle" />
                 <ListItemButton
                   onClick={() => {
-                    setSelectedCategory("Cookie");
+                    setSelectedCategory("cookie");
                     setPage(1);
                     setSearchTerm("");
                   }}
@@ -129,7 +127,7 @@ const Shop = () => {
                 <Divider variant="middle" />
                 <ListItemButton
                   onClick={() => {
-                    setSelectedCategory("Cupcake");
+                    setSelectedCategory("cupcake");
                     setPage(1);
                     setSearchTerm("");
                   }}
@@ -140,7 +138,7 @@ const Shop = () => {
                 <ListItemButton
                   onClick={() => {
                     handleClick();
-                    setSelectedCategory("Cake");
+                    setSelectedCategory("cake");
                     setPage(1);
                     setSearchTerm("");
                   }}

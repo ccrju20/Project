@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Grid, Box, Typography } from "@material-ui/core";
+import Link from "@mui/material/Link";
+import { Link as RouterLink } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import ProductDetails from "./ProductDetails";
@@ -9,11 +11,11 @@ import AddCircleOutlineTwoToneIcon from "@mui/icons-material/AddCircleOutlineTwo
 import RemoveCircleOutlineTwoToneIcon from "@mui/icons-material/RemoveCircleOutlineTwoTone";
 import IconButton from "@material-ui/core/IconButton";
 import SnackbarAlert from "../Cart/SnackbarAlert";
-
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 
 const ProductPage = () => {
   const [product, setProduct] = useState({});
@@ -33,7 +35,7 @@ const ProductPage = () => {
     setName(productItem.title);
     setPrice(productItem.price);
     setProductId(productItem.id);
-    setProductOptionsId(productItem.options[0].id)
+    setProductOptionsId(productItem.options[0].id);
     if (productItem.options.length > 1) {
       setProductOptions(productItem.options);
     }
@@ -96,9 +98,20 @@ const ProductPage = () => {
         <Grid item xs={1} />
         <Grid item xs={10}>
           <Box mt={5} mb={5}>
-            <Typography sx={{ fontSize: 18 }}>
-              Baked Goods > {product.category}
-            </Typography>
+            <Breadcrumbs aria-label="breadcrumb">
+              <Link
+                underline="hover"
+                color="inherit"
+                to="/shop"
+                component={RouterLink}
+              >
+                Shop
+              </Link>
+              <Typography>{product.category}</Typography>
+              <Typography style={{ color: "#000000" }}>
+                {product.title}
+              </Typography>
+            </Breadcrumbs>
           </Box>
 
           <Box mb={5}>
