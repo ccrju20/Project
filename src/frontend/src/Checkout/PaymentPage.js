@@ -1,17 +1,18 @@
 import { React, useState, useEffect, useContext } from "react";
-import PaymentForm from "./Form/PaymentForm";
-import { Grid, Box, Typography } from "@material-ui/core";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import axios from "axios";
+import PaymentForm from "./Form/PaymentForm";
 import UserInfoContext from "../store/userinfo-context";
+import { Grid, Box, Typography } from "@material-ui/core";
 import CartContext from "../store/cart-context";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CheckoutCartList from "./OrderSummary/CheckoutCartList";
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
+
 import DataObject from "./DataObject";
 
 const ORDERS_REST_API_URL = "http://localhost:8080/api/v1/orders";
@@ -39,7 +40,7 @@ const PaymentPage = (props) => {
       });
 
     localStorage.removeItem("ordernumber");
-  }, []);
+  }, [cartCtx.items]);
 
   const appearance = {
     theme: "stripe",
@@ -59,7 +60,6 @@ const PaymentPage = (props) => {
     city,
     state,
     postal,
-    scheduled,
     when,
     pickup,
   } = userContext.info;
@@ -72,7 +72,6 @@ const PaymentPage = (props) => {
 
   const submit = async () => {
     try {
-      // const resp = await axios.post(ORDERS_REST_API_URL, DataObject);
       const resp = await axios.post(ORDERS_REST_API_URL, dataObject);
       console.log(resp.data.ordernumber);
       localStorage.setItem("ordernumber", resp.data.ordernumber);
@@ -108,8 +107,8 @@ const PaymentPage = (props) => {
                   {email}
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  {address.toUpperCase()} {city.toUpperCase()}{" "}
-                  {state.toUpperCase()} {postal}
+                  {address.toUpperCase()} {addresstwo.toUpperCase()} <br/> 
+                  {`${city.toUpperCase()}, `} {state.toUpperCase()} {postal}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   {phone}

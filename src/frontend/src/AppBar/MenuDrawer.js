@@ -1,14 +1,14 @@
-import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { styled, makeStyles } from "@material-ui/styles";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import { styled } from "@material-ui/styles";
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
-import Divider from "@mui/material/Divider";
-import { makeStyles } from "@material-ui/styles";
 import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function TemporaryDrawer(props) {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -47,25 +48,37 @@ export default function TemporaryDrawer(props) {
           onKeyDown={props.handleMenuClose}
         >
           <List>
-            <ListItemButton onClick={() => console.log("clicked")}>
+            <ListItemButton>
               <ListItemText
                 primary="About"
                 style={{ display: "flex", justifyContent: "center" }}
               />
             </ListItemButton>
           </List>
+
           <Divider />
           <List>
-            <ListItemButton onClick={() => console.log("clicked")}>
+            <ListItemButton onClick={() => navigate("/shop")}>
               <ListItemText
                 primary="Shop"
                 style={{ display: "flex", justifyContent: "center" }}
               />
             </ListItemButton>
           </List>
+
           <Divider />
           <List>
-            <ListItemButton onClick={() => console.log("clicked")}>
+            <ListItemButton onClick={() => navigate("/account")}>
+              <ListItemText
+                primary="Account"
+                style={{ display: "flex", justifyContent: "center" }}
+              />
+            </ListItemButton>
+          </List>
+
+          <Divider />
+          <List>
+            <ListItemButton>
               <ListItemText
                 primary="Contact"
                 style={{ display: "flex", justifyContent: "center" }}
@@ -74,7 +87,7 @@ export default function TemporaryDrawer(props) {
           </List>
           <Divider />
           <List>
-            <ListItemButton onClick={() => console.log("clicked")}>
+            <ListItemButton>
               <ListItemText
                 primary="Catering"
                 style={{ display: "flex", justifyContent: "center" }}

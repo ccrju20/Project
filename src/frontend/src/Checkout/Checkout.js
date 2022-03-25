@@ -1,12 +1,13 @@
-import { React, useContext, useEffect } from "react";
+import { React, useContext } from "react";
+import { useForm, FormProvider } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import UserInfoContext from "../store/userinfo-context";
 import { Grid, Box, Typography } from "@material-ui/core";
 import ContactForm from "./Form/ContactForm";
 import ShippingForm from "./Form/ShippingForm";
 import ScheduleForm from "./Form/ScheduleForm";
-import * as yup from "yup";
-import UserInfoContext from "../store/userinfo-context";
-import { useForm, FormProvider } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+
 import CheckoutCartList from "./OrderSummary/CheckoutCartList";
 import Button from "@mui/material/Button";
 
@@ -15,7 +16,10 @@ const schema = yup
   .shape({
     firstname: yup.string().trim().required("*First name is required"),
     lastname: yup.string().trim().required("*Last name is required"),
-    email: yup.string().email("*Must be a valid email").required("*Email is required"),
+    email: yup
+      .string()
+      .email("*Must be a valid email")
+      .required("*Email is required"),
     phone: yup
       .string()
       .min(10, "*Must be at least 10 characters")
@@ -43,20 +47,14 @@ const schema = yup
       .trim()
       .when("pickup", {
         is: false,
-        then: yup
-          .string()
-          .min(2, "*Must be 2 characters")
-          .required(),
+        then: yup.string().min(2, "*Must be 2 characters").required(),
       }),
     postal: yup
       .string()
       .trim()
       .when("pickup", {
         is: false,
-        then: yup
-          .string()
-          .min(5, "*Must be at least 5 characters")
-          .required(),
+        then: yup.string().min(5, "*Must be at least 5 characters").required(),
       }),
   })
   .required();

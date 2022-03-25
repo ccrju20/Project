@@ -68,7 +68,7 @@ const Login = (props) => {
         }
       );
     }
-  }, [emailError, passwordError, isSubmitting]);
+  }, [emailError, passwordError, isSubmitting, authCtx, email, password]);
 
   return (
     <Container maxWidth="xs">

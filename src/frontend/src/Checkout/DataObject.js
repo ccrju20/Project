@@ -6,55 +6,57 @@ const DataObject = () => {
   const userContext = useContext(UserInfoContext);
   const cartCtx = useContext(CartContext);
   const [dataObject, setDataObject] = useState({});
-
-  const {
-    firstname,
-    lastname,
-    email,
-    phone,
-    address,
-    addresstwo,
-    city,
-    state,
-    postal,
-    scheduled,
-    when,
-    pickup,
-  } = userContext.info;
-
-  let scheduledTime = "";
-  if (when !== "ASAP") {
-    scheduledTime = new Intl.DateTimeFormat("en-US", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-    }).format(scheduled);
-  } else {
-    scheduledTime = "ASAP";
-  }
-
-  let method = 0;
-  if (!pickup) {
-    method = 1;
-  }
-
-  let cartItems = [];
-  cartCtx.items.forEach((item) => {
-    cartItems.push({
-      quantity: item.amount,
-      product: {
-        id: item.id,
-      },
-      productOption: {
-        id: item.option,
-        price: item.price,
-      },
-    });
-  });
+  const [scheduledTime, setScheduledTime] = useState();
 
   useEffect(() => {
+    const {
+      firstname,
+      lastname,
+      email,
+      phone,
+      address,
+      addresstwo,
+      city,
+      state,
+      postal,
+      scheduled,
+      when,
+      pickup,
+    } = userContext.info;
+
+    let scheduledTime = "";
+    if (when !== "ASAP") {
+      scheduledTime = new Intl.DateTimeFormat("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      }).format(scheduled);
+    } else {
+      scheduledTime = "ASAP";
+    }
+    setScheduledTime(scheduledTime);
+
+    let method = 0;
+    if (!pickup) {
+      method = 1;
+    }
+
+    let cartItems = [];
+    cartCtx.items.forEach((item) => {
+      cartItems.push({
+        quantity: item.amount,
+        product: {
+          id: item.id,
+        },
+        productOption: {
+          id: item.option,
+          price: item.price,
+        },
+      });
+    });
+
     setDataObject({
       orderItems: cartItems,
       scheduled: scheduledTime,
@@ -77,7 +79,7 @@ const DataObject = () => {
       let userId = JSON.parse(user).theId;
       setDataObject((prev) => ({ ...prev, account: userId }));
     }
-  }, []);
+  }, [cartCtx.items, userContext.info]);
 
   return { dataObject, scheduledTime };
 };

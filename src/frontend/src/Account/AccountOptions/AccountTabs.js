@@ -41,39 +41,73 @@ export default function VerticalTabs() {
   };
 
   return (
-    <Box className={matches ? classes.verticalBox : ""}>
-      <Box className={!matches ? classes.horizontal : ""}>
-        <Tabs
-          orientation={matches ? "vertical" : "horizontal"}
-          variant="scrollable"
-          value={value}
-          onChange={handleChange}
-          className={matches ? classes.vertical : ""}
-        >
-          <Tab label="Home" />
-          <Tab label="Personal Info" />
-          <Tab label="Order History" />
-          <Tab label="Manage Account" />
-        </Tabs>
-      </Box>
+    <>
+      <Box className={matches ? classes.verticalBox : ""}>
+        <Box className={!matches ? classes.horizontal : ""}>
+          <Tabs
+            orientation={matches ? "vertical" : "horizontal"}
+            variant="scrollable"
+            value={value}
+            onChange={handleChange}
+            className={matches ? classes.vertical : ""}
+            TabIndicatorProps={{
+              style: {
+                backgroundColor: "#430085",
+              },
+            }}
+          >
+            <Tab
+              sx={{
+                "&.Mui-selected": {
+                  color: "#430085",
+                },
+              }}
+              label="Home"
+            />
+            <Tab
+              sx={{
+                "&.Mui-selected": {
+                  color: "#430085",
+                },
+              }}
+              label="Personal Info"
+            />
+            <Tab
+              sx={{
+                "&.Mui-selected": {
+                  color: "#430085",
+                },
+              }}
+              label="Order History"
+            />
+            <Tab
+              sx={{
+                "&.Mui-selected": {
+                  color: "#430085",
+                },
+              }}
+              label="Manage Account"
+            />
+          </Tabs>
+        </Box>
 
-      <Grid container>
-        <Grid item xs={false} sm={1} />
-        <Grid item xs={12} sm={10}>
-          <TabPanel value={value} index={0}>
-            <Home />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <PersonalInfo />
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <OrderHistory />
-          </TabPanel>
-          <TabPanel value={value} index={3}>
-          </TabPanel>
+        <Grid container>
+          <Grid item xs={false} sm={1} />
+          <Grid item xs={12} sm={10}>
+            <TabPanel value={value} index={0}>
+              <Home />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <PersonalInfo />
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              <OrderHistory />
+            </TabPanel>
+            <TabPanel value={value} index={3}></TabPanel>
+          </Grid>
+          <Grid item xs={false} sm={1} />
         </Grid>
-        <Grid item xs={false} sm={1} />
-      </Grid>
-    </Box>
+      </Box>
+    </>
   );
 }

@@ -4,7 +4,6 @@ import { Grid, Box, Typography } from "@material-ui/core";
 import Login from "./Login";
 import AuthContext from "../store/auth-context";
 import AccountTabs from "./AccountOptions/AccountTabs";
-import Button from "@mui/material/Button";
 
 const Account = (props) => {
   const authCtx = useContext(AuthContext);
@@ -21,15 +20,6 @@ const Account = (props) => {
               <Typography variant="h5">Your Account</Typography>
             </Box>
             <AccountTabs />
-            <Box ml={5}>
-              <Button
-                onClick={authCtx.onLogout}
-                variant="contained"
-                size="small"
-              >
-                Logout
-              </Button>
-            </Box>
           </>
         )}
       </Grid>

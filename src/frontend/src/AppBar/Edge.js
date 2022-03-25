@@ -26,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
   badge: {
     height: 15,
   },
+  hoverSmall: {
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
+  },
 }));
 
 const Edge = () => {
@@ -35,6 +40,7 @@ const Edge = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
 
+  const hideAll = useMediaQuery("(min-width:650px)");
   const matchesAbout = useMediaQuery("(min-width:800px)");
   const matches = useMediaQuery("(min-width:750px)");
   const matchesContact = useMediaQuery("(min-width:960px)");
@@ -54,10 +60,7 @@ const Edge = () => {
   };
 
   const handleMenu = (event) => {
-    {
-      matches ? setAnchorEl(event.currentTarget) : setMenuDrawerOpen(true);
-    }
-    // setAnchorEl(event.currentTarget);
+    matches ? setAnchorEl(event.currentTarget) : setMenuDrawerOpen(true);
   };
 
   const handleMenuClose = () => {
@@ -83,7 +86,7 @@ const Edge = () => {
       {authCtx.isLoggedIn && <AccountMenu />}
       <IconButton
         edge="start"
-        className={classes.menuButton}
+        className={!hideAll ? classes.hoverSmall : classes.menuButton}
         aria-label="menu"
         onClick={handleMenu}
         color="inherit"
@@ -107,43 +110,73 @@ const Edge = () => {
         onClose={handleClose}
       >
         {!authCtx.isLoggedIn && (
-          <Link component={RouterLink} to="/account" color="inherit">
+          <Link
+            component={RouterLink}
+            to="/account"
+            color="inherit"
+            underline="none"
+          >
             <MenuItem onClick={handleClose}>Log In</MenuItem>
           </Link>
         )}
 
         {!authCtx.isLoggedIn && (
-          <Link component={RouterLink} to="/signup" color="inherit">
+          <Link
+            component={RouterLink}
+            to="/signup"
+            color="inherit"
+            underline="none"
+          >
             <MenuItem onClick={handleClose}>Sign Up</MenuItem>
           </Link>
         )}
 
         {!matchesAbout && (
-          <Link component={RouterLink} to="/cart" color="inherit">
+          <Link
+            component={RouterLink}
+            to="/cart"
+            color="inherit"
+            underline="none"
+          >
             <MenuItem onClick={handleClose}>About</MenuItem>
           </Link>
         )}
 
         {!matches && (
-          <Link component={RouterLink} to="/shop" color="inherit">
+          <Link
+            component={RouterLink}
+            to="/shop"
+            color="inherit"
+            underline="none"
+          >
             <MenuItem onClick={handleClose}> Shop</MenuItem>
           </Link>
         )}
 
         {!matchesContact && (
-          <Link component={RouterLink} to="/cart" color="inherit">
+          <Link
+            component={RouterLink}
+            to="/cart"
+            color="inherit"
+            underline="none"
+          >
             <MenuItem onClick={handleClose}>Contact</MenuItem>
           </Link>
         )}
 
         {!matchesCatering && (
-          <Link component={RouterLink} to="/cart" color="inherit">
+          <Link
+            component={RouterLink}
+            to="/cart"
+            color="inherit"
+            underline="none"
+          >
             <MenuItem onClick={handleClose}>Catering</MenuItem>
           </Link>
         )}
       </Menu>
       <IconButton
-        className={classes.carticon}
+        className={!hideAll ? classes.hoverSmall : classes.carticon}
         onClick={handleDrawerOpen}
         color="inherit"
       >

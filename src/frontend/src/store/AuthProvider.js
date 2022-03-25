@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import AuthContext from "./auth-context";
+// import { useNavigate } from "react-router-dom";
 
 const LOGIN_REST_API_URL = "http://localhost:8080/api/v1/auth/login";
 const REGISTER_REST_API_URL = "http://localhost:8080/api/v1/auth/registration";
 
 const AuthProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const storedUserLogin = localStorage.getItem("isLoggedIn");
@@ -46,14 +48,14 @@ const AuthProvider = (props) => {
         contactInfo: {
           firstname: firstname,
           lastname: lastname,
-          email: email,
           phone: "",
           address: "",
           addresstwo: "",
           city: "",
           state: "",
-          postal: ""
-        }})
+          postal: "",
+        },
+      })
       .then((response) => {
         if (response.data.jwt) {
           localStorage.setItem("user", JSON.stringify(response.data));
@@ -63,12 +65,17 @@ const AuthProvider = (props) => {
       });
   };
 
+  // const regSuccess = () => {
+  //   navigate("/success");
+  // };
+
   const authContext = {
     isLoggedIn: isLoggedIn,
     onLogin: loginHandler,
     setLogin: setLoginHandler,
     onLogout: logoutHandler,
     register: register,
+    // regSuccess: regSuccess,
   };
 
   return (

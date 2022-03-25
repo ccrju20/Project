@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = (props) => {
   const classes = useStyles();
-
   const smallToolbar = useMediaQuery("(min-width:345px)");
   const hideAll = useMediaQuery("(min-width:650px)");
   const matchesAbout = useMediaQuery("(min-width:800px)");
