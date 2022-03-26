@@ -52,14 +52,14 @@ export default function VerticalTabs() {
             className={matches ? classes.vertical : ""}
             TabIndicatorProps={{
               style: {
-                backgroundColor: "#430085",
+                backgroundColor: "#594B61",
               },
             }}
           >
             <Tab
               sx={{
                 "&.Mui-selected": {
-                  color: "#430085",
+                  color: "#290052",
                 },
               }}
               label="Home"
@@ -67,7 +67,7 @@ export default function VerticalTabs() {
             <Tab
               sx={{
                 "&.Mui-selected": {
-                  color: "#430085",
+                  color: "#290052",
                 },
               }}
               label="Personal Info"
@@ -75,7 +75,7 @@ export default function VerticalTabs() {
             <Tab
               sx={{
                 "&.Mui-selected": {
-                  color: "#430085",
+                  color: "#290052",
                 },
               }}
               label="Order History"
@@ -83,7 +83,7 @@ export default function VerticalTabs() {
             <Tab
               sx={{
                 "&.Mui-selected": {
-                  color: "#430085",
+                  color: "#290052",
                 },
               }}
               label="Manage Account"

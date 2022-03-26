@@ -4,7 +4,7 @@ describe("Cart Page", () => {
   // Verify the correct amount of items in Cart
   it("should have 1 item in cart page", () => {
     cy.addOneToCart(1);
-      cy.assertCartPage(1, 1, 1) // prodId, position, qty
+    cy.assertCartPage(1, 1, 1); // prodId, position, qty
     cy.contains("You have 1 item(s) in your cart").should("be.visible");
   });
 

@@ -112,7 +112,7 @@ const Shop = () => {
                     setSearchTerm("");
                   }}
                 >
-                  <ListItemText primary="Shop All" />
+                  <ListItemText data-cy="all" primary="Shop All" />
                 </ListItemButton>
                 <Divider variant="middle" />
                 <ListItemButton
@@ -122,7 +122,7 @@ const Shop = () => {
                     setSearchTerm("");
                   }}
                 >
-                  <ListItemText primary="Cookies" />
+                  <ListItemText data-cy="cookie" primary="Cookies" />
                 </ListItemButton>
                 <Divider variant="middle" />
                 <ListItemButton
@@ -132,7 +132,7 @@ const Shop = () => {
                     setSearchTerm("");
                   }}
                 >
-                  <ListItemText primary="Cupcakes" />
+                  <ListItemText data-cy="cupcake" primary="Cupcakes" />
                 </ListItemButton>
                 <Divider variant="middle" />
                 <ListItemButton
@@ -143,7 +143,7 @@ const Shop = () => {
                     setSearchTerm("");
                   }}
                 >
-                  <ListItemText primary="Cakes" />
+                  <ListItemText data-cy="cake" primary="Cakes" />
                   {open ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
                 <Collapse in={open} timeout="auto" unmountOnExit>

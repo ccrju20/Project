@@ -14,6 +14,7 @@ describe("Payment", () => {
     cy.getByTestId("switch").click();
     cy.contains("Continue to Payment").click();
 
+    cy.wait(3000)
     cy.contains("Confirm Order").click();
 
     cy.getByTestId("payment").within(() => {

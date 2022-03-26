@@ -107,8 +107,12 @@ const PaymentPage = (props) => {
                   {email}
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  {address.toUpperCase()} {addresstwo.toUpperCase()} <br/> 
-                  {`${city.toUpperCase()}, `} {state.toUpperCase()} {postal}
+                  {!pickup && (
+                    <>
+                      {address.toUpperCase()} {addresstwo.toUpperCase()} <br />
+                      {`${city.toUpperCase()}, `} {state.toUpperCase()} {postal}
+                    </>
+                  )}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   {phone}
