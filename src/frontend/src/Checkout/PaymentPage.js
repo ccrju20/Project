@@ -70,7 +70,11 @@ const PaymentPage = (props) => {
     props.handleBack();
   };
 
-  const submit = async () => {
+  const submit = async (paymentIntentId) => {
+    console.log(paymentIntentId);
+    dataObject["paymentId"] = paymentIntentId;
+    console.log(dataObject);
+
     try {
       const resp = await axios.post(ORDERS_REST_API_URL, dataObject);
       console.log(resp.data.ordernumber);
