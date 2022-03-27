@@ -28,8 +28,6 @@ const CheckoutCartList = () => {
   const { totalAmount } = cartCtx;
   const total = `$${totalAmount.toFixed(2)}`;
 
-  console.log(cartCtx.items)
-
   return (
     <Card className={classes.root} elevation={5}>
       <Box mt={2} mb={1} ml={2}>

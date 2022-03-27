@@ -15,7 +15,7 @@ const SnackbarAlert = (props) => {
         onClose={props.close}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       >
-        <Alert onClose={props.close} severity={props.severity} sx={{ width: "100%" }}>
+        <Alert onClose={props.close} severity={props.severity} sx={{ width: "100%", backgroundColor: "#005229" }}>
           {props.message}
         </Alert>
       </Snackbar>

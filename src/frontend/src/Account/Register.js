@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-
 import AuthContext from "../store/auth-context.js";
 import { useNavigate } from "react-router-dom";
 import { Grid, Typography, Box } from "@material-ui/core";
@@ -103,12 +102,13 @@ const Register = (props) => {
     ) {
       authCtx.register(firstname, lastname, email, password).then(
         () => {
+          setIsSubmitting(false);
           authCtx.setLogin();
           navigate("/success");
         },
         (error) => {
           console.log(error.response);
-          if (error.response.data.includes("Email already taken")) {
+          if (error.response.data.message.includes("already taken")) {
             setErrorMessage("Email already taken");
           } else {
             setErrorMessage(error.response.data.message);
@@ -124,6 +124,12 @@ const Register = (props) => {
     firstnameError,
     lastnameError,
     isSubmitting,
+    firstname,
+    lastname,
+    email,
+    password,
+    authCtx,
+    navigate
   ]);
 
   return (

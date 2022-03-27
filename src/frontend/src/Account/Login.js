@@ -68,7 +68,7 @@ const Login = (props) => {
         }
       );
     }
-  }, [emailError, passwordError, isSubmitting]);
+  }, [emailError, passwordError, isSubmitting, authCtx, email, password]);
 
   return (
     <Container maxWidth="xs">
@@ -144,7 +144,7 @@ const Login = (props) => {
           </Grid>
 
           <Grid item>
-            <Link href="#" variant="body2">
+            <Link href="/signup" variant="body2">
               Don't have an account? Sign up
             </Link>
           </Grid>

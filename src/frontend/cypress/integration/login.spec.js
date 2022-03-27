@@ -39,7 +39,7 @@ describe("Login", () => {
   });
 
   it("should log user in successfully", () => {
-    cy.get("#email").type("testuser3@gmail.com");
+    cy.get("#email").type("test@test.com");
     cy.get("#password").type("password");
 
     cy.getByTestId("login-submit").click();

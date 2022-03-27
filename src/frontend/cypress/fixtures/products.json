@@ -8,7 +8,7 @@
             "title": "Product 1",
             "description": "Chocolate chip cookies",
             "img": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1301&q=80",
-            "category": "Cookie",
+            "category": "cookie",
             "active": 1,
             "options": [
                 {
@@ -30,7 +30,7 @@
             "title": "Product 2",
             "description": "Mocha frosted cupcakes",
             "img": "https://images.unsplash.com/photo-1426869884541-df7117556757?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-            "category": "Cupcake",
+            "category": "cupcake",
             "active": 1,
             "options": [
                 {
@@ -46,7 +46,7 @@
             "title": "Product 3",
             "description": "Vegan glazed doughnuts",
             "img": "https://images.unsplash.com/photo-1559656914-a30970c1affd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-            "category": "Other",
+            "category": "other",
             "active": 1,
             "options": [
                 {
@@ -62,7 +62,7 @@
             "title": "Product 4",
             "description": "Ube Crinkles",
             "img": "https://www.hummingbirdhigh.com/wp-content/uploads/2020/11/ube-crinkle-cookies_01_IMG_0023-500x700.jpg",
-            "category": "Other",
+            "category": "other",
             "active": 1,
             "options": [
                 {
@@ -78,7 +78,7 @@
             "title": "Product 5",
             "description": "Churros",
             "img": "https://images.unsplash.com/photo-1615915848347-5ad361d3e9fd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1031&q=80",
-            "category": "Other",
+            "category": "other",
             "active": 1,
             "options": [
                 {
@@ -94,7 +94,7 @@
             "title": "Product 6",
             "description": "Fudge Brownies",
             "img": "https://images.unsplash.com/photo-1515037893149-de7f840978e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=394&q=80",
-            "category": "Other",
+            "category": "other",
             "active": 1,
             "options": [
                 {
@@ -110,7 +110,7 @@
             "title": "Product 7",
             "description": "Cake",
             "img": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=789&q=80",
-            "category": "Cake",
+            "category": "cake",
             "active": 1,
             "options": [
                 {
@@ -138,7 +138,7 @@
             "title": "Product 8",
             "description": "Pie",
             "img": "https://images.unsplash.com/photo-1587248720327-8eb72564be1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-            "category": "Other",
+            "category": "other",
             "active": 1,
             "options": [
                 {
@@ -154,7 +154,7 @@
             "title": "Product 9",
             "description": "Cake with strawberries",
             "img": "https://images.unsplash.com/photo-1557308536-ee471ef2c390?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-            "category": "Cake",
+            "category": "cake",
             "active": 1,
             "options": [
                 {

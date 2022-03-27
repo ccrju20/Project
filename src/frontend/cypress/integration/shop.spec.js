@@ -8,7 +8,7 @@ describe("Shop", () => {
   });
 
   it("should mock display a list of products", () => {
-    cy.intercept("GET", "http://localhost:8080/api/products?page=1", {
+    cy.intercept("GET", "http://localhost:8080/api/v1/products?category=all&page=1", {
       fixture: "products.json",
     });
     cy.visit("/shop");
@@ -25,7 +25,7 @@ describe("Shop", () => {
   });
 
   it("should mock display second page of products", () => {
-    cy.intercept("GET", "http://localhost:8080/api/products?page=2", {
+    cy.intercept("GET", "http://localhost:8080/api/v1/products?category=all&page=2", {
       fixture: "products-page2.json",
     });
     cy.visit("/shop");
@@ -57,10 +57,10 @@ describe("Shop", () => {
 
   // Get Products by Category
   it("should mock get products by category", () => {
-    cy.selectCategory("Cookie");
+    cy.selectCategory("cookie");
     cy.get(".MuiCardMedia-root").should("have.length", 1);
 
-    cy.selectCategory("Cake");
+    cy.selectCategory("cake");
     cy.get(".MuiCardMedia-root").should("have.length", 2);
   });
 
@@ -69,7 +69,7 @@ describe("Shop", () => {
     cy.fixture("products").then((json) => {
       cy.intercept(
         "GET",
-        "http://localhost:8080/api/products/all",
+        "http://localhost:8080/api/v1/products/all",
         json.products
       );
     });
