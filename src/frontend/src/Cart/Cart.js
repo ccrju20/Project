@@ -48,17 +48,29 @@ const Cart = (props) => {
   };
 
   const cartTotalItems = cartCtx.items.length;
-  console.log(cartCtx.totalAmount)
+  console.log(cartCtx.totalAmount);
 
   return (
     <Grid container>
       <Grid item xs={1} />
       <Grid item xs={10}>
-        <h1>
-          Cart <ShoppingBasketTwoToneIcon style={{ marginLeft: 10 }} />
-        </h1>
         <Grid container justifyContent="center">
-          <h3>You have {cartTotalItems} item(s) in your cart</h3>
+          <Box mt={3} mb={2}>
+            <Typography variant="h4">
+              Cart
+              <ShoppingBasketTwoToneIcon
+                style={{ marginBottom: -5, marginLeft: 5 }}
+                fontSize="large"
+              />
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid container justifyContent="center">
+          <Box mb={3}>
+            <Typography variant="body1">
+              You have {cartTotalItems} item(s) in your cart
+            </Typography>
+          </Box>
         </Grid>
         <Grid container spacing={3}>
           {cartCtx.items.map((product) => (

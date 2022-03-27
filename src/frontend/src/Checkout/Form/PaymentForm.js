@@ -63,8 +63,11 @@ const PaymentForm = (props) => {
     });
 
     if (paymentIntent) {
+      console.log(paymentIntent);
+      console.log(paymentIntent.id);
       if (paymentIntent.status === "succeeded") {
-        props.submit();
+        const paymentId = paymentIntent.id;
+        props.submit(paymentId);
       }
     } else {
       if (error.type === "card_error" || error.type === "validation_error") {

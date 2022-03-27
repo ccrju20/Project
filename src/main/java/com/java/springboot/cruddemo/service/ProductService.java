@@ -60,7 +60,7 @@ public class ProductService {
     public Map<String, Object> findPaginatedProducts(String category, int pageNo, int pageSize) {
         Page<Product> pageProducts;
 
-        if (category != null) {
+        if (!category.equals("all")) {
             if (NumberUtils.isCreatable(category)) {
                 int size = NumberUtils.createInteger(category);
                 List<Product> products = productOptionsRepository.findProductsBySize(size);

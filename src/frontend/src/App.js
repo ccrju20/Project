@@ -14,9 +14,10 @@ import UserInfoProvider from "./store/UserInfoProvider";
 import MainPage from "./Main/MainPage";
 import Check from "./Checkout/Check";
 import PaymentPage from "./Checkout/PaymentPage";
-import ConfirmSuccess from './Checkout/ConfirmSuccess'
+import ConfirmSuccess from "./Checkout/ConfirmSuccess";
 import WithNav from "./WithNav";
 import WithoutNav from "./WithoutNav";
+import NotFound from "./NotFound";
 
 function App() {
   return (
@@ -34,8 +35,12 @@ function App() {
                     <Route path="/success" element={<RegisterSuccess />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/shop" element={<Shop />} />
-                    <Route path="/product/:id" element={<ProductPage />} />                    
-                    <Route path="/ordersuccess" element={<ConfirmSuccess />} />
+                    <Route path="/shop/product/:id" element={<ProductPage />} />
+                    <Route
+                      path="/ordersuccess"
+                      element={<ConfirmSuccess />}
+                    />
+                    <Route path="*" element={<NotFound />} />
                   </Route>
 
                   <Route element={<WithoutNav />}>

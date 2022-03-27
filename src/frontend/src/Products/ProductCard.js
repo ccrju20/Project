@@ -65,7 +65,7 @@ const ProductCard = (props) => {
         options: options,
       })
     );
-    navigate(generatePath("/product/:id", { id }));
+    navigate(generatePath("/shop/product/:id", { id }));
   };
 
   const handleClose = (event, reason) => {
