@@ -103,7 +103,7 @@ class ProductServiceTest {
         given(productRepository.findAll(pageable)).willReturn(pagedProducts);
 
         // when
-        underTest.findPaginatedProducts(null, pageNo, pageSize);
+        underTest.findPaginatedProducts("all", pageNo, pageSize);
 
         // then
         ArgumentCaptor<Pageable> pageableArgumentCaptor = ArgumentCaptor.forClass(Pageable.class);
