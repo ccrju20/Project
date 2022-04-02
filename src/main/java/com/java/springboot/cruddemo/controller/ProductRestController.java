@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.java.springboot.cruddemo.entity.Product;
 import com.java.springboot.cruddemo.service.ProductService;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/products")
 public class ProductRestController {

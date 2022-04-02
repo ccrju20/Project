@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import com.java.springboot.cruddemo.entity.Order;
 import com.java.springboot.cruddemo.service.OrderService;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/orders")
 public class OrderRestController {
