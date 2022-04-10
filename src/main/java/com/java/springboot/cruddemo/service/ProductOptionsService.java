@@ -24,35 +24,35 @@ public class ProductOptionsService {
         productRepository = theProductRepository;
     }
 
-    public List<ProductOption> findAll() {
+    public List<ProductOption> findAllOptions() {
         return productOptionsRepository.findAll();
     }
 
-    public ProductOption findById(int theId) {
+    public ProductOption findOptionById(int theId) {
         ProductOption productOption = productOptionsRepository.findByOptionId(theId)
                 .orElseThrow(() -> new ObjectNotFoundException(String.format("Product Option id %s not found", theId)));
 
         return productOption;
     }
 
-    public List<ProductOption> findByProductId(int theId) {
+    public List<ProductOption> findOptionsByProductId(int theId) {
         productRepository.findById(theId)
                 .orElseThrow(() -> new ObjectRetrievalException("Did not find options with Product id " + theId));
 
         return productOptionsRepository.findByProductId(theId);
     }
 
-    public void save(ProductOption theProductOption) {
+    public void saveOption(ProductOption theProductOption) {
         theProductOption.setId(0);
         productOptionsRepository.save(theProductOption);
     }
 
-    public void update(ProductOption theProductOption) {
+    public void updateOption(ProductOption theProductOption) {
         productOptionsRepository.save(theProductOption);
     }
 
-    public void deleteById(int optionId) {
-        productRepository.findById(optionId)
+    public void deleteOptionById(int optionId) {
+        productOptionsRepository.findByOptionId(optionId)
                 .orElseThrow(() -> new ObjectRetrievalException("Did not find product option id " + optionId));
 
         int theId = productOptionsRepository.findIdByOptionId(optionId);

@@ -1,10 +1,7 @@
 package com.java.springboot.cruddemo.service;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import com.java.springboot.cruddemo.dao.*;
 import com.java.springboot.cruddemo.entity.*;
@@ -106,5 +103,11 @@ public class OrderService {
 
         order.setStatus(OrderStatus.valueOf(newStatus.toUpperCase()));
         OrderRepository.save(order);
+    }
+
+    public void updateOrderStatuses(ArrayList<String> orderNos, String newStatus) {
+        orderNos.forEach(orderNo -> {
+            updateOrderStatus(orderNo, newStatus);
+        });
     }
 }

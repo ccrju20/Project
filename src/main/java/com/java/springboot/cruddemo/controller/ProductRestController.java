@@ -89,24 +89,24 @@ public class ProductRestController {
 
     @GetMapping("/options")
     public List<ProductOption> findAllOptions() {
-        return productOptionsService.findAll();
+        return productOptionsService.findAllOptions();
     }
 
     @GetMapping("/options/{optionId}")
     public ProductOption findOptionById(@PathVariable int optionId) {
-        return productOptionsService.findById(optionId);
+        return productOptionsService.findOptionById(optionId);
     }
 
     // Get a list of product options using product id
     @GetMapping("/{productId}/options")
     public List<ProductOption> getProductOptions(@PathVariable int productId) {
-        return productOptionsService.findByProductId(productId);
+        return productOptionsService.findOptionsByProductId(productId);
     }
 
     // Add option to an existing product
     @PostMapping("/options")
     public ResponseEntity<ProductOption> addProductOption(@RequestBody ProductOption theProductOption) {
-        productOptionsService.save(theProductOption);
+        productOptionsService.saveOption(theProductOption);
 
         return new ResponseEntity<>(theProductOption, HttpStatus.CREATED);
     }
@@ -114,7 +114,7 @@ public class ProductRestController {
     // Edit a product option
     @PutMapping("/options")
     public ProductOption updateProductOption(@RequestBody ProductOption theProductOption) {
-        productOptionsService.update(theProductOption);
+        productOptionsService.updateOption(theProductOption);
 
         return theProductOption;
     }
@@ -122,7 +122,7 @@ public class ProductRestController {
     // Deleting product option using option_id
     @DeleteMapping("/options/{productOptionId}")
     public String deleteProductOption(@PathVariable int productOptionId) {
-        productOptionsService.deleteById(productOptionId);
+        productOptionsService.deleteOptionById(productOptionId);
 
         return "Deleted product option id - " + productOptionId;
     }
