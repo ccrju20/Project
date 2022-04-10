@@ -13,6 +13,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Divider from "@mui/material/Divider";
 import Pagination from "@mui/material/Pagination";
+import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles({
   },
 });
 
-const PRODUCTS_REST_API_URL = "http://localhost:8080/api/v1/products";
+const PRODUCTS_REST_API_URL = "api/v1/products";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -41,8 +42,11 @@ const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
 
+  const location = useLocation();
   const classes = useStyles();
   const matches = useMediaQuery("(min-width:800px)");
+
+  console.log(location.key);
 
   const getProducts = useCallback(() => {
     axios
@@ -51,7 +55,11 @@ const Shop = () => {
       })
       .then((response) => {
         console.log(response.data);
-        setProducts(response.data.products);
+        const activeProducts = response.data.products.filter(
+          (product) => product.active === 1
+        );
+        setProducts(activeProducts);
+        // setProducts(response.data.products);
         response.data.totalItems < 10
           ? setPageDisplay(false)
           : setPageDisplay(true);
@@ -68,6 +76,9 @@ const Shop = () => {
   }, [getProducts]);
 
   useEffect(() => {
+    setSelectedCategory("all");
+    setPage(1);
+    setSearchTerm("");
     axios
       .get(PRODUCTS_REST_API_URL + "/all")
       .then((response) => {
@@ -78,7 +89,7 @@ const Shop = () => {
         setLoadError(true);
         console.log(err);
       });
-  }, []);
+  }, [location.key]);
 
   const handleClick = () => {
     setOpen(!open);

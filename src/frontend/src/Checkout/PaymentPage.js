@@ -15,10 +15,12 @@ import Button from "@mui/material/Button";
 
 import DataObject from "./DataObject";
 
-const ORDERS_REST_API_URL = "http://localhost:8080/api/v1/orders";
+const ORDERS_REST_API_URL = "api/v1/orders";
 
 const PAYMENT_INTENT_REST_API_URL =
-  "http://localhost:8080/api/v1/payment/create-payment-intent";
+  "api/v1/payment/create-payment-intent";
+
+// env var
 const stripePromise = loadStripe(
   "pk_test_51KOQICI7AFq6GjKYYTPlwHtznGbgswqahPKsN9LMNgsu7A9Enj9L80WsjPGvoDF8TvPrDPP3GEJA7VKqjqQemrj600uhdiiVpO"
 );

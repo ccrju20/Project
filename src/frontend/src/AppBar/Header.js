@@ -31,12 +31,6 @@ const Header = (props) => {
   const matchesContact = useMediaQuery("(min-width:960px)");
   const matchesCatering = useMediaQuery("(min-width:1280px)");
 
-  const linkTarget = () => {
-    if (window.location.pathname === "/shop") {
-      window.location.reload();
-    }
-  };
-
   return (
     <>
       <AppBar className={classes.root} position="static">
@@ -69,7 +63,6 @@ const Header = (props) => {
                     <Link
                       component={RouterLink}
                       to="/shop"
-                      onClick={linkTarget}
                       color="inherit"
                       underline="none"
                       className={classes.hover}

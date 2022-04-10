@@ -47,11 +47,6 @@ ScrollTop.propTypes = {
 const ScrollNavBar = (props) => {
   const classes = useStyles();
   const matches = useMediaQuery("(min-width:750px)");
-  const linkTarget = () => {
-    if (window.location.pathname === "/shop") {
-      window.location.reload();
-    }
-  };
 
   return (
     <React.Fragment>
@@ -96,7 +91,6 @@ const ScrollNavBar = (props) => {
                         <Link
                           component={RouterLink}
                           to="/shop"
-                          onClick={linkTarget}
                           color="inherit"
                           underline="none"
                           className={classes.hover}

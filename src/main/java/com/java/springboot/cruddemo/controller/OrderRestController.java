@@ -1,5 +1,6 @@
 package com.java.springboot.cruddemo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import com.java.springboot.cruddemo.entity.Order;
 import com.java.springboot.cruddemo.service.OrderService;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/orders")
 public class OrderRestController {
@@ -90,9 +90,16 @@ public class OrderRestController {
     }
 
     // Update order status
-    @PutMapping("/order/{orderNo}/status/{newStatus}")
+    @PutMapping("/{orderNo}/status/{newStatus}")
     public String updateOrderStatus(@PathVariable String orderNo, @PathVariable String newStatus) {
         OrderService.updateOrderStatus(orderNo, newStatus);
         return "Updated order status to " + newStatus;
+    }
+
+    // Update order statuses
+    @PutMapping("/status/{newStatus}")
+    public String updateOrderStatuses(@RequestBody ArrayList<String> orderNos, @PathVariable String newStatus) {
+        OrderService.updateOrderStatuses(orderNos, newStatus);
+        return "Updated order statuses to " + newStatus;
     }
 }

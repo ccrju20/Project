@@ -19,7 +19,6 @@ import com.java.springboot.cruddemo.service.RegistrationService;
 
 import java.util.UUID;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
