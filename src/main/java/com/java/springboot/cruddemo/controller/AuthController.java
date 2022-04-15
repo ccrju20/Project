@@ -17,6 +17,7 @@ import com.java.springboot.cruddemo.payload.RegistrationRequest;
 import com.java.springboot.cruddemo.service.MyUserDetailsService;
 import com.java.springboot.cruddemo.service.RegistrationService;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -77,4 +78,8 @@ public class AuthController {
         return theContactInfo;
     }
 
+    @GetMapping("/users")
+    public List<MyUser> getAllUsers() {
+        return userDetailsService.getAllUsers();
+    }
 }

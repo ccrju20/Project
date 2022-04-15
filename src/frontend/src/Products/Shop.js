@@ -46,8 +46,6 @@ const Shop = () => {
   const classes = useStyles();
   const matches = useMediaQuery("(min-width:800px)");
 
-  console.log(location.key);
-
   const getProducts = useCallback(() => {
     axios
       .get(PRODUCTS_REST_API_URL, {

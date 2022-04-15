@@ -64,9 +64,7 @@ public class PaymentController {
         switch (event.getType()) {
             case "payment_intent.succeeded":
                 PaymentIntent paymentIntent = (PaymentIntent) stripeObject;
-                System.out.println("Payment id: " + paymentIntent.getId());
-                System.out.println("Payment for " + paymentIntent.getAmount() + " succeeded.");
-                System.out.println("Payment created: " + paymentIntent.getCreated());
+                paymentService.fulfillPayment(paymentIntent);
                 break;
             default:
                 System.out.println("Unhandled event type " + event.getType());
