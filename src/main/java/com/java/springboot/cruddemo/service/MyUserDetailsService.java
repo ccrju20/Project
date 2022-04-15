@@ -1,5 +1,6 @@
 package com.java.springboot.cruddemo.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.java.springboot.cruddemo.email.EmailSender;
@@ -89,6 +90,10 @@ public class MyUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new ObjectNotFoundException("Did not find User id " + theId));
 
         userRepository.deleteById(theId);
+    }
+
+    public List<MyUser> getAllUsers() {
+        return userRepository.findAll();
     }
 
 }
