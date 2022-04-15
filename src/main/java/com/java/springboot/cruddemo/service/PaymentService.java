@@ -43,8 +43,8 @@ public class PaymentService {
 		System.out.println("Payment for " + paymentIntent.getAmount() + " succeeded.");
 		System.out.println("Payment created: " + paymentIntent.getCreated());
 
-		BigDecimal initialConv = BigDecimal.valueOf(paymentIntent.getAmount());
-		BigDecimal amount = initialConv.divide(new BigDecimal(100));
+		BigDecimal total = BigDecimal.valueOf(paymentIntent.getAmount());
+		BigDecimal amount = total.divide(new BigDecimal(100));
 
 		long timestamp = paymentIntent.getCreated();
 		LocalDateTime created =
