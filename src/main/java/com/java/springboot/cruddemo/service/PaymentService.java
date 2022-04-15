@@ -4,6 +4,7 @@ import com.java.springboot.cruddemo.dao.PaymentRepository;
 import com.java.springboot.cruddemo.entity.Payment;
 import com.stripe.model.PaymentIntent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.java.springboot.cruddemo.dto.CreatePayment;
@@ -11,10 +12,10 @@ import com.java.springboot.cruddemo.dto.CreatePaymentResponse;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.util.TimeZone;
+import java.util.*;
 
 @Service
 public class PaymentService {
@@ -53,5 +54,36 @@ public class PaymentService {
 
 		Payment payment = new Payment(paymentIntent.getId(), amount, created);
 		paymentRepository.save(payment);
+	}
+
+	public List<Payment> getTodayPayments() {
+		LocalDate localDate = LocalDate.now();
+		return paymentRepository.findPaymentsByDate(localDate);
+//		return paymentRepository.findAll(Sort.by(Sort.Direction.ASC, "created"));
+	}
+
+	public Map<LocalDate, BigDecimal> getPaymentsFrom() {
+		Map<LocalDate, BigDecimal> hm = new HashMap<>();
+
+		LocalDate to = LocalDate.now();
+		LocalDate from = to.minusDays(5);
+		System.out.println("start date " + from);
+
+		List<Payment> result = paymentRepository.findPaymentsFrom(from);
+		result.forEach(payment -> {
+			LocalDate theKey = convertToLocalDate(payment.getCreated());
+			if (hm.containsKey(theKey)) {
+				BigDecimal amount = hm.get(theKey);
+				hm.put(theKey, amount.add(payment.getAmount()));
+			} else {
+				hm.put(theKey, payment.getAmount());
+			}
+		});
+
+		return hm;
+	}
+
+	public LocalDate convertToLocalDate(LocalDateTime dateToConvert) {
+		return dateToConvert.toLocalDate();
 	}
 }
