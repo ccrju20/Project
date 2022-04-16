@@ -82,7 +82,7 @@ public class PaymentController {
     }
 
     @GetMapping("/today")
-    public List<Payment> getTodayPayments() {
+    public BigDecimal getTodayPayments() {
         return paymentService.getTodayPayments();
     }
 

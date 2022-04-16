@@ -16,74 +16,82 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PaymentService {
 
-	private final CreatePaymentBuilder createPaymentBuilder;
-	private final PaymentRepository paymentRepository;
+    private final CreatePaymentBuilder createPaymentBuilder;
+    private final PaymentRepository paymentRepository;
 
-	@Autowired
-	public PaymentService(CreatePaymentBuilder createPaymentBuilder, PaymentRepository paymentRepository) {
-		this.createPaymentBuilder = createPaymentBuilder;
-		this.paymentRepository = paymentRepository;
-	}
-	
-	public CreatePaymentResponse chargeItems(CreatePayment createPayment) {
-		CreatePaymentResponse paymentResponse = createPaymentBuilder.chargeItems(createPayment);
-		
+    @Autowired
+    public PaymentService(CreatePaymentBuilder createPaymentBuilder, PaymentRepository paymentRepository) {
+        this.createPaymentBuilder = createPaymentBuilder;
+        this.paymentRepository = paymentRepository;
+    }
+
+    public CreatePaymentResponse chargeItems(CreatePayment createPayment) {
+        CreatePaymentResponse paymentResponse = createPaymentBuilder.chargeItems(createPayment);
+
         if (paymentResponse.getClientSecret().isBlank()) {
             throw new IllegalStateException(String.format("Payment not created"));
         }
-        
+
         return paymentResponse;
-	}
+    }
 
-	public void fulfillPayment(PaymentIntent paymentIntent) {
-		System.out.println("Payment id: " + paymentIntent.getId());
-		System.out.println("Payment for " + paymentIntent.getAmount() + " succeeded.");
-		System.out.println("Payment created: " + paymentIntent.getCreated());
+    public void fulfillPayment(PaymentIntent paymentIntent) {
+        System.out.println("Payment id: " + paymentIntent.getId());
+        System.out.println("Payment for " + paymentIntent.getAmount() + " succeeded.");
+        System.out.println("Payment created: " + paymentIntent.getCreated());
 
-		BigDecimal total = BigDecimal.valueOf(paymentIntent.getAmount());
-		BigDecimal amount = total.divide(new BigDecimal(100));
+        BigDecimal total = BigDecimal.valueOf(paymentIntent.getAmount());
+        BigDecimal amount = total.divide(new BigDecimal(100));
 
-		long timestamp = paymentIntent.getCreated();
-		LocalDateTime created =
-				LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), TimeZone
-						.getDefault().toZoneId());
+        long timestamp = paymentIntent.getCreated();
+        LocalDateTime created =
+                LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), TimeZone
+                        .getDefault().toZoneId());
 
-		Payment payment = new Payment(paymentIntent.getId(), amount, created);
-		paymentRepository.save(payment);
-	}
+        Payment payment = new Payment(paymentIntent.getId(), amount, created);
+        paymentRepository.save(payment);
+    }
 
-	public List<Payment> getTodayPayments() {
-		LocalDate localDate = LocalDate.now();
-		return paymentRepository.findPaymentsByDate(localDate);
+    public BigDecimal getTodayPayments() {
+        List<Payment> result = paymentRepository.findPaymentsByDate(LocalDate.now());
+
+        BigDecimal total = result.stream()
+                .map(Payment::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        return total;
 //		return paymentRepository.findAll(Sort.by(Sort.Direction.ASC, "created"));
-	}
+    }
 
-	public Map<LocalDate, BigDecimal> getPaymentsFrom() {
-		Map<LocalDate, BigDecimal> hm = new HashMap<>();
+    public Map<LocalDate, BigDecimal> getPaymentsFrom() {
+        Map<LocalDate, BigDecimal> hm = new LinkedHashMap<>();
+        LocalDate today = LocalDate.now();
+        int daysBack = 4;
+        for (int i = 0; i <= daysBack; i++) {
+            hm.put(today.minusDays(i), new BigDecimal(0));
+        }
 
-		LocalDate to = LocalDate.now();
-		LocalDate from = to.minusDays(5);
-		System.out.println("start date " + from);
+        LocalDate from = today.minusDays(daysBack);
+        List<Payment> result = paymentRepository.findPaymentsFrom(from);
+        result.forEach(payment -> {
+            LocalDate theKey = convertToLocalDate(payment.getCreated());
+            if (hm.containsKey(theKey)) {
+                BigDecimal currAmount = hm.get(theKey);
+                hm.put(theKey, currAmount.add(payment.getAmount()));
+            }
+        });
 
-		List<Payment> result = paymentRepository.findPaymentsFrom(from);
-		result.forEach(payment -> {
-			LocalDate theKey = convertToLocalDate(payment.getCreated());
-			if (hm.containsKey(theKey)) {
-				BigDecimal amount = hm.get(theKey);
-				hm.put(theKey, amount.add(payment.getAmount()));
-			} else {
-				hm.put(theKey, payment.getAmount());
-			}
-		});
+        TreeMap<LocalDate, BigDecimal> sorted = new TreeMap<>(hm);
 
-		return hm;
-	}
+        return sorted;
+    }
 
-	public LocalDate convertToLocalDate(LocalDateTime dateToConvert) {
-		return dateToConvert.toLocalDate();
-	}
+    public LocalDate convertToLocalDate(LocalDateTime dateToConvert) {
+        return dateToConvert.toLocalDate();
+    }
 }
