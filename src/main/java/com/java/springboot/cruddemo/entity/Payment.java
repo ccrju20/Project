@@ -18,6 +18,9 @@ public class Payment {
 
     private LocalDateTime created;
 
+    public Payment() {
+
+    }
     public Payment(String paymentId, BigDecimal amount, LocalDateTime created) {
         this.paymentId = paymentId;
         this.amount = amount;

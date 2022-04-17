@@ -1,5 +1,6 @@
 package com.java.springboot.cruddemo.controller;
 
+import com.java.springboot.cruddemo.entity.Payment;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.model.Event;
 import com.stripe.model.EventDataObjectDeserializer;
@@ -15,6 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import com.java.springboot.cruddemo.dto.CreatePayment;
 import com.java.springboot.cruddemo.dto.CreatePaymentResponse;
 import com.java.springboot.cruddemo.service.PaymentService;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/payment")
@@ -72,5 +79,16 @@ public class PaymentController {
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/today")
+    public BigDecimal getTodayPayments() {
+        return paymentService.getTodayPayments();
+    }
+
+    @GetMapping("/line")
+    public ResponseEntity<Map<LocalDate, BigDecimal>> getLineChartData() {
+        Map<LocalDate, BigDecimal> response = paymentService.getPaymentsFrom();
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
