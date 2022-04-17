@@ -1,11 +1,15 @@
 package com.java.springboot.cruddemo.controller;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.validation.Valid;
 
+import com.java.springboot.cruddemo.dto.ProductData;
 import com.java.springboot.cruddemo.entity.OrderDetails;
 import com.java.springboot.cruddemo.entity.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,5 +105,11 @@ public class OrderRestController {
     public String updateOrderStatuses(@RequestBody ArrayList<String> orderNos, @PathVariable String newStatus) {
         OrderService.updateOrderStatuses(orderNos, newStatus);
         return "Updated order statuses to " + newStatus;
+    }
+
+    @GetMapping("/data")
+    public ResponseEntity<Map<String, Integer>> getProductData() {
+        Map<String, Integer> response = OrderService.getProductData();
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

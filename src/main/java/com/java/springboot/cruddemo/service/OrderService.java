@@ -1,9 +1,14 @@
 package com.java.springboot.cruddemo.service;
 
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 import com.java.springboot.cruddemo.dao.*;
+import com.java.springboot.cruddemo.dto.ProductData;
 import com.java.springboot.cruddemo.entity.*;
 import com.java.springboot.cruddemo.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,5 +114,24 @@ public class OrderService {
         orderNos.forEach(orderNo -> {
             updateOrderStatus(orderNo, newStatus);
         });
+    }
+
+    public Map<String, Integer> getProductData() {
+        Map<String, Integer> hm = new HashMap<>();
+        int daysBack = 3;
+        Date startDate = Date.valueOf(LocalDate.now().minusDays(daysBack));
+        List<ProductData> items = OrderRepository.getProductData(startDate);
+
+        items.forEach(item -> {
+            String productTitle = item.getProduct().getTitle();
+            if (hm.containsKey(productTitle)) {
+                int currAmount = hm.get(productTitle);
+                hm.put(productTitle, currAmount + item.getQuantity());
+            } else {
+                hm.put(productTitle, item.getQuantity());
+            }
+        });
+
+        return hm;
     }
 }

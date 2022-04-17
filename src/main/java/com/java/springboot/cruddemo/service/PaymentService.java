@@ -14,9 +14,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class PaymentService {
@@ -69,15 +67,15 @@ public class PaymentService {
     }
 
     public Map<LocalDate, BigDecimal> getPaymentsFrom() {
-        Map<LocalDate, BigDecimal> hm = new LinkedHashMap<>();
+        Map<LocalDate, BigDecimal> hm = new HashMap<>();
         LocalDate today = LocalDate.now();
         int daysBack = 4;
         for (int i = 0; i <= daysBack; i++) {
             hm.put(today.minusDays(i), new BigDecimal(0));
         }
 
-        LocalDate from = today.minusDays(daysBack);
-        List<Payment> result = paymentRepository.findPaymentsFrom(from);
+        LocalDate startDate = today.minusDays(daysBack);
+        List<Payment> result = paymentRepository.findPaymentsFrom(startDate);
         result.forEach(payment -> {
             LocalDate theKey = convertToLocalDate(payment.getCreated());
             if (hm.containsKey(theKey)) {
