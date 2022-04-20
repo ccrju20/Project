@@ -80,15 +80,4 @@ public class PaymentController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    @GetMapping("/today")
-    public BigDecimal getTodayPayments() {
-        return paymentService.getTodayPayments();
-    }
-
-    @GetMapping("/line")
-    public ResponseEntity<Map<LocalDate, BigDecimal>> getLineChartData() {
-        Map<LocalDate, BigDecimal> response = paymentService.getPaymentsFrom();
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
 }
