@@ -44,4 +44,5 @@ public class ProductData {
     public void setProduct(Product product) {
         this.product = product;
     }
+
 }

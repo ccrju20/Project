@@ -116,22 +116,4 @@ public class OrderService {
         });
     }
 
-    public Map<String, Integer> getProductData() {
-        Map<String, Integer> hm = new HashMap<>();
-        int daysBack = 3;
-        Date startDate = Date.valueOf(LocalDate.now().minusDays(daysBack));
-        List<ProductData> items = OrderRepository.getProductData(startDate);
-
-        items.forEach(item -> {
-            String productTitle = item.getProduct().getTitle();
-            if (hm.containsKey(productTitle)) {
-                int currAmount = hm.get(productTitle);
-                hm.put(productTitle, currAmount + item.getQuantity());
-            } else {
-                hm.put(productTitle, item.getQuantity());
-            }
-        });
-
-        return hm;
-    }
 }

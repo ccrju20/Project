@@ -106,10 +106,4 @@ public class OrderRestController {
         OrderService.updateOrderStatuses(orderNos, newStatus);
         return "Updated order statuses to " + newStatus;
     }
-
-    @GetMapping("/data")
-    public ResponseEntity<Map<String, Integer>> getProductData() {
-        Map<String, Integer> response = OrderService.getProductData();
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
 }
