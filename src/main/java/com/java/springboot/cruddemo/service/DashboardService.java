@@ -80,7 +80,15 @@ public class DashboardService {
             }
         });
 
-        return hm;
+        Map<String, Integer> sortedValues = hm.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+
+        return sortedValues;
     }
 
     public LocalDate convertToLocalDate(LocalDateTime dateToConvert) {
