@@ -37,10 +37,6 @@ public class PaymentService {
     }
 
     public void fulfillPayment(PaymentIntent paymentIntent) {
-        System.out.println("Payment id: " + paymentIntent.getId());
-        System.out.println("Payment for " + paymentIntent.getAmount() + " succeeded.");
-        System.out.println("Payment created: " + paymentIntent.getCreated());
-
         BigDecimal total = BigDecimal.valueOf(paymentIntent.getAmount());
         BigDecimal amount = total.divide(new BigDecimal(100));
 

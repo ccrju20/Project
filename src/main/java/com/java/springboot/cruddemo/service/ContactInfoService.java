@@ -1,8 +1,6 @@
 package com.java.springboot.cruddemo.service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import com.java.springboot.cruddemo.dao.UserRepository;
 import com.java.springboot.cruddemo.exception.ObjectNotFoundException;
@@ -25,12 +23,26 @@ public class ContactInfoService {
         this.userRepository = userRepository;
     }
 
-    public ContactInfo findContactInfo(UUID theId) {
+    public Map<String, String> findContactInfo(UUID theId) {
         ContactInfo theContactInfo = userRepository.findContactInfoById(theId);
         if (theContactInfo == null) {
             throw new ObjectNotFoundException("User uuid not found - " + theId);
         }
-        return theContactInfo;
+        Optional<MyUser> user = userRepository.findByUuid(theId);
+
+        // returning a map since ContactInfo object does not contain email field
+        Map<String, String> hm = new HashMap<>();
+        hm.put("email", user.get().getEmail());
+        hm.put("firstname", theContactInfo.getFirstname());
+        hm.put("lastname", theContactInfo.getLastname());
+        hm.put("phone", theContactInfo.getPhone());
+        hm.put("address", theContactInfo.getAddress());
+        hm.put("addresstwo", theContactInfo.getAddresstwo());
+        hm.put("city", theContactInfo.getCity());
+        hm.put("state", theContactInfo.getState());
+        hm.put("postal", theContactInfo.getPostal());
+
+        return hm;
     }
 
     public void saveContactInfo(ContactInfo theContactInfo) {

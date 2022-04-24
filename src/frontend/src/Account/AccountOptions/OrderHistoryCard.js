@@ -15,20 +15,14 @@ const useStyles = makeStyles({
   },
   card: {
     backgroundColor: "lightgrey",
+    alignItems: "center",
   },
 });
 
 const OrderHistoryCard = (props) => {
   const classes = useStyles();
 
-  const {
-    ordernumber,
-    date,
-    delivery,
-    scheduled,
-    status,
-    orderitems,
-  } = props;
+  const { ordernumber, date, delivery, scheduled, status, orderitems } = props;
 
   let arr = [];
   orderitems.map((item) => {
@@ -42,11 +36,14 @@ const OrderHistoryCard = (props) => {
     <Card>
       <Box className={classes.card}>
         <br></br>
-        <Typography align="center">{date.substring(0, 10)}</Typography>
-        <Typography variant="h6" align="center">
-          Order #{ordernumber}
-        </Typography>
-        {/* <Typography align="center">{date.substring(0, 10)}</Typography> */}
+        <Grid container justifyContent="center" className={classes.card}>
+          <Grid item xs={12} container justifyContent="center">
+            <Typography variant="overline">Order #{ordernumber}</Typography>
+          </Grid>
+          <Grid item xs={12} container justifyContent="center">
+            <Typography variant="overline">{date.substring(0, 10)}</Typography>
+          </Grid>
+        </Grid>
         <br></br>
       </Box>
 
@@ -54,13 +51,26 @@ const OrderHistoryCard = (props) => {
         <Grid item xs={false} sm={1} />
         <Grid item xs={12} sm={4}>
           <List>
-            <ListItem sx={{ fontWeight: "bold" }}>
-              Order Total: ${total.toFixed(2)}
+            <ListItem>
+              <Typography variant="overline">
+                Order Total: ${total.toFixed(2)}
+              </Typography>
             </ListItem>
-            <ListItem sx={{ fontWeight: "bold" }}>Status: {status}</ListItem>
-            <ListItem>Method: {delivery > 0 ? `Delivery` : `Pickup`}</ListItem>
+            <ListItem>
+              <Typography variant="overline">Status: {status}</Typography>
+            </ListItem>
+            <ListItem>
+              <Typography variant="overline">
+                Method: {delivery > 0 ? `Delivery` : `Pickup`}
+              </Typography>
+            </ListItem>
             {scheduled !== "ASAP" && (
-              <ListItem> Scheduled: {scheduled}</ListItem>
+              <ListItem>
+                {" "}
+                <Typography variant="overline">
+                  Scheduled: {scheduled}
+                </Typography>
+              </ListItem>
             )}
           </List>
         </Grid>
@@ -69,14 +79,16 @@ const OrderHistoryCard = (props) => {
           <Box>
             <ListItem>
               <List>
-                Items:
+                <Typography variant="overline">Items:</Typography>
                 {orderitems.map((item) => (
                   <ListItem key={item.id}>
                     <ListItemAvatar>
                       <Avatar alt="bakeshop" src={item.product.img} />
                     </ListItemAvatar>
                     <ListItemText
-                      primary={`${item.product.title} x ${item.quantity}`}
+                      primary={
+                        <Typography variant="overline">{`${item.product.title} x ${item.quantity}`}</Typography>
+                      }
                       secondary={item.total_price}
                     ></ListItemText>
                   </ListItem>
