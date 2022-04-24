@@ -27,7 +27,6 @@ const PersonalInfo = (props) => {
       (response) => {
         console.log(response);
         setData(response.data);
-
         setIsLoading(false);
       },
       (error) => {
@@ -65,7 +64,10 @@ const PersonalInfo = (props) => {
                       </Typography>
                     </Grid>
                     <Grid item xs={11} sm={8} sx={{ maxWidth: "100px" }}>
-                      <Typography style={{ wordWrap: "break-word" }}>
+                      <Typography
+                        style={{ wordWrap: "break-word" }}
+                        variant="overline"
+                      >
                         {data.firstname} {data.lastname}
                       </Typography>
                     </Grid>
@@ -89,7 +91,10 @@ const PersonalInfo = (props) => {
                       </Typography>
                     </Grid>
                     <Grid item xs={11} sm={8} sx={{ maxWidth: "100px" }}>
-                      <Typography style={{ wordWrap: "break-word" }}>
+                      <Typography
+                        style={{ wordWrap: "break-word" }}
+                        variant="body2"
+                      >
                         {data.email}
                       </Typography>
                     </Grid>
@@ -123,7 +128,11 @@ const PersonalInfo = (props) => {
                       </Typography>
                     </Grid>
                     <Grid item xs={11} sm={8} sx={{ maxWidth: "100px" }}>
-                      <Typography style={{ wordWrap: "break-word" }}>
+                      <Typography
+                        style={{ wordWrap: "break-word" }}
+                        variant="body2"
+                        color="primary"
+                      >
                         {data.email}
                       </Typography>
                     </Grid>

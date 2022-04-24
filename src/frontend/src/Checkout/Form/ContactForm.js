@@ -22,6 +22,7 @@ const ContactForm = () => {
       serviceCtx.getUserInfo().then(
         (response) => {
           setData(response.data);
+          console.log(response.data)
           setIsLoading(false);
         },
         (error) => {

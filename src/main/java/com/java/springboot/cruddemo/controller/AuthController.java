@@ -18,6 +18,7 @@ import com.java.springboot.cruddemo.service.MyUserDetailsService;
 import com.java.springboot.cruddemo.service.RegistrationService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -67,8 +68,9 @@ public class AuthController {
     }
 
     @GetMapping("/contactinfo/{userId}")
-    public ContactInfo getContactInfo(@PathVariable UUID userId) {
-        return contactInfoService.findContactInfo(userId);
+    public ResponseEntity<Map<String, String>> getContactInfo(@PathVariable UUID userId) {
+        Map<String, String> response = contactInfoService.findContactInfo(userId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping("/contactinfo")
