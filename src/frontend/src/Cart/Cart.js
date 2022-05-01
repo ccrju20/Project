@@ -27,10 +27,6 @@ const Cart = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
-  const cartItemRemoveHandler = (id) => {
-    cartCtx.removeItem(id);
-  };
-
   const cartItemAddHandler = (product, amount) => {
     cartCtx.addItem({ ...product, amount: amount });
   };
@@ -83,7 +79,6 @@ const Cart = (props) => {
                 amount={product.amount}
                 option={product.option}
                 onAdd={cartItemAddHandler.bind(null, product)}
-                onRemove={cartItemRemoveHandler.bind(null, product.id)}
                 onDelete={cartItemDeleteHandler.bind(null, product.option)}
               />
             </Grid>

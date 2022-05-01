@@ -4,6 +4,7 @@ import com.java.springboot.cruddemo.dao.OrderRepository;
 import com.java.springboot.cruddemo.dao.PaymentRepository;
 import com.java.springboot.cruddemo.dao.ProductRepository;
 import com.java.springboot.cruddemo.dto.ProductData;
+import com.java.springboot.cruddemo.entity.Order;
 import com.java.springboot.cruddemo.entity.Payment;
 import com.java.springboot.cruddemo.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class DashboardService {
     }
 
     public Map<String, Integer> getProductData() {
-        List<Product> products =  productRepository.findAll();
+        List<Product> products = productRepository.findAll();
         Map<String, Integer> hm = new HashMap<>();
         products.forEach(p -> hm.put(p.getTitle(), 0));
 
@@ -89,6 +90,16 @@ public class DashboardService {
                         (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 
         return sortedValues;
+    }
+
+    public int totalPendingOrders() {
+        return orderRepository.getTotalPending();
+//        List<Order> orders = orderRepository.findAll();
+//        List<Order> pendingOrders = orders.stream()
+//                .filter(o -> o.getStatus().equals("PENDING"))
+//                .collect(Collectors.toList());
+//
+//        return pendingOrders.size();
     }
 
     public LocalDate convertToLocalDate(LocalDateTime dateToConvert) {

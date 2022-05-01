@@ -25,4 +25,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 			"WHERE DATE(dateposted) >= ?1")
 	List<ProductData> getProductData(Date startDate);
 
+	@Query("SELECT COUNT(o) from Order o WHERE o.status='PENDING'")
+	int getTotalPending();
 }
