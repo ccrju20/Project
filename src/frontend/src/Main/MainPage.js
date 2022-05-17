@@ -3,23 +3,26 @@ import AboutSection from "./AboutSection";
 import Hidden from "@material-ui/core/Hidden";
 import MainSwiper from "./Swiper";
 import ButtonSection from "./ButtonSection";
+import Footer from "./Footer";
 
 const MainPage = () => {
-
   return (
-    <Grid item container>
-      <Grid item xs={1} sm={1} />
-      <Grid item xs={10} sm={10}>
-        <Box mt={5}>
+    <>
+      <Grid item container>
+        <Grid item xs={1} sm={1} />
+        <Grid item xs={10} sm={10}>
+          <Box mt={5}>
             <Hidden only="xs">
               <MainSwiper />
             </Hidden>
-        </Box>
-        <ButtonSection />
+          </Box>
+          <ButtonSection />
+        </Grid>
+        <Grid item xs={1} sm={1} />
+        <AboutSection />
       </Grid>
-      <Grid item xs={1} sm={1} />
-      <AboutSection />
-    </Grid>
+      <Footer />
+    </>
   );
 };
 

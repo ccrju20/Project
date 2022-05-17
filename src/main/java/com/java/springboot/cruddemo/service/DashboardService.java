@@ -94,12 +94,6 @@ public class DashboardService {
 
     public int totalPendingOrders() {
         return orderRepository.getTotalPending();
-//        List<Order> orders = orderRepository.findAll();
-//        List<Order> pendingOrders = orders.stream()
-//                .filter(o -> o.getStatus().equals("PENDING"))
-//                .collect(Collectors.toList());
-//
-//        return pendingOrders.size();
     }
 
     public LocalDate convertToLocalDate(LocalDateTime dateToConvert) {
