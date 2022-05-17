@@ -1,7 +1,6 @@
 package com.java.springboot.cruddemo.dao;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,4 +24,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 			"WHERE DATE(dateposted) >= ?1")
 	List<ProductData> getProductData(Date startDate);
 
+	@Query("SELECT COUNT(o) from Order o WHERE o.status='PENDING'")
+	int getTotalPending();
 }

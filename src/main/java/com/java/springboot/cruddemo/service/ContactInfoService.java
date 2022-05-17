@@ -30,7 +30,7 @@ public class ContactInfoService {
         }
         Optional<MyUser> user = userRepository.findByUuid(theId);
 
-        // returning a map since ContactInfo object does not contain email field
+        // returning a map since email field is in MyUser object and not ContactInfo
         Map<String, String> hm = new HashMap<>();
         hm.put("email", user.get().getEmail());
         hm.put("firstname", theContactInfo.getFirstname());

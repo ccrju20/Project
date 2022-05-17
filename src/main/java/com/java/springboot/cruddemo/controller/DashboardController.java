@@ -1,6 +1,5 @@
 package com.java.springboot.cruddemo.controller;
 
-import com.java.springboot.cruddemo.dto.ProductData;
 import com.java.springboot.cruddemo.service.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -40,6 +38,11 @@ public class DashboardController {
     public ResponseEntity<Map<String, Integer>> getProductData() {
         Map<String, Integer> response = dashboardService.getProductData();
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/pending")
+    public int getTotalPending() {
+        return dashboardService.totalPendingOrders();
     }
 
 }

@@ -43,8 +43,6 @@ const AboutSection = () => {
               </Typography>
             </Grid>
           </Grid>
-          {/* <Grid item sm={12} className={classes.about}>
-          </Grid> */}
           <Grid item xs={false} />
         </Grid>
       </Grid>
