@@ -1,4 +1,4 @@
-import { Grid, Box, Container, Typography, Link } from "@mui/material";
+import { Grid, Box, Container, Typography, IconButton } from "@mui/material";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
@@ -29,13 +29,7 @@ const Footer = () => {
         <Container maxWidth="lg">
           <Grid container>
             <Grid item xs={1} />
-            <Grid
-              container
-              item
-              xs={12}
-              sm={5}
-              sx={{ marginTop: 3 }}
-            >
+            <Grid container item xs={12} sm={5} sx={{ marginTop: 3 }}>
               <Typography
                 variant="h6"
                 sx={{ letterSpacing: 2, marginBottom: 2 }}
@@ -51,6 +45,7 @@ const Footer = () => {
                   <br />
                   Phone: (310) 555-5555
                   <br />
+                  <br />
                   Hours:
                   <br />
                   Mon - Fri 9AM to 7:30PM
@@ -59,13 +54,7 @@ const Footer = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid
-              container
-              item
-              xs={12}
-              sm={3}
-              sx={{ marginTop: 3 }}
-            >
+            <Grid container item xs={12} sm={3} sx={{ marginTop: 3 }}>
               <Typography variant="h6" sx={{ letterSpacing: 2 }}>
                 <MailOutlineIcon sx={{ marginBottom: -0.5, marginRight: 1 }} />
                 Contact
@@ -89,11 +78,15 @@ const Footer = () => {
               sx={{ marginTop: 1 }}
             >
               <Grid item>
-                <InstagramIcon fontSize="large" />
+                <IconButton color="inherit">
+                  <InstagramIcon fontSize="large" />
+                </IconButton>
               </Grid>
 
               <Grid item>
-                <FacebookOutlinedIcon fontSize="large" />
+                <IconButton color="inherit">
+                  <FacebookOutlinedIcon fontSize="large" />
+                </IconButton>
               </Grid>
             </Grid>
             <Grid item xs={1} />

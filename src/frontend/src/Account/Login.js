@@ -62,7 +62,7 @@ const Login = (props) => {
           if (error.response.data.message.includes("Access Denied")) {
             setErrorMessage("Invalid Username or Password");
           } else {
-            setErrorMessage(error.response.data.message)
+            setErrorMessage(error.response.data.message);
           }
           setIsSubmitting(false);
         }
@@ -132,9 +132,9 @@ const Login = (props) => {
               fullWidth
               type="submit"
               sx={{
-                backgroundColor: "#41166c",
+                backgroundColor: "#290052",
                 "&:hover": {
-                  backgroundColor: "#290052",
+                  backgroundColor: "#41166c",
                 },
               }}
               data-cy="login-submit"

@@ -7,7 +7,7 @@ const useStyles = makeStyles({
   root: {
     boxShadow: "none",
     backgroundColor: "#594B61",
-    borderRadius: "7px", //#9B89A4
+    borderRadius: "3px", //#9B89A4
   },
 });
 
