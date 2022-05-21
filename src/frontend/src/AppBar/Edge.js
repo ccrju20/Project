@@ -156,7 +156,7 @@ const Edge = () => {
         {!matchesContact && (
           <Link
             component={RouterLink}
-            to="/cart"
+            to="/contact"
             color="inherit"
             underline="none"
           >

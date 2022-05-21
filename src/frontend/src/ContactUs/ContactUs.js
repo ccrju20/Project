@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
   Container,
   Box,
@@ -21,10 +21,18 @@ const ContactUs = () => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: { email: "", name: "", message: "" },
+  });
+
+  const [submitted, setSubmitted] = useState(false);
 
   const formSubmitHandler = (data) => {
+    reset();
+    setSubmitted(true);
     console.log(data);
   };
 
@@ -41,83 +49,90 @@ const ContactUs = () => {
           We'd love to hear from you! Please send us a message
         </Typography>
       </Box>
-      <form onSubmit={handleSubmit(formSubmitHandler)}>
-        <Grid container spacing={3} direction="column">
-          <Grid item>
-            <Controller
-              name="email"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  fullWidth
-                  label="Email"
-                  variant="outlined"
-                  error={!!errors.email}
-                  helperText={errors.email ? errors.email?.message : ""}
-                />
-              )}
-            />
-          </Grid>
 
-          <Grid item>
-            <Controller
-              name="name"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  fullWidth
-                  label="Name"
-                  variant="outlined"
-                  error={!!errors.name}
-                  helperText={errors.name ? errors.name?.message : ""}
-                />
-              )}
-            />
-          </Grid>
+      {!submitted ? (
+        <form onSubmit={handleSubmit(formSubmitHandler)}>
+          <Grid container spacing={3} direction="column">
+            <Grid item>
+              <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="Email"
+                    variant="outlined"
+                    error={!!errors.email}
+                    helperText={errors.email ? errors.email?.message : ""}
+                  />
+                )}
+              />
+            </Grid>
 
-          <Grid item>
-            <Controller
-              name="message"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  fullWidth
-                  multiline
-                  rows={4}
-                  label="Message"
-                  variant="outlined"
-                  error={!!errors.message}
-                  helperText={errors.message ? errors.message?.message : ""}
-                />
-              )}
-            />
-          </Grid>
+            <Grid item>
+              <Controller
+                name="name"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="Name"
+                    variant="outlined"
+                    error={!!errors.name}
+                    helperText={errors.name ? errors.name?.message : ""}
+                  />
+                )}
+              />
+            </Grid>
 
-          <Grid item>
-            <Button
-              variant="contained"
-              fullWidth
-              type="submit"
-              sx={{
-                backgroundColor: "#290052",
-                "&:hover": {
-                  backgroundColor: "#41166c",
-                },
-                marginBottom: 10,
-              }}
-              data-cy="contact-submit"
-            >
-              Submit
-            </Button>
+            <Grid item>
+              <Controller
+                name="message"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    multiline
+                    rows={4}
+                    label="Message"
+                    variant="outlined"
+                    error={!!errors.message}
+                    helperText={errors.message ? errors.message?.message : ""}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item>
+              <Button
+                variant="contained"
+                fullWidth
+                type="submit"
+                sx={{
+                  backgroundColor: "#290052",
+                  "&:hover": {
+                    backgroundColor: "#41166c",
+                  },
+                  marginBottom: 10,
+                }}
+                data-cy="contact-submit"
+              >
+                Submit
+              </Button>
+            </Grid>
           </Grid>
-        </Grid>
-      </form>
+        </form>
+      ) : (
+        <Box mt={10} mb={10}>
+          <Typography align="center" variant="h6">
+            Thanks for reaching out! We will get back to you within 1 business
+            day.
+          </Typography>
+        </Box>
+      )}
     </Container>
   );
 };

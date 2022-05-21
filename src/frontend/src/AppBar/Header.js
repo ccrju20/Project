@@ -54,7 +54,17 @@ const Header = (props) => {
               <Grid container justifyContent="center">
                 {matchesAbout && (
                   <Grid item>
-                    <Typography className={classes.menuText}>ABOUT</Typography>
+                    <Typography className={classes.menuText}>
+                      <Link
+                        component={RouterLink}
+                        to="/about"
+                        color="inherit"
+                        underline="none"
+                        className={classes.hover}
+                      >
+                        ABOUT
+                      </Link>
+                    </Typography>
                   </Grid>
                 )}
 

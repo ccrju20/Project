@@ -10,11 +10,10 @@ const useStyles = makeStyles({
     marginBottom: 80,
   },
   about: {
-    margin: "0px",
-    padding: "70px",
-  },
-  abouttext: {
-    padding: "70px",
+    paddingTop: "60px",
+    paddingBottom: "60px",
+    paddingLeft: "30px",
+    paddingRight: "30px",
   },
 });
 
@@ -30,23 +29,26 @@ const AboutSection = () => {
             <Grid item xs={12} sm={6} className={classes.about}>
               <Card>
                 <CardMedia
-                  height={275}
+                  height={325}
                   component="img"
                   image={cafethree}
                   alt="item"
                 />
               </Card>
             </Grid>
-            <Grid item xs={12} sm={6} className={classes.abouttext}>
+            <Grid item xs={12} sm={6} className={classes.about}>
               <Box mt={3}>
                 <Typography
                   variant="h4"
                   align="center"
-                  sx={{ letterSpacing: 3, marginBottom: 2 }}
+                  sx={{ letterSpacing: 3, marginTop: 5, marginBottom: 5 }}
                 >
                   Freshly Baked Pastries
                 </Typography>
-                <Typography variant="body1">
+                <Typography
+                  variant="body2"
+                  sx={{ letterSpacing: 2, marginBottom: 5}}
+                >
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                   Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -57,9 +59,6 @@ const AboutSection = () => {
           </Grid>
           <Grid item xs={false} />
         </Grid>
-      </Grid>
-      <Grid container justifyContent="center">
-        <Box mb={10}>{/* <WovenImageList /> */}</Box>
       </Grid>
     </>
   );

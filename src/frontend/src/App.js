@@ -19,6 +19,7 @@ import WithNav from "./WithNav";
 import WithoutNav from "./WithoutNav";
 import NotFound from "./NotFound";
 import ContactUs from "./ContactUs/ContactUs";
+import AboutUs from "./About/AboutUs";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
                     <Route path="/shop/product/:id" element={<ProductPage />} />
                     <Route path="/ordersuccess" element={<ConfirmSuccess />} />
                     <Route path="/contact" element={<ContactUs />} />
+                    <Route path="/about" element={<AboutUs />} />
                     <Route path="*" element={<NotFound />} />
                   </Route>
 

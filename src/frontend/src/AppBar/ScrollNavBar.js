@@ -84,7 +84,14 @@ const ScrollNavBar = (props) => {
                   <>
                     <Box display="flex">
                       <Typography className={classes.menuText}>
-                        ABOUT
+                        <Link
+                          component={RouterLink}
+                          to="/about"
+                          color="inherit"
+                          underline="none"
+                        >
+                          ABOUT
+                        </Link>
                       </Typography>
 
                       <Typography className={classes.menuText}>

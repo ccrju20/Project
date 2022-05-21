@@ -23,7 +23,9 @@ const MainPage = () => {
         <Grid item xs={1} sm={1} />
         <AboutSection />
         <Grid container justifyContent="center">
-          <ImageList />
+          <Box mt={10}>
+            <ImageList />
+          </Box>
         </Grid>
       </Grid>
     </>
