@@ -44,7 +44,7 @@ const AboutSection = () => {
                   align="center"
                   sx={{ letterSpacing: 3, marginBottom: 2 }}
                 >
-                  About Bakeshop
+                  Freshly Baked Pastries
                 </Typography>
                 <Typography variant="body1">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed

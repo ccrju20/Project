@@ -20,9 +20,9 @@ const ContactForm = () => {
   useEffect(() => {
     if (localStorage.getItem("user")) {
       serviceCtx.getUserInfo().then(
-        (response) => {
+        (response) => {          
+          // console.log(response.data)
           setData(response.data);
-          console.log(response.data)
           setIsLoading(false);
         },
         (error) => {

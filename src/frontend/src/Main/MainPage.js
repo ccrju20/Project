@@ -3,7 +3,6 @@ import AboutSection from "./AboutSection";
 import Hidden from "@material-ui/core/Hidden";
 import MainSwiper from "./Swiper";
 import ButtonSection from "./ButtonSection";
-import Footer from "./Footer";
 import ImageList from "./ImageList";
 
 const MainPage = () => {
@@ -27,7 +26,6 @@ const MainPage = () => {
           <ImageList />
         </Grid>
       </Grid>
-      <Footer />
     </>
   );
 };

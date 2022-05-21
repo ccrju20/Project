@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-
 import AuthContext from "../store/auth-context.js";
 import { Grid, Typography, Box } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
@@ -150,6 +149,7 @@ const Login = (props) => {
           </Grid>
         </Grid>
       </form>
+      <Box mb={10} />
     </Container>
   );
 };

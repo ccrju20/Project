@@ -7,7 +7,6 @@ import { Grid, Box, Typography } from "@material-ui/core";
 import ContactForm from "./Form/ContactForm";
 import ShippingForm from "./Form/ShippingForm";
 import ScheduleForm from "./Form/ScheduleForm";
-
 import CheckoutCartList from "./OrderSummary/CheckoutCartList";
 import Button from "@mui/material/Button";
 
@@ -65,7 +64,6 @@ const Checkout = (props) => {
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
-    console.log(data);
     userCtx.saveInfo(data);
     props.handleNext();
   };

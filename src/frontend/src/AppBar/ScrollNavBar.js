@@ -93,13 +93,19 @@ const ScrollNavBar = (props) => {
                           to="/shop"
                           color="inherit"
                           underline="none"
-                          className={classes.hover}
                         >
                           SHOP
                         </Link>
                       </Typography>
                       <Typography className={classes.menuText}>
-                        CONTACT
+                        <Link
+                          component={RouterLink}
+                          to="/contact"
+                          color="inherit"
+                          underline="none"
+                        >
+                          CONTACT
+                        </Link>
                       </Typography>
 
                       <Typography className={classes.menuText}>

@@ -48,9 +48,9 @@ const Footer = () => {
                   <br />
                   Hours:
                   <br />
-                  Mon - Fri 9AM to 7:30PM
+                  Mon - Fri 8AM to 8PM
                   <br />
-                  Sat & Sun 8AM to 7:30PM
+                  Sat & Sun 9AM to 7:30PM
                 </Typography>
               </Box>
             </Grid>

@@ -57,14 +57,11 @@ const PaymentForm = (props) => {
     const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       redirect: "if_required",
-      // confirmParams: {
-      //   return_url: "http://localhost:3000/ordersuccess",
-      // },
     });
 
     if (paymentIntent) {
-      console.log(paymentIntent);
-      console.log(paymentIntent.id);
+      // console.log(paymentIntent);
+      // console.log(paymentIntent.id);
       if (paymentIntent.status === "succeeded") {
         const paymentId = paymentIntent.id;
         props.submit(paymentId);
