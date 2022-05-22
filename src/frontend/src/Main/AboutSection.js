@@ -1,6 +1,13 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Box, Typography, Card, CardMedia } from "@mui/material";
+import {
+  Grid,
+  Box,
+  Typography,
+  Card,
+  CardMedia,
+  useMediaQuery,
+} from "@mui/material";
 
 const useStyles = makeStyles({
   root: {
@@ -11,13 +18,17 @@ const useStyles = makeStyles({
   about: {
     paddingTop: "60px",
     paddingBottom: "60px",
-    paddingLeft: "25px",
-    paddingRight: "25px",
+    paddingLeft: "30px",
+    paddingRight: "0px",
+  },
+  aboutSmall: {
+    padding: "0px",
   },
 });
 
 const AboutSection = () => {
   const classes = useStyles();
+  const matchesSmall = useMediaQuery("(min-width:600px)");
 
   return (
     <>
@@ -25,10 +36,15 @@ const AboutSection = () => {
         <Grid item xs={false} />
         <Grid item xs={12}>
           <Grid item container>
-            <Grid item xs={12} sm={6} className={classes.about}>
-              <Card sx={{ borderRadius: 0, boxShadow: "none"  }}>
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              className={matchesSmall ? classes.about : classes.aboutSmall}
+            >
+              <Card sx={{ borderRadius: 0, boxShadow: "none" }}>
                 <CardMedia
-                  height={350}
+                  height={370}
                   component="img"
                   image="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=789&q=80"
                   alt="item"
@@ -46,7 +62,7 @@ const AboutSection = () => {
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ letterSpacing: 2, marginBottom: 5 }}
+                  sx={{ letterSpacing: 3, marginBottom: 5 }}
                 >
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.

@@ -3,12 +3,14 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
+import { Link as RouterLink } from "react-router-dom";
 
 const images = [
   {
     url: `https://www.hummingbirdhigh.com/wp-content/uploads/2020/11/ube-crinkle-cookies_01_IMG_0023-500x700.jpg`,
     title: "Pastries",
     width: "35%",
+    link: "/shop",
   },
 
   {
@@ -16,12 +18,14 @@ const images = [
       "https://images.unsplash.com/photo-1512568400610-62da28bc8a13?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387",
     title: "Coffee",
     width: "35%",
+    link: "/shop",
   },
   {
     url:
       "https://cdn.shopify.com/s/files/1/0073/8626/7712/files/IMG_2187_large.JPG?v=1544762460",
     title: "Custom Cakes",
     width: "30%",
+    link: "/shop",
   },
 ];
 
@@ -101,6 +105,8 @@ export default function ButtonBases() {
           style={{
             width: image.width,
           }}
+          component={RouterLink}
+          to={image.link}
         >
           <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
           <ImageBackdrop className="MuiImageBackdrop-root" />
@@ -125,71 +131,3 @@ export default function ButtonBases() {
     </Box>
   );
 }
-
-// import React from "react";
-
-// import { makeStyles } from "@material-ui/core/styles";
-// import { Grid, Box } from "@material-ui/core";
-// import Button from "@material-ui/core/Button";
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     "& > *": {
-//       margin: theme.spacing(1),
-//     },
-//   },
-//   button: {
-//     border: "3px solid",
-//     width: "180px",
-//     color: "#837D7D",
-//     marginTop: 20,
-//     marginLeft: 20,
-//     marginRight: 20
-//   },
-// }));
-
-// const ButtonSection = () => {
-//   const classes = useStyles();
-
-//   return (
-//     <Box mt={5} mb={12}>
-//       <Grid container>
-//         <Grid item xs={2} sm={1} />
-//         <Grid item xs={8} sm={10}>
-//           <Grid item container justifyContent="center">
-//             <Grid item>
-//               <Button
-//                 variant="outlined"
-//                 size="small"
-//                 className={classes.button}
-//               >
-//                 Catering
-//               </Button>
-//             </Grid>
-//             <Grid item>
-//               <Button
-//                 variant="outlined"
-//                 size="small"
-//                 className={classes.button}
-//               >
-//                 Baked Goods
-//               </Button>
-//             </Grid>
-//             <Grid item>
-//               <Button
-//                 variant="outlined"
-//                 size="small"
-//                 className={classes.button}
-//               >
-//                 Cafe Shop
-//               </Button>
-//             </Grid>
-//           </Grid>
-//         </Grid>
-//         <Grid item xs={2} sm={1} />
-//       </Grid>
-//     </Box>
-//   );
-// };
-
-// export default ButtonSection;

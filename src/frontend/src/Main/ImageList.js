@@ -13,17 +13,17 @@ export default function StandardImageList() {
       }
       cols={matchesSmall ? 3 : 1}
       rowHeight={164}
-      gap={10}
+      gap={15}
       variant="woven"
     >
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
-          <img
-            src={`${item.img}?w=4250&h=425&fit=crop&auto=format`}
-            srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-            alt={item.title}
-            loading="lazy"
-          />
+            <img
+              src={`${item.img}?w=4250&h=425&fit=crop&auto=format`}
+              srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+              alt={item.title}
+              loading="lazy"
+            />
         </ImageListItem>
       ))}
     </ImageList>
