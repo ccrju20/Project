@@ -10,8 +10,8 @@ const useStyles = makeStyles({
     marginBottom: 80,
   },
   about: {
-    paddingTop: "40px",
-    paddingBottom: "40px",
+    paddingTop: "60px",
+    paddingBottom: "60px",
     paddingLeft: "20px",
     paddingRight: "20px",
   },
@@ -28,16 +28,6 @@ const AboutUs = () => {
           <Grid item xs={12}>
             <Grid item container>
               <Grid item xs={12} sm={6} className={classes.about}>
-                <Card>
-                  <CardMedia
-                    height={325}
-                    component="img"
-                    image={cafethree}
-                    alt="item"
-                  />
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={6} className={classes.about}>
                 <Box mt={3}>
                   <Typography
                     variant="h4"
@@ -46,7 +36,10 @@ const AboutUs = () => {
                   >
                     About Us
                   </Typography>
-                  <Typography variant="body2" sx={{ letterSpacing: 2, marginBottom: 3 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{ letterSpacing: 2, marginBottom: 3 }}
+                  >
                     Lorem ipsum dolor sit amet 2021, consectetur adipiscing
                     elit, sed do eiusmod tempor incididunt ut labore et dolore
                     magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -58,6 +51,16 @@ const AboutUs = () => {
                     esse cillum dolore eu fugiat nulla pariatur.
                   </Typography>
                 </Box>
+              </Grid>
+              <Grid item xs={12} sm={6} className={classes.about}>
+                <Card sx={{ borderRadius: 0, boxShadow: "none" }}>
+                  <CardMedia
+                    height={325}
+                    component="img"
+                    image={cafethree}
+                    alt="item"
+                  />
+                </Card>
               </Grid>
             </Grid>
             <Grid item xs={false} />

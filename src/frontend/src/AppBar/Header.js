@@ -101,7 +101,7 @@ const Header = (props) => {
                 {matchesCatering && (
                   <Grid item>
                     <Typography className={classes.menuText}>
-                      CATERING
+                      COFFEE
                     </Typography>
                   </Grid>
                 )}

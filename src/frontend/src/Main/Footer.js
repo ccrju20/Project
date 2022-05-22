@@ -29,7 +29,7 @@ const Footer = () => {
         <Container maxWidth="lg">
           <Grid container>
             <Grid item xs={1} />
-            <Grid container item xs={12} sm={5} sx={{ marginTop: 3 }}>
+            <Grid container item sm={12} md={5} sx={{ marginTop: 3 }}>
               <Typography
                 variant="h6"
                 sx={{ letterSpacing: 2, marginBottom: 2 }}
@@ -39,22 +39,24 @@ const Footer = () => {
                 />
                 Location & Hours
               </Typography>
-              <Box justifyContent="center">
-                <Typography variant="overline">
-                  123 Test Address, Los Angeles CA 92831
-                  <br />
-                  Phone: (310) 555-5555
-                  <br />
-                  <br />
-                  Hours:
-                  <br />
-                  Mon - Fri 8AM to 8PM
-                  <br />
-                  Sat & Sun 9AM to 7:30PM
-                </Typography>
-              </Box>
+              <Grid container item sm={12}>
+                <Box justifyContent="center">
+                  <Typography variant="overline">
+                    123 Test Address, Los Angeles CA 90232
+                    <br />
+                    Phone: (310) 555-5555
+                    <br />
+                    <br />
+                    Hours:
+                    <br />
+                    Mon - Fri 8AM to 8PM
+                    <br />
+                    Sat & Sun 9AM to 7:30PM
+                  </Typography>
+                </Box>
+              </Grid>
             </Grid>
-            <Grid container item xs={12} sm={3} sx={{ marginTop: 3 }}>
+            <Grid container item sm={12} md={3} sx={{ marginTop: 3 }}>
               <Typography variant="h6" sx={{ letterSpacing: 2 }}>
                 <MailOutlineIcon sx={{ marginBottom: -0.5, marginRight: 1 }} />
                 Contact
@@ -70,8 +72,8 @@ const Footer = () => {
             </Grid>
             <Grid
               item
-              xs={12}
-              sm={2}
+              sm={12}
+              md={2}
               container
               justifyContent="center"
               spacing={2}

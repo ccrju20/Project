@@ -69,9 +69,9 @@ const ScrollNavBar = (props) => {
                       disableRipple={true}
                     >
                       <CakeOutlinedIcon />
-                      <Box ml={2}>
+                      <Box ml={2} mt={0.75}>
                         <Typography variant="body1" noWrap>
-                          Da Bakeshop
+                          Bakeshop
                         </Typography>
                       </Box>
                     </IconButton>
@@ -116,7 +116,7 @@ const ScrollNavBar = (props) => {
                       </Typography>
 
                       <Typography className={classes.menuText}>
-                        CATERING
+                        COFFEE
                       </Typography>
                     </Box>
                   </>
@@ -124,9 +124,9 @@ const ScrollNavBar = (props) => {
                   <>
                     <Box display="flex">
                       <CakeOutlinedIcon />
-                      <Box ml={2}>
+                      <Box ml={2} mt={0.5}>
                         <Typography variant="body1" noWrap>
-                          Da Bakeshop
+                          Bakeshop
                         </Typography>
                       </Box>
                     </Box>

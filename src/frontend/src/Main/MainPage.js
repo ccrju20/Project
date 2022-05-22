@@ -23,7 +23,7 @@ const MainPage = () => {
         <Grid item xs={1} sm={1} />
         <AboutSection />
         <Grid container justifyContent="center">
-          <Box mt={10}>
+          <Box mt={10} mb={5}>
             <ImageList />
           </Box>
         </Grid>

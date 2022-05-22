@@ -171,7 +171,7 @@ const Edge = () => {
             color="inherit"
             underline="none"
           >
-            <MenuItem onClick={handleClose}>Catering</MenuItem>
+            <MenuItem onClick={handleClose}>Coffee</MenuItem>
           </Link>
         )}
       </Menu>
