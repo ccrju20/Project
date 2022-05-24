@@ -73,10 +73,10 @@ const ScrollNavBar = (props) => {
                       color="inherit"
                       disableRipple={true}
                     >
-                      <CakeOutlinedIcon />
-                      <Box ml={2} mt={0.75}>
-                        <Typography variant="body1" noWrap>
-                          Bakeshop
+                      <CakeOutlinedIcon fontSize="small" />
+                      <Box ml={1} mt={0.5}>
+                        <Typography variant="overline" noWrap>
+                          Elle's Bakeshop & Café
                         </Typography>
                       </Box>
                     </IconButton>
@@ -139,12 +139,28 @@ const ScrollNavBar = (props) => {
                 ) : (
                   <>
                     <Box display="flex">
-                      <CakeOutlinedIcon />
-                      <Box ml={2} mt={0.5}>
-                        <Typography variant="body1" noWrap>
-                          Bakeshop
-                        </Typography>
-                      </Box>
+                      <Link
+                        component={RouterLink}
+                        to="/"
+                        color="inherit"
+                        underline="none"
+                      >
+                        <IconButton
+                          className={classes.logo}
+                          color="inherit"
+                          disableRipple={true}
+                        >
+                          <CakeOutlinedIcon
+                            fontSize="small"
+                            sx={{marginBottom: 0.5}}
+                          />
+                          <Box ml={1}>
+                            <Typography variant="overline" noWrap>
+                              Elle's Bakeshop & Café
+                            </Typography>
+                          </Box>
+                        </IconButton>
+                      </Link>
                     </Box>
                   </>
                 )}

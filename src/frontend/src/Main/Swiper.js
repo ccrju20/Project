@@ -40,18 +40,18 @@ export default function MainSwier() {
         <SwiperSlide>
           <Box mb={5}>
             <Card>
-              <CardMedia image={cafeone} className={classes.image} />
+              <CardMedia image={cafetwo} className={classes.image} />
             </Card>
           </Box>
         </SwiperSlide>
         <SwiperSlide>
           <Card>
-            <CardMedia image={cafetwo} className={classes.image} />
+            <CardMedia image={cafethree} className={classes.image} />
           </Card>
         </SwiperSlide>
         <SwiperSlide>
           <Card>
-            <CardMedia image={cafethree} className={classes.image} />
+            <CardMedia image={cafeone} className={classes.image} />
           </Card>
         </SwiperSlide>
       </Swiper>

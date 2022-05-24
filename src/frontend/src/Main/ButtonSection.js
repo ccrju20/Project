@@ -18,7 +18,7 @@ const images = [
       "https://images.unsplash.com/photo-1512568400610-62da28bc8a13?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387",
     title: "Coffee",
     width: "35%",
-    link: "/shop",
+    link: "/coffee",
   },
   {
     url:

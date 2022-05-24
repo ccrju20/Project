@@ -87,7 +87,7 @@ export default function TemporaryDrawer(props) {
           </List>
           <Divider />
           <List>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate("/coffee")}>
               <ListItemText
                 primary="Coffee"
                 style={{ display: "flex", justifyContent: "center" }}

@@ -22,7 +22,7 @@ const Coffee = () => {
 
   return (
     <>
-      <Grid container justifyContent="center" mt={10}>
+      <Grid container justifyContent="center" mt={7}>
         <Typography align="center" variant="h3" color="text.secondary">
           Coming Soon!
           <LocalCafeOutlinedIcon
@@ -31,7 +31,7 @@ const Coffee = () => {
           />
         </Typography>
       </Grid>
-      <Box mt={10}>
+      <Box mt={7}>
         <Card sx={{ borderRadius: 0, boxShadow: "none" }}>
           <CardMedia
             height={575}
