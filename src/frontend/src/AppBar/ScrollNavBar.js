@@ -22,6 +22,11 @@ const useStyles = makeStyles({
   logo: {
     "&:hover": { backgroundColor: "#290052" },
   },
+  hover: {
+    "&:hover": {
+      borderBottom: "2px solid #9B89A4",
+    },
+  },
 });
 
 function ScrollTop(props) {
@@ -89,6 +94,7 @@ const ScrollNavBar = (props) => {
                           to="/about"
                           color="inherit"
                           underline="none"
+                          className={classes.hover}
                         >
                           ABOUT
                         </Link>
@@ -100,6 +106,7 @@ const ScrollNavBar = (props) => {
                           to="/shop"
                           color="inherit"
                           underline="none"
+                          className={classes.hover}
                         >
                           SHOP
                         </Link>
@@ -110,13 +117,22 @@ const ScrollNavBar = (props) => {
                           to="/contact"
                           color="inherit"
                           underline="none"
+                          className={classes.hover}
                         >
                           CONTACT
                         </Link>
                       </Typography>
 
                       <Typography className={classes.menuText}>
-                        COFFEE
+                        <Link
+                          component={RouterLink}
+                          to="/coffee"
+                          color="inherit"
+                          underline="none"
+                          className={classes.hover}
+                        >
+                          COFFEE
+                        </Link>
                       </Typography>
                     </Box>
                   </>

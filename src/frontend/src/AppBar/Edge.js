@@ -167,7 +167,7 @@ const Edge = () => {
         {!matchesCatering && (
           <Link
             component={RouterLink}
-            to="/cart"
+            to="/coffee"
             color="inherit"
             underline="none"
           >

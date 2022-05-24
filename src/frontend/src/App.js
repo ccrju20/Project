@@ -20,6 +20,7 @@ import WithoutNav from "./WithoutNav";
 import NotFound from "./NotFound";
 import ContactUs from "./ContactUs/ContactUs";
 import AboutUs from "./About/AboutUs";
+import Coffee from './Coffee/Coffee'
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
                     <Route path="/ordersuccess" element={<ConfirmSuccess />} />
                     <Route path="/contact" element={<ContactUs />} />
                     <Route path="/about" element={<AboutUs />} />
+                    <Route path="/coffee" element={<Coffee />} />
                     <Route path="*" element={<NotFound />} />
                   </Route>
 

@@ -40,7 +40,7 @@ const ContactUs = () => {
     <Container maxWidth="sm">
       <Box mt={7} mb={3}>
         <Typography align="center" variant="h4" mb={3}>
-          Contact Bakeshop
+          Contact Us
         </Typography>
         <Typography align="center" variant="overline" color="text.secondary">
           Custom Inquiries, Catering questions, Comments or Suggestions?

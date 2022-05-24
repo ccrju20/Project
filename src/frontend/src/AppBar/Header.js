@@ -101,7 +101,15 @@ const Header = (props) => {
                 {matchesCatering && (
                   <Grid item>
                     <Typography className={classes.menuText}>
-                      COFFEE
+                      <Link
+                        component={RouterLink}
+                        to="/coffee"
+                        color="inherit"
+                        underline="none"
+                        className={classes.hover}
+                      >
+                        COFFEE
+                      </Link>
                     </Typography>
                   </Grid>
                 )}

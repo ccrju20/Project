@@ -66,7 +66,7 @@ const Footer = () => {
                 <Box justifyContent="center">
                   <Typography variant="overline">Send us a message!</Typography>
                   <br />
-                  bakeshop@bakeshop.com
+                  ellebc@bakeshop.com
                 </Box>
               </Grid>
             </Grid>
