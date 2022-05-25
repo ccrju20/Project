@@ -149,7 +149,7 @@ const ContactForm = () => {
               <CardHeader title="Pickup Location:" />
               <CardContent>
                 <LocationOnOutlinedIcon sx={{ marginRight: 2 }} />
-                87878 Ocean St. Los Angeles, CA
+                123 Test Address Los Angeles, CA 90232
               </CardContent>
             </Card>
           </Grid>

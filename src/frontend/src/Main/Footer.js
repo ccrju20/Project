@@ -1,4 +1,4 @@
-import { Grid, Box, Container, Typography, Link } from "@mui/material";
+import { Grid, Box, Container, Typography, IconButton } from "@mui/material";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
@@ -8,7 +8,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="inherit">
       {`© ${new Date().getFullYear()} `}
-      Bakeshop
+      Elle's Bakeshop & Café
     </Typography>
   );
 }
@@ -29,13 +29,7 @@ const Footer = () => {
         <Container maxWidth="lg">
           <Grid container>
             <Grid item xs={1} />
-            <Grid
-              container
-              item
-              xs={12}
-              sm={5}
-              sx={{ marginTop: 3 }}
-            >
+            <Grid container item sm={12} md={5} sx={{ marginTop: 3 }}>
               <Typography
                 variant="h6"
                 sx={{ letterSpacing: 2, marginBottom: 2 }}
@@ -45,27 +39,24 @@ const Footer = () => {
                 />
                 Location & Hours
               </Typography>
-              <Box justifyContent="center">
-                <Typography variant="overline">
-                  123 Test Address, Los Angeles CA 92831
-                  <br />
-                  Phone: (310) 555-5555
-                  <br />
-                  Hours:
-                  <br />
-                  Mon - Fri 9AM to 7:30PM
-                  <br />
-                  Sat & Sun 8AM to 7:30PM
-                </Typography>
-              </Box>
+              <Grid container item sm={12}>
+                <Box justifyContent="center">
+                  <Typography variant="overline">
+                    123 Test Address, Los Angeles CA 90232
+                    <br />
+                    Phone: (310) 555-5555
+                    <br />
+                    <br />
+                    Hours:
+                    <br />
+                    Mon - Fri 8AM to 8PM
+                    <br />
+                    Sat & Sun 9AM to 7:30PM
+                  </Typography>
+                </Box>
+              </Grid>
             </Grid>
-            <Grid
-              container
-              item
-              xs={12}
-              sm={3}
-              sx={{ marginTop: 3 }}
-            >
+            <Grid container item sm={12} md={3} sx={{ marginTop: 3 }}>
               <Typography variant="h6" sx={{ letterSpacing: 2 }}>
                 <MailOutlineIcon sx={{ marginBottom: -0.5, marginRight: 1 }} />
                 Contact
@@ -75,25 +66,29 @@ const Footer = () => {
                 <Box justifyContent="center">
                   <Typography variant="overline">Send us a message!</Typography>
                   <br />
-                  bakeshop@bakeshop.com
+                  ellebc@bakeshop.com
                 </Box>
               </Grid>
             </Grid>
             <Grid
               item
-              xs={12}
-              sm={2}
+              sm={12}
+              md={2}
               container
               justifyContent="center"
               spacing={2}
               sx={{ marginTop: 1 }}
             >
               <Grid item>
-                <InstagramIcon fontSize="large" />
+                <IconButton color="inherit">
+                  <InstagramIcon fontSize="large" />
+                </IconButton>
               </Grid>
 
               <Grid item>
-                <FacebookOutlinedIcon fontSize="large" />
+                <IconButton color="inherit">
+                  <FacebookOutlinedIcon fontSize="large" />
+                </IconButton>
               </Grid>
             </Grid>
             <Grid item xs={1} />

@@ -22,6 +22,11 @@ const useStyles = makeStyles({
   logo: {
     "&:hover": { backgroundColor: "#290052" },
   },
+  hover: {
+    "&:hover": {
+      borderBottom: "2px solid #9B89A4",
+    },
+  },
 });
 
 function ScrollTop(props) {
@@ -68,10 +73,10 @@ const ScrollNavBar = (props) => {
                       color="inherit"
                       disableRipple={true}
                     >
-                      <CakeOutlinedIcon />
-                      <Box ml={2}>
-                        <Typography variant="body1" noWrap>
-                          Da Bakeshop
+                      <CakeOutlinedIcon fontSize="small" />
+                      <Box ml={1} mt={0.5}>
+                        <Typography variant="overline" noWrap>
+                          Elle's Bakeshop & Café
                         </Typography>
                       </Box>
                     </IconButton>
@@ -84,7 +89,15 @@ const ScrollNavBar = (props) => {
                   <>
                     <Box display="flex">
                       <Typography className={classes.menuText}>
-                        ABOUT
+                        <Link
+                          component={RouterLink}
+                          to="/about"
+                          color="inherit"
+                          underline="none"
+                          className={classes.hover}
+                        >
+                          ABOUT
+                        </Link>
                       </Typography>
 
                       <Typography className={classes.menuText}>
@@ -99,23 +112,55 @@ const ScrollNavBar = (props) => {
                         </Link>
                       </Typography>
                       <Typography className={classes.menuText}>
-                        CONTACT
+                        <Link
+                          component={RouterLink}
+                          to="/contact"
+                          color="inherit"
+                          underline="none"
+                          className={classes.hover}
+                        >
+                          CONTACT
+                        </Link>
                       </Typography>
 
                       <Typography className={classes.menuText}>
-                        CATERING
+                        <Link
+                          component={RouterLink}
+                          to="/coffee"
+                          color="inherit"
+                          underline="none"
+                          className={classes.hover}
+                        >
+                          COFFEE
+                        </Link>
                       </Typography>
                     </Box>
                   </>
                 ) : (
                   <>
                     <Box display="flex">
-                      <CakeOutlinedIcon />
-                      <Box ml={2}>
-                        <Typography variant="body1" noWrap>
-                          Da Bakeshop
-                        </Typography>
-                      </Box>
+                      <Link
+                        component={RouterLink}
+                        to="/"
+                        color="inherit"
+                        underline="none"
+                      >
+                        <IconButton
+                          className={classes.logo}
+                          color="inherit"
+                          disableRipple={true}
+                        >
+                          <CakeOutlinedIcon
+                            fontSize="small"
+                            sx={{marginBottom: 0.5}}
+                          />
+                          <Box ml={1}>
+                            <Typography variant="overline" noWrap>
+                              Elle's Bakeshop & Café
+                            </Typography>
+                          </Box>
+                        </IconButton>
+                      </Link>
                     </Box>
                   </>
                 )}

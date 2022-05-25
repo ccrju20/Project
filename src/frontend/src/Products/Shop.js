@@ -52,7 +52,7 @@ const Shop = () => {
         params: { category: selectedCategory, page: page },
       })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         const activeProducts = response.data.products.filter(
           (product) => product.active === 1
         );
@@ -80,7 +80,7 @@ const Shop = () => {
     axios
       .get(PRODUCTS_REST_API_URL + "/all")
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setAllProducts(response.data);
       })
       .catch((err) => {
@@ -213,6 +213,7 @@ const Shop = () => {
               loadError={loadError}
               isLoading={isLoading}
             />
+            <Box mb={10} />
           </Grid>
         </Grid>
       </Grid>

@@ -54,7 +54,17 @@ const Header = (props) => {
               <Grid container justifyContent="center">
                 {matchesAbout && (
                   <Grid item>
-                    <Typography className={classes.menuText}>ABOUT</Typography>
+                    <Typography className={classes.menuText}>
+                      <Link
+                        component={RouterLink}
+                        to="/about"
+                        color="inherit"
+                        underline="none"
+                        className={classes.hover}
+                      >
+                        ABOUT
+                      </Link>
+                    </Typography>
                   </Grid>
                 )}
 
@@ -75,7 +85,15 @@ const Header = (props) => {
                 {matchesContact && (
                   <Grid item>
                     <Typography className={classes.menuText}>
-                      CONTACT
+                      <Link
+                        component={RouterLink}
+                        to="/contact"
+                        color="inherit"
+                        underline="none"
+                        className={classes.hover}
+                      >
+                        CONTACT
+                      </Link>
                     </Typography>
                   </Grid>
                 )}
@@ -83,7 +101,15 @@ const Header = (props) => {
                 {matchesCatering && (
                   <Grid item>
                     <Typography className={classes.menuText}>
-                      CATERING
+                      <Link
+                        component={RouterLink}
+                        to="/coffee"
+                        color="inherit"
+                        underline="none"
+                        className={classes.hover}
+                      >
+                        COFFEE
+                      </Link>
                     </Typography>
                   </Grid>
                 )}

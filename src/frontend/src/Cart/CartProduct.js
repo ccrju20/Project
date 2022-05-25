@@ -52,7 +52,7 @@ const CartProduct = (props) => {
 
   const handleUpdate = () => {
     const diff = itemAmount - amount;
-    console.log(diff);
+    // console.log(diff);
     props.onAdd(diff);
   };
 

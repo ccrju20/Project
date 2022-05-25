@@ -1,4 +1,4 @@
-import logo from "./Images/logo.png";
+import logo from "./Images/logo-updated.png";
 import { makeStyles } from "@material-ui/styles";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
@@ -6,14 +6,15 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 const useStyles = makeStyles((theme) => ({
   logo: {
+    marginLeft: 20,
     marginTop: 20,
     marginRight: 10,
     marginBottom: 10,
   },
   smallLogo: {
     marginTop: 20,
-    height: "100px",
-    width: "180px",
+    height: "180px",
+    width: "188px",
     marginLeft: -18,
   },
 }));

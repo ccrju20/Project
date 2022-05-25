@@ -48,7 +48,7 @@ export default function TemporaryDrawer(props) {
           onKeyDown={props.handleMenuClose}
         >
           <List>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate("/about")}>
               <ListItemText
                 primary="About"
                 style={{ display: "flex", justifyContent: "center" }}
@@ -78,7 +78,7 @@ export default function TemporaryDrawer(props) {
 
           <Divider />
           <List>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate("/contact")}>
               <ListItemText
                 primary="Contact"
                 style={{ display: "flex", justifyContent: "center" }}
@@ -87,9 +87,9 @@ export default function TemporaryDrawer(props) {
           </List>
           <Divider />
           <List>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate("/coffee")}>
               <ListItemText
-                primary="Catering"
+                primary="Coffee"
                 style={{ display: "flex", justifyContent: "center" }}
               />
             </ListItemButton>

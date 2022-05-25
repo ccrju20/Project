@@ -82,8 +82,8 @@ const ProductPage = () => {
     setPrice(result[0].price);
   };
 
-  console.log(cartCtx.items);
-  console.log(itemAmount);
+  // console.log(cartCtx.items);
+  // console.log(itemAmount);
 
   const options = productOptions.map((productOption) => (
     <MenuItem value={productOption.id} key={productOption.id}>

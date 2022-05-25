@@ -12,7 +12,6 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CheckoutCartList from "./OrderSummary/CheckoutCartList";
 import Button from "@mui/material/Button";
-
 import DataObject from "./DataObject";
 
 const ORDERS_REST_API_URL = "api/v1/orders";
@@ -37,8 +36,7 @@ const PaymentPage = (props) => {
       .post(PAYMENT_INTENT_REST_API_URL, { items: cartCtx.items })
       .then((res) => {
         setClientSecret(res.data.clientSecret);
-        console.log(res.data.clientSecret);
-        console.log(res.data);
+        // console.log(res.data);
       });
 
     localStorage.removeItem("ordernumber");
@@ -73,14 +71,11 @@ const PaymentPage = (props) => {
   };
 
   const submit = async (paymentIntentId) => {
-    console.log(paymentIntentId);
     dataObject["paymentId"] = paymentIntentId;
-    console.log(dataObject);
 
     try {
       const resp = await axios.post(ORDERS_REST_API_URL, dataObject);
-      console.log(resp.data.ordernumber);
-      localStorage.setItem("ordernumber", resp.data.ordernumber);
+      localStorage.setItem("ordernumber", resp.data.ordernumber);      
     } catch {
       console.log("backend error");
     }

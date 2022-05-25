@@ -269,9 +269,9 @@ const Register = (props) => {
               fullWidth
               type="submit"
               sx={{
-                backgroundColor: "#41166c",
+                backgroundColor: "#290052",
                 "&:hover": {
-                  backgroundColor: "#290052",
+                  backgroundColor: "#41166c",
                 },
               }}
               disabled={loggedIn}

@@ -30,7 +30,6 @@ const ProductCard = (props) => {
   const navigate = useNavigate();
 
   const addToCartHandler = () => {
-    console.log(options[0].id);
     cartCtx.addItem({
       id: id,
       option: options[0].id,
@@ -52,7 +51,6 @@ const ProductCard = (props) => {
     category,
     options
   ) => {
-    console.log("clicked");
     localStorage.setItem(
       "product",
       JSON.stringify({

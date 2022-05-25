@@ -156,7 +156,7 @@ const Edge = () => {
         {!matchesContact && (
           <Link
             component={RouterLink}
-            to="/cart"
+            to="/contact"
             color="inherit"
             underline="none"
           >
@@ -167,11 +167,11 @@ const Edge = () => {
         {!matchesCatering && (
           <Link
             component={RouterLink}
-            to="/cart"
+            to="/coffee"
             color="inherit"
             underline="none"
           >
-            <MenuItem onClick={handleClose}>Catering</MenuItem>
+            <MenuItem onClick={handleClose}>Coffee</MenuItem>
           </Link>
         )}
       </Menu>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-
 import AuthContext from "../store/auth-context.js";
 import { Grid, Typography, Box } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
@@ -62,7 +61,7 @@ const Login = (props) => {
           if (error.response.data.message.includes("Access Denied")) {
             setErrorMessage("Invalid Username or Password");
           } else {
-            setErrorMessage(error.response.data.message)
+            setErrorMessage(error.response.data.message);
           }
           setIsSubmitting(false);
         }
@@ -132,9 +131,9 @@ const Login = (props) => {
               fullWidth
               type="submit"
               sx={{
-                backgroundColor: "#41166c",
+                backgroundColor: "#290052",
                 "&:hover": {
-                  backgroundColor: "#290052",
+                  backgroundColor: "#41166c",
                 },
               }}
               data-cy="login-submit"
@@ -150,6 +149,7 @@ const Login = (props) => {
           </Grid>
         </Grid>
       </form>
+      <Box mb={10} />
     </Container>
   );
 };
