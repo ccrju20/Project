@@ -6,7 +6,7 @@ import java.util.UUID;
 import com.java.springboot.cruddemo.email.EmailSender;
 import com.java.springboot.cruddemo.exception.ObjectNotFoundException;
 import com.java.springboot.cruddemo.exception.UsernameExistsException;
-import com.java.springboot.cruddemo.payload.AuthenticationResponse;
+import com.java.springboot.cruddemo.dto.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -18,7 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.java.springboot.cruddemo.dao.UserRepository;
-import com.java.springboot.cruddemo.models.MyUser;
+import com.java.springboot.cruddemo.entity.MyUser;
 import com.java.springboot.cruddemo.util.JwtUtil;
 
 @Service

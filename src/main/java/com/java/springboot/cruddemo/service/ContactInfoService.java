@@ -4,7 +4,7 @@ import java.util.*;
 
 import com.java.springboot.cruddemo.dao.UserRepository;
 import com.java.springboot.cruddemo.exception.ObjectNotFoundException;
-import com.java.springboot.cruddemo.models.MyUser;
+import com.java.springboot.cruddemo.entity.MyUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

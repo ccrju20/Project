@@ -1,4 +1,4 @@
-package com.java.springboot.cruddemo.payload;
+package com.java.springboot.cruddemo.dto;
 
 public class AuthenticationRequest {
 

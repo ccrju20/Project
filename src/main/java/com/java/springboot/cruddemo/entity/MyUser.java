@@ -1,9 +1,6 @@
-package com.java.springboot.cruddemo.models;
+package com.java.springboot.cruddemo.entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
@@ -32,7 +29,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.java.springboot.cruddemo.entity.ContactInfo;
 
 @Entity
 @Table(name="my_user")

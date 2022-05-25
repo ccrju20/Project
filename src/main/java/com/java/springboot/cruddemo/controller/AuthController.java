@@ -10,10 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
-import com.java.springboot.cruddemo.models.MyUser;
-import com.java.springboot.cruddemo.payload.AuthenticationRequest;
-import com.java.springboot.cruddemo.payload.AuthenticationResponse;
-import com.java.springboot.cruddemo.payload.RegistrationRequest;
+import com.java.springboot.cruddemo.entity.MyUser;
+import com.java.springboot.cruddemo.dto.AuthenticationRequest;
+import com.java.springboot.cruddemo.dto.AuthenticationResponse;
+import com.java.springboot.cruddemo.dto.RegistrationRequest;
 import com.java.springboot.cruddemo.service.MyUserDetailsService;
 import com.java.springboot.cruddemo.service.RegistrationService;
 

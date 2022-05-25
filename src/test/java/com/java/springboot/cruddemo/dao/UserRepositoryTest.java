@@ -7,8 +7,6 @@ import java.util.Optional;
 
 import javax.validation.ConstraintViolationException;
 
-import com.java.springboot.cruddemo.dao.ContactInfoRepository;
-import com.java.springboot.cruddemo.dao.UserRepository;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -17,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.java.springboot.cruddemo.entity.ContactInfo;
-import com.java.springboot.cruddemo.models.MyUser;
-import com.java.springboot.cruddemo.models.MyUserRole;
+import com.java.springboot.cruddemo.entity.MyUser;
+import com.java.springboot.cruddemo.entity.MyUserRole;
 
 @DataJpaTest
 @TestMethodOrder(OrderAnnotation.class)

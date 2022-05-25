@@ -1,20 +1,13 @@
 package com.java.springboot.cruddemo.service;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.*;
 
 import com.java.springboot.cruddemo.dao.*;
-import com.java.springboot.cruddemo.dto.ProductData;
 import com.java.springboot.cruddemo.entity.*;
 import com.java.springboot.cruddemo.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.java.springboot.cruddemo.models.MyUser;
 
 @Service
 public class OrderService {

@@ -9,7 +9,7 @@ import com.java.springboot.cruddemo.entity.OrderDetails;
 import com.java.springboot.cruddemo.entity.OrderItem;
 import com.java.springboot.cruddemo.entity.OrderStatus;
 import com.java.springboot.cruddemo.exception.ObjectNotFoundException;
-import com.java.springboot.cruddemo.models.MyUser;
+import com.java.springboot.cruddemo.entity.MyUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

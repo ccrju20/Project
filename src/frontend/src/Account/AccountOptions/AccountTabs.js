@@ -1,8 +1,6 @@
-import * as React from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+import { useState } from "react";
 import OrderHistory from "./OrderHistory";
-import { Grid, Box } from "@material-ui/core";
+import { Grid, Box, Tab, Tabs } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import PersonalInfo from "./PersonalInfo";
@@ -32,7 +30,7 @@ function TabPanel(props) {
 }
 
 export default function VerticalTabs() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
   const classes = useStyles();
   const matches = useMediaQuery("(min-width:750px)");
 
@@ -42,7 +40,7 @@ export default function VerticalTabs() {
 
   return (
     <>
-      <Box className={matches ? classes.verticalBox : ""}>
+      <Box className={matches ? classes.verticalBox : ""} mb={20}>
         <Box className={!matches ? classes.horizontal : ""}>
           <Tabs
             orientation={matches ? "vertical" : "horizontal"}

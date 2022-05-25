@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Box, Typography, Card, CardMedia } from "@mui/material";
-import cafethree from "../Images/cafe-three.jpg";
 
 const useStyles = makeStyles({
   root: {
@@ -57,7 +56,7 @@ const AboutUs = () => {
                   <CardMedia
                     height={325}
                     component="img"
-                    image={cafethree}
+                    image="https://images.unsplash.com/photo-1600353565737-2427a1ba3d3a?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870"
                     alt="item"
                   />
                 </Card>

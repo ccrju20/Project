@@ -36,7 +36,13 @@ export default function AccountMenu() {
           <IconButton
             onClick={handleClick}
             size="small"
-            sx={{ padding: 2, marginLeft: -3 }}
+            sx={{
+              padding: 2,
+              marginLeft: -1,
+              "&.MuiButtonBase-root:hover": {
+                bgcolor: "transparent",
+              },
+            }}
             aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}

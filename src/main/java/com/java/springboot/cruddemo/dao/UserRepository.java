@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.java.springboot.cruddemo.entity.ContactInfo;
-import com.java.springboot.cruddemo.models.MyUser;
+import com.java.springboot.cruddemo.entity.MyUser;
 
 public interface UserRepository extends JpaRepository<MyUser, Integer> {
 	
