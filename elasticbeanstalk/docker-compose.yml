@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   backend:
-    image: "ccrju19/fullstack-app:4"
+    image: "ccrju19/fullstack-app:26.5.2022.19.55.29"
     ports:
       - "80:8080"
     restart: "always"
