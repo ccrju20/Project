@@ -4,7 +4,6 @@ import com.java.springboot.cruddemo.dao.OrderRepository;
 import com.java.springboot.cruddemo.dao.PaymentRepository;
 import com.java.springboot.cruddemo.dao.ProductRepository;
 import com.java.springboot.cruddemo.dto.ProductData;
-import com.java.springboot.cruddemo.entity.Order;
 import com.java.springboot.cruddemo.entity.Payment;
 import com.java.springboot.cruddemo.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
