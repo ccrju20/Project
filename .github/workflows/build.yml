@@ -10,6 +10,7 @@ env:
   MYSQL_DB: product_directory
   MYSQL_USER: productbackend
   MYSQL_PASSWORD: productbackend
+  MYSQL_ROOT_PASSWORD: root
   JAVA_VERSION: 11
 
 jobs:
@@ -22,6 +23,7 @@ jobs:
           MYSQL_DB: ${{ env.MYSQL_DB }}
           MYSQL_USER: ${{ env.MYSQL_USER }}
           MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
         ports:
           - 3306:3306
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
