@@ -7,7 +7,7 @@ const ConfirmSuccess = () => {
   const orderNumber = number.substr(0, 8)
 
   return (
-    <Box mt={5}>
+    <Box mt={5} mb={10}>
       <Typography align="center" variant="h4">
         Thank you for your purchase!
         <Box mt={2} mb={3}>
