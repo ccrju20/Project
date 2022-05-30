@@ -101,7 +101,9 @@ export default function VerticalTabs() {
             <TabPanel value={value} index={2}>
               <OrderHistory />
             </TabPanel>
-            <TabPanel value={value} index={3}></TabPanel>
+            <TabPanel value={value} index={3}>
+              (To be implemented)
+            </TabPanel>
           </Grid>
           <Grid item xs={false} sm={1} />
         </Grid>
