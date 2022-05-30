@@ -8,7 +8,7 @@ describe("Shop", () => {
   });
 
   it("should mock display a list of products", () => {
-    cy.intercept("GET", "http://localhost:8080/api/v1/products?category=all&page=1", {
+    cy.intercept("GET", "api/v1/products?category=all&page=1", {
       fixture: "products.json",
     });
     cy.visit("/shop");
@@ -21,11 +21,11 @@ describe("Shop", () => {
   it("should display second page of products from server", () => {
     cy.visit("/shop");
     cy.get("[aria-label='Go to page 2']").click();
-    cy.get(".MuiCardMedia-root").should("have.length", 1);
+    cy.get(".MuiCardMedia-root").should("have.length", 3);
   });
 
   it("should mock display second page of products", () => {
-    cy.intercept("GET", "http://localhost:8080/api/v1/products?category=all&page=2", {
+    cy.intercept("GET", "api/v1/products?category=all&page=2", {
       fixture: "products-page2.json",
     });
     cy.visit("/shop");
@@ -39,9 +39,9 @@ describe("Shop", () => {
   it("should add 1 product to cart", () => {
     cy.addOneToCart(1); // pass in product id
     cy.contains("Added to Cart!").should("be.visible");
-    cy.get(".makeStyles-badge-12").should("contain", "1");
+    cy.get(".MuiBadge-badge").should("contain", "1");
 
-    cy.get(".makeStyles-carticon-11").first().click();
+    cy.get(".makeStyles-carticon-12").first().click();
     cy.contains("You have 1 item(s) in your cart").should("be.visible");
   });
 
@@ -49,9 +49,9 @@ describe("Shop", () => {
   it("should add 2 products to cart", () => {
     cy.addTwoToCart(1, 2); // pass in product ids
     cy.contains("Added to Cart!").should("be.visible");
-    cy.get(".makeStyles-badge-12").should("contain", "2");
+    cy.get(".MuiBadge-badge").should("contain", "2");
 
-    cy.get(".makeStyles-carticon-11").first().click();
+    cy.get(".makeStyles-carticon-12").first().click();
     cy.contains("You have 2 item(s) in your cart").should("be.visible");
   });
 
@@ -69,7 +69,7 @@ describe("Shop", () => {
     cy.fixture("products").then((json) => {
       cy.intercept(
         "GET",
-        "http://localhost:8080/api/v1/products/all",
+        "api/v1/products/all",
         json.products
       );
     });

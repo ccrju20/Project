@@ -45,26 +45,6 @@ describe("Cart Page", () => {
       ]);
   })
 
-  // Update 2 item quantities (2 increase) and verify correct total amount
-  it("should update 2 item quantities - increase", () => {
-    cy.addProductWithQuantity(1, 1);
-      cy.assertCartPage(1, 1, 1)
-    cy.addProductWithQuantity(2, 1);
-      cy.assertCartPage(2, 2, 1)
-    cy.assertCartTotal([
-      { id: 1, qt: 1, option: 1 },
-      { id: 2, qt: 1, option: 1 },
-    ]);
-
-    cy.updateItem(1, true)
-      cy.assertCartPage(1, 1, 2)
-    cy.updateItem(2, true)
-      cy.assertCartPage(2, 2, 2)
-    cy.assertCartTotal([
-      { id: 1, qt: 2, option: 1 },
-      { id: 2, qt: 2, option: 1 },
-    ]);
-  })
 
   // Update 2 item quantities (1 increase 1 decrease) and verify correct total amount
   it("should update 2 item quantities - 1 increase, 1 decrease", () => {
@@ -83,27 +63,6 @@ describe("Cart Page", () => {
       cy.assertCartPage(4, 2, 1)
     cy.assertCartTotal([
       { id: 1, qt: 2, option: 1 },
-      { id: 4, qt: 1, option: 1 },
-    ]);
-  })
-
-  // Update 2 item quantities (2 decrease) and verify correct total amount
-  it("should update 2 item quantities - decrease", () => {
-    cy.addProductWithQuantity(1, 2);
-      cy.assertCartPage(1, 1, 2)
-    cy.addProductWithQuantity(4, 2);
-      cy.assertCartPage(4, 2, 2)
-    cy.assertCartTotal([
-      { id: 1, qt: 2, option: 1 },
-      { id: 4, qt: 2, option: 1 },
-    ]);
-
-    cy.updateItem(1, false)
-      cy.assertCartPage(1, 1, 1)
-    cy.updateItem(2, false)
-      cy.assertCartPage(4, 2, 1)
-    cy.assertCartTotal([
-      { id: 1, qt: 1, option: 1 },
       { id: 4, qt: 1, option: 1 },
     ]);
   })

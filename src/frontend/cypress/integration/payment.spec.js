@@ -50,6 +50,7 @@ describe("Payment", () => {
       },
     });
 
+    cy.wait(3000)
     cy.fillCardInfo();
     cy.contains("Confirm Order").click();
     cy.contains("An unexpected error occured.").should("be.visible");
@@ -61,6 +62,7 @@ describe("Payment", () => {
     cy.fillShippingCheckout();
     cy.contains("Continue to Payment").click();
 
+    cy.wait(3000)
     cy.fillCardInfo();
     cy.confirmOrderSuccess();
 
@@ -77,6 +79,7 @@ describe("Payment", () => {
     cy.contains("OK").click();
     cy.contains("Continue to Payment").click();
 
+    cy.wait(3000)
     cy.fillCardInfo();
     cy.confirmOrderSuccess();
 
@@ -90,6 +93,7 @@ describe("Payment", () => {
     cy.getByTestId("switch").click();
     cy.contains("Continue to Payment").click();
 
+    cy.wait(3000)
     cy.fillCardInfo();
     cy.confirmOrderSuccess();
 
@@ -106,6 +110,7 @@ describe("Payment", () => {
     cy.contains("OK").click();
     cy.contains("Continue to Payment").click();
 
+    cy.wait(3000)
     cy.fillCardInfo();
     cy.confirmOrderSuccess();
 
