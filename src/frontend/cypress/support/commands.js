@@ -32,7 +32,7 @@ Cypress.Commands.add("getByTestId", (testId) => {
 
 // Add to Cart from Shop Page (passing in product number)
 Cypress.Commands.add("addOneToCart", (productNumber) => {
-  cy.intercept("GET", "http://localhost:8080/api/v1/products?category=all&page=1", {
+  cy.intercept("GET", "api/v1/products?category=all&page=1", {
     fixture: "products.json",
   });
   cy.visit("/shop");
@@ -43,7 +43,7 @@ Cypress.Commands.add("addOneToCart", (productNumber) => {
 });
 
 Cypress.Commands.add("addTwoToCart", (productNumber, productNumberTwo) => {
-  cy.intercept("GET", "http://localhost:8080/api/v1/products?category=all&page=1", {
+  cy.intercept("GET", "api/v1/products?category=all&page=1", {
     fixture: "products.json",
   });
   cy.visit("/shop");
@@ -66,7 +66,7 @@ Cypress.Commands.add("selectCategory", (category) => {
     const alteredProducts = { ...json, products: theProducts };
     cy.intercept(
       "GET",
-      `http://localhost:8080/api/v1/products?category=${category}&page=1`,
+      `api/v1/products?category=${category}&page=1`,
       alteredProducts
     );
   });
@@ -79,12 +79,12 @@ Cypress.Commands.add("selectCategory", (category) => {
 // Assert Snackbar and Cart Icon Badge
 Cypress.Commands.add("assertSnackbarAndBadge", (totalCartItems) => {
   cy.contains("Added to Cart!").should("be.visible");
-  cy.get(".makeStyles-badge-12").should("contain", `${totalCartItems}`);
+  cy.get(".MuiBadge-badge").should("contain", `${totalCartItems}`);
 });
 
 // Assert Cart Drawer
 Cypress.Commands.add("assertCartDrawer", (productId, qty) => {
-  cy.get(".makeStyles-carticon-11").eq(1).click();
+  cy.get(".makeStyles-carticon-12").eq(1).click();
 
   cy.contains(`Product ${productId} (${qty})`).should("be.visible");
 });
@@ -93,7 +93,7 @@ Cypress.Commands.add("assertCartDrawer", (productId, qty) => {
 Cypress.Commands.add(
   "assertCartDrawerProductOptions",
   (productId, optionNo, qty) => {
-    cy.get(".makeStyles-carticon-11").eq(1).click();
+    cy.get(".makeStyles-carticon-12").eq(1).click();
 
     cy.fixture("products").then((json) => {
       const productOptionPrice =
@@ -131,7 +131,7 @@ Cypress.Commands.add("assertCartTotal", (products) => {
 // Add to Cart from Product page passing in product ID
 Cypress.Commands.add("addToCartFromProductPage", (productId) => {
   cy.fixture("products").then((json) => {
-    cy.intercept("GET", "http://localhost:8080/api/v1/products?category=all&page=1", json);
+    cy.intercept("GET", "api/v1/products?category=all&page=1", json);
   });
   cy.visit("/shop");
 
@@ -142,7 +142,7 @@ Cypress.Commands.add("addToCartFromProductPage", (productId) => {
 // Add from Product page passing in product ID and amount
 Cypress.Commands.add("addProductWithQuantity", (productId, qtyAmount) => {
   cy.fixture("products").then((json) => {
-    cy.intercept("GET", "http://localhost:8080/api/v1/products?category=all&page=1", json);
+    cy.intercept("GET", "api/v1/products?category=all&page=1", json);
   });
   cy.visit("/shop");
 
@@ -159,7 +159,7 @@ Cypress.Commands.add(
   "addProductWithOption",
   (productId, optionNo, qtyAmount) => {
     cy.fixture("products").then((json) => {
-      cy.intercept("GET", "http://localhost:8080/api/v1/products?category=all&page=1", json);
+      cy.intercept("GET", "api/v1/products?category=all&page=1", json);
     });
     cy.visit("/shop");
 
@@ -185,7 +185,7 @@ Cypress.Commands.add(
 
 // Assert Cart Page (individual item)
 Cypress.Commands.add("assertCartPage", (productId, pos, qty) => {
-  cy.get(".makeStyles-carticon-11").eq(1).click();
+  cy.get(".makeStyles-carticon-12").eq(1).click();
   cy.contains("Go to Cart").click();
   cy.contains(`Product ${productId}`).should("be.visible");
   cy.get("[data-cy='cartQty']")
@@ -213,7 +213,7 @@ Cypress.Commands.add("updateItem", (pos, isIncrease) => {
 });
 
 Cypress.Commands.add("goToCheckout", () => {
-  cy.get(".makeStyles-carticon-11").eq(1).click();
+  cy.get(".makeStyles-carticon-12").eq(1).click();
   cy.contains("Checkout").click();
 });
 
@@ -255,7 +255,7 @@ Cypress.Commands.add("getStripeElementError", (fieldName) => {
 
 Cypress.Commands.add("mockPaymentIntent", () => {
   // mocking our create payment intent endpoint
-  cy.intercept("POST", "http://localhost:8080/api/v1/payment/create-payment-intent", {
+  cy.intercept("POST", "api/v1/payment/create-payment-intent", {
     body: {
       clientSecret: "pi_3KZheGI7AFq6GjKY1OtlH2rT_secret_iuPuWPUmrFWHugGotfLU8Xhtj"
     }
@@ -274,7 +274,7 @@ Cypress.Commands.add("mockConfirmPayment", () => {
 Cypress.Commands.add("fillCardInfo", () => {
   cy.getByTestId("payment").within(() => {
     cy.getStripeElement("Field-numberInput").type("4242424242424242");
-    cy.getStripeElement("Field-expiryInput").type("0422");
+    cy.getStripeElement("Field-expiryInput").type("0623");
     cy.getStripeElement("Field-cvcInput").type("789");
     cy.getStripeElement("Field-postalCodeInput").type("91007");
   });
@@ -284,7 +284,7 @@ Cypress.Commands.add("confirmOrderSuccess", () => {
   cy.contains("Confirm Order").click();
   cy.wait("@confirmPayment").then(() => {
     // mocking order post request
-    cy.intercept("POST", "http://localhost:8080/api/v1/orders", {
+    cy.intercept("POST", "api/v1/orders", {
       body: {
         ordernumber: "ABCD1234",
       },

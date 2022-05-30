@@ -20,7 +20,8 @@ import WithoutNav from "./WithoutNav";
 import NotFound from "./NotFound";
 import ContactUs from "./ContactUs/ContactUs";
 import AboutUs from "./About/AboutUs";
-import Coffee from './Coffee/Coffee'
+import Coffee from "./Coffee/Coffee";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
   return (
@@ -30,27 +31,35 @@ function App() {
           <UserInfoProvider>
             <ServiceProvider>
               <BrowserRouter>
-                <Routes>
-                  <Route element={<WithNav />}>
-                    <Route path="/" element={<MainPage />} />
-                    <Route path="/account" element={<Account />} />
-                    <Route path="/signup" element={<Register />} />
-                    <Route path="/success" element={<RegisterSuccess />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/shop" element={<Shop />} />
-                    <Route path="/shop/product/:id" element={<ProductPage />} />
-                    <Route path="/ordersuccess" element={<ConfirmSuccess />} />
-                    <Route path="/contact" element={<ContactUs />} />
-                    <Route path="/about" element={<AboutUs />} />
-                    <Route path="/coffee" element={<Coffee />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Route>
+                <ScrollToTop>
+                  <Routes>
+                    <Route element={<WithNav />}>
+                      <Route path="/" element={<MainPage />} />
+                      <Route path="/account" element={<Account />} />
+                      <Route path="/signup" element={<Register />} />
+                      <Route path="/success" element={<RegisterSuccess />} />
+                      <Route path="/cart" element={<Cart />} />
+                      <Route path="/shop" element={<Shop />} />
+                      <Route
+                        path="/shop/product/:id"
+                        element={<ProductPage />}
+                      />
+                      <Route
+                        path="/ordersuccess"
+                        element={<ConfirmSuccess />}
+                      />
+                      <Route path="/contact" element={<ContactUs />} />
+                      <Route path="/about" element={<AboutUs />} />
+                      <Route path="/coffee" element={<Coffee />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Route>
 
-                  <Route element={<WithoutNav />}>
-                    <Route path="/check" element={<Check />} />
-                    <Route path="/payment" element={<PaymentPage />} />
-                  </Route>
-                </Routes>
+                    <Route element={<WithoutNav />}>
+                      <Route path="/check" element={<Check />} />
+                      <Route path="/payment" element={<PaymentPage />} />
+                    </Route>
+                  </Routes>
+                </ScrollToTop>
               </BrowserRouter>
             </ServiceProvider>
           </UserInfoProvider>
