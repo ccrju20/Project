@@ -190,7 +190,13 @@ const Shop = () => {
                   </List>
                 </Collapse>
                 <Divider variant="middle" />
-                <ListItemButton>
+                <ListItemButton
+                  onClick={() => {
+                    setSelectedCategory("other");
+                    setPage(1);
+                    setSearchTerm("");
+                  }}
+                >
                   <ListItemText primary="Other" />
                 </ListItemButton>
               </List>

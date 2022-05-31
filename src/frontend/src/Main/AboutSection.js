@@ -42,7 +42,13 @@ const AboutSection = () => {
               sm={6}
               className={matchesSmall ? classes.about : classes.aboutSmall}
             >
-              <Card sx={{ borderRadius: 0, boxShadow: "none" }}>
+              <Card
+                sx={{
+                  borderRadius: 0,
+                  boxShadow: "none",
+                  "&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
+                }}
+              >
                 <CardMedia
                   height={370}
                   component="img"
