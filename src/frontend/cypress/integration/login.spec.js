@@ -16,7 +16,7 @@ describe("Login", () => {
     cy.get("#password").type("password");
     cy.getByTestId("login-submit").click();
 
-    cy.focused().should('have.attr', 'id', 'email')
+    cy.focused().should("have.attr", "id", "email");
 
     cy.wait(1000);
     cy.get("[class='MuiTypography-root MuiTypography-h5']").should("not.exist");
@@ -27,7 +27,9 @@ describe("Login", () => {
     cy.get("#password").type("passwo");
     cy.getByTestId("login-submit").click();
 
-    cy.contains("Password must contain at least 7 characters").should("be.visible");
+    cy.contains("Password must contain at least 7 characters").should(
+      "be.visible"
+    );
   });
 
   it("should show invalid user error", () => {

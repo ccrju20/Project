@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import PersonalInfo from "./PersonalInfo";
 import Home from "./Home";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   vertical: {
@@ -19,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     bgcolor: "background.paper",
     display: "flex",
-    height: 224,
   },
 }));
 
@@ -28,6 +28,11 @@ function TabPanel(props) {
 
   return <div>{value === index && <Box sx={{ p: 3 }}>{children}</Box>}</div>;
 }
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
 
 export default function VerticalTabs() {
   const [value, setValue] = useState(0);
@@ -88,7 +93,6 @@ export default function VerticalTabs() {
             />
           </Tabs>
         </Box>
-
         <Grid container>
           <Grid item xs={false} sm={1} />
           <Grid item xs={12} sm={10}>

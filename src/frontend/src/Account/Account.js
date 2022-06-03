@@ -9,7 +9,7 @@ const Account = (props) => {
   const authCtx = useContext(AuthContext);
 
   return (
-    <Grid container mb={50}>
+    <Grid container mb={20}>
       <Grid item xs={1} />
       <Grid item xs={10}>
         {!authCtx.isLoggedIn ? (
