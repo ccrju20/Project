@@ -97,12 +97,20 @@ export default function AccountMenu() {
           </MenuItem>
         </Link>
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
+
+        <Link
+          component={RouterLink}
+          to="/account"
+          color="inherit"
+          underline="none"
+        >
+          <MenuItem>
+            <ListItemIcon>
+              <Settings fontSize="small" />
+            </ListItemIcon>
+            Settings
+          </MenuItem>
+        </Link>
 
         <Link color="inherit" underline="none" onClick={handleLogout}>
           <MenuItem>

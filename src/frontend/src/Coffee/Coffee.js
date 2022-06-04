@@ -11,8 +11,8 @@ const useStyles = makeStyles({
   about: {
     paddingTop: "60px",
     paddingBottom: "60px",
-    paddingLeft: "20px",
-    paddingRight: "20px",
+    paddingLeft: "30px",
+    paddingRight: "30px",
   },
   aboutPic: { padding: "0px" },
 });
@@ -23,11 +23,10 @@ const Coffee = () => {
   return (
     <>
       <Grid container justifyContent="center" mt={7}>
-        <Typography align="center" variant="h3" color="text.secondary">
+        <Typography align="center" variant="h4" color="text.secondary">
           Coming Soon!
           <LocalCafeOutlinedIcon
             sx={{ marginBottom: -0.5, marginLeft: 1 }}
-            fontSize="large"
           />
         </Typography>
       </Grid>
@@ -40,14 +39,14 @@ const Coffee = () => {
             alt="item"
           />
         </Card>
-        <Box mt={10}>
+        <Box mt={20} mb={20}>
           <Typography align="center" variant="h4" color="text.secondary">
             Subscribe to our coffee beans
           </Typography>
         </Box>
       </Box>
       <Box mt={10} mb={10}>
-        <Grid item container className={classes.root}>
+        <Grid item container className={classes.root} mb={30}>
           <Grid item xs={12}>
             <Grid item container>
               <Grid item xs={12} sm={6} className={classes.about}>
@@ -67,10 +66,6 @@ const Coffee = () => {
                     do eiusmod tempor incididunt ut labore et dolore magna
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                     ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    <br />
-                    <br />
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur.
                   </Typography>
                 </Box>
               </Grid>
