@@ -87,7 +87,7 @@ const Cart = (props) => {
         <div className={classes.cartdivider}></div>
         <Divider variant="middle" />
 
-        <Box mt={3} mb={3}>
+        <Box mt={3} mb={10}>
           <Grid container justifyContent="center">
             <Grid item xs={5}>
               {cartTotalItems > 0 ? (

@@ -9,21 +9,34 @@ export default function StandardImageList() {
   return (
     <ImageList
       sx={
-        matchesSmall ? { width: 950, height: 450 } : { width: 360, height: 250 }
+        matchesSmall
+          ? {
+              width: 950,
+              height: 500,
+              "&::-webkit-scrollbar": {
+                display: "none",
+              },
+            }
+          : { width: 360, height: 250 }
       }
       cols={matchesSmall ? 3 : 1}
       rowHeight={164}
       gap={15}
       variant="woven"
     >
-      {itemData.map((item) => (
-        <ImageListItem key={item.img}>
-            <img
-              src={`${item.img}?w=4250&h=425&fit=crop&auto=format`}
-              srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-              alt={item.title}
-              loading="lazy"
-            />
+      {itemData.map((item, index) => (
+        <ImageListItem
+          key={index}
+          sx={{
+            "&:hover": { transform: "scale3d(1.075, 1.075, 1)" },
+          }}
+        >
+          <img
+            src={`${item.img}?w=4250&h=425&fit=crop&auto=format`}
+            srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+            alt={item.title}
+            loading="lazy"
+          />
         </ImageListItem>
       ))}
     </ImageList>

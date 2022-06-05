@@ -3,6 +3,7 @@ package com.java.springboot.cruddemo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.java.springboot.cruddemo.dto.AuthenticationResponse;
 import com.java.springboot.cruddemo.entity.*;
 import com.java.springboot.cruddemo.entity.MyUser;
 import com.java.springboot.cruddemo.dto.AuthenticationRequest;
@@ -75,11 +76,15 @@ public class OrderIntegrationTest {
 
         // user logs in
         AuthenticationRequest authRequest = new AuthenticationRequest(email, "password");
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/login").contentType(MediaType.APPLICATION_JSON)
+        ResultActions loginResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/login").contentType(MediaType.APPLICATION_JSON)
                 .content(Objects.requireNonNull(objectToJson(authRequest)))).andExpect(status().isOk());
 
+        String loggedUser = loginResult.andReturn().getResponse().getContentAsString();
+        AuthenticationResponse regResponse = new ObjectMapper().readValue(loggedUser, AuthenticationResponse.class);
+        String regUuid = regResponse.getTheId().toString();
+
         // get user
-        String theUser = mockMvc.perform(get("/api/v1/auth/users/1").accept(MediaType.APPLICATION_JSON)).andReturn()
+        String theUser = mockMvc.perform(get("/api/v1/auth/users/{userId}", regUuid).accept(MediaType.APPLICATION_JSON)).andReturn()
                 .getResponse().getContentAsString();
         MyUser account = new ObjectMapper().readValue(theUser, MyUser.class);
 

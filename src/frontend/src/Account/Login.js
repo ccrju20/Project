@@ -149,7 +149,6 @@ const Login = (props) => {
           </Grid>
         </Grid>
       </form>
-      <Box mb={10} />
     </Container>
   );
 };
