@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.java.springboot.cruddemo.dao.UserRepository;
 import com.java.springboot.cruddemo.entity.MyUser;
 import com.java.springboot.cruddemo.util.JwtUtil;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
@@ -78,9 +79,9 @@ public class MyUserDetailsService implements UserDetailsService {
         return new AuthenticationResponse(jwt, myUser.getUuid());
     }
 
-    public MyUser findUserById(int theId) {
-        MyUser user = userRepository.findById(theId)
-                .orElseThrow(() -> new ObjectNotFoundException("Did not find User id " + theId));
+    public MyUser findUserById(UUID userId) {
+        MyUser user = userRepository.findByUuid(userId)
+                .orElseThrow(() -> new ObjectNotFoundException("Did not find User id " + userId));
 
         return user;
     }

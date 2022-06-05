@@ -4,9 +4,13 @@ import java.util.UUID;
 
 public class AuthenticationResponse {
 
-	private final String jwt;
+	private String jwt;
 	
 	private UUID theId;
+
+	public AuthenticationResponse() {
+
+	}
 
 	public AuthenticationResponse(String jwt, UUID theId) {
 		this.jwt = jwt;

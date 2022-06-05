@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -91,34 +92,32 @@ class MyUserDetailsServiceTest {
     @Test
     void itShouldFindExistingUserById() {
         // given
-        int theId = 1;
+        UUID theId = UUID.fromString("d983d59f-8ba6-4863-818a-5a984ef46f79");
         ContactInfo info = new ContactInfo();
         MyUser user = new MyUser("test@gmail.com", "password", MyUserRole.USER, info);
 
-        given(userRepository.findById(theId)).willReturn(Optional.of(user));
+        given(userRepository.findByUuid(theId)).willReturn(Optional.of(user));
 
         // when
         underTest.findUserById(theId);
 
         // then
-        then(userRepository).should().findById(theId);
-        Optional<MyUser> theUser = userRepository.findById(theId);
+        then(userRepository).should().findByUuid(theId);
+        Optional<MyUser> theUser = userRepository.findByUuid(theId);
         assertThat(theUser).isEqualTo(Optional.of(user));
     }
 
     @Test
     void itShouldThrowIfUserDoesNotExist() {
         // given
-        int theId = 1;
-        given(userRepository.findById(theId)).willReturn(Optional.empty());
+        UUID theId = UUID.fromString("00000000-0000-0000-0000-000000000000");
+        given(userRepository.findByUuid(theId)).willReturn(Optional.empty());
 
         // when
+        // then
         assertThatThrownBy(() -> underTest.findUserById(theId))
                 .isInstanceOf(ObjectNotFoundException.class)
                 .hasMessageContaining("Did not find User id " + theId);
-
-        // then
-        then(userRepository).should(never()).getOne(theId);
     }
 
     @Test

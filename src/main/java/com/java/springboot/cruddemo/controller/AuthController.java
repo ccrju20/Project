@@ -54,7 +54,7 @@ public class AuthController {
     }
 
     @GetMapping("/users/{userId}")
-    public MyUser getUser(@PathVariable int userId) {
+    public MyUser getUser(@PathVariable UUID userId) {
         MyUser user = userDetailsService.findUserById(userId);
 
         return user;
