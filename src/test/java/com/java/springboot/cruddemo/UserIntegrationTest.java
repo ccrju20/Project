@@ -36,7 +36,7 @@ public class UserIntegrationTest {
 	@Test
 	void itShouldLogUserInAfterRegistration() throws Exception {
 		// given
-		String email = "test@gmail.com";
+		String email = "test@test.com";
 		String password = "password";
 		ContactInfo contactInfo = new ContactInfo("Test", "User");
 		RegistrationRequest regRequest = new RegistrationRequest(email, password, contactInfo);
