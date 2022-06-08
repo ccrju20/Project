@@ -72,7 +72,6 @@ public class ProductService {
                 List<Product> otherProducts = productRepository.findByCategoryNotIn(businessCategories);
                 pageProducts = new PageImpl<>(otherProducts, pageable, otherProducts.size());
             }
-
         } else {
             pageProducts = productRepository.findAll(pageable);
         }
