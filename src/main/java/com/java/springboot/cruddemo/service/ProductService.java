@@ -1,11 +1,8 @@
 package com.java.springboot.cruddemo.service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.java.springboot.cruddemo.exception.ObjectNotFoundException;
-import com.java.springboot.cruddemo.exception.ObjectRetrievalException;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -59,36 +56,32 @@ public class ProductService {
 
     public Map<String, Object> findPaginatedProducts(String category, int pageNo, int pageSize) {
         Page<Product> pageProducts;
+        ArrayList<String> businessCategories = new ArrayList<>(
+                Arrays.asList("cookie", "cake", "cupcake"));
+
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
 
         if (!category.equals("all")) {
             if (NumberUtils.isCreatable(category)) {
                 int size = NumberUtils.createInteger(category);
                 List<Product> products = productOptionsRepository.findProductsBySize(size);
-                Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
                 pageProducts = new PageImpl<>(products, pageable, products.size());
-
-            } else {
-                Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+            } else if (businessCategories.contains(category)){
                 pageProducts = productRepository.findByCategory(category, pageable);
+            } else {
+                List<Product> otherProducts = productRepository.findByCategoryNotIn(businessCategories);
+                pageProducts = new PageImpl<>(otherProducts, pageable, otherProducts.size());
             }
-
         } else {
-            Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
             pageProducts = productRepository.findAll(pageable);
         }
 
-        List<Product> products = pageProducts.getContent();
+        Map<String, Object> response = new HashMap<>();
+        response.put("products", pageProducts.getContent());
+        response.put("currentPage", pageProducts.getNumber());
+        response.put("totalItems", pageProducts.getTotalElements());
+        response.put("totalPages", pageProducts.getTotalPages());
 
-        if (!products.isEmpty()) {
-            Map<String, Object> response = new HashMap<>();
-            response.put("products", products);
-            response.put("currentPage", pageProducts.getNumber());
-            response.put("totalItems", pageProducts.getTotalElements());
-            response.put("totalPages", pageProducts.getTotalPages());
-            return response;
-        }
-
-        throw new ObjectRetrievalException("Unable to retrieve products");
+        return response;
     }
-
 }

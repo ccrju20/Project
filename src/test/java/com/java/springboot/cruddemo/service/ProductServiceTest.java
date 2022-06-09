@@ -117,7 +117,7 @@ class ProductServiceTest {
     @Test
     void itShouldFindPageOfProductsByCategory() {
         // given
-        String category = "category";
+        String category = "cookie";
         int pageNo = 1;
         int pageSize = 2;
         Pageable pageable = PageRequest.of(pageNo -1, pageSize);
@@ -135,6 +135,7 @@ class ProductServiceTest {
         ArgumentCaptor<String> categoryArgumentCaptor = ArgumentCaptor.forClass(String.class);
 
         then(productRepository).should().findByCategory(categoryArgumentCaptor.capture(), pageableArgumentCaptor.capture());
+
 
         Pageable pageableValue = pageableArgumentCaptor.getValue();
         String categoryValue = categoryArgumentCaptor.getValue();
@@ -170,5 +171,7 @@ class ProductServiceTest {
 
         assertThat(productsPage.getContent()).isEqualTo(products);
     }
+
+    // To add: test to assert product page retrieval with a non-business category
 
 }

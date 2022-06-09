@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import { Link as RouterLink } from "react-router-dom";
 
 const Login = (props) => {
   const authCtx = useContext(AuthContext);
@@ -143,7 +144,7 @@ const Login = (props) => {
           </Grid>
 
           <Grid item>
-            <Link href="/signup" variant="body2">
+            <Link component={RouterLink} to="/signup" variant="body2">
               Don't have an account? Sign up
             </Link>
           </Grid>
