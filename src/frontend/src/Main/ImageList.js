@@ -28,7 +28,7 @@ export default function StandardImageList() {
         <ImageListItem
           key={index}
           sx={{
-            "&:hover": { transform: "scale3d(1.075, 1.075, 1)" },
+            "&:hover": { opacity: 0.9, transform: "scale3d(1.02, 1.02, 1)"  },
           }}
         >
           <img

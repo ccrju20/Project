@@ -25,13 +25,19 @@ const Coffee = () => {
       <Grid container justifyContent="center" mt={7}>
         <Typography align="center" variant="h4" color="text.secondary">
           Coming Soon!
-          <LocalCafeOutlinedIcon
-            sx={{ marginBottom: -0.5, marginLeft: 1 }}
-          />
+          <LocalCafeOutlinedIcon sx={{ marginBottom: -0.5, marginLeft: 1 }} />
         </Typography>
       </Grid>
       <Box mt={7}>
-        <Card sx={{ borderRadius: 0, boxShadow: "none" }}>
+        <Card
+          sx={{
+            borderRadius: 0,
+            boxShadow: "none",
+            "&:hover": {
+              opacity: 0.95,
+            },
+          }}
+        >
           <CardMedia
             height={575}
             component="img"
@@ -70,7 +76,16 @@ const Coffee = () => {
                 </Box>
               </Grid>
               <Grid item xs={12} sm={6} className={classes.aboutPic}>
-                <Card sx={{ borderRadius: 0, boxShadow: "none" }}>
+                <Card
+                  sx={{
+                    borderRadius: 0,
+                    boxShadow: "none",
+                    opacity: 0.9,
+                    "&:hover": {
+                      opacity: 1,
+                    },
+                  }}
+                >
                   <CardMedia
                     height={400}
                     component="img"
