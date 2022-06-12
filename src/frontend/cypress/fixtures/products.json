@@ -28,7 +28,7 @@
         {
             "id": 2,
             "title": "Product 2",
-            "description": "Mocha frosted cupcakes",
+            "description": "Frosted cupcakes",
             "img": "https://images.unsplash.com/photo-1426869884541-df7117556757?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
             "category": "cupcake",
             "active": 1,
@@ -44,7 +44,7 @@
         {
             "id": 3,
             "title": "Product 3",
-            "description": "Vegan glazed doughnuts",
+            "description": "Glazed doughnuts",
             "img": "https://images.unsplash.com/photo-1559656914-a30970c1affd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
             "category": "other",
             "active": 1,
@@ -60,7 +60,7 @@
         {
             "id": 4,
             "title": "Product 4",
-            "description": "Ube Crinkles",
+            "description": "Crinkles",
             "img": "https://www.hummingbirdhigh.com/wp-content/uploads/2020/11/ube-crinkle-cookies_01_IMG_0023-500x700.jpg",
             "category": "other",
             "active": 1,
@@ -92,7 +92,7 @@
         {
             "id": 6,
             "title": "Product 6",
-            "description": "Fudge Brownies",
+            "description": "Brownies",
             "img": "https://images.unsplash.com/photo-1515037893149-de7f840978e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=394&q=80",
             "category": "other",
             "active": 1,
@@ -152,7 +152,7 @@
         {
             "id": 9,
             "title": "Product 9",
-            "description": "Cake with strawberries",
+            "description": "Strawberry cake",
             "img": "https://images.unsplash.com/photo-1557308536-ee471ef2c390?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
             "category": "cake",
             "active": 1,

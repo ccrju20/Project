@@ -8,7 +8,6 @@ function Copyright() {
   return (
     <Typography variant="body2" color="inherit">
       {`© ${new Date().getFullYear()} `}
-      Elle's Bakeshop & Café
     </Typography>
   );
 }

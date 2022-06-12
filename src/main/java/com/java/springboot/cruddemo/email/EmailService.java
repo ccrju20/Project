@@ -23,8 +23,8 @@ public class EmailService implements EmailSender {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
             helper.setText(buildEmail(firstname), true);
             helper.setTo(to);
-            helper.setSubject("Thank you for registering!");
-            helper.setFrom("ccrju19@gmail.com");
+            helper.setSubject(String.format("Welcome, %s!", firstname));
+            helper.setFrom("bakeshop@test.com");
             mailSender.send(mimeMessage);
         } catch (MessagingException e) {
             System.out.println("failed to send email");
@@ -50,7 +50,7 @@ public class EmailService implements EmailSender {
                 "                  \n" +
                 "                    </td>\n" +
                 "                    <td style=\"font-size:28px;line-height:1.315789474;Margin-top:4px;padding-left:10px\">\n" +
-                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Welcome to the Shop</span>\n" +
+                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Thank you for registering!</span>\n" +
                 "                    </td>\n" +
                 "                  </tr>\n" +
                 "                </tbody></table>\n" +
@@ -90,7 +90,7 @@ public class EmailService implements EmailSender {
                 "        \n" +
                 "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name + ",</p>" +
                 "           <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Thank you for registering with our site. We hope to meet you soon!</p>" +
-                "           <p>Warm Regards,</p>" + "<p><h5>The Bakeshop team</h5></p>" +
+                "           <p>Regards,</p>" + "<p><h5>Elle's Bakeshop & Café</h5></p>" +
                 "        \n" +
                 "      </td>\n" +
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +

@@ -46,7 +46,10 @@ const AboutSection = () => {
                 sx={{
                   borderRadius: 0,
                   boxShadow: "none",
-                  "&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
+                  opacity: 0.8,
+                  "&:hover": {
+                    opacity: 1,
+                  },
                 }}
               >
                 <CardMedia
