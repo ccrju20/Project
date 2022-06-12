@@ -58,7 +58,6 @@ const Login = (props) => {
           authCtx.setLogin();
         },
         (error) => {
-          console.log(error.response);
           if (error.response.data.message.includes("Access Denied")) {
             setErrorMessage("Invalid Username or Password");
           } else {

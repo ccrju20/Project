@@ -13,9 +13,7 @@ const OrderHistory = (props) => {
   useEffect(() => {
     serviceCtx.getOrderHistory().then(
       (response) => {
-        console.log(response.data);
         setData(response.data.reverse());
-
         setIsLoading(false);
       },
       (error) => {

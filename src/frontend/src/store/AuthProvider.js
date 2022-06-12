@@ -21,7 +21,6 @@ const AuthProvider = (props) => {
       .then((response) => {
         if (response.data.jwt) {
           localStorage.setItem("user", JSON.stringify(response.data));
-          console.log(response);
         }
         return response.data;
       });
