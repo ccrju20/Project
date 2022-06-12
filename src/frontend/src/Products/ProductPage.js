@@ -119,7 +119,7 @@ const ProductPage = () => {
               <Grid item xs={12} sm={6}>
                 <Card>
                   <CardMedia
-                    height={375}
+                    height={650}
                     component="img"
                     image={product.img}
                     alt="item"
