@@ -27,7 +27,7 @@ const Content = (props) => {
       <ProductCard
         id={product.id}
         title={product.title}
-        subtitle={product.options[0].price}
+        subtitle={product.options[0].price.toFixed(2)}
         imgSrc={product.img}
         description={product.description}
         category={product.category}
@@ -41,7 +41,7 @@ const Content = (props) => {
       <ProductCard
         id={product.id}
         title={product.title}
-        subtitle={product.options[0].price}
+        subtitle={product.options[0].price.toFixed(2)}
         imgSrc={product.img}
         description={product.description}
         category={product.category}

@@ -79,7 +79,7 @@ const ProductPage = () => {
     product.category === "Cake"
       ? setName(`${product.title} ${result[0].size}"`)
       : setName(`${product.title} size ${result[0].size}`);
-    setPrice(result[0].price);
+    setPrice(result[0].price.toFixed(2));
   };
 
   // console.log(cartCtx.items);

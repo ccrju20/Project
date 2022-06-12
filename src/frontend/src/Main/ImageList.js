@@ -28,7 +28,7 @@ export default function StandardImageList() {
         <ImageListItem
           key={index}
           sx={{
-            "&:hover": { opacity: 0.9, transform: "scale3d(1.02, 1.02, 1)"  },
+            "&:hover": { opacity: 0.9 },
           }}
         >
           <img
@@ -45,15 +45,12 @@ export default function StandardImageList() {
 
 const itemData = [
   {
-    img:
-      "https://images.unsplash.com/photo-1426869884541-df7117556757?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    img: "https://ebakeshop-products.s3.amazonaws.com/matcha_brownie.jpg",
   },
   {
-    img:
-      "https://images.unsplash.com/photo-1515037893149-de7f840978e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=394&q=80",
+    img: "https://ebakeshop-products.s3.amazonaws.com/berry_cake.jpg",
   },
   {
-    img:
-      "https://images.unsplash.com/photo-1557308536-ee471ef2c390?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+    img: "https://ebakeshop-products.s3.amazonaws.com/oreo_cupcake.jpg",
   },
 ];

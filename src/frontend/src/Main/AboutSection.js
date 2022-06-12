@@ -55,7 +55,7 @@ const AboutSection = () => {
                 <CardMedia
                   height={370}
                   component="img"
-                  image="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=789&q=80"
+                  image="https://ebakeshop-products.s3.amazonaws.com/assorted_cookie.jpg"
                   alt="item"
                 />
               </Card>

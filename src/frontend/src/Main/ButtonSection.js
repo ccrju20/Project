@@ -7,22 +7,20 @@ import { Link as RouterLink } from "react-router-dom";
 
 const images = [
   {
-    url: `https://www.hummingbirdhigh.com/wp-content/uploads/2020/11/ube-crinkle-cookies_01_IMG_0023-500x700.jpg`,
+    url: `https://ebakeshop-products.s3.amazonaws.com/button_1.jpeg`,
     title: "Pastries",
     width: "35%",
     link: "/shop",
   },
 
   {
-    url:
-      "https://images.unsplash.com/photo-1512568400610-62da28bc8a13?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387",
+    url: "https://ebakeshop-products.s3.amazonaws.com/button_2.jpg",
     title: "Coffee",
     width: "35%",
     link: "/coffee",
   },
   {
-    url:
-      "https://cdn.shopify.com/s/files/1/0073/8626/7712/files/IMG_2187_large.JPG?v=1544762460",
+    url: "https://ebakeshop-products.s3.amazonaws.com/button_3.jpg",
     title: "Custom Cakes",
     width: "30%",
     link: "/shop",
