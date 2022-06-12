@@ -25,13 +25,11 @@ const PersonalInfo = (props) => {
   useEffect(() => {
     serviceCtx.getUserInfo().then(
       (response) => {
-        console.log(response);
         setData(response.data);
         setIsLoading(false);
       },
       (error) => {
         console.log(error);
-        // setData(error);
       }
     );
   }, [serviceCtx]);
