@@ -89,7 +89,7 @@ const ProductCard = (props) => {
           );
         }}
       >
-        <CardMedia height={180} component="img" image={imgSrc} alt="item" />
+        <CardMedia height={250} component="img" image={imgSrc} alt="item" />
         <CardHeader
           classes={{ title: classes.title }}
           title={title}
