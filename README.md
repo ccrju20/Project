@@ -3,7 +3,7 @@ An e-commerce site mockup for a small business selling baked goods
 
 ## Description
 
-**Backgound:** This website was designed soley as a template for a small business that is currently seeking a commerce platform to sell their products. 
+**Backgound:** This website was designed as a template for a small business that is currently seeking a commerce platform to sell their products. 
 All products (images sourced from Unsplash) and descriptions in the site are used as placeholders.
 
 **Technologies:** 
