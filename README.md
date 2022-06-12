@@ -26,4 +26,4 @@ All products (images sourced from Unsplash) and descriptions in the site are use
 The project is hosted in AWS through the following link: http://bakeshopapp-env-1.eba-bf5dgg3k.us-east-1.elasticbeanstalk.com
 
 ## Documentation
-Navigate to [this porfolio] and click on the Documentation link under 'Bakeshop App' for a full description of steps, as well as screenshots
+Navigate to the [project portfolio](https://ccrju20.github.io/Portfolio) and click on the Documentation link under 'Bakeshop App' for a full description of steps, as well as screenshots
